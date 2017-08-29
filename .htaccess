@@ -1,3 +1,7 @@
-DirectoryIndex index.html index.php
+DirectoryIndex Home.html
 
-Redirect permanent "/" "/public_html"
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^myathensric.org$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.myathensric.org$
+RewriteCond %{REQUEST_URI} !public_html/
+RewriteRule (.*) /public_html/$1 [L]
