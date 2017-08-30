@@ -10,29 +10,30 @@
 
 $config = array(
     "db" => array(
-        "db1" => array(
-            "dbname" => "database1",
-            "username" => "dbUser",
-            "password" => "pa$$",
+        "amsti_01" => array(
+            "dbname" => "amsti_01",
+            "username" => "amsti_01",
+            "password" => "Capstone@17",
             "host" => "localhost"
-        ),
-        "db2" => array(
+        )
+/*  Uncomment to add a second database configuration
+        , "db2" => array(
             "dbname" => "database2",
             "username" => "dbUser",
             "password" => "pa$$",
             "host" => "localhost"
         )
+*/
     ),
     "urls" => array(
-        "baseUrl" => "http://example.com"
+        "baseUrl" => "http://myathensric.org"
     ),
     "paths" => array(
-        "resources" => "/path/to/resources",
-        "images" => array(
-            "content" => $_SERVER["DOCUMENT_ROOT"] . "/images/content",
-            "layout" => $_SERVER["DOCUMENT_ROOT"] . "/images/layout"
+        "resources" => $_SERVER["DOCUMENT_ROOT"] . "resources"
+        , "img" => $_SERVER["DOCUMENT_ROOT"] . "public_html/img"
+        , "css" => $_SERVER["DOCUMENT_ROOT"] . "public_html/css"
+        , "js" => $_SERVER["DOCUMENT_ROOT"] . "public_html/js"
         )
-    )
 );
 
 /*
