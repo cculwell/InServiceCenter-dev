@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/MenuBar.css">
+    </head>
+    <body>
+        <!-- Create the menu bar -->
+        <div class="menu_bar">
+            <a href="Home.html">Home</a>
+            <a href="AboutUs.html">About Us</a>
+            <a href="ProDevel.html">Professional Development</a>
+            <a href="GovBoard.html">Governing Board</a>
+            <div class="dropdown">
+                <button class="dropdown_button">Forms</button>
+                    <div class="dropdown-content">
+                        <a href="ReservationRequest.html" target="_blank">Reservation Request</a>
+                        <a href="BookStudyRequest.html" target="_blank">Book Study Request</a>
+                        <a href="GeneralRequest.html" target="_blank">General Request</a>
+                        <a href="WorkshopRequest.html" target="_blank">Workshop Request</a>
+                    </div>
+            </div> 
+            <div class="dropdown">
+                <button class="dropdown_button">Calendars</button>
+                    <div class="dropdown-content">
+                        <a href="calendar.html#roomA" target="_blank">Room A</a>
+                        <a href="calendar.html#roomB" target="_blank">Room B</a>
+                        <a href="calendar.html#roomC" target="_blank">Room C</a>
+                        <a href="calendar.html#roomConf" target="_blank">Conference Room</a>
+                    </div>
+            </div> 
+            <a href="ContactUs_Data\ContactUs.html">Contact Us</a>
+            <div class="twitter_button">
+                <a href="https://twitter.com/AthensStateRIC" class="twitter-follow-button" data-show-count="false">Follow on Twitter</a>
+            </div>
+        </div>
+
+        <!-- To test locally, add http: or https: to src path. -->
+        <!-- Twitter's widgets.js is not released under an open-source license for modification or self-hosting -->
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    </body>
+</html>
