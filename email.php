@@ -1399,7 +1399,7 @@ body.outlook p {
                         </tr>
                       </tbody>
                     </table>
-                    <center data-parsed=""> <img src="Logo.jpg" alt="" align="center" class="float-center"> </center>
+                    <center data-parsed=""> <img src="public_html/img/Logo.jpg" alt="" align="center" class="float-center"> </center>
                     <table class="spacer">
                       <tbody>
                         <tr>

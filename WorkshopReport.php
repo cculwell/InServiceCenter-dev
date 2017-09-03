@@ -36,7 +36,7 @@ if ($result->num_rows > 0) {
    </head>
    <body>
       <div id = 'toplogo'>
-         <img src='Logo.jpg' alt ='AthensLogo'>    
+         <img src='public_html/img/Logo.jpg' alt ='AthensLogo'>
       </div>
       <table id='tblReport'>
          <tr>

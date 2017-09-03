@@ -35,7 +35,7 @@ if ($result->num_rows > 0) {
    echo "   </head>\r\n"; 
    echo "   <body>\r\n";
    echo "      <div id = 'toplogo'>\r\n";
-   echo "         <img src='Logo.jpg' alt ='AthensLogo'>\r\n";      
+   echo "         <img src='public_html/img/Logo.jpg' alt ='AthensLogo'>\r\n";
    echo "      </div>\r\n";  
    echo "      <table id='tblReport'>\r\n";
    echo "         <tr>\r\n";
