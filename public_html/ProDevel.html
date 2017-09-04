@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Professional Development Opportunities</title>
+        
+        <link rel="stylesheet" href="css/foundation.min.css">
+        <link rel="stylesheet" href="css/ProDevel.css" />
+    </head>
+    
+<body>
+    <div id="thebigone">
+
+        <div class="grid-container">
+
+            <div class="logo_container">
+                <img class="logo" src="img/Logo.jpg" alt="" />
+            </div>
+
+            <div class="page_container">
+
+                <h3>View Our Latest Newsletter</h3>
+                <a class="button" href="https://drive.google.com/file/d/0B_IagnOgpy4oOW1vdmUxYjlvVGc/preview" target="_blank">View Our Current Newsletter</a>
+                <label style="font-weight: bold; padding-top: 7px">OR</label>
+                <button id="subscribe_button" class="button">Subscribe to Our Newsletter</button>
+
+                <div id=subscribe_box>
+
+                    <div class="subscribe_box_container">
+
+                        <div class="subscribe_view">
+
+                            <h3>Subscribe</h3>
+                            <label for="email_address">
+                                If you would like to subscribe to our newsletter, enter your E-mail address below and click the "Subscribe" button.
+                            </label>
+                        </div>
+
+                        <form class="subscribe_form" name="subscribe" action="">
+                            <input id="email_address" class="subscribe_input" type="email" name="email" placeholder="name@example.com" required>
+                            <button id="subscribe_button" class="button" onclick="return validateEmail();">Subscribe</button>
+                            <button id="cancel_button" class="button">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../resources/library/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src=js/subscribe_box.js></script>
+
+</body>
