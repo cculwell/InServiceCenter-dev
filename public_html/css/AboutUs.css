@@ -1,30 +1,18 @@
-.site-pictures {
-  text-align: center;
-  padding: 2rem 0;
-}
-
-.aboutus
+#content
 {
+    width: 85%;
     display: block;
     margin: auto;
-    text-align: center;
-    font-size: 1.5em;
+    margin-top: -90px;
 }
 
-.font
-{
-    height: 5em;
-   
-}
-
-.font p
+h3
 {
     font-family: BrushScript;
+    font-size: 3em;
+    text-decoration: none;
     text-align: center;
-    font-size: 3.5em;
-    font-weight: 100;
 }
-
 
 .h2-text
 {
@@ -32,47 +20,6 @@
     text-align: center;
 }
 
-
-
-.portrait
-{
-   
-    width: 24.7%;
-    display:inline-block;
-    vertical-align: middle;
-    margin: auto;  
-    height: 100%;    
-    padding-top: 30px;    
-}
-
-.thumbnail_contact_page
-{
-    border: 1px solid black;
-    box-shadow: 5px 5px 25px 8px  #888888;  
-    display: block;
-    margin: auto; 
-    height: 100%; 
-    width: 45%;    
-    margin-bottom: 10px;
-    max-width: 100%;
-    max-height: 100%; 
-    clear: both;
-}
-
-.portrait p
-{
-    display: block;
-    margin: auto;
-    width: 65%;
-    height: 60%;
-    text-align: center;
-    height: 9em;
-}
-
-.thumbnail:hover
-{
-    box-shadow: 0 0 8px 1px rgba(33, 153, 232, 1)
-}
 
 .dropdown-content a:hover {background-color: #f1f1f1}
 
@@ -95,15 +42,7 @@ legend
 {   padding: 0;   
         
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-    text-rendering:optimizeLegibility;
-}
+
 html
 {
     font-family: sans-serif;
@@ -208,14 +147,10 @@ body {
 hr {
     clear: both
 }
-    
- /*   
-/*ol,
+ol,
 ul {
     margin-left: 1.25rem
-}*/
-    
-    
+}
 blockquote,
 dd,
 div,
@@ -235,15 +170,19 @@ td,
 th,
 ul {
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 dl,
 ol,
-p,
 ul {
-    margin-bottom: 1rem
+    margin-bottom: 1rem;
 }
-
+.p-aboutus {
+    font-size: inherit;
+    text-align: justify;
+    margin-bottom: 1rem;
+   text-indent: 4%;
+}
 h1,
 h2,
 h3,
@@ -290,15 +229,55 @@ ul {
 .tabs {
     list-style-type: none
 }
-
+.text-center {
+    text-align: center
+}
 .form-error,
 .menu-text,
 .switch {
     font-weight: 700
 }
+.callout {
+    margin: 0 0 1rem;
+    padding: 1rem;
+   /* border: 1px solid rgba(10, 10, 10, .25);*/
+    border-radius: 0;
+    position: relative;
+    background-color: lightgrey;
+}
+    
+.footer
+{
+    
+    display: block;
+    margin: auto;    
+    text-align: center;
+    background-color: #eee;
+    padding-top:10%;
+   
+}
+
+  #office
+    {
+        display: inline-block;
+        float: left;
+        width:30%;  
+        margin-left: 100px;              
+        margin-bottom: 25px;
+        margin-top: 8px;      
+    }
 
     
-
+     #fax
+    {
+        display: inline-block;
+        float: right;
+        width: 30%;
+        margin-right: 100px;
+        margin-bottom: 25px;;
+        margin-top: 8px;       
+    }
+    
     
  
     
@@ -322,35 +301,6 @@ ul {
     }
         
     
-.footer
-{
-    display: block;
-    margin: auto;    
-    text-align: center;
-    background-color: #eee;
-    padding-top:10%;
-}
-
- #office
-    {
-        display: inline-block;
-        float: left;
-        width:30%;  
-        margin-left: 100px;              
-        margin-bottom: 25px;
-        margin-top: 8px;      
-    }
-  
-     #fax
-    {
-        display: inline-block;
-        float: right;
-        width: 30%;
-        margin-right: 100px;
-        margin-bottom: 25px;;
-        margin-top: 8px;       
-    }
-
 #hours
     {
         display: block;
@@ -359,7 +309,8 @@ ul {
         margin-top: -8%;
         margin-bottom:2%;
     }
-
+   
+    
 #maddress
     {
         display: inline-block;      
@@ -381,6 +332,10 @@ ul {
         margin-top: -8%;
         margin-bottom: 2%;
     }
+    
+    
+
+    
 #start
    {
         width: 75%;
@@ -391,35 +346,10 @@ ul {
         border: 1px solid #ccc;
         border-radius: 4px;
         box-sizing: border-box;
-       height: 45px;   
+       height: 45px;
+      
+    
     }
-
-#directions
-    {
-        display: block;
-        margin: auto;
-        margin-top: 50px;
-        height: 150px;
-         
-    }
-#addressinput
-    {
-        display: block;
-        margin: auto;
-        height: 25%;
-        
-    }
-
-#info
-    {
-        margin: auto;
-        margin-top: 25px;
-        margin-left: 55px;       
-        padding-bottom: 25px;       
-    }
-
-
-
 
 input[type=submit]
 {
@@ -443,10 +373,25 @@ input[type=submit]:hover
     
     
     
-
+#directions
+    {
+        display: block;
+        margin: auto;
+        margin-top: 50px;
+        height: 150px;
+         
+    }
     
     
-
+#addressinput
+    {
+        display: block;
+        margin: auto;
+        height: 25%;
+        
+    }
+    
+    
     
 #login
     {
@@ -455,7 +400,13 @@ input[type=submit]:hover
        
     }
     
- 
+    #info
+    {
+        margin: auto;
+        margin-left: 55px;       
+        padding-bottom: 25px;       
+    }
+    
     
     
 .callout>:first-child {
@@ -511,8 +462,6 @@ html {
 }SS
 .top-bar,
 .top-bar ul {
-    
-    
     background-color: #eee
 }
     
