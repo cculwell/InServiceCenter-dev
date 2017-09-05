@@ -5,6 +5,12 @@
     text-align: center;
 }
 
+.page_container h3{
+    font-family: BrushScript;
+    font-size: 3em;
+    text-decoration: none;
+}
+
 #subscribe_box {
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
@@ -74,10 +80,4 @@
 
 a.button {
     appearance: button;
-}
-
-h3 {
-    font-family: BrushScript;
-    font-size: 3em;
-    text-decoration: none;
 }
