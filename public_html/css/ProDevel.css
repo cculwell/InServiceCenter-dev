@@ -1,6 +1,6 @@
 .page_container {
     width: 100%;
-    padding: 40px;
+    padding:40px;
     margin: auto;
     text-align: center;
 }
@@ -9,6 +9,14 @@
     font-family: BrushScript;
     font-size: 3em;
     text-decoration: none;
+}
+
+.page_container label{
+    position: relative;
+    font-weight: bold; 
+    padding-top: 14px;
+    padding-bottom: 10px;
+    height: 100%;
 }
 
 #subscribe_box {
