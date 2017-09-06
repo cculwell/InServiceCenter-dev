@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+    <title>New Request</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
+    <script src="../resources/library/jquery-3.2.1.min.js"></script>
+    <script src="js/NewRequest.js"></script>
+</head>
+
+<div class="callout large">
+    <div class="row column text-center">
+        <img id="logo" src="img/Logo.jpg" width="30%" height="30%" alt="" />
+    </div>
+</div>
+
+<!--
+<div class="container">
+    <div class="row form-group">
+        <div class="col-xs-12">
+            <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                <li class="active"><a href="#step-1">
+                    <h4 class="list-group-item-heading">Step 1</h4>
+                    <p class="list-group-item-text">Request Details</p>
+                </a></li>
+                <li class="disabled"><a href="#step-2">
+                    <h4 class="list-group-item-heading">Step 2</h4>
+                    <p class="list-group-item-text">Second step description</p>
+                </a></li>
+                <li class="disabled"><a href="#step-3">
+                    <h4 class="list-group-item-heading">Step 3</h4>
+                    <p class="list-group-item-text">Third step description</p>
+                </a></li>
+                <li class="disabled"><a href="#step-4">
+                    <h4 class="list-group-item-heading">Step 4</h4>
+                    <p class="list-group-item-text">Second step description</p>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+-->
+
+<form class="container">
+
+    <div class="row setup-content" id="step-1">
+        <div class="col-xs-12">
+            <div class="col-md-12 well text-center">
+                <h1> STEP 1</h1>
+                <h3> Request Information </h3>
+
+                <!-- <form> -->
+                <form class="container" class="form-inline">
+
+                    <!-- Request Type Radio Buttons -->
+                    <div class="row form-group">
+                        <div class="radio-inline">
+                            <label><input type="radio" name="RequestType" id="General" value="General"
+                                    onclick="javascript:selectRequestType();">General Request</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="RequestType" id="BookStudy" value="BookStudy"
+                                    onclick="javascript:selectRequestType();">Book Study</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="RequestType" id="Workshop" value="Workshop">Workshop</label>
+                        </div>
+                    </div>
+
+                    <!-- School and System Input -->
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="school">School</label>
+                            <input type="text" required id="school" size="40" maxlength="50">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="system">System</label>
+                            <input type="text" required id="system" size="40" maxlength="50">
+                        </div>
+                    </div>
+
+                    <!-- Request Description -->
+                    <div class="row form-group" id="request_desc_row">
+                        <div class="col-md-12">
+                            <label class="col-md-push-12 pull-left">Request Description</label>
+                            <textarea class="form-control col-md-6" style="width:100%" rows="3"
+                                      required_id="request_desc"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Request Justification -->
+                    <div class="row form-group" id="request_just_row">
+                        <div class="col-md-12">
+                            <label class="col-md-push-12 pull-left">Need / Justification</label>
+                            <textarea class="form-control col-md-6" style="width:100%" rows="3"
+                                      required_id="request_just"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- -->
+                    <div class="row form-group" id="book_title_row">
+                        <div class="col-md-12">
+                            <label for="book_title">System</label>
+                            <input type="text" required id="book_title" size="100" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <!--label for="system">System</label>
+                        input type="text" required id="system"> -->
+                    </div>
+
+                </form>
+
+
+
+                <button id="activate-step-2" class="btn btn-primary btn-md">Activate Step 2</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<!--
+<form class="container">
+
+    <div class="row setup-content" id="step-2">
+        <div class="col-xs-12">
+            <div class="col-md-12 well text-center">
+                <h1 class="text-center"> STEP 2</h1>
+
+                <!--<form> --
+
+
+                <button id="activate-step-3" class="btn btn-primary btn-md">Activate Step 3</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+
+<form class="container">
+
+    <div class="row setup-content" id="step-3">
+        <div class="col-xs-12">
+            <div class="col-md-12 well text-center">
+                <h1 class="text-center"> STEP 3</h1>
+
+                <!--<form></form> --
+
+
+                <button id="activate-step-4" class="btn btn-primary btn-md">Activate Step 4</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<form class="container">
+
+    <div class="row setup-content" id="step-4">
+        <div class="col-xs-12">
+            <div class="col-md-12 well text-center">
+                <h1 class="text-center"> STEP 4</h1>
+
+                <!--<form></form> --
+
+            </div>
+        </div>
+    </div>
+
+</form>
+-->
+</html>
