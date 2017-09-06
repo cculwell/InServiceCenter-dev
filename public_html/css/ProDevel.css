@@ -1,39 +1,22 @@
-@font-face
-{
-    font-family: 'BrushScript';
-    src: url('../img/BrushScript.ttf');
-}
-
-#thebigone {
-    background-image: url(../img/Image.jpg);
-}
-
-.grid-container {
-    background-color: lightgray;
-}
-
-.logo_container {
-    margin: auto;
-    border-radius: 0;
-    position: relative;                                               
-    background-image: url(../img/illustration.jpg);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center; 
-    background-color: lightgray;
-}
-
-.logo {
-    width: 75%;
-    margin: auto;
-    display: block;
-}
-
 .page_container {
     width: 100%;
-    padding: 40px;
+    padding:40px;
     margin: auto;
     text-align: center;
+}
+
+.page_container h3{
+    font-family: BrushScript;
+    font-size: 3em;
+    text-decoration: none;
+}
+
+.page_container label{
+    position: relative;
+    font-weight: bold; 
+    padding-top: 14px;
+    padding-bottom: 10px;
+    height: 100%;
 }
 
 #subscribe_box {
@@ -105,10 +88,4 @@
 
 a.button {
     appearance: button;
-}
-
-h3 {
-    font-family: BrushScript;
-    font-size: 3em;
-    text-decoration: none;
 }

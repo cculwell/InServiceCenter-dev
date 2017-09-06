@@ -1,0 +1,21 @@
+.page_container {
+    width: 100%;
+    padding: 40px;
+    margin: auto;
+}
+
+.page_container h3{
+    font-family: BrushScript;
+    font-size: 3em;
+    text-decoration: none;
+    text-align: center;
+}
+
+.board_member_container {
+	margin: auto;
+	width: 100%;
+}
+
+.board_member_container strong{
+	font-size: 18px;
+}
