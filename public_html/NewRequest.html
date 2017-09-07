@@ -51,8 +51,8 @@
     <div class="row setup-content" id="step-1">
         <div class="col-xs-12">
             <div class="col-md-12 well text-center">
-                <h1> STEP 1</h1>
-                <h3> Request Information </h3>
+                <h1> Request</h1>
+                <h3> Select a request type to begin </h3>
 
                 <!-- <form> -->
                 <form class="container" class="form-inline">
@@ -67,13 +67,16 @@
                             <label><input type="radio" name="RequestType" id="BookStudy" value="BookStudy"
                                     onclick="javascript:selectRequestType();">Book Study</label>
                         </div>
+                        <!--
                         <div class="radio-inline">
-                            <label><input type="radio" name="RequestType" id="Workshop" value="Workshop">Workshop</label>
+                            <label><input type="radio" name="RequestType" id="Workshop" value="Workshop"
+                                    onclick="javascript:selectRequestType();">Workshop</label>
                         </div>
+                        -->
                     </div>
 
                     <!-- School and System Input -->
-                    <div class="row form-group">
+                    <div class="row form-group" id="school_system_row">
                         <div class="col-md-6">
                             <label for="school">School</label>
                             <input type="text" required id="school" size="40" maxlength="50">
@@ -93,6 +96,43 @@
                         </div>
                     </div>
 
+                    <!-- Book Title -->
+                    <div class="row form-group" id="book_title_row">
+                        <div class="col-md-6 col-md-pull-0">
+                            <label for="book_title">Book Title</label>
+                            <input type="text" required id="book_title" size="40" maxlength="100">
+                        </div>
+                        <div class="col-md-6 col-md-pull-0">
+                            <label for="publisher">Publisher</label>
+                            <input type="text" required id="publisher" size="40" maxlength="50">
+                        </div>
+                        <div class="col-md-6 col-md-pull-0">
+                            <label for="cost_per_book">Cost Per Book</label>
+                            <input type="text" required id="cost_per_book" size="40" maxlength="25">
+                        </div>
+                        <div class="col-md-6 col-md-pull-0">
+                            <label for="isbn">ISBN</label>
+                            <input type="text" required id="isbn" size="40" maxlength="25">
+                        </div>
+                    </div>
+
+                    <!-- Method of Eval or Format of Study -->
+                    <div class="row form-group" id="format_method_row">
+                        <div class="col-md-6 col-md-pull-0" id="study_format_sec">
+                            <label for="study_format">Study Format</label>
+                            <input type="text" required id="study_format" size="40" maxlength="100">
+                        </div>
+                        <div class="col-md-6 col-md-pull-0" id="eval_method_sec">
+                            <label for="eval_method">Evaluation Method</label>
+                            <input type="text" required id="eval_method" size="40" maxlength="50">
+                        </div>
+                        <div class="col-md-6 col-md-pull-0">
+                            <label for="total_cost">Total Cost</label>
+                            <input type="text" required id="total_cost" size="40" maxlength="25">
+                        </div>
+                    </div>
+
+
                     <!-- Request Justification -->
                     <div class="row form-group" id="request_just_row">
                         <div class="col-md-12">
@@ -102,13 +142,7 @@
                         </div>
                     </div>
 
-                    <!-- -->
-                    <div class="row form-group" id="book_title_row">
-                        <div class="col-md-12">
-                            <label for="book_title">System</label>
-                            <input type="text" required id="book_title" size="100" maxlength="100">
-                        </div>
-                    </div>
+
 
                     <div class="row form-group">
                         <!--label for="system">System</label>
