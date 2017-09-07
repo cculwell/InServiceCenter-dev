@@ -1,69 +1,81 @@
-.h2-text
+ .h2-text
 {
     font-family: brushscript;
     text-align: center;
     background-color: lightgray;
 }
-
+	
 .footer
 {
     display: block;
     margin: auto;    
     text-align: center;
     background-color: #eee;
-    padding-top:10%;
+    padding-top:9%;
+	padding-bottom:1%;
 }
 
- #office
-    {
-        display: inline-block;
-        float: left;
-        width:30%;  
-        margin-left: 100px;              
-        margin-bottom: 25px;
-        margin-top: 8px;      
-    }
-  
-     #fax
-    {
-        display: inline-block;
-        float: right;
-        width: 30%;
-        margin-right: 100px;
-        margin-bottom: 25px;;
-        margin-top: 8px;       
-    }
+#office
+{
+	display: inline-block;
+	float: left;
+	width:30%;  
+	margin-left: 80px;              
+	margin-bottom: 1px;
+	margin-top: 8px;      
+}
+
+ #fax
+{
+	display: inline-block;
+	float: auto;
+	width: 30%;
+	margin-left: -40px;
+	margin-bottom: 1px;
+	margin-top: 20px;      
+}
+
+#twitter
+{
+	display: inline-block;
+	float: right;
+	width: 30%;
+	margin-right: 95px;
+	margin-bottom: 1px;
+	margin-top: -45px; 
+}
 
 #hours
-    {
-        display: block;
-        margin: auto;
-        max-width: 30%;
-        margin-top: -8%;
-        margin-bottom:2%;
-    }
+	{
+		display: block;
+		margin: auto;
+		max-width: 30%;
+		margin-top: -8%;
+		margin-bottom:2%;
+	}
 
 #maddress
-    {
-        display: inline-block;      
-        float: left;
-        max-width: 30%;
-        margin-left: 15%;
-        margin-right: 3%;
-        margin-top:-8%;
-        margin-bottom:2%;
-    }
-    
+	{
+		display: inline-block;      
+		float: left;
+		max-width: 30%;
+		margin-left: 15%;
+		margin-right: 3%;
+		margin-top:-8%;
+		margin-bottom:2%;
+	}
+	
 #paddress
-    {
-        display: inline-block;      
-        float: right;
-        max-width: 30%;
-        margin-right: 15%;
-        margin-left: 3%;
-        margin-top: -8%;
-        margin-bottom: 2%;
-    }
+	{
+		display: inline-block;      
+		float: right;
+		max-width: 30%;
+		margin-right: 15%;
+		margin-left: 3%;
+		margin-top: -8%;
+		margin-bottom: 2%;
+	}
+
 #start
    {
         width: 75%;
