@@ -29,6 +29,8 @@ function selectRequestType() {
         document.getElementById('request_desc_row').style.display = 'block';
         document.getElementById('book_title_row').style.display = 'none';
         document.getElementById('format_method_row').style.display = 'block';
+        document.getElementById('study_format_sec').style.display = 'none';
+        document.getElementById('eval_method_sec').style.display = 'block';
     }
     else if (document.getElementById('BookStudy').checked) {
         // alert("You selected BookStudy");
@@ -36,6 +38,8 @@ function selectRequestType() {
         document.getElementById('request_desc_row').style.display = 'none';
         document.getElementById('book_title_row').style.display = 'block';
         document.getElementById('format_method_row').style.display = 'block';
+        document.getElementById('study_format_sec').style.display = 'block';
+        document.getElementById('eval_method_sec').style.display = 'none';
 
     }
     else{

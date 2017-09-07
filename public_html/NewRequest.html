@@ -77,11 +77,11 @@
 
                     <!-- School and System Input -->
                     <div class="row form-group" id="school_system_row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 pull-right">
                             <label for="school">School</label>
                             <input type="text" required id="school" size="40" maxlength="50">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 pull-right">
                             <label for="system">System</label>
                             <input type="text" required id="system" size="40" maxlength="50">
                         </div>
@@ -98,19 +98,19 @@
 
                     <!-- Book Title -->
                     <div class="row form-group" id="book_title_row">
-                        <div class="col-md-6 col-md-pull-0">
+                        <div class="col-md-6 pull-left">
                             <label for="book_title">Book Title</label>
                             <input type="text" required id="book_title" size="40" maxlength="100">
                         </div>
-                        <div class="col-md-6 col-md-pull-0">
+                        <div class="col-md-6 pull-right">
                             <label for="publisher">Publisher</label>
                             <input type="text" required id="publisher" size="40" maxlength="50">
                         </div>
-                        <div class="col-md-6 col-md-pull-0">
-                            <label for="cost_per_book">Cost Per Book</label>
+                        <div class="col-md-6 pull-right">
+                            <label for="cost_per_book">Cost per Book</label>
                             <input type="text" required id="cost_per_book" size="40" maxlength="25">
                         </div>
-                        <div class="col-md-6 col-md-pull-0">
+                        <div class="col-md-6 pull-right">
                             <label for="isbn">ISBN</label>
                             <input type="text" required id="isbn" size="40" maxlength="25">
                         </div>
@@ -142,6 +142,34 @@
                         </div>
                     </div>
 
+                    <!-- Date(s) and Time(s) -->
+                    <div class="container col-xs-12">
+                        <div class="row clearfix">
+                            <div class="col-md-12 column">
+                                <table class="table table-bordered table-hover" id="tab_logic">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Start Time</th>
+                                        <th class="text-center">End Time</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr id='addr0'>
+                                        <td>1</td>
+                                        <td><input type="text" name='date0'  placeholder='MM/DD/YYYY' class="form-control"/></td>
+                                        <td><input type="text" name='sTime0' placeholder='00:00 AM/PM' class="form-control"/></td>
+                                        <td><input type="text" name='eTime0' placeholder='00:00 AM/PM' class="form-control"/></td>
+                                    </tr>
+                                    <tr id='addr1'></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <a id="add_row" class="btn btn-success pull-left">Add Row</a>
+                        <a id='delete_row' class="btn btn-danger pull-right">Delete Row</a>
+                    </div>
 
 
                     <div class="row form-group">
