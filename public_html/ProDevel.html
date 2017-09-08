@@ -25,24 +25,19 @@
             <div class="page_container">
 
                 <h3>View Our Latest Newsletter</h3><br>
-                <a class="button" href="https://drive.google.com/file/d/0B_IagnOgpy4oOW1vdmUxYjlvVGc/preview" target="_blank">View Our Current Newsletter</a>
-                <label>OR</label>
+                <button id="view_newsletter_button" onclick="showNewsletter()" class="button">View Our Current Newsletter</button>
+                <p>OR</p>
                 <button id="subscribe_button" class="button">Subscribe to Our Newsletter</button>
 
                 <div id=subscribe_box>
 
                     <div class="subscribe_box_container">
-
-                        <div class="subscribe_view">
-
-                            <h3>Subscribe</h3>
-                            <label for="email">
-                                If you would like to subscribe to our newsletter, enter your E-mail address below and click the "Subscribe" button.
-                            </label>
-                        </div>
-
-                        <form class="subscribe_form" name="subscribe" action="">
-                            <input id="email_address" class="subscribe_input" type="email" name="email" placeholder="name@example.com" required>
+                        <h3>Subscribe</h3>
+                        <p>
+                            If you would like to subscribe to our newsletter, enter your E-mail address below and click the "Subscribe" button.
+                        </p>
+                        <form name="subscribe" action="">
+                            <input id="email_address" class="subscribe_line_edit" type="email" placeholder="name@example.com" required>
                             <button id="subscribe_button" class="button" onclick="return validateEmail();">Subscribe</button>
                             <button id="cancel_button" class="button">Cancel</button>
                         </form>
@@ -51,8 +46,6 @@
             </div>
         </div>
     </div>
-
-    <!--<script src="../resources/library/jquery-3.2.1.min.js"></script>-->
     <script type="text/javascript" src=js/subscribe_box.js></script>
 
 </body>

@@ -38,3 +38,11 @@ window.onclick = function(event) {
         box.style.display = "none";
     }
 }
+
+function showNewsletter() {
+    var newsletter = "Uploads/Newsletter/current-newsletter.pdf";
+    var page_type = "_blank";
+    var options = "toolbar=no, location=no, scrollbars=yes, resizable=yes, top=50, left=300, width=850, height=600";
+
+    window.open(newsletter, page_type, options);
+}
