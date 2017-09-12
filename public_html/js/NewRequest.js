@@ -53,7 +53,7 @@ $(document).ready(function(){
     var i=1;
     $("#add_date_row").click(function(){
         $('#addr'+i).html("<td>"+ (i+1) + "</td>" +
-            "<td><input name='date"+i+"' type='text' placeholder='MM/DD/YYYY' class='form-control input-md'  /> </td>" +
+            "<td><input  name='date"+i+"'  type='text' placeholder='MM/DD/YYYY'   class='form-control input-md'/></td>"+
             "<td><input  name='sTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md'></td>" +
             "<td><input  name='eTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md'></td>");
 
