@@ -5,47 +5,62 @@ window.onload = initPage();
 
 function initPage() {
     // do noting placeholder
-}
+};
 
 
 // Function to manipulate dom after content is loaded.
 window.addEventListener("load", function(){
-    document.getElementById('school_system_row').style.display = 'none';
-    document.getElementById('request_desc_row').style.display = 'none';
-    document.getElementById('book_title_row').style.display = 'none';
-    document.getElementById('format_method_row').style.display = 'block';
-
     document.getElementById('General').checked = true;
     selectRequestType();
-
-
 });
 
 
 function selectRequestType() {
-    if(document.getElementById('General').checked) {
-        // alert("You selected General");
-        document.getElementById('school_system_row').style.display = 'block';
-        document.getElementById('request_desc_row').style.display = 'block';
-        document.getElementById('book_title_row').style.display = 'none';
-        document.getElementById('format_method_row').style.display = 'block';
-        document.getElementById('study_format_sec').style.display = 'none';
-        document.getElementById('eval_method_sec').style.display = 'block';
+    if (document.getElementById('General').checked) {
+        $("#school_system_row").show();
+        $("#request_desc_row").show();
+        $("#book_title_row").hide();
+        $("#format_method_row").show();
+        $("#study_format_sec").show();
+        $("#eval_method_sec").hide();
     }
     else if (document.getElementById('BookStudy').checked) {
-        // alert("You selected BookStudy");
-        document.getElementById('school_system_row').style.display = 'block';
-        document.getElementById('request_desc_row').style.display = 'none';
-        document.getElementById('book_title_row').style.display = 'block';
-        document.getElementById('format_method_row').style.display = 'block';
-        document.getElementById('study_format_sec').style.display = 'block';
-        document.getElementById('eval_method_sec').style.display = 'none';
-
+        $("#school_system_row").show();
+        $("#request_desc_row").hide();
+        $("#book_title_row").show();
+        $("#format_method_row").show();
+        $("#study_format_sec").show()
+        $("#eval_method_sec").hide();
     }
     else{
         // do nothing at the moment
     }
-}
+};
+
+
+
+$("#RequestForm").submit(function (event) {
+    // Stops the normal submission of form
+    event.preventDefault();
+    // Call custom submit function
+    submitRequest();
+    alert("test1");
+});
+
+function submitRequest() {
+    //var values = $(this).serialize();
+    //alert(values);
+    alert("test");
+};
+
+
+
+/*
+$("#submit_form").click(function() {
+    alert("test");
+});
+*/
+
 
 // jQuery Code to Add , Delete rows
 
@@ -60,11 +75,13 @@ $(document).ready(function(){
         $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
         i++;
     });
+
     $("#delete_date_row").click(function(){
         if(i>1){
             $("#addr"+(i-1)).html('');
             i--;
         }
     });
+
 
 });
