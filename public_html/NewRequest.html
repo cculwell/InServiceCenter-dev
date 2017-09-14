@@ -56,17 +56,17 @@
                 <h3> Select a request type to begin </h3>
 
                 <!-- <form> -->
-                <form class="container form-horizontal" name="RequestForm" novalidate>
+                <form class="container form-horizontal" name="RequestForm" id="RequestForm" novalidate>
 
                     <!-- Request Type Radio Buttons -->
                     <div class="row form-group">
                         <div class="radio-inline">
                             <label><input type="radio" name="RequestType" id="General" value="General"
-                                    onclick="javascript:selectRequestType();">General Request</label>
+                                    onclick="selectRequestType();">General Request</label>
                         </div>
                         <div class="radio-inline">
                             <label><input type="radio" name="RequestType" id="BookStudy" value="BookStudy"
-                                    onclick="javascript:selectRequestType();">Book Study</label>
+                                    onclick="selectRequestType();">Book Study</label>
                         </div>
                         <!--
                         <div class="radio-inline">
@@ -83,11 +83,11 @@
                             <div class="row form-group" id="school_system_row">
                                 <div class="col-md-6 pull-left">
                                     <label for="school">School</label>
-                                    <input type="text" id="school" size="35" maxlength="50">
+                                    <input type="text" id="school" name="school" size="35" maxlength="50">
                                 </div>
                                 <div class="col-md-6 pull-left">
                                     <label for="system">System</label>
-                                    <input type="text" id="system" size="35" maxlength="50">
+                                    <input type="text" id="system" name="system" size="35" maxlength="50">
                                 </div>
                             </div>
                         </div>
@@ -102,29 +102,29 @@
                                 <div class="col-md-12">
                                     <label class="col-md-push-12 pull-left">Request Description</label>
                                     <textarea class="form-control col-md-6" style="width:100%" rows="3"
-                                              id="request_desc"></textarea>
+                                              id="request_desc" name="request_desc"></textarea>
                                 </div>
                             </div>
 
                             <!-- Book Title -->
                             <div class="row form-group" id="book_title_row">
-                                <div class="form-group col-md-4 col-md-pull-0">
+                                <div class="form-group col-md-4">
                                     <label for="book_title">Book Title</label>
-                                    <input type="text" id="book_title" size="35" maxlength="100">
+                                    <input type="text" id="book_title" name="book_title" size="35" maxlength="100">
                                 </div>
                                 <!--div class="col-md-4"> </div> -->
-                                <div class="form-group col-xs-4 col-md-4 ">
+                                <div class="form-group col-md-4 ">
                                     <label for="publisher">Publisher</label>
-                                    <input type="text"  id="publisher" size="35" maxlength="50">
+                                    <input type="text"  id="publisher" name="publisher" size="35" maxlength="50">
                                 </div>
-                                <div class="form-group col-xs-4 col-md-4">
+                                <div class="form-group col-md-4">
                                     <label for="isbn">ISBN</label>
-                                    <input type="text"  id="isbn" size="35" maxlength="25">
+                                    <input type="text"  id="isbn" name="isbn" size="35" maxlength="25">
                                 </div>
                                 <div class="col-md-4"> </div>
-                                <div class="form-group col-xs-4 col-md-4 pull-left  ">
+                                <div class="form-group col-md-4 pull-left  ">
                                     <label for="cost_per_book">Cost per Book</label>
-                                    <input type="text"  id="cost_per_book" size="35" maxlength="25">
+                                    <input type="text"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25">
                                 </div>
 
                             </div>
@@ -134,25 +134,25 @@
 
                                 <div class="form-group col-md-4 " id="study_format_sec">
                                     <label for="study_format">Study Format</label>
-                                    <input type="text"  id="study_format" size="35" maxlength="100">
+                                    <input type="text"  id="study_format" name="study_format" size="35" maxlength="100">
                                 </div>
 
                                 <div class="form-group col-md-4" id="eval_method_sec">
                                     <label for="eval_method">Evaluation Method</label>
-                                    <input type="text"  id="eval_method" size="35" maxlength="50">
+                                    <input type="text"  id="eval_method" name="eval_method" size="35" maxlength="50">
                                 </div>
 
                                 <div class="form-group col-md-4">
                                     <div class="input-group input-group-md">
-                                        <label for="total_cost">Amount Requested / Total Costs</label>
+                                        <label for="total_cost">Amount Requested / Total Cost</label>
                                         <!--span class="input-group-addon">$</span> -->
-                                        <input type="text"  id="total_cost" size="35" maxlength="25">
+                                        <input type="text"  id="total_cost" name="total_cost" size="35" maxlength="25">
                                         <!--span class="input-group-addon">.00</span> -->
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="total_hours">Total Hours</label>
-                                    <input type="text"  id="total_hours" size="35" maxlength="25">
+                                    <input type="text"  id="total_hours" name="total_hours" size="35" maxlength="25">
                                 </div>
                             </div>
                         <!-- Request Justification -->
@@ -160,7 +160,7 @@
                             <div class="col-md-12">
                                 <label class="col-md-push-12 pull-left">Need / Justification</label>
                                 <textarea class="form-control col-md-6" style="width:100%" rows="3"
-                                               id="request_just"></textarea>
+                                               id="request_just" name="request_just"></textarea>
                             </div>
                         </div>
                     </div>
@@ -207,16 +207,16 @@
                             <div class="row form-group" id="company_row">
                                 <div class="form-group col-md-4">
                                     <label for="company_name">Name </label>
-                                    <input type="text"  id="company_name" size="35" maxlength="50">
+                                    <input type="text"  id="company_name" name="company_name" size="35" maxlength="50">
                                 </div>
                                 <!--div class="col-md-4"> </div> -->
                                 <div class="form-group col-md-4">
                                     <label for="company_phn_nbr">Phone</label>
-                                    <input type="text"  id="company_phn_nbr" size="35" maxlength="50">
+                                    <input type="text"  id="company_phn_nbr" name="company_phn_nbr" size="35" maxlength="50">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="company_email">Email </label>
-                                    <input type="text"  id="company_email" size="35" maxlength="50">
+                                    <input type="text"  id="company_email" name="company_email" size="35" maxlength="50">
                                 </div>
                                 <!--div class="col-md-4"> </div>
                                 <div class="col-md-4">
@@ -234,16 +234,16 @@
                             <div class="row form-group" id="contact_row">
                                 <div class="form-group col-md-4">
                                     <label for="contact_name">Name </label>
-                                    <input type="text"  id="contact_name" size="35" maxlength="50">
+                                    <input type="text"  id="contact_name" name="contact_name" size="35" maxlength="50">
                                 </div>
                                 <!--div class="col-md-4"> </div> -->
                                 <div class="form-group col-md-4">
                                     <label for="contact_phn_nbr">Phone</label>
-                                    <input type="text"  id="contact_phn_nbr" size="35" maxlength="50">
+                                    <input type="text"  id="contact_phn_nbr" name="contact_phn_nbr" size="35" maxlength="50">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="contact_email">Email </label>
-                                    <input type="text"  id="contact_email" size="35" maxlength="50">
+                                    <input type="text"  id="contact_email" name="contact_email" size="35" maxlength="50">
                                 </div>
                                 <!--div class="col-md-4"> </div>
                                 <div class="col-md-4">
@@ -262,36 +262,39 @@
                             <div class="row form-group" id="contact_row">
                                 <div class="form-group col-md-4">
                                     <label for="director_name">Approving Director</label>
-                                    <input type="text"  id="director_name" size="35" maxlength="50">
+                                    <input type="text"  id="director_name" name="director_name" size="35" maxlength="50">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="board_approval">Board Approval</label>
-                                    <input type="text"  id="board_approval" size="35" maxlength="50">
+                                    <input type="text"  id="board_approval" name="board_approval" size="35" maxlength="50">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="amt_sponsored">Amount Sponsored </label>
-                                    <input type="text"  id="amt_sponsored" size="35" maxlength="50">
+                                    <input type="text"  id="amt_sponsored" name="amt_sponsored" size="35" maxlength="50">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="inservice_order">Inservice Order</label>
-                                    <input type="text"  id="inservice_order" size="35" maxlength="50">
+                                    <input type="text"  id="inservice_order" name="inservice_order" size="35" maxlength="50">
                                 </div>
 
                                 <div class="form-group col-md-4"> </div>
 
                                 <div class="form-group col-md-4">
                                     <label for="payment_type">Payment Type</label>
-                                    <input type="text"  id="payment_type" size="35" maxlength="50">
+                                    <input type="text"  id="payment_type" name="payment_type" size="35" maxlength="50">
                                 </div>
                         </div>
                         <!--div class="panel-footer">Panel footer</div> -->
                     </div>
                     </div>
 
-                    <button id="submit_form" class="btn btn-primary btn-md">Submit Form</button>
+                    <!--<button id="submit_form" class="btn btn-primary btn-md">Submit Form</button>-->
+                    <div class="btn-group">
+                        <button id="submitRequest" type="button" class="btn btn-primary">Submit Form</button>
+                    </div>
 
                 </form>
-
+                <!--<button id="submitForm" class="btn btn-primary btn-md" type="submit">Submit Form</button>-->
 
 
             </div>

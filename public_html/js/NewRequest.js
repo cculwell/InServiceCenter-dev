@@ -39,27 +39,44 @@ function selectRequestType() {
 
 
 
-$("#RequestForm").submit(function (event) {
-    // Stops the normal submission of form
-    event.preventDefault();
-    // Call custom submit function
-    submitRequest();
-    alert("test1");
-});
-
-function submitRequest() {
-    //var values = $(this).serialize();
-    //alert(values);
-    alert("test");
-};
-
-
 
 /*
 $("#submit_form").click(function() {
     alert("test");
 });
 */
+
+$(document).ready(function() {
+
+    // Ajax call to pass form to php
+    $('#submitRequest').click(function() {
+        var form = $('form');
+        //var formData = new FormData(document.querySelector('#RequestForm'));
+        var url = "php/test.php"; // the script where you handle the form input.
+        //var test_data = { foo: [], bar: [ 'baz' ] };
+        var form_data =form.serialize();
+        //alert(form_data);
+
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            //data: $("#RequestForm").serialize(), // serializes the form's elements.
+            data: form_data,
+            success: function(data)
+            {
+                //alert(data); // show response from the php script.
+                console.log(data);
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+
+        event.preventDefault(); // avoid to execute the actual submit of the form.
+    });
+
+});
 
 
 // jQuery Code to Add , Delete rows
@@ -82,6 +99,7 @@ $(document).ready(function(){
             i--;
         }
     });
+
 
 
 });

@@ -20,28 +20,21 @@ function add_quotes($str) {
 }
 
 $parms = array(
-    "school" => "Fairview"
-, "system" => "Cullman County"
-, "request_desc" => "New Computers"
-, "request_just_area" => "CS"
-, "target_participants" => 20
-, "enrolled_participants" => 15
-, "location" => "Library"
-, "total_hours" => 2
-, "request_tot_cost" => 2500
-, "format_or_eval" => "CBT"
-, "contact_name" => "Nancy"
-, "contact_phone" => "123-456-7890"
-, "contact_email" => "nancy@me.com"
-, "ou_director" => null
-, "ou_board_approval" => null
-, "ou_amt_sponosored" => null
-, "ou_inservice_order" => null
-, "ou_reimburse_sys" => null
+      "school" => "Fairview"
+    , "system" => "Cullman County"
+    , "request_desc" => "New Computers"
+    , "request_just_area" => "CS"
+    , "target_participants" => 20
+    , "enrolled_participants" => 15
+    , "total_hours" => 2
+    , "request_tot_cost" => 2500
+    , "format_or_eval" => "CBT"
 );
 
-# build sql statement for stored procedure call
-$sql  = "call add_request(";
+# build sql statement for insert
+$sql  = "insert into requests (";
+$sql .= implode(',', array_keys($parms));
+$sql .= ") values (";
 $sql .= implode(',', array_map('add_quotes', $parms));
 $sql .= ")";
 
@@ -58,12 +51,16 @@ if ($mysqli->connect_errno) {
 }
 
 # used for testing to view call statement
-#print $sql;
+print $sql;
 
 # execute query of proc call.
 if (!$mysqli->query($sql)) {
     echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
 }
+
+print "\n";
+print $mysqli->insert_id;
+
 
 /* close connection */
 $mysqli->close()
