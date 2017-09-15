@@ -7,7 +7,7 @@
 
     $uploaded_file = $_FILES[$type]["name"];
 
-    $target = "../Uploads/" . $dir . "/" . $uploaded_file;
+    $target = "../../Uploads/" . $dir . "/" . $uploaded_file;
     $file_type = pathinfo($uploaded_file, PATHINFO_EXTENSION);
 
     // Check that the user selected a file to upload
