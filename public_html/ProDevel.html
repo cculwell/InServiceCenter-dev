@@ -1,9 +1,3 @@
-<?php
-    // Start the session
-    sessio_id('admin')
-    session_start();
-?>
-
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
 
@@ -55,7 +49,7 @@
             <div class="page_container">
 
                 <h3>View Our Latest Newsletter</h3><br>
-                <button id="view_newsletter_button" onclick="showNewsletter()" class="button">View Our Current Newsletter</button>
+                <button id="view_newsletter_button" onclick="location.href='php/view_current.php?table=newsletters&page=ProDevel'" class="button">View Our Current Newsletter</button>
                 <p>OR</p>
                 <button id="subscribe_button" class="button">Subscribe to Our Newsletter</button>
 
@@ -66,33 +60,15 @@
                         <p>
                             If you would like to subscribe to our newsletter, enter your E-mail address below and click the "Subscribe" button.
                         </p>
-                        <form name="subscribe" action="">
-                            <input id="email_address" class="subscribe_line_edit" type="email" placeholder="name@example.com" required>
+                        <form name="subscribe" action="php/subscribe.php" method="post">
+                            <input id="email_address" class="subscribe_line_edit" type="email" name="email" placeholder="name@example.com" required>
                             <button id="subscribe_button" class="button" onclick="return validateEmail();">Subscribe</button>
-                            <button id="cancel_button" class="button">Cancel</button>
+                            <button id="cancel_button" class="button">Cancel</button><br><br>
+                            <a href="php/unsubscribe.php">Unsubscribe</a>
                         </form>
                     </div>
                 </div>
             </div>
-
-            <!-- Allow the admin user to upload a new newsletter when logged in -->
-            <?php
-                if ($_SESSION["logged_in"] == "admin") {
-                ?>
-                    <form action="php/upload_newsletter.php" method="post" enctype="multipart/form-data">
-                        <p style="font-weight: bold">Select a new newsletter:</p>
-                        <input type="file" name="newsletter_to_upload" id="newsletter_to_upload">
-                        <input type="submit" name="submit" value="Submit">
-                    </form>
-                    if (isset($_SESSION['upload_success'])) {
-                        <script type="text/javascript">alert($_SESSION['upload_success'])</script>
-                    }
-                    if ($_SESSION['upload_success'] == 'empty') {
-                        <script type="text/javascript">alert('Please select a file...')</script>
-                    } 
-                }
-            ?>
-
         </div>
     </div>
     <script type="text/javascript" src=js/subscribe_box.js></script>
