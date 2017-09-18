@@ -47,23 +47,34 @@ $book_parms = array(
     , "study_format" => $_POST['study_format']
 );
 
-$contacts_parms = array(
-    array(  "contact_role" => "Contact"
-    , "contact_name" => $_POST['contact_name']
-    , "contact_phn_nbr" => $_POST['contact_phn_nbr']
-    , "contact_email" => $_POST['contact_email'])
+if($request_parms['request_type'] == 'General') {
+    $contacts_parms = array(
+        array("contact_role" => "Contact"
+        , "contact_name" => $_POST['contact_name']
+        , "contact_phn_nbr" => $_POST['contact_phn_nbr']
+        , "contact_email" => $_POST['contact_email'])
 
-, array(  "contact_role" => "Company"
-    , "contact_name" => $_POST['company_name']
-    , "contact_phn_nbr" => $_POST['company_phn_nbr']
-    , "contact_email" => $_POST['company_email'])
+    , array("contact_role" => "Company"
+        , "contact_name" => $_POST['company_name']
+        , "contact_phn_nbr" => $_POST['company_phn_nbr']
+        , "contact_email" => $_POST['company_email'])
 
-, array(  "contact_role" => "Facilitator"
-    , "contact_name" => $_POST['facilitator_name']
-    , "contact_phn_nbr" => $_POST['facilitator_phn_nbr']
-    , "contact_email" => $_POST['facilitator_email'])
-);
+    );
+}
 
+if($request_parms['request_type'] == 'BookStudy') {
+    $contacts_parms = array(
+        array("contact_role" => "Contact"
+        , "contact_name" => $_POST['contact_name']
+        , "contact_phn_nbr" => $_POST['contact_phn_nbr']
+        , "contact_email" => $_POST['contact_email'])
+
+    , array("contact_role" => "Facilitator"
+        , "contact_name" => $_POST['facilitator_name']
+        , "contact_phn_nbr" => $_POST['facilitator_phn_nbr']
+        , "contact_email" => $_POST['facilitator_email'])
+    );
+}
 // Dynamically build an array for date times
 $date_time_parms = array();
 $i = 0;
@@ -114,20 +125,22 @@ try {
     // get request_id
     $request_id = $mysqli->insert_id;
 
-    // insert book info
-    $book_sql = "insert into books (";
-    $book_sql .= "request_id,";
-    $book_sql .= implode(',', array_keys($book_parms));
-    $book_sql .= ") values (";
-    $book_sql .= $request_id . ",";
-    $book_sql .= implode(',', array_map('add_quotes', $book_parms));
-    $book_sql .= ")";
+    if($request_parms['request_type'] == 'BookStudy') {
 
-    if (!$mysqli->query($book_sql)) {
-        //echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        throw new Exception("Cannot insert record. Reason :".$mysqli->error);
+        // insert book info
+        $book_sql = "insert into books (";
+        $book_sql .= "request_id,";
+        $book_sql .= implode(',', array_keys($book_parms));
+        $book_sql .= ") values (";
+        $book_sql .= $request_id . ",";
+        $book_sql .= implode(',', array_map('add_quotes', $book_parms));
+        $book_sql .= ")";
+
+        if (!$mysqli->query($book_sql)) {
+            //echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            throw new Exception("Cannot insert record. Reason :" . $mysqli->error);
+        }
     }
-
     // insert contact info
     foreach ($contacts_parms as $contact) {
         $contact_sql = "insert into contacts (";
