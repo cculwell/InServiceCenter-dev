@@ -75,8 +75,8 @@ $('#get-list-btn').click(function(){
                 if (!when) {
                     when = event.start.date;
              }
-             eventList.append("<li class='del-up-item'> " + event.summary + " Date: " + when +
-                 " <button data-id='" + event.id + "' class='delete'>Delete</button></li>");
+             eventList.append("<li class='del-up-item list-group-item'> " + event.summary + " Date: " + when +
+                 " <button data-id='" + event.id + "' class='delete btn-danger'>Delete</button></li>");
          }
         }
         else {
@@ -88,7 +88,6 @@ $('#get-list-btn').click(function(){
                 'eventId': $(this).attr('data-id')
             }).then(function(){
                 $(this).closest('li').remove();
-
             })
         });
 
