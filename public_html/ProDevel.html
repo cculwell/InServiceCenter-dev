@@ -53,24 +53,40 @@
             <div class="page_container">
 
                 <h3>View Our Latest Newsletter</h3><br>
-                <button id="view_newsletter_button" onclick="showNewsletter()" class="button">View Our Current Newsletter</button>
+                <button id="view_newsletter_button" onclick="location.href='php/view_current.php?table=newsletters&page=ProDevel'" class="button">View Our Current Newsletter</button>
                 <p>OR</p>
                 <button id="subscribe_button" class="button">Subscribe to Our Newsletter</button>
 
                 <div id=subscribe_box>
-
                     <div class="subscribe_box_container">
                         <h3>Subscribe</h3>
                         <p>
                             If you would like to subscribe to our newsletter, enter your E-mail address below and click the "Subscribe" button.
                         </p>
-                        <form name="subscribe" action="">
-                            <input id="email_address" class="subscribe_line_edit" type="email" placeholder="name@example.com" required>
+                        <form name="subscribe" action="php/email_subscription/subscribe.php" method="post">
+                            <input id="email_address" class="line_edit" type="email" name="email" placeholder="name@example.com" required>
                             <button id="subscribe_button" class="button" onclick="return validateEmail();">Subscribe</button>
-                            <button id="cancel_button" class="button">Cancel</button>
+                            <button id="subscribe_cancel_button" class="button">Cancel</button><br><br>
+                            <button id="unsubscribe_button">Unsubscribe</button>
                         </form>
                     </div>
                 </div>
+
+                <div id=unsubscribe_box>
+                    <div class="unsubscribe_box_container">
+                        <h3>Unsubscribe</h3>
+                        <p>
+                            We're sorry to see you go. To unsubscribe, enter you E-mail address below and 
+                           click "Unsubscribe."
+                        </p>
+                        <form name="unsubscribe" action="php/email_subscription/unsubscribe.php" method="post">
+                            <input id="email_address" class="line_edit" type="email" name="email" placeholder="name@example.com" required>
+                            <button id="unsubscribe_confirm_button" class="button">Unsubscribe</button>
+                            <button id="unsubscribe_cancel_button" class="button">Cancel</button><br><br>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

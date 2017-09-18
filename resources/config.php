@@ -15,15 +15,14 @@ $config = array(
             "username" => "amsti_01",
             "password" => "Capstone@17",
             "host" => "localhost"
-        )
-/*  Uncomment to add a second database configuration
-        , "db2" => array(
-            "dbname" => "database2",
-            "username" => "dbUser",
-            "password" => "pa$$",
+        ), 
+
+        "admin_files" => array(
+            "dbname" => "admin_files",
+            "username" => "root",   /* CHANGE UN AND PW */
+            "password" => "",
             "host" => "localhost"
         )
-*/
     ),
     "urls" => array(
         "baseUrl" => "http://myathensric.org"

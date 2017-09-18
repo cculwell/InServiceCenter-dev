@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="foundation/js/vendor/jquery.js"></script>
+    <script src="public_html/foundation/js/vendor/jquery.js"></script>
+    <link rel="stylesheet" href="resources/library/bootstrap/css/bootstrap.css">
+
+    <script src="resources/library/bootstrap/js/bootstrap.js"></script>
+
     <title>In-Service Calendar Admin Page</title>
 <!--
     <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet">
@@ -14,159 +18,74 @@
 </head>
 <body>
 <h1>Calendar Admin Page</h1>
-<button id="sign-in" onclick="handleSignInClick()">Login</button>
-<button id="log-out" style="display:none">Logoff</button>
+<button id="sign-in" class="btn btn-primary" onclick="handleSignInClick()">Login</button>
+<button id="log-out" onclick="handleSignOutClick()" style="display:none">Logoff</button>
+<div id = "admin-content" style="display: none">
+    <ul class="nav nav-tabs" >
+        <li class="active"><a data-toggle="tab" href="#Create">Create Event</a> </li>
+        <li><a data-toggle="tab" href="#Update-Delete">Delete Event</a> </li>
 
-<form id="creator-form" style="display: none">
-    <fieldset>
-        <legend>
-            Event Creator
-        </legend>
-        Room: <select id="in_room">
-        <option value ="">Pick a room...</option>
-        <option value="RoomA">Room A</option>
-        <option value="RoomB">Room B</option>
-        <option value="RoomC">Room C</option>
-        <option value="RoomCon">Conference</option>
-    </select>
-        <br>
-        Start date: <input type="text" name="startDate" id="start-date" placeholder="MM/DD/YYYY" required><br>
-        Start Time: <input type="text" id="start-hour" placeholder="HH">:<input id="start-minute" type="text" placeholder="MM">
-        <select id="am-pm" name="start-AM_PM">
-            <option value="0">AM</option>
-            <option value="12">PM</option>
-        </select>
-        <br>
-        Start Time: <input type="text" id="end-hour" placeholder="HH">:<input id="end-minute" type="text" placeholder="MM">
-        <select id="end-AM-PM">
-            <option value="0">AM</option>
-            <option value="12">PM</option>
-        </select>
-            <br><br>
+    </ul>
+    <div class="tab-content">
+        <div id="Create" class="tab-pane fade in active">
+            <form id="creator-form" class="form-inline">
+                <fieldset>
+                    <legend>
+                        Event Creator
+                    </legend>
+                    <label for="in_room">Room: </label> <select id="in_room" required>
+                    <option value ="">Pick a room...</option>
+                    <option value="Room A">Room A</option>
+                    <option value="Room B">Room B</option>
+                    <option value="Room C">Room C</option>
+                    <option value="Conference">Conference</option>
+                </select>
+                    <br>
+                    <label for="start-date">Start Date: </label>
+                    <input type="text" name="startDate" id="start-date" placeholder="MM/DD/YYYY" required><br>
+                    <label for="start-hour">Start Time:</label>
+                    <input type="text" id="start-hour" placeholder="HH" required>:<input id="start-minute" type="text" placeholder="MM" required value="00">
+                    <select id="start-AM-PM">
+                        <option value= "AM">AM</option>
+                        <option value= "PM">PM</option>
+                    </select>
+                    <br>
+                    <label for="end-hour">End Time:</label>
+                    <input type="text" id="end-hour" placeholder="HH" required>:<input id="end-minute" type="text" placeholder="MM" required value="00">
+                    <select id="end-AM-PM">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                    <br><br>
 
-        <button id="create-event" onclick="CreateEvent()">Create Event</button>
-    </fieldset>
-</form>
-<script type="text/javascript">
-    var Client_Id = "926767991162-l7nms773dl30u94mk72luumt6c92o07f.apps.googleusercontent.com";
-    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    var SCOPES = "https://www.googleapis.com/auth/calendar";
-    var login_vari = document.getElementById("sign-in");
-    var logout_vari = document.getElementById("log-out");
+                    <button id="create-event">Create Event</button>
+                </fieldset>
+            </form>
+            <div class="embed-responsive-item">
+                <h3>Calendar</h3>
+                <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;height=900&amp;wkst=1&amp;hl=en&amp;bgcolor=%23FFFFFF&amp;src=at8l5tsi7g34k43564d22g4ddc%40group.calendar.google.com&amp;color=%23A32929&amp;src=redd09jcf350kg52s8kntu91hc%40group.calendar.google.com&amp;color=%235229A3&amp;src=3r7v3qeevnub3rm0ilmnd0ndq4%40group.calendar.google.com&amp;color=%230D7813&amp;src=lfrdt41o0cb63fge3d0m4f19ag%40group.calendar.google.com&amp;color=%23AB8B00&amp;ctz=America%2FChicago" style="border-width:0" width="1000" height="900" frameborder="0" scrolling="no"></iframe></div>
+        </div>
+        <div class="tab-pane fade" id="Update-Delete">
+            <h2>Delete Events</h2>
 
-    function sign_in()
-    {
-        gapi.auth2.getAuthInstance().signIn();
-    }
-    function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-    }
-    function initClient() {
-        gapi.client.init({
-            discoveryDocs: DISCOVERY_DOCS,
-            clientId: Client_Id,
-            scope: SCOPES
-        }).then(function () {
-            // Listen for sign-in state changes.
-            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-            // Handle the initial sign-in state.
-            updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-        });
-    }
-    function updateSigninStatus(isSignedIn) {
-        // When signin status changes, this function is called.
-        // If the signin status is changed to signedIn, we make an API call.
-        if (isSignedIn) {
-            ShowForm();
-        }
-    }
-
-    function handleSignInClick(event) {
-        // Ideally the button should only show up after gapi.client.init finishes, so that this
-        // handler won't be called before OAuth is initialized.
-        gapi.auth2.getAuthInstance().signIn();
-    }
-
-    function handleSignOutClick(event) {
-        gapi.auth2.getAuthInstance().signOut();
-    }
-
-    function ShowForm()
-    {
-        document.getElementById("creator-form").style.display = "block";
-        login_vari.style.display = "none";
-    }
-</script>
-
-<script type="text/javascript">
-
-    function CreateEvent(event)
-    {
-        var room = document.getElementById('my-form').elements[0].value;
-        var date = document.getElementById('my-form').elements[1].value;
-        var startHour = document.getElementById('my-form').elements[2].value;
-        var startMinute = document.getElementById('my-form').elements[3].value;
-        var startAM_PM = document.getElementById('my-form').elements[4].value;
-        startHour = (+startHour) + (+startAM_PM);
-        var startTime = "T" + startHour + ':' + startMinute +':00-05:00';
-        var endHour = document.getElementById('my-form').elements[5].value;
-        var endMinute = document.getElementById('my-form').elements[6].value;
-        var endAM_PM = document.getElementById('my-form').elements[7].value;
-        endHour = (+endHour) + (+endAM_PM);
-        var endTime = "T" + endHour + ':' + endMinute +':00-05:00';
-        document.write(endTime);
-
-        var dateArray = date.split('/');
-
-
-        var event = {
-            'summary': room + ': busy',
-            'location': 'Athens, AL',
-            'description': room + 'is reserved',
-            'start': {
-                'dateTime': dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1] + startTime
-
-            },
-            'end': {
-                'dateTime': dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1] + endTime
-            }
-        };
-        CalendarID = getID(room);
-        var request = gapi.client.calendar.events.insert({
-            'calendarId': CalendarID,
-            'resource': event
-        });
-
-        request.execute(function(event) {
-            appendPre('Event created: ' + event.htmlLink);
-        });
-    }
-    function getID(room)
-    {
-        var CalendarID;
-        if (room === 'RoomA')
-        {
-            CalendarID = 'at8l5tsi7g34k43564d22g4ddc@group.calendar.google.com'
-        }
-        if (room === 'RoomB')
-        {
-            CalendarID = 'redd09jcf350kg52s8kntu91hc@group.calendar.google.com'
-        }
-        if (room === 'RoomC')
-        {
-            CalendarID = '3r7v3qeevnub3rm0ilmnd0ndq4@group.calendar.google.com'
-        }
-        if (room === 'RoomCon')
-        {
-            CalendarID = 'lfrdt41o0cb63fge3d0m4f19ag@group.calendar.google.com'
-        }
-        return CalendarID;
-    }
-</script>
-</body>
+            <select id="calendar-list">
+                <option value="Room A">Room A</option>
+                <option value="Room B">Room B</option>
+                <option value="Room C">Room C</option>
+                <option value="Conference">Conference</option>
+            </select>
+            <br>
+            <button id="get-list-btn">Get List</button>
+            <div class="list-group-item-text">
+                <ul class="list-group" id="content-up-del">Events</ul>
+            </div>
+        </div>
+    </div>
+    </div>
+<script type="text/javascript" src="public_html/js/GoogleAPICall.js"></script>
 <script async defer src="https://apis.google.com/js/api.js"
         onload="this.onload=function(){};handleClientLoad()"
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
 </script>
+</body>
 </html>
