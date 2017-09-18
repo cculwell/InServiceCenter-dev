@@ -29,10 +29,33 @@
     display: block;
 }
 
+#mobile{
+	display: none;
+    width: 90%;
+	margin: 0 0 0 5%;
+    z-index: 5;
+    background: hsla(227, 100%, 60%, 0.7);
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+    text-align: center;
+    border: solid hsla(227, 60%, 30%, 0.5);
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    box-shadow: 0 1px 3px black;
+    border-radius: 1em 1em 1em 1em;
+  }
+#mobile li {
+			display: inline;
+			}
+#mobile li:not(:first-child):before{
+				content: " | ";
+			}
+#mobile a { color: inherit }
+
 #menu {
     position: fixed;
     right: 9px;
-    top: 25%;
+    top: 35%;
     width: 8em;
     margin: -2.5em 0 0 0;
     z-index: 5;
@@ -48,3 +71,11 @@
   }
 #menu li { margin: 0 }
 #menu a { color: inherit }
+
+a:hover {font-size: 108%}
+li.current{color: hsl(175, 70%, 70%)}
+
+@media screen and (max-width: 800px){
+	#menu{display: none;}
+	#mobile{display: block;}
+}

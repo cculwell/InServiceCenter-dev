@@ -224,8 +224,6 @@ hr {
     position: relative;
     background-color: lightgrey;
 }
-
- 
     
 #subscribe
     {
@@ -306,4 +304,5 @@ input[type=submit]:hover
     transition: box-shadow .2s ease-out;
     border-radius: 0;
     margin-bottom: 1rem
+}
 }
