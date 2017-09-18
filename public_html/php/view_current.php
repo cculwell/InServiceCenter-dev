@@ -16,6 +16,8 @@
 
         $row = mysqli_fetch_array($result);
         $path = $row['file_path'];
+        $reg = '/'.preg_quote("../", '/').'/';
+        $path = preg_replace($reg, "", $path, 1);
 
         // Get the file's mime type to send the correct content type header
         if (file_exists($path)) {
@@ -32,7 +34,7 @@
             fpassthru($fp);  
         }
         else {
-            echo "<script type='text/javascript'>alert('ERROR: There was a problem opening $table. The file might have been removed.')</script>";
+            echo "<script type='text/javascript'>alert('ERROR: There was a problem opening the current newsletter. The file might have been removed.')</script>";
         }
  
     }

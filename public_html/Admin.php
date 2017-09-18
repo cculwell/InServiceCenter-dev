@@ -32,19 +32,24 @@
                 <li><a href="AboutUs.html" target="_self">About Us</a></li>
                 <li><a href="GoverningBoard.html" target="_self">Governing Board</a></li>
                 <li><a href="Inservice.html" target="_self">Inservice</a></li>
-                <li><a href="ProDevel.html" target="_self">Professional Development</a></li>
+                <li class="current"><a href="ProDevel.html" target="_self">Professional Development</a></li>
                 <li><a href="ContactUs_Data/ContactUs.html" target="_self">Contact</a></li>
-                <li><a href="NewRequest.html" target="_self">Forms</a></li>
-                <li class="has-submenu"><a href="../calendar.html" target="_blank">Calendars</a>
-                    <ul class="menu vertical" data-submenu="" data-magellen="">
-                        <li><a href="../calendar.html#roomA" target="_blank">Room A</a></li>
-                        <li><a href="../calendar.html#roomB" target="_blank">Room B</a></li>
-                        <li><a href="../calendar.html#roomC" target="_blank">Room C</a></li>
-                        <li><a href="../calendar.html#roomConf" target="_blank">Conference <br />Room</a></li>
-                    </ul>
-                </li>
-                <li><a href="Admin.html" target="_self">Admin</a>
-            </ul>  
+                <li><a href="NewRequest.html" target="_blank">Forms</a></li>
+                <li><a href="../calendar.html" target="_self">Calendar</a></li>
+                <li><a href="../ReservationRequest.html" target="_blank">Reservation</a></li>
+            </ul> 
+            <!-- Mobile Menu -->
+            <ul id=mobile>
+                <li><a href="Home.html" target="_self">Home</a></li>
+                <li><a href="AboutUs.html" target="_self">About Us</a></li>
+                <li><a href="GoverningBoard.html" target="_self">Governing Board</a></li>
+                <li><a href="Inservice.html" target="_self">Inservice</a></li>
+                <li class="current"><a href="ProDevel.html" target="_self">Professional Development</a></li>
+                <li><a href="ContactUs_Data/ContactUs.html" target="_self">Contact</a></li>
+                <li><a href="NewRequest.html" target="_blank">Forms</a></li>
+                <li><a href="../calendar.html" target="_self">Calendar</a></li>
+                <li><a href="../ReservationRequest.html" target="_blank">Reservation</a></li>
+            </ul> 
 
             <div class="logo_container">
                 <img class="logo" src="img/Logo.jpg" alt="" />
@@ -74,7 +79,11 @@
                     <tbody>
                         <?php
                             foreach($subscribers as $row) {
-                                $delete = '<a href="php/email_subscription/delete_subscriber.php?id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete this subscriber?\');" title="Delete Subscriber"><img src="img/db_table_icons/delete.png" alt="delete"/></a>';
+                                $delete = '<a href="php/email_subscription/delete_subscriber.php?id='.$row['id'].'"    
+                                            onclick="return confirm(\'Are you sure you want to delete this subscriber?\');" 
+                                            title="Delete Subscriber">
+                                            <img src="img/db_table_icons/delete.png" 
+                                            alt="delete"/></a>';
 
                                 $subscribers_table.= "<tr><td>" . $row['email'] . "</td><td>" . $delete . "</td></tr>\n"; 
                             }
@@ -97,8 +106,14 @@
                     <tbody>
                         <?php
                             foreach($newsletters as $row) {
-                                $delete = '<a href="php/admin/delete_file.php?table=newsletters&id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete this newsletter?\');" title="Delete Newsletter"><img src="img/db_table_icons/delete.png" alt="delete"/></a>';
-                                $set_current = '<a href="php/admin/set_current_file.php?table=newsletters&id='.$row['id'].'" title="Select Current Newsletter"><img src="img/db_table_icons/add.png" alt="Set Current Newsletter"/></a>';
+                                $delete = '<a href="php/admin/delete_file.php?table=newsletters&id='.$row['id'].'" 
+                                              onclick="return confirm(\'Are you sure you want to delete this newsletter?\');" 
+                                              title="Delete Newsletter">
+                                              <img src="img/db_table_icons/delete.png" alt="delete"/></a>';
+                                $set_current = '<a href="php/admin/set_current_file.php?table=newsletters&id='.$row['id'].'"
+                                                 title="Select Current Newsletter">
+                                                 <img src="img/db_table_icons/add.png" 
+                                                 alt="Set Current Newsletter"/></a>';
 
                                 if($row['current'] == "yes") {
                                     $current = '<img src="img/db_table_icons/accept.png" />';
@@ -133,8 +148,15 @@
                     <tbody>
                         <?php
                             foreach($bylaws as $row) {
-                                $delete = '<a href="php/admin/delete_file.php?table=bylaws&id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete this bylaw?\');" title="Delete Bylaw"><img src="img/db_table_icons/delete.png" alt="delete"/></a>';
-                                $set_current = '<a href="php/admin/set_current_file.php?table=bylaws&id='.$row['id'].'" title="Select Current Bylaws"><img src="img/db_table_icons/add.png" alt="Set Current Bylaws"/></a>';
+                                $delete = '<a href="php/admin/delete_file.php?table=bylaws&id='.$row['id'].'" 
+                                            onclick="return confirm(\'Are you sure you want to delete this bylaw?\');" 
+                                            title="Delete Bylaw">
+                                            <img src="img/db_table_icons/delete.png" 
+                                            alt="delete"/></a>';
+                                $set_current = '<a href="php/admin/set_current_file.php?table=bylaws&id='.$row['id'].'" 
+                                                 title="Select Current Bylaws">
+                                                 <img src="img/db_table_icons/add.png" 
+                                                 alt="Set Current Bylaws"/></a>';
 
                                 if($row['current'] == "yes") {
                                     $current = '<img src="img/db_table_icons/accept.png" />';

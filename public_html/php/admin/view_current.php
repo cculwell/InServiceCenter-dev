@@ -16,6 +16,7 @@
 
         $row = mysqli_fetch_array($result);
         $path = $row['file_path'];
+        echo $path;
 
         // Get the file's mime type to send the correct content type header
         if (file_exists($path)) {
@@ -32,7 +33,7 @@
             fpassthru($fp);  
         }
         else {
-            echo "<script type='text/javascript'>alert('ERROR: There was a problem opening $table. The file might have been removed.')</script>";
+            echo "<script type='text/javascript'>alert('ERROR: There was a problem opening the current newsletter. The file might have been removed.')</script>";
         }
  
     }
@@ -41,5 +42,5 @@
     }
 
     $url = "../" . $page . ".html";
-    header('refresh: 0; URL=' . $url);
+    #header('refresh: 0; URL=' . $url);
 ?>

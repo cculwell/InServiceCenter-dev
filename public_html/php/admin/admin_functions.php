@@ -71,6 +71,8 @@
         $query = "INSERT INTO $table (name, current, file_path) VALUES ('$file','yes','$target')";
         $link->query($query) or die("Error : ".mysqli_error($link)); 
 
+        return $link;
+
         $link->close();
     }
 ?>

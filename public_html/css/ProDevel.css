@@ -101,6 +101,15 @@
         padding-top: 15px
     }
 
+    .link_button {
+        background:none!important;
+        color:blue;
+        border:none; 
+        padding:0!important;
+        font: inherit;
+        cursor: pointer;
+}
+
     .button {
         background-color: #339cff;    
         color: white; 

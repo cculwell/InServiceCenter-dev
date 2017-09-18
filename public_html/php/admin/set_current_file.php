@@ -1,6 +1,6 @@
 <?php   
     // Set the selected file to the current viewable file
-    require "../../resources/config.php";
+    require "../../../resources/config.php";
     
     $id = (int) $_GET['id'];
     $table = $_GET['table'];
@@ -41,5 +41,5 @@
     }
 
     $link->close();
-    header('refresh: 0; URL=../Admin.php');
+    header('refresh: 0; URL=../../Admin.php');
 ?>
