@@ -9,9 +9,15 @@
 
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
     <link rel="stylesheet" href="css/NewRequest.css">
+
     <script src="../resources/library/jquery-3.2.1.min.js"></script>
+    <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
     <script src="js/NewRequest.js"></script>
+
+
 </head>
 
 <div class="callout large">
@@ -155,12 +161,33 @@
                                     <input type="text"  id="total_hours" name="total_hours" size="35" maxlength="25">
                                 </div>
                             </div>
+
                         <!-- Request Justification -->
-                        <div class="form-group" id="request_just_row">
+                        <div class="row form-group" id="request_just_row">
                             <div class="col-md-12">
                                 <label class="col-md-push-12 pull-left">Need / Justification</label>
                                 <textarea class="form-control col-md-6" style="width:100%" rows="3"
                                                id="request_just" name="request_just"></textarea>
+                            </div>
+                        </div>
+
+
+                        <!-- Location and Targets -->
+                        <div class="row form-group" id="location_participants_row">
+
+                            <div class="form-group col-md-4" id="location_sec">
+                                <label for="study_format">Location of Training</label>
+                                <input type="text"  id="location" name="location" size="35" maxlength="100">
+                            </div>
+
+                            <div class="form-group col-md-4" id="target_part_sec">
+                                <label for="eval_method">Target Participants #</label>
+                                <input type="text"  id="target_participants" name="target_participants" size="35" maxlength="50">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="total_cost">Enrolled Participants #</label>
+                                <input type="text"  id="enrolled_participants" name="enrolled_participants" size="35" maxlength="25">
                             </div>
                         </div>
                     </div>
@@ -185,7 +212,7 @@
                                             <tbody>
                                             <tr id='addr0'>
                                                 <td>1</td>
-                                                <td><input type="text" name='date0'  placeholder='MM/DD/YYYY' class="form-control"/></td>
+                                                <td><input type="text" name='date0'  placeholder='MM/DD/YYYY' class="form-control datepicker"/></td>
                                                 <td><input type="text" name='sTime0' placeholder='00:00 AM/PM' class="form-control"/></td>
                                                 <td><input type="text" name='eTime0' placeholder='00:00 AM/PM' class="form-control"/></td>
                                             </tr>
@@ -201,7 +228,7 @@
                     </div>
 
                     <!-- Company / Org / Publisher -->
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary" id="company_panel">
                         <div class="panel-heading">Company / Organization / Publisher</div>
                         <div class="panel-body">
                             <div class="row form-group" id="company_row">
@@ -217,6 +244,33 @@
                                 <div class="form-group col-md-4">
                                     <label for="company_email">Email </label>
                                     <input type="text"  id="company_email" name="company_email" size="35" maxlength="50">
+                                </div>
+                                <!--div class="col-md-4"> </div>
+                                <div class="col-md-4">
+                                    <label for="company_addr">Address</label>
+                                    <input type="text"  id="company_addr" size="35" maxlength="50">
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Facilitator -->
+                    <div class="panel panel-primary" id="faciliator_panel">
+                        <div class="panel-heading">Facilitator</div>
+                        <div class="panel-body">
+                            <div class="row form-group" id="facilitator_row">
+                                <div class="form-group col-md-4">
+                                    <label for="company_name">Name </label>
+                                    <input type="text"  id="facilitator_name" name="facilitator_name" size="35" maxlength="50">
+                                </div>
+                                <!--div class="col-md-4"> </div> -->
+                                <div class="form-group col-md-4">
+                                    <label for="company_phn_nbr">Phone</label>
+                                    <input type="text"  id="facilitator_phn_nbr" name="facilitator_phn_nbr" size="35" maxlength="50">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="company_email">Email </label>
+                                    <input type="text"  id="facilitator_email" name="facilitator_email" size="35" maxlength="50">
                                 </div>
                                 <!--div class="col-md-4"> </div>
                                 <div class="col-md-4">
@@ -255,8 +309,9 @@
                         <!--div class="panel-footer">Panel footer</div> -->
                     </div>
 
+
                     <!-- Office Use Section -->
-                    <div class="panel panel-primary">
+   <!--                 <div class="panel panel-primary">
                         <div class="panel-heading">Office Use</div>
                         <div class="panel-body">
                             <div class="row form-group" id="contact_row">
@@ -284,9 +339,10 @@
                                     <input type="text"  id="payment_type" name="payment_type" size="35" maxlength="50">
                                 </div>
                         </div>
-                        <!--div class="panel-footer">Panel footer</div> -->
+                        &lt;!&ndash;div class="panel-footer">Panel footer</div> &ndash;&gt;
                     </div>
-                    </div>
+                        &#45;&#45;
+                    </div>-->
 
                     <!--<button id="submit_form" class="btn btn-primary btn-md">Submit Form</button>-->
                     <div class="btn-group">

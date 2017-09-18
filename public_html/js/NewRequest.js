@@ -21,8 +21,10 @@ function selectRequestType() {
         $("#request_desc_row").show();
         $("#book_title_row").hide();
         $("#format_method_row").show();
-        $("#study_format_sec").show();
-        $("#eval_method_sec").hide();
+        $("#study_format_sec").hide();
+        $("#eval_method_sec").show();
+        $("#company_panel").show();
+        $("#faciliator_panel").hide();
     }
     else if (document.getElementById('BookStudy').checked) {
         $("#school_system_row").show();
@@ -31,6 +33,8 @@ function selectRequestType() {
         $("#format_method_row").show();
         $("#study_format_sec").show()
         $("#eval_method_sec").hide();
+        $("#company_panel").hide();
+        $("#faciliator_panel").show();
     }
     else{
         // do nothing at the moment
@@ -76,6 +80,8 @@ $(document).ready(function() {
         event.preventDefault(); // avoid to execute the actual submit of the form.
     });
 
+    $('.datepicker').datepicker();
+
 });
 
 
@@ -85,12 +91,14 @@ $(document).ready(function(){
     var i=1;
     $("#add_date_row").click(function(){
         $('#addr'+i).html("<td>"+ (i+1) + "</td>" +
-            "<td><input  name='date"+i+"'  type='text' placeholder='MM/DD/YYYY'   class='form-control input-md'/></td>"+
+            "<td><input  name='date"+i+"'  type='text' placeholder='MM/DD/YYYY'   class='form-control input-md datepicker'/></td>"+
             "<td><input  name='sTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md'></td>" +
             "<td><input  name='eTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md'></td>");
 
         $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
         i++;
+
+        $('.datepicker').datepicker();
     });
 
     $("#delete_date_row").click(function(){
