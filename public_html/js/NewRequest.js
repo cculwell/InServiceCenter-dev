@@ -42,14 +42,6 @@ function selectRequestType() {
 };
 
 
-
-
-/*
-$("#submit_form").click(function() {
-    alert("test");
-});
-*/
-
 $(document).ready(function() {
 
     // Ajax call to pass form to php
