@@ -68,8 +68,8 @@
                         <form name="subscribe" action="php/email_subscription/subscribe.php" method="post">
                             <input id="email_address" class="line_edit" type="email" name="email" placeholder="name@example.com" required>
                             <button id="subscribe_button" class="button" onclick="return validateEmail();">Subscribe</button>
-                            <button id="subscribe_cancel_button" class="button">Cancel</button><br><br>
-                            <button id="unsubscribe_button">Unsubscribe</button>
+                            <button id="subscribe_cancel_button" class="button" type="reset">Cancel</button><br><br>
+                            <button id="unsubscribe_button" class="link_button">Unsubscribe</button>
                         </form>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         <form name="unsubscribe" action="php/email_subscription/unsubscribe.php" method="post">
                             <input id="email_address" class="line_edit" type="email" name="email" placeholder="name@example.com" required>
                             <button id="unsubscribe_confirm_button" class="button">Unsubscribe</button>
-                            <button id="unsubscribe_cancel_button" class="button">Cancel</button><br><br>
+                            <button id="unsubscribe_cancel_button" class="button" type="reset">Cancel</button><br><br>
                         </form>
                     </div>
                 </div>
