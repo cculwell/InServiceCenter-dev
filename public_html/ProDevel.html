@@ -59,39 +59,55 @@
                 <p>OR</p>
                 <button id="subscribe_button" class="button">Subscribe to Our Newsletter</button>
 
-                <div id=subscribe_box>
+                <div id="subscribe_box">
                     <div class="subscribe_box_container">
                         <h3>Subscribe</h3>
                         <p>
                             If you would like to subscribe to our newsletter, enter your E-mail address below and click the "Subscribe" button.
                         </p>
-                        <form name="subscribe" action="php/email_subscription/subscribe.php" method="post">
-                            <input id="email_address" class="line_edit" type="email" name="email" placeholder="name@example.com" required>
-                            <button id="subscribe_button" class="button" onclick="return validateEmail();">Subscribe</button>
-                            <button id="subscribe_cancel_button" class="button" type="reset">Cancel</button><br><br>
-                            <button id="unsubscribe_button" class="link_button">Unsubscribe</button>
-                        </form>
+                        <input id="subscribe_email_address" class="line_edit" type="email" name="subscribe_email" placeholder="name@example.com" required>
+                        <button id="subscribe_confirm_button" class="button">Subscribe</button>
+                        <button id="subscribe_cancel_button" class="button">Cancel</button><br><br>
+                        <button id="unsubscribe_button" class="link_button">Unsubscribe</button>
                     </div>
                 </div>
 
-                <div id=unsubscribe_box>
+                <div id="unsubscribe_box">
                     <div class="unsubscribe_box_container">
                         <h3>Unsubscribe</h3>
                         <p>
                             We're sorry to see you go. To unsubscribe, enter you E-mail address below and 
                            click "Unsubscribe."
                         </p>
-                        <form name="unsubscribe" action="php/email_subscription/unsubscribe.php" method="post">
-                            <input id="email_address" class="line_edit" type="email" name="email" placeholder="name@example.com" required>
-                            <button id="unsubscribe_confirm_button" class="button">Unsubscribe</button>
-                            <button id="unsubscribe_cancel_button" class="button" type="reset">Cancel</button><br><br>
-                        </form>
+                        <input id="unsubscribe_email_address" class="line_edit" type="email" name="unsubscribe_email" placeholder="name@example.com" required>
+                        <button id="unsubscribe_confirm_button" class="button">Unsubscribe</button>
+                        <button id="unsubscribe_cancel_button" class="button">Cancel</button><br><br>
+                    </div>
+                </div>
+
+                <div id="success_box">
+                    <div class="success_box_container">
+                        <h3>Success!</h3>
+                        <img src="img/success.png">
+                        <p id="success_text" class="status_text">""</p><br><br> <!--Test gets replaced with message -->
+                        <button id="ok_success" class="button">OK</button>
+                    </div>
+                </div>
+
+                <div id="error_box">
+                    <div class="error_box_container">
+                        <h3>We're Sorry...</h3>
+                        <img src="img/failure.png">
+                        <p id="error_text" class="status_text">""</p><br><br> <!--Test gets replaced with message -->
+                        <button id="ok_error" class="button">OK</button>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
-    <script type="text/javascript" src=js/subscribe_box.js></script>
+    <script src="../resources/library/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src=js/SubscribeBox.js></script>
+    <script type="text/javascript" src=js/EmailSubmit.js></script>
 
 </body>
