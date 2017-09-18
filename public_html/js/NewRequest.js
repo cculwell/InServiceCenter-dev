@@ -56,7 +56,7 @@ $(document).ready(function() {
     $('#submitRequest').click(function() {
         var form = $('form');
         //var formData = new FormData(document.querySelector('#RequestForm'));
-        var url = "php/test.php"; // the script where you handle the form input.
+        var url = "php/add_request.php"; // the script where you handle the form input.
         //var test_data = { foo: [], bar: [ 'baz' ] };
         var form_data =form.serialize();
         //alert(form_data);
