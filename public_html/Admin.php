@@ -56,9 +56,33 @@
             <?php
                 $newsletters = get_all_rows('newsletters');
                 $bylaws = get_all_rows('bylaws');
+                $subscribers = get_all_rows('subscribers');
                 $newsletter_table = "";
                 $bylaw_table = "";
+                $subscribers_table = "";
             ?>     
+
+            <div class="table_container">
+                <label>Current Subscribers</label>
+                <table> 
+                    <thread>
+                        <tr> 
+                            <th>Subscriber E-mail</th> 
+                            <th></th>
+                        </tr>
+                    </thread>
+                    <tbody>
+                        <?php
+                            foreach($subscribers as $row) {
+                                $delete = '<a href="php/email_subscription/delete_subscriber.php?id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete this subscriber?\');" title="Delete Subscriber"><img src="img/db_table_icons/delete.png" alt="delete"/></a>';
+
+                                $subscribers_table.= "<tr><td>" . $row['email'] . "</td><td>" . $delete . "</td></tr>\n"; 
+                            }
+                            echo $subscribers_table;
+                        ?>
+                    </tbody>
+                </table>
+            </div>
 
             <div class="table_container">
                 <label>Currently Available Newsletters</label>
@@ -73,8 +97,8 @@
                     <tbody>
                         <?php
                             foreach($newsletters as $row) {
-                                $delete = '<a href="php/delete.php?table=newsletters&id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete this newsletter?\');" title="Delete Newsletter"><img src="img/db_table_icons/delete.png" alt="delete"/></a>';
-                                $set_current = '<a href="php/set_current_file.php?table=newsletters&id='.$row['id'].'" title="Select Current Newsletter"><img src="img/db_table_icons/add.png" alt="Set Current Newsletter"/></a>';
+                                $delete = '<a href="php/admin/delete_file.php?table=newsletters&id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete this newsletter?\');" title="Delete Newsletter"><img src="img/db_table_icons/delete.png" alt="delete"/></a>';
+                                $set_current = '<a href="php/admin/set_current_file.php?table=newsletters&id='.$row['id'].'" title="Select Current Newsletter"><img src="img/db_table_icons/add.png" alt="Set Current Newsletter"/></a>';
 
                                 if($row['current'] == "yes") {
                                     $current = '<img src="img/db_table_icons/accept.png" />';
@@ -83,14 +107,14 @@
                                     $current = '';
                                 }
 
-                                $newsletter_table.= "</td><td>" . $row['name'] . "</td><td>" . $current . "</td><td>" . $delete . "    " . $set_current . "</td></tr>\n"; 
+                                $newsletter_table.= "<tr><td>" . $row['name'] . "</td><td>" . $current . "</td><td>" . $delete . "    " . $set_current . "</td></tr>\n"; 
                             }
                             echo $newsletter_table;
                         ?>
                     </tbody>
                 </table>
                 <label>Load a new newsletter:</label>
-                <form action="php/upload_file.php?table=newsletters&type=newsletter_to_upload&dir=Newsletter" method="post" enctype="multipart/form-data">
+                <form action="php/admin/upload_file.php?table=newsletters&type=newsletter_to_upload&dir=Newsletters" method="post" enctype="multipart/form-data">
                     <input type="file" name="newsletter_to_upload" id="newsletter_to_upload">
                     <input type="submit" name="submit" value="Submit">
                 </form>
@@ -109,8 +133,8 @@
                     <tbody>
                         <?php
                             foreach($bylaws as $row) {
-                                $delete = '<a href="php/delete.php?table=bylaws&id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete this bylaw?\');" title="Delete Bylaw"><img src="img/db_table_icons/delete.png" alt="delete"/></a>';
-                                $set_current = '<a href="php/set_current_file.php?table=bylaws&id='.$row['id'].'" title="Select Current Bylaws"><img src="img/db_table_icons/add.png" alt="Set Current Bylaws"/></a>';
+                                $delete = '<a href="php/admin/delete_file.php?table=bylaws&id='.$row['id'].'" onclick="return confirm(\'Are you sure you want to delete this bylaw?\');" title="Delete Bylaw"><img src="img/db_table_icons/delete.png" alt="delete"/></a>';
+                                $set_current = '<a href="php/admin/set_current_file.php?table=bylaws&id='.$row['id'].'" title="Select Current Bylaws"><img src="img/db_table_icons/add.png" alt="Set Current Bylaws"/></a>';
 
                                 if($row['current'] == "yes") {
                                     $current = '<img src="img/db_table_icons/accept.png" />';
@@ -119,14 +143,14 @@
                                     $current = '';
                                 }
 
-                                $bylaw_table.= "</td><td>" . $row['name'] . "</td><td>" . $current . "</td><td>" . $delete . "    " . $set_current . "</td></tr>\n"; 
+                                $bylaw_table.= "<tr><td>" . $row['name'] . "</td><td>" . $current . "</td><td>" . $delete . "    " . $set_current . "</td></tr>\n"; 
                             }
                             echo $bylaw_table;
                         ?>
                     </tbody>
                 </table>
                 <label>Load new bylaws:</label>
-	            <form  action="php/upload_file.php?table=bylaws&type=bylaws_to_upload&dir=Bylaws" method="post" enctype="multipart/form-data">
+	            <form  action="php/admin/upload_file.php?table=bylaws&type=bylaws_to_upload&dir=Bylaws" method="post" enctype="multipart/form-data">
 	                <input type="file" name="bylaws_to_upload" id="bylaws_to_upload">
 	                <input type="submit" name="submit" value="Submit">
 	            </form>
