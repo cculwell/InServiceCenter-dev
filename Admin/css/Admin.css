@@ -1,0 +1,159 @@
+#busy_box {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.busy_box_container img{
+    position:absolute;
+    left:43%; 
+    top:50%;
+}
+
+#results_box {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.results_box_container {
+    padding: 10px;
+    position: relative;
+    margin: 10% 30%;
+    width: 40%;
+    height: 40%;
+    background: lightgray;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: thin;
+}
+
+.results_box_container p {
+    overflow-wrap: normal;
+    height: 50%;
+    width: 100%;
+}
+
+.page_container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: lightgray;
+    display: table;
+}
+
+.content_container {
+    padding: 25px;
+    width: 50%;
+    display: table-cell;
+}
+
+.content_container label {
+    font-weight: bold;
+}
+
+.content_container p {
+    font-weight: bold;
+}
+
+/* form */
+form input.text {
+    width:95%; 
+    font-size:16px;
+    text-align: left;
+}
+
+form textarea {
+    width:95%; 
+    height:100%;
+    text-align: left;
+}
+
+/* table */
+table {
+    width:100%; 
+    text-align:right; 
+    border:rgb(128,128,128); 
+    font-size:15px; 
+    /*margin:5px 10px; */
+    color:#000;background:#fff;
+    overflow: scroll;
+}
+
+table th {
+    background-color: rgb(229, 229, 229); 
+    border:1px solid rgb(187, 187, 187); 
+    /*padding:3px 6px; */
+    font-weight:bold; 
+    color:#000;
+    text-align: center;
+}
+
+table td {
+    border: 1px solid rgb(221, 221, 221); 
+    padding:3px 6px;
+    text-align: center;
+}
+
+table tr {
+    border: 1px solid rgb(221, 221, 221); 
+    padding:3px 6px;
+    text-align: left;
+}
+
+table tr:hover {
+    background-color: rgb(240, 240, 240);
+    color:#000;
+} 
+
+/* a */
+a.large {
+    padding: 5px; 
+    color:#000; 
+    background:#eee; 
+    text-decoration:none; 
+    margin:5px;
+}
+
+a.large.right {
+    float:right;
+}
+
+a.large:hover, a.large.current {
+    background:#444; 
+    color:#fff;
+}
+
+/* messages */
+#message {
+    margin: 5px 10px; 
+    padding: 4px; display:block;
+    text-align:center;
+} 
+
+#message.error {
+    background:#FFEBE8;
+    border: 1px solid #CC0000;
+    color:#CC0000;
+}
+
+#message.success {
+    border:solid 1px #349534; 
+    background:#C9FFCA;
+    color:#008000;
+}
