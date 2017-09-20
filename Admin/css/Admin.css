@@ -82,15 +82,15 @@ form textarea {
     width:95%; 
     height:100%;
     text-align: left;
+    vertical-align: top;
+    align-content:center;
 }
 
-/* table */
 table {
     width:100%; 
     text-align:right; 
     border:rgb(128,128,128); 
     font-size:15px; 
-    /*margin:5px 10px; */
     color:#000;background:#fff;
     overflow: scroll;
 }
@@ -98,7 +98,6 @@ table {
 table th {
     background-color: rgb(229, 229, 229); 
     border:1px solid rgb(187, 187, 187); 
-    /*padding:3px 6px; */
     font-weight:bold; 
     color:#000;
     text-align: center;
@@ -121,7 +120,6 @@ table tr:hover {
     color:#000;
 } 
 
-/* a */
 a.large {
     padding: 5px; 
     color:#000; 
@@ -139,11 +137,8 @@ a.large:hover, a.large.current {
     color:#fff;
 }
 
-/* messages */
 #message {
-    margin: 5px 10px; 
     padding: 4px; display:block;
-    text-align:center;
 } 
 
 #message.error {
