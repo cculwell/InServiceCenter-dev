@@ -1,0 +1,11 @@
+.dataTable {
+    display:block;
+}
+.dataTable tr td {
+    height:20px;
+}
+
+.panel-body {
+    background:#dcdcdc;}
+
+.top-buffer { margin-top:20px; }
