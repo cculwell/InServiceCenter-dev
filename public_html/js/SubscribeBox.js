@@ -9,6 +9,7 @@ var unsubscribe_button = document.getElementById('unsubscribe_button');
 var ok_button_error = document.getElementById('ok_error');
 var ok_button_success = document.getElementById('ok_success');
 
+
 // When the user clicks on the subscribe button, open the subscribe box 
 subscribe_button.onclick = function() {
     subscribe_box.style.display = "block";
@@ -23,11 +24,15 @@ unsubscribe_button.onclick = function() {
 // When the user clicks the cancel button, exit the subscribe box
 subscribe_cancel_button.onclick = function() {
     subscribe_box.style.display = "none";
+    document.getElementById('subscribe_email_address').value = "";
+    document.getElementById('captcha').value = "";
 }
 
 // When the user clicks the cancel button, exit the subscribe box
 unsubscribe_cancel_button.onclick = function() {
     unsubscribe_box.style.display = "none";
+    document.getElementById('unsubscribe_email_address').value = "";
+    document.getElementById('unsubscribe_captcha').value = "";
 }
 
 // When the user clicks ok in the error box, close it

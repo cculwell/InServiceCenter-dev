@@ -1,7 +1,7 @@
 <?php
     require "../../../resources/config.php";
-    require "../../../resources/library/php/PHPMailer/src/PHPMailer.php";
-    require "../../../resources/library/php/PHPMailer/src/Exception.php";
+    require "../../../resources/library/PHPMailer/src/PHPMailer.php";
+    require "../../../resources/library/PHPMailer/src/Exception.php";
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
@@ -55,7 +55,7 @@
         $link->close();
     }
     else {
-        $display_block = "No one is subscribed for the newsletter."
+        $display_block = "No one is subscribed for the newsletter.";
     }
     echo $display_block;
 ?>

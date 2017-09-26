@@ -34,7 +34,7 @@
             fpassthru($fp);  
         }
         else {
-            echo "<script type='text/javascript'>alert('ERROR: There was a problem opening the current newsletter. The file might have been removed.')</script>";
+            echo "<script type='text/javascript'>alert('ERROR: There was a problem opening the current newsletter. The file might have been removed or no current one is selected.')</script>";
         }
  
     }

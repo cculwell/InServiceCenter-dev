@@ -7,6 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Professional Development Opportunities</title>
+
+        <!-- Captcha requirements -->
+        <script src="../resources/library/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../resources/library/realperson-2.0.1/jquery.realperson.css"> 
+        <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script> 
+        <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
+
         
         <link rel="stylesheet" href="css/foundation.min.css">
         <link rel="stylesheet" href="css/Common.css" />
@@ -66,6 +73,9 @@
                             If you would like to subscribe to our newsletter, enter your E-mail address below and click the "Subscribe" button.
                         </p>
                         <input id="subscribe_email_address" class="line_edit" type="email" name="subscribe_email" placeholder="name@example.com" required>
+                        <div class="captcha_container">
+                            <input  type="text" id="captcha" name="captcha"> <!-- Captcha -->
+                        </div>
                         <button id="subscribe_confirm_button" class="button">Subscribe</button>
                         <button id="subscribe_cancel_button" class="button">Cancel</button><br><br>
                         <button id="unsubscribe_button" class="link_button">Unsubscribe</button>
@@ -80,6 +90,9 @@
                            click "Unsubscribe."
                         </p>
                         <input id="unsubscribe_email_address" class="line_edit" type="email" name="unsubscribe_email" placeholder="name@example.com" required>
+                        <div class="captcha_container">
+                            <input type="text" id="unsubscribe_captcha" name="unsubscribe_captcha"> <!-- Captcha -->
+                        </div>
                         <button id="unsubscribe_confirm_button" class="button">Unsubscribe</button>
                         <button id="unsubscribe_cancel_button" class="button">Cancel</button><br><br>
                     </div>
@@ -106,8 +119,8 @@
             </div>
         </div>
     </div>
-    <script src="../resources/library/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src=js/SubscribeBox.js></script>
     <script type="text/javascript" src=js/EmailSubmit.js></script>
+    <script type="text/javascript" src=js/captcha.js></script>  
 
 </body>

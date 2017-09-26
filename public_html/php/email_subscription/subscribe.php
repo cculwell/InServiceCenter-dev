@@ -2,37 +2,47 @@
 	// Subscribe to the newsletter
 
     require "../../../resources/config.php";
+    require "../captcha/get_captcha_hash.php";
     
     $email = $_POST['email'];
+    $captcha_entered = $_POST['captcha_entered'];
+    $captcha_hash = $_POST['captcha_hash'];
+
 
     $db = $config['db']['admin_files'];
     $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
 
     if ($email != "") {
 
-        if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (rpHash($captcha_entered) == $captcha_hash) {
 
-            // Check if user is already subscribed
-            $check_query = "SELECT email FROM subscribers WHERE email='$email'";
-            $check_result = $link->query($check_query) or die("Error : ".mysqli_error($link)); 
+            if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-            if (mysqli_num_rows($check_result) == 0) {
-        	    $query = "INSERT INTO subscribers (email) VALUES ('$email')";
-        	    $result = $link->query($query) or die("Error : ".mysqli_error($link)); 
+                // Check if user is already subscribed
+                $check_query = "SELECT email FROM subscribers WHERE email='$email'";
+                $check_result = $link->query($check_query) or die("Error : ".mysqli_error($link)); 
 
-        	    if ($result) {
-        	    	echo "Successfully Subscribed!"; // Successfully subscribed
-        	    }
-        	    else {
-                    echo "There was a problem subscribing. Please try again or contact the administrator."; // Error entering email into database
-        	    }
+                if (mysqli_num_rows($check_result) == 0) {
+            	    $query = "INSERT INTO subscribers (email) VALUES ('$email')";
+            	    $result = $link->query($query) or die("Error : ".mysqli_error($link)); 
+
+            	    if ($result) {
+            	    	echo "Successfully Subscribed!"; // Successfully subscribed
+            	    }
+            	    else {
+                        echo "There was a problem subscribing. Please try again or contact the administrator."; // Error entering email into database
+            	    }
+                }
+                else {
+                    echo "The E-mail address provided is already being used."; // Already subscribed
+            	}
             }
             else {
-                echo "The E-mail address provided is already being used."; // Already subscribed
-        	}
+                echo "Please enter a valid E-mail adress."; // Email address is formatted incorrectly
+            }
         }
         else {
-            echo "Please enter a valid E-mail adress."; //Check that the email address is formatted correctly
+            echo "Captcha response is incorrect."; // Invalid user entered captcha
         }
     }
     else {
