@@ -41,26 +41,33 @@ if ($mysqli->connect_errno) {
     if (isset($_POST['request_id'])) {
         //echo "This var is set so I will print.";
         $request_id = $_POST['request_id'];
+        $sql  = "select ";
+        $sql .= "request_id, request_type, workflow_state, school, system ";
+        $sql .= "from requests where request_id = ";
+        $sql .= $request_id;
+
+        if ($result=mysqli_query($mysqli,$sql))
+        {
+            $row = mysqli_fetch_row($result);
+            // Free result set
+            mysqli_free_result($result);
+        }
+
+        $request_type = $row[1];
+        $workflow_state = $row[2];
+        $school = $row[3];
+        $system = $row[4];
+
     }
     else
     {
-        $request_id = 15;
+        $request_id = null;
+        $request_type = null;
+        $workflow_state = null;
+        $school = null;
+        $system = null;
+
     }
-
-
-
-    $sql  = "select ";
-    $sql .= "request_id, request_type, workflow_state, school, system ";
-    $sql .= "from requests where request_id = ";
-    $sql .= $request_id;
-
-    if ($result=mysqli_query($mysqli,$sql))
-    {
-        $row = mysqli_fetch_row($result);
-        // Free result set
-        mysqli_free_result($result);
-    }
-
     ?>
     <!-- Request Info -->
     <div class="panel panel-primary">
@@ -70,19 +77,19 @@ if ($mysqli->connect_errno) {
                 <div class="col-xs-12 col-xs-pull-3">
                     <label for="request_id">Request ID</label>
                     <input type="text" id="request_id" name="request_id" size="10"
-                           maxlength="50" value="<?php echo $row[0];?>">
+                           maxlength="50" value="<?php echo $request_id;?>">
 
                 </div>
                 <div class="row form-group" id="school_system_row">
                 <div class="col-xs-6">
                     <label for="request_type">Request Type</label>
                     <input type="text" id="request_type" name="request_type" size="20"
-                           maxlength="50" value="<?php echo $row[1];?>">
+                           maxlength="50" value="<?php echo $request_type;?>">
                 </div>
                 <div class="col-xs-6">
                     <label for="request_type">Worflow State</label>
                     <input type="text" id="workflow_state" name="workflow_state" size="20"
-                           maxlength="50" value="<?php echo $row[2];?>">
+                           maxlength="50" value="<?php echo $workflow_state;?>">
                 </div>
                 </div>
             </div>
@@ -91,12 +98,12 @@ if ($mysqli->connect_errno) {
                 <div class="col-xs-6 pull-left">
                     <label for="school">School</label>
                     <input type="text" id="school" name="school" size="25"
-                           maxlength="50" value="<?php echo $row[3];?>">
+                           maxlength="50" value="<?php echo $school;?>">
                 </div>
                 <div class="col-xs-6 pull-left">
                     <label for="system">System</label>
                     <input type="text" id="system" name="system" size="25"
-                           maxlength="50" value="<?php echo $row[4];?>">
+                           maxlength="50" value="<?php echo $system;?>">
                 </div>
             </div>
         </div>
