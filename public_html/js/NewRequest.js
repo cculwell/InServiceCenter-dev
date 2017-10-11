@@ -31,7 +31,7 @@ function selectRequestType() {
         $("#request_desc_row").hide();
         $("#book_title_row").show();
         $("#format_method_row").show();
-        $("#study_format_sec").show()
+        $("#study_format_sec").show();
         $("#eval_method_sec").hide();
         $("#company_panel").hide();
         $("#faciliator_panel").show();

@@ -23,7 +23,7 @@
  * @contact     www.datatables.net
  * @copyright   Copyright 2008-2017 SpryMedia Ltd.
  *
- * This source file is free software, available under the following license:
+ * This source ile is free software, available under the following license:
  *   MIT license - http://datatables.net/license
  *
  * This source file is distributed in the hope that it will be useful, but
