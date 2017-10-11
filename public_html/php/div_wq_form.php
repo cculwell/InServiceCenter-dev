@@ -101,23 +101,26 @@ if ($mysqli->connect_errno) {
                                 $(document).ready(function(){
                                     $('#workflow_state').change(function(e){
                                         $this = $(e.target);
-                                        console.log("workflow_state change made");
-
-//                                        $.ajax({
-//                                            type: "POST",
-//                                            url:  "workqueue.php", // Don't know asp/asp.net at all so you will have to do this bit
-//                                            data: { trigger_name: "workflow_state_change",
-//                                                request_id: request_id
-//
-//                                            },
-//                                            success:function(data){
-//                                                //$('#stateBoxHook').html(data);
-//                                                alert("workflow change successful");
-//                                            },
-//                                            error:function(data){
+                                        $request_id = $('#request_id')[0].value;
+//                                        console.log($request_id);
+                                        $.ajax({
+                                            type: "POST",
+                                            url:  "php/workqueue.php", // Don't know asp/asp.net at all so you will have to do this bit
+                                            data: { trigger_name: "workflow_state_change",
+                                                request_id: $request_id,
+                                                workflow_state: $("#workflow_state option:selected").text()
+                                            },
+                                            dataType: "JSON",
+                                            success: function(data){
+                                                //$('#stateBoxHook').html(data);
+//                                                console.log("SUCCESS:" . data);
+                                                alert(data);
+                                            },
+                                            error: function(data){
+//                                                console.log("ERROR" . data);
 //                                                alert("workflow change error");
-//                                            }
-//                                        });
+                                            }
+                                        });
                                     });
 
                                 });
