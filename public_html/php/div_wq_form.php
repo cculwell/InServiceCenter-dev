@@ -52,7 +52,7 @@ if ($mysqli->connect_errno) {
 <!--        <div class="panel-heading">Request Information</div>-->
 <!--        <div class="panel-body">-->
             <div class="row form-group" id="request_info">
-                <div class="col-xs-12 col-xs-pull-4">
+                <div class="col-xs-12 col-xs-pull-3">
                     <label for="request_id">Request ID:     </label>
 <!--                    <label id="request_id">--><?php //echo $request_id;?><!--</label>-->
                     <input type="text" id="request_id" name="request_id" size="20"
@@ -65,9 +65,9 @@ if ($mysqli->connect_errno) {
                     <div class="col-xs-6 form-group">
                         <label class="col-xs-6 control-label" for="request_type">Request Type:</label>
 
-                        <div class="col-xs-6 col-xs-pull-1">
+                        <div class="col-xs-6 col-xs-pull-1" size="5">
                             <select id="request_type" class="form-control">
-                                <option <?php if($request_type == 'General') echo"selected";?> value="General">General Request</option>
+                                <option <?php if($request_type == 'General') echo"selected";?> value="General">General</option>
                                 <option <?php if($request_type == 'BookStudy') echo"selected";?> value="BookStudy">Book Study</option>
                             </select>
 
@@ -102,23 +102,32 @@ if ($mysqli->connect_errno) {
                                     $('#workflow_state').change(function(e){
                                         $this = $(e.target);
                                         $request_id = $('#request_id')[0].value;
+
 //                                        console.log($request_id);
                                         $.ajax({
                                             type: "POST",
                                             url:  "php/workqueue.php", // Don't know asp/asp.net at all so you will have to do this bit
                                             data: { trigger_name: "workflow_state_change",
                                                 request_id: $request_id,
-                                                workflow_state: $("#workflow_state option:selected").text()
+                                                workflow_state: $this.val()
+//                                                workflow_state: $("#workflow_state option:selected").text()
                                             },
-                                            dataType: "JSON",
+                                            dataType: "html",
                                             success: function(data){
-                                                //$('#stateBoxHook').html(data);
-//                                                console.log("SUCCESS:" . data);
-                                                alert(data);
+//                                                $('#debug').html("success");
+                                                console.log("success:");
+                                                console.log(data);
+                                                $("#div_wq_tables").load( 'php/div_wq_tables.php' );
+
+//                                                alert(data);
                                             },
                                             error: function(data){
-//                                                console.log("ERROR" . data);
-//                                                alert("workflow change error");
+//                                                $('#debug').html("error");
+                                                console.log("success:");
+//                                                console.log(data);
+                                            },
+                                            complete: function (data) {
+//                                                $("#tabs").tabs({ active: 1 });
                                             }
                                         });
                                     });
@@ -161,7 +170,45 @@ if ($mysqli->connect_errno) {
                 <li><a href="#sti-pd">STI-PD</a></li>
             </ul>
 
-            <div id="program_info">Program Info Goes Here</div>
+            <div id="program_info">
+                <!-- Request Description -->
+                <div class="row form-group" id="request_desc_row">
+                    <div class="col-xs-12">
+                        <label class="col-md-push-12 pull-left">Request Description</label>
+                        <textarea class="form-control col-md-6" style="width:100%" rows="3"
+                                  id="request_desc" name="request_desc"></textarea>
+                    </div>
+                </div>
+                <!-- Request Justification -->
+                <div class="row form-group" id="request_just_row">
+                    <div class="col-xs-12">
+                        <label class="col-md-push-12 pull-left">Need / Justification</label>
+                        <textarea class="form-control col-md-6" style="width:100%" rows="3"
+                                  id="request_just" name="request_just"></textarea>
+                    </div>
+                </div>
+                <!-- Location and Targets -->
+                <div class="row form-group" id="location_participants_row">
+
+                    <div class="form-group col-xs-4" id="location_sec">
+                        <label for="study_format">Request Location</label>
+                        <input type="text"  id="request_location" name="request_location" maxlength="100">
+                    </div>
+
+                    <div class="form-group col-xs-4" id="target_part_sec">
+                        <label for="eval_method">Target Participants #</label>
+                        <input type="text"  id="target_participants" name="target_participants" maxlength="50">
+                    </div>
+
+                    <div class="form-group col-xs-4">
+                        <label for="total_cost">Enrolled Participants #</label>
+                        <input type="text"  id="enrolled_participants" name="enrolled_participants" maxlength="25">
+                    </div>
+                </div>
+
+
+
+            </div>
             <div id="contacts">
                 <table id="tbl_contacts" class="display table-responsive" cellspacing="0" width="100%">
                     <thead>
@@ -233,6 +280,7 @@ if ($mysqli->connect_errno) {
             </div>
             <div id="program_exp">Program Exp Goes Here</div>
             <div id="consultant_exp">Consultant Exp Goes Here</div>
+            <div id="reports">Reports Goes Here</div>
             <div id="eval_comments">Eval Comments Goes Here</div>
             <div id="sti-pd">STI-PD Goes Here</div>
 
