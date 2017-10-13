@@ -512,7 +512,17 @@ if ($mysqli->connect_errno) {
     </div>
 </div>
 <script>
-    $("#tabs").tabs();
+//    $("#tabs").tabs();
+    $("#tabs").tabs({
+        activate: function(event, ui) {
+//            alert("test");
+//            console.log(ui.newPanel.selected);
+//            $(ui.newPanel.selected).refresh();
+//            if (ui.newPanel.selector == "#tab_under_review") {
+//                alert("tab tab_under_review");
+//            }
+        }
+    });
 </script>
 </html>
 

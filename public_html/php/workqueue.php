@@ -13,7 +13,7 @@ if ($mysqli->connect_errno) {
     exit();
 }
 
-
+$trigger = $_POST['trigger_name'];
 $request_id = $_POST['request_id'];
 $workflow_state = $_POST['workflow_state'];
 
@@ -39,7 +39,8 @@ function workflow_state_change($mysqli,$request_id, $workflow_state) {
 
 }
 
-
-workflow_state_change($mysqli,$request_id,$workflow_state);
+if($_POST['trigger_name']=="workflow_state_change"){
+    workflow_state_change($mysqli,$request_id,$workflow_state);
+}
 
 ?>
