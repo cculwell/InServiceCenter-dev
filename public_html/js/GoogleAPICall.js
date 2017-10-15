@@ -3,6 +3,7 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/
 var SCOPES = "https://www.googleapis.com/auth/calendar";
 var login_vari = document.getElementById("sign-in");
 var logout_vari = document.getElementById("log-out");
+var private_CalID ="9l70eg2m80ab0f8o19shd3nt70@group.calendar.google.com";
 //Start of Authentication====================================================
 function sign_in()
 {
@@ -97,6 +98,8 @@ $('#get-list-btn').click(function(){
 $(document).ready(function() {
     $("#create-event").click(function () {
         var room = $("#in_room").val();
+        var title=$("#private-title").val();
+        var description=$("#description").val();
         var date = $("#start-date").val();
         var dateArray = date.split('/');
         var startAMPM = $('#start-AM-PM').val();
@@ -110,6 +113,7 @@ $(document).ready(function() {
         var endAMPM = $('#end-AM-PM').val();
         var endHour = $('#end-hour').val();
         if(endHour.length ===1) endHour = "0" + endHour;
+        var end_12=endHour;
         var endMinute = $('#end-minute').val();
         endHour = checkAM_PM(endAMPM, endHour);
         var endTime = 'T' + endHour + ':' + endMinute + ':00-05:00';
@@ -117,7 +121,7 @@ $(document).ready(function() {
         var event = {
             'summary': room + ': busy',
             'location': 'Athens, AL',
-            'description': room + ' is reserved until :' + endHour +":"+ endMinute + endAMPM,
+            'description': room + ' is reserved until ' + end_12 +":"+ endMinute + endAMPM,
             'start': {
                 'dateTime': dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1] + startTime
 
@@ -126,14 +130,34 @@ $(document).ready(function() {
                 'dateTime': dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1] + endTime
             }
         };
+
         var CalendarID = getID(room);
         var request = gapi.client.calendar.events.insert({
             'calendarId': CalendarID,
             'resource': event
         });
-
         request.execute(function(event) {
-            console.log("Success");
+            console.log("Public Success");
+        });
+
+        var private_event={
+            'summary': room +" " + title,
+            'location': 'Athens, AL',
+            'description': description,
+            'start': {
+                'dateTime': dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1] + startTime
+
+            },
+             'end': {
+                 'dateTime': dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1] + endTime
+            }
+        };
+         var private_request = gapi.client.calendar.events.insert({
+            'calendarId': private_CalID,
+            'resource': private_event
+        });
+        private_request.execute(function(event) {
+            console.log("Private Success");
         });
     });
 
