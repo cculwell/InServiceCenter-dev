@@ -30,6 +30,22 @@
     display: block;
 }
 
+.mobile_information
+{
+	display: none;
+	margin: auto;    
+    text-align: center;
+    background-color: #eee;
+    padding-top:9%;
+	padding-bottom:1%;
+}
+
+@media screen and (max-width: 1100px){
+	.information{display: none;}
+	.footer{display: none;}
+	.mobile_information{display: block;}
+}
+
 #mobile{
 	display: none;
     width: 90%;
