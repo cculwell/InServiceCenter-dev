@@ -25,6 +25,7 @@ function selectRequestType() {
         $("#eval_method_sec").show();
         $("#company_panel").show();
         $("#faciliator_panel").hide();
+        $("#cost_per_book_div").hide();
     }
     else if (document.getElementById('BookStudy').checked) {
         $("#school_system_row").show();
@@ -35,6 +36,7 @@ function selectRequestType() {
         $("#eval_method_sec").hide();
         $("#company_panel").hide();
         $("#faciliator_panel").show();
+        $("#cost_per_book_div").show();
     }
     else{
         // do nothing at the moment
@@ -73,6 +75,7 @@ $(document).ready(function() {
     });
 
     $('.datepicker').datepicker();
+    $('.timepicker').timepicker();
 
 });
 
@@ -84,13 +87,17 @@ $(document).ready(function(){
     $("#add_date_row").click(function(){
         $('#addr'+i).html("<td>"+ (i+1) + "</td>" +
             "<td><input  name='date"+i+"'  type='text' placeholder='MM/DD/YYYY'   class='form-control input-md datepicker'/></td>"+
-            "<td><input  name='sTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md'></td>" +
-            "<td><input  name='eTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md'></td>");
+            "<td><input  name='sTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md timepicker'></td>" +
+            "<td><input  name='eTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md timepicker'></td>" +
+            "<td><input  name='bTime"+i+"' type='number' placeholder='' class='form-control input-md'></td>" //+
+            // "<td><input  name='note"+i+"' type='text' placeholder=''  class='form-control input-md'></td>"
+        );
 
         $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
         i++;
 
         $('.datepicker').datepicker();
+        $('.timepicker').timepicker();
     });
 
     $("#delete_date_row").click(function(){

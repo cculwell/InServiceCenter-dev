@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
     <link rel="stylesheet" href="css/NewRequest.css">
 
     <script src="../resources/library/jquery-3.2.1.min.js"></script>
     <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
     <script src="js/NewRequest.js"></script>
 
 
@@ -128,10 +130,10 @@
                                     <input type="text"  id="isbn" name="isbn" size="35" maxlength="25">
                                 </div>
                                 <div class="col-md-4"> </div>
-                                <div class="form-group col-md-4 pull-left  ">
-                                    <label for="cost_per_book">Cost per Book</label>
-                                    <input type="text"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25">
-                                </div>
+                                <!--<div class="form-group col-md-4 pull-left  ">-->
+                                    <!--<label for="cost_per_book">Cost per Book</label>-->
+                                    <!--<input type="text"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25">-->
+                                <!--</div>-->
 
                             </div>
 
@@ -151,15 +153,18 @@
                                 <div class="form-group col-md-4">
                                     <div class="input-group input-group-md">
                                         <label for="total_cost">Amount Requested / Total Cost</label>
-                                        <!--span class="input-group-addon">$</span> -->
                                         <input type="text"  id="total_cost" name="total_cost" size="35" maxlength="25">
-                                        <!--span class="input-group-addon">.00</span> -->
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="total_hours">Total Hours</label>
-                                    <input type="text"  id="total_hours" name="total_hours" size="35" maxlength="25">
+
+                                <div class="form-group col-md-4" id="cost_per_book_div">
+                                    <label for="cost_per_book">Cost per Book</label>
+                                    <input type="text"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25">
                                 </div>
+                                <!--<div class="form-group col-md-4">-->
+                                    <!--<label for="total_hours">Total Hours</label>-->
+                                    <!--<input type="text"  id="total_hours" name="total_hours" size="35" maxlength="25">-->
+                                <!--</div>-->
                             </div>
 
                         <!-- Request Justification -->
@@ -207,14 +212,29 @@
                                                 <th class="text-center">Date</th>
                                                 <th class="text-center">Start Time</th>
                                                 <th class="text-center">End Time</th>
+                                                <th class="text-center">Break Time (Hours)</th>
+                                                <!--<th class="text-center">Hours</th>-->
+
                                             </tr>
                                             </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <!--<th></th>-->
+                                            </tr>
+                                            </tfoot>
                                             <tbody>
                                             <tr id='addr0'>
                                                 <td>1</td>
                                                 <td><input type="text" name='date0'  placeholder='MM/DD/YYYY' class="form-control datepicker"/></td>
-                                                <td><input type="text" name='sTime0' placeholder='00:00 AM/PM' class="form-control"/></td>
-                                                <td><input type="text" name='eTime0' placeholder='00:00 AM/PM' class="form-control"/></td>
+                                                <td><input type="text" name='sTime0' placeholder='00:00 AM/PM' class="form-control timepicker"/></td>
+                                                <td><input type="text" name='eTime0' placeholder='00:00 AM/PM' class="form-control timepicker"/></td>
+                                                <td><input type="number" name='bTime0' placeholder='' class="form-control"/></td>
+                                                <!--<td><input type="number" name='hours' placeholder='' class="form-control"/></td>-->
                                             </tr>
                                             <tr id='addr1'></tr>
                                             </tbody>
