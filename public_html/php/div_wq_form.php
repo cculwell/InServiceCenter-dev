@@ -200,16 +200,16 @@ if ($mysqli->connect_errno) {
 
         <div id="wq_detail_tabs">
             <ul id="wq_details_tabs_ul">
-                <li><a href="#program_info">Program Info</a></li>
+                <li><a href="#request_info">Request Info</a></li>
                 <li><a href="#contacts">Contacts</a></li>
                 <li><a href="#program_exp">Program Expenses</a></li>
                 <li><a href="#consultant_exp">Consultant Expense</a></li>
                 <li><a href="#reports">Reports</a></li>
-                <li><a href="#eval_comments">Evaluation Comments</a></li>
+                <li><a href="#eval_comments">Comments</a></li>
                 <li><a href="#sti-pd">STI-PD</a></li>
             </ul>
 
-            <div id="program_info">
+            <div id="request_info">
                 <!-- Request Description -->
                 <div class="row form-group" id="request_desc_row">
                     <div class="col-xs-12">
@@ -226,11 +226,9 @@ if ($mysqli->connect_errno) {
                                   id="request_just" name="request_just"></textarea>
                     </div>
                 </div>
+
                 <!-- Location and Targets -->
                 <div class="row form-group" id="location_participants_row">
-
-
-
                     <div class="form-group col-xs-4" id="target_part_sec">
                         <label for="eval_method">Target Participants #</label>
                         <input type="text"  id="target_participants" name="target_participants" maxlength="50">
@@ -247,9 +245,168 @@ if ($mysqli->connect_errno) {
                     </div>
                 </div>
 
+                <!-- Method of Eval or Format of Study -->
+                <div class="row form-group" id="format_method_row">
+
+                    <div class="form-group col-xs-4 " id="study_format_sec">
+                        <label for="study_format">Study Format</label>
+                        <input type="text"  id="study_format" name="study_format" maxlength="100">
+                    </div>
+
+                    <div class="form-group col-xs-4" id="eval_method_sec">
+                        <label for="eval_method">Evaluation Method</label>
+                        <input type="text"  id="eval_method" name="eval_method" maxlength="50">
+                    </div>
+
+                    <div class="form-group col-xs-4">
+                        <div class="input-group input-group-md">
+                            <label for="total_cost">Amt. Requested / Total Cost</label>
+                            <!--span class="input-group-addon">$</span> -->
+                            <input type="text"  id="total_cost" name="total_cost" maxlength="25">
+                            <!--span class="input-group-addon">.00</span> -->
+                        </div>
+                    </div>
+<!--                    <div class="form-group col-xs-4">-->
+<!--                        <label for="total_hours">Total Hours</label>-->
+<!--                        <input type="text"  id="total_hours" name="total_hours" maxlength="25">-->
+<!--                    </div>-->
+                </div>
+
+                <!-- Location and Targets -->
+                <div class="row form-group" id="location_participants_row">
+                    <div class="form-group col-xs-12" id="location_sec">
+                        <label for="study_format">Location:</label>
+                        <input type="text"  id="request_location" name="request_location" size="80" maxlength="100">
+                    </div>
+                </div>
+
+                <!-- Date / Times-->
+                <div id="date_time_div" class="form-group row">
+                    <table id="tbl_date_times" class="display table-responsive" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Breaks</th>
+                            <th>Hours</th>
+                            <th>Notes</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <?PHP
+
+                        $sql_dates_times  = "select ";
+                        $sql_dates_times .= "request_dt_id, request_date, request_start_time, request_end_time, ";
+                        $sql_dates_times .= "request_break_time, ";
+                        $sql_dates_times .= "round(TIME_TO_SEC(timediff(request_end_time, request_start_time))/3600 - request_break_time, 2) as total_hours, ";
+                        $sql_dates_times .= "request_dt_note ";
+                        $sql_dates_times .= "from date_times where request_id =";
+                        $sql_dates_times .= $request_id;
+                        $sql_dates_times .= " order by request_date, request_start_time";
+
+                        if ($result_contacts=mysqli_query($mysqli,$sql_dates_times))
+                        {
+                            // Fetch one and one row
+                            while ($row=mysqli_fetch_row($result_contacts))
+                            {
+                                echo
+                                    "<tr>"
+                                    ."<td>".$row[0] ."</td>"
+                                    ."<td>".$row[1] ."</td>"
+                                    ."<td>".$row[2] ."</td>"
+                                    ."<td>".$row[3] ."</td>"
+                                    ."<td>".$row[4] ."</td>"
+                                    ."<td>".$row[5] ."</td>"
+                                    ."<td>".$row[6] ."</td>"
+                                    ."</tr>";
+                            }
+                            // Free result set
+                            mysqli_free_result($result_contacts);
+                        }
+
+                        //      mysqli_close($mysqli);
+
+                        ?>
+                        </tbody>
+                    </table>
+                    <script>
+                        var date_time = $('#tbl_date_times').DataTable({
+                            "footerCallback": function ( row, data, start, end, display ) {
+                                var api = this.api(), data;
+
+                                // Remove the formatting to get integer data for summation
+                                var intVal = function ( i ) {
+                                    return typeof i === 'string' ?
+                                        i.replace(/[\$,]/g, '')*1 :
+                                        typeof i === 'number' ?
+                                            i : 0;
+                                };
+
+                                // Total over all pages
+                                total = api
+                                    .column( 5 )
+                                    .data()
+                                    .reduce( function (a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0 );
+
+                                // Total over this page
+                                pageTotal = api
+                                    .column( 5, { page: 'current'} )
+                                    .data()
+                                    .reduce( function (a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0 );
+
+                                // Update footer
+                                $( api.column( 5 ).footer() ).html(
+                                    //pageTotal +' ( '+ total +' total)'
+                                    'Total: ' + pageTotal
+                                );
+                            },
+                            select: {
+                                style:      'single'
+                            },
+                            ordering: false,
+                            info:     false,
+                            searching: false,
+                            paging:   false,
+                            columnDefs: [
+                                {
+                                    "targets": [ 0 ],
+                                    "visible": false,
+                                    "searchable": false
+                                },
+                                { "width": "15%", "targets": 1},
+                                { "width": "15%", "targets": 2},
+                                { "width": "15%", "targets": 3},
+                                { "width": "10%", "targets": 4},
+                                { "width": "15%", "targets": 5},
+                                { "width": "30%", "targets": 6}
+                            ]
+
+                        });
+                    </script>
 
 
+
+                </div>
             </div>
+
+
             <div id="contacts">
                 <table id="tbl_contacts" class="display table-responsive" cellspacing="0" width="100%">
                     <thead>
@@ -307,7 +464,7 @@ if ($mysqli->connect_errno) {
                 <script>
                     var contacts = $('#tbl_contacts').DataTable({
                         select: {
-                            style:          'compact'
+                            style:          'single'
                         },
                         columnDefs: [
                             {
