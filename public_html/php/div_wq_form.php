@@ -55,6 +55,7 @@ if ($mysqli->connect_errno) {
         $sql .= ", w.room_res_needed ";
         $sql .= ", w.sti_title_nbr ";
         $sql .= ", w.folder_completed ";
+        $sql .= ", r.request_location ";
         $sql .= " from requests r ";
         $sql .= " left join workshops w ";
         $sql .= "   on r.request_id = w.request_id ";
@@ -81,7 +82,15 @@ if ($mysqli->connect_errno) {
         $system = $row[4];
         $program_nbr = $row[21];
         $workshop = null;
-
+        $request_desc = $row[5];
+        $request_just = $row[6];
+        $target_participants = $row[7];
+        $enrolled_participants = $row[8];
+        $actual_participants = $row[26];
+        $study_format = $row[18];
+        $eval_method = $row[11];
+        $total_cost = $row[10];
+        $request_location = $row[34];
     }
     else
     {
@@ -91,7 +100,16 @@ if ($mysqli->connect_errno) {
         $school = null;
         $system = null;
         $program_nbr = null;
-        $workshop = null;
+        $workshop = "Yes";
+        $request_desc = null;
+        $request_just = null;
+        $target_participants = null;
+        $enrolled_participants = null;
+        $actual_participants = null;
+        $study_format = null;
+        $eval_method = null;
+        $total_cost = null;
+        $request_location = null;
     }
     ?>
     <!-- Request Info -->
@@ -113,7 +131,7 @@ if ($mysqli->connect_errno) {
                 <div class="col-xs-4 col-xs-pull-1">
                     <label for="workshop">Workshop:</label>
                     <input type="checkbox" id="workshop" name="workshop" size="5000"
-                           value="<?php echo $workshop;?>">
+                        value="1">
                 </div>
 
 
@@ -215,7 +233,7 @@ if ($mysqli->connect_errno) {
                     <div class="col-xs-12">
                         <label class="col-md-push-12 pull-left">Request Description</label>
                         <textarea class="form-control col-md-6" style="width:100%" rows="3"
-                                  id="request_desc" name="request_desc"></textarea>
+                                  id="request_desc" name="request_desc"><?php echo $request_desc;?></textarea>
                     </div>
                 </div>
                 <!-- Request Justification -->
@@ -223,7 +241,7 @@ if ($mysqli->connect_errno) {
                     <div class="col-xs-12">
                         <label class="col-md-push-12 pull-left">Need / Justification</label>
                         <textarea class="form-control col-md-6" style="width:100%" rows="3"
-                                  id="request_just" name="request_just"></textarea>
+                                  id="request_just" name="request_just"><?php echo $request_desc;?></textarea>
                     </div>
                 </div>
 
@@ -231,17 +249,20 @@ if ($mysqli->connect_errno) {
                 <div class="row form-group" id="location_participants_row">
                     <div class="form-group col-xs-4" id="target_part_sec">
                         <label for="eval_method">Target Participants #</label>
-                        <input type="text"  id="target_participants" name="target_participants" maxlength="50">
+                        <input type="text"  id="target_participants" name="target_participants"
+                               maxlength="50" value="<?php echo $target_participants;?>">
                     </div>
 
                     <div class="form-group col-xs-4">
                         <label for="total_cost">Enrolled Participants #</label>
-                        <input type="text"  id="enrolled_participants" name="enrolled_participants" maxlength="25">
+                        <input type="text"  id="enrolled_participants" name="enrolled_participants"
+                               maxlength="25" value="<?php echo $enrolled_participants;?>">
                     </div>
 
                     <div class="form-group col-xs-4">
                         <label for="total_cost">Actual Participants #</label>
-                        <input type="text"  id="actual_participants" name="actual_participants" maxlength="25">
+                        <input type="text"  id="actual_participants" name="actual_participants"
+                               maxlength="25" value="<?php echo $actual_participants;?>">
                     </div>
                 </div>
 
@@ -250,20 +271,21 @@ if ($mysqli->connect_errno) {
 
                     <div class="form-group col-xs-4 " id="study_format_sec">
                         <label for="study_format">Study Format</label>
-                        <input type="text"  id="study_format" name="study_format" maxlength="100">
+                        <input type="text"  id="study_format" name="study_format"
+                               maxlength="100" value="<?php echo $study_format;?>">
                     </div>
 
                     <div class="form-group col-xs-4" id="eval_method_sec">
                         <label for="eval_method">Evaluation Method</label>
-                        <input type="text"  id="eval_method" name="eval_method" maxlength="50">
+                        <input type="text"  id="eval_method" name="eval_method"
+                               maxlength="50" value="<?php echo $eval_method;?>">
                     </div>
 
                     <div class="form-group col-xs-4">
-                        <div class="input-group input-group-md">
+                        <div class="input-group input-group-xs">
                             <label for="total_cost">Amt. Requested / Total Cost</label>
-                            <!--span class="input-group-addon">$</span> -->
-                            <input type="text"  id="total_cost" name="total_cost" maxlength="25">
-                            <!--span class="input-group-addon">.00</span> -->
+                            <input type="text"  id="total_cost" name="total_cost"
+                                   maxlength="25" value="<?php echo $total_cost;?>">
                         </div>
                     </div>
 <!--                    <div class="form-group col-xs-4">-->
@@ -273,10 +295,11 @@ if ($mysqli->connect_errno) {
                 </div>
 
                 <!-- Location and Targets -->
-                <div class="row form-group" id="location_participants_row">
+                <div class="row input-group" id="location_participants_row">
                     <div class="form-group col-xs-12" id="location_sec">
                         <label for="study_format">Location:</label>
-                        <input type="text"  id="request_location" name="request_location" size="80" maxlength="100">
+                        <input type="text"  id="request_location" name="request_location" size="75"
+                               maxlength="100" value="<?php echo $request_location;?>">
                     </div>
                 </div>
 
