@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    var success = $('#Show_Success');
+    if(success.is(":visible"))
+        success.hide();
+
+
     var index = 1;
     $('.datepicker').datepicker();
     $('.timepicker').timepicker({'minTime': '7:30am',
@@ -15,7 +20,9 @@ $(document).ready(function () {
 
         );
         $('.datepicker').datepicker();
-        $('.timepicker').timepicker({ 'scrollDefault': 'now' });
+        $('.timepicker').timepicker({'minTime': '7:30am',
+            'maxTime': '11:30pm'
+        });
         index+=1;
         $('#table_body').append("<tr id='add_row"+index+"'></tr>");
     });
@@ -34,7 +41,7 @@ $(document).ready(function () {
     });
     $('#form_submit').click(function(){
         var form = $("#form_reservation");
-        //event.preventDefault();
+
         var url = "php/ReservationRequest.php";
         var formData = form.serialize();
 
@@ -44,15 +51,19 @@ $(document).ready(function () {
             data: formData,
             success:function()
             {
-                console.log("Success on AJAX")
+                console.log("Success on AJAX");
+                $('#Show_Success').show();
+                form.reset();
             },
             error:function () {
                 alert("ERROR FORM NOT SUBMITTED")
             }
             });
-
-
+        event.preventDefault();
         });
 
-
 });
+function CheckInput()
+{
+    $('input[type=text]').each()
+}

@@ -39,7 +39,7 @@
             <div class="col-md-12 well text-center">
                 <h2>Reservation Request</h2>
                 <h3>Please Complete All Fields Before Submission</h3>
-                <form action="php/ReservationRequest.php" id="form_reservation">
+                <form action="php/ReservationRequest.php" id="form_reservation" method="post">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4>Program Information</h4></div>
                         <div class="panel-body">
@@ -141,7 +141,7 @@
                             </div>
 
                             <div class="pull-left col-lg-12">
-                                <label style="font-size: 20px" for="avguy">*A/V tech needed to assist with setup?<input type="checkbox" id = "avguy" name="avsetup" style="width: 30px; height: 20px" value="avsetup"></label>
+                                <label style="font-size: 20px; " for="avguy">*A/V tech needed to assist with setup?<input type="checkbox" id = "avguy" name="avsetup" style="width: 30px; height: 20px; cursor: pointer" value="avsetup"></label>
 
                                 <p>*Tech is provided on an as-is-available basis. We do not employ A/V techs at our building.</p>
                             </div>
@@ -159,10 +159,11 @@
                             <input type="checkbox" id = "agree" name="accept" value="accept" style="width: 30px; height: 20px" required> </h2>
                     </label>
                     <hr>
+                    <div class="btn-group" id="reserve">
+                        <button type="submit" id="form_submit" class="btn btn-primary btn-lg">Reserve</button>
+                    </div>
                 </form>
-                <div class="btn-group">
-                    <button type="button" id="form_submit" class="btn btn-primary btn-lg">Reserve</button>
-                </div>
+
 
             </div>
         </div>
@@ -170,6 +171,19 @@
 
 
 
+</div>
+<!-- Confirmation Panel-->
+<div id="Show_Success">
+    <div class="panel panel-success">
+        <div class="panel-heading text-center">
+            <h2>Reservation Created</h2>
+        </div>
+        <div class="panel-body text-center">
+            <p>The Reservation Was Created</p>
+            <button type="button" class="btn btn-primary" id="HideSuccess">OK</button>
+        </div>
+
+    </div>
 </div>
 </body>
 <script type="text/javascript" src="js/ReservationRequest.js"></script>
