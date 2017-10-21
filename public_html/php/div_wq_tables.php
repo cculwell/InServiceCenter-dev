@@ -98,8 +98,6 @@ if ($mysqli->connect_errno) {
                         });
                     }
                 } );
-
-
             </script>
     </div>
     <div id="tab_under_review">

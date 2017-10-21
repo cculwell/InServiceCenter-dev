@@ -283,7 +283,7 @@ if ($mysqli->connect_errno) {
 
                     <div class="form-group col-xs-4">
                         <div class="input-group input-group-xs">
-                            <label for="total_cost">Amt. Requested / Total Cost</label>
+                            <label for="total_cost">Request Amt / Tot Cost</label>
                             <input type="text"  id="total_cost" name="total_cost"
                                    maxlength="25" value="<?php echo $total_cost;?>">
                         </div>
@@ -303,6 +303,16 @@ if ($mysqli->connect_errno) {
                     </div>
                 </div>
 
+
+                <!-- Date/Time Buttons -->
+                <div class="row input-group" id="dt_button_row">
+                    <div class="form-group col-xs-12" id="dt_button_sec">
+                        <button id="dt_new_btn">New</button>
+                        <button id="dt_edit_btn">Edit</button>
+                        <button id="dt_delete_btn">Delete</button>
+                    </div>
+                </div>
+
                 <!-- Date / Times-->
                 <div id="date_time_div" class="form-group row">
                     <table id="tbl_date_times" class="display table-responsive" cellspacing="0" width="100%">
@@ -315,6 +325,7 @@ if ($mysqli->connect_errno) {
                             <th>Breaks</th>
                             <th>Hours</th>
                             <th>Notes</th>
+<!--                            <th></th>-->
                         </tr>
                         </thead>
                         <tfoot>
@@ -326,6 +337,7 @@ if ($mysqli->connect_errno) {
                             <th></th>
                             <th></th>
                             <th></th>
+<!--                            <th></th>-->
                         </tr>
                         </tfoot>
                         <tbody>
@@ -347,13 +359,18 @@ if ($mysqli->connect_errno) {
                             {
                                 echo
                                     "<tr>"
-                                    ."<td>".$row[0] ."</td>"
-                                    ."<td>".$row[1] ."</td>"
-                                    ."<td>".$row[2] ."</td>"
-                                    ."<td>".$row[3] ."</td>"
-                                    ."<td>".$row[4] ."</td>"
-                                    ."<td>".$row[5] ."</td>"
-                                    ."<td>".$row[6] ."</td>"
+                                        ."<td>".$row[0] ."</td>"
+                                        ."<td>".$row[1] ."</td>"
+                                        ."<td>".$row[2] ."</td>"
+                                        ."<td>".$row[3] ."</td>"
+                                        ."<td>".$row[4] ."</td>"
+                                        ."<td>".$row[5] ."</td>"
+                                        ."<td>".$row[6] ."</td>"
+//                                        ."<td>"
+//                                            . "<button type='button' class='btn btn-default btn-sm' id=''>"
+//                                                . "<span class='glyphicon glyphicon-edit'></span>"
+//                                            . "</button>"
+//                                        ."</td>"
                                     ."</tr>";
                             }
                             // Free result set
@@ -365,8 +382,36 @@ if ($mysqli->connect_errno) {
                         ?>
                         </tbody>
                     </table>
+                    <div id="div_pop_dt">
+                        <form class="form form-vertical" id="pop_dt_form_id">
+                            <div class="form-group pop_dt_id_grp">
+                                <label class="column-label col-xs-3" for="pop_dt_id">ID</label>
+                                <input class="col-xs-9" type="number" id="pop_dt_id" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label class="column-label col-xs-3" for="pop_dt_date">Date:</label>
+                                <input class="col-xs-9" type="date" id="pop_dt_date">
+                            </div>
+                            <div class="form-group">
+                                <label class="column-label col-xs-3" for="pop_dt_start">Start Time:</label>
+                                <input class="col-xs-9" type="time" id="pop_dt_start">
+                            </div>
+                            <div class="form-group">
+                                <label class="column-label col-xs-3" for="pop_dt_end">End Time:</label>
+                                <input class="col-xs-9" type="time" id="pop_dt_end">
+                            </div>
+                            <div class="form-group">
+                                <label class="column-label col-xs-3" for="pop_dt_break">Break Time:</label>
+                                <input class="col-xs-9" type="number" id="pop_dt_break">
+                            </div>
+                            <div class="form-group">
+                                <label class="column-label col-xs-3" for="pop_dt_note">Note:</label>
+                                <input class="col-xs-9" type="text" id="pop_dt_note">
+                            </div>
+                        </form>
+                    </div>
                     <script>
-                        var date_time = $('#tbl_date_times').DataTable({
+                        var date_times = $('#tbl_date_times').DataTable({
                             "footerCallback": function ( row, data, start, end, display ) {
                                 var api = this.api(), data;
 
@@ -402,6 +447,7 @@ if ($mysqli->connect_errno) {
                             },
                             select: {
                                 style:      'single'
+                                //style: 'api'
                             },
                             ordering: false,
                             info:     false,
@@ -418,10 +464,67 @@ if ($mysqli->connect_errno) {
                                 { "width": "15%", "targets": 3},
                                 { "width": "10%", "targets": 4},
                                 { "width": "15%", "targets": 5},
-                                { "width": "30%", "targets": 6}
+                                { "width": "25%", "targets": 6},
+//                                { "width": "10%", "targets": 7},
                             ]
 
                         });
+//                        date_times.on('click', 'tr', function () {
+//                            //var data = table.row( this ).data();
+//                            var date_time = date_times.rows( { selected: true } ).data();
+//
+//                            alert( 'You clicked on '+date_time[0]+'\'s row' );
+//                            $("#div_pop_contact").dialog("open")
+//                                .dialog("option", "width", 500);
+//                            $("#contact_id").val(1);
+//                        });
+
+
+
+
+                        $("#div_pop_dt").dialog({
+                            autoOpen: false,
+                            buttons: {
+                                Update: function(){
+
+                                },
+                                Cancel: function(){
+                                    $(this).dialog("close");
+                                }
+                            }
+                        });
+
+                        $("#dt_new_btn").click(function(e) {
+                            e.preventDefault();
+                            $("#div_pop_dt").dialog("open")
+                                .dialog("option", "width", 500);
+
+                        });
+
+                        $("#dt_edit_btn").click(function(e) {
+                            e.preventDefault();
+                            var date_time = date_times.rows( { selected: true } ).data();
+//                            console.log(date_time[0]);
+                            $("#pop_dt_id").val(date_time[0][0]);
+                            $("#pop_dt_date").val(date_time[0][1]);
+                            $("#pop_dt_start").val(date_time[0][2]);
+                            $("#pop_dt_end").val(date_time[0][3]);
+                            $("#pop_dt_break").val(date_time[0][4]);
+                            $("#pop_dt_note").val(date_time[0][6]);
+
+
+                            $("#div_pop_dt").dialog("open")
+                                .dialog("option", "width", 500);
+
+                            //$("#pop_dt_id_grp").hide();
+                        });
+
+                        $("#dt_delete_btn").click(function(e) {
+                            e.preventDefault();
+                            alert("You clicked Delete");
+                        });
+
+
                     </script>
 
 
@@ -484,6 +587,37 @@ if ($mysqli->connect_errno) {
                     ?>
                     </tbody>
                 </table>
+
+                <!-- Popup Contacts -->
+<!--                <div id="div_pop_contact">-->
+<!--                    <form class="form form-vertical" id="pop_contact_form_id">-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="column-label col-xs-3" for="pop_contact_id">ID</label>-->
+<!--                            <input class="col-xs-9" type="text" id="pop_contact_id">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="column-label col-xs-3" for="pop_contact_name">Name:</label>-->
+<!--                            <input class="col-xs-9" type="text" id="pop_contact_name">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="column-label col-xs-3" for="pop_contact_role">Role:</label>-->
+<!--                            <input class="col-xs-9" type="text" id="pop_contact_role">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="column-label col-xs-3" for="pop_contact_phn_nbr">Phone #:</label>-->
+<!--                            <input class="col-xs-9" type="text" id="pop_contact_phn_nbr">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="column-label col-xs-3" for="pop_contact_email">Email:</label>-->
+<!--                            <input class="col-xs-9" type="text" id="pop_contact_email">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label class="column-label col-xs-3" for="pop_contact_address">Address:</label>-->
+<!--                            <input class="col-xs-9" type="text" id="pop_contact_address">-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+
                 <script>
                     var contacts = $('#tbl_contacts').DataTable({
                         select: {
@@ -497,7 +631,17 @@ if ($mysqli->connect_errno) {
                             }
                         ]
                     });
+//                    contacts.on('dblclick', 'tr', function () {
+//                        //var data = table.row( this ).data();
+//                        var contact = contacts.rows( { selected: true } ).data();
+//                        alert( 'You clicked on '+contact[0]+'\'s row' );
+//
+//
+//                    });
+
                 </script>
+
+
             </div>
             <div id="program_exp">Program Exp Goes Here</div>
             <div id="consultant_exp">Consultant Exp Goes Here</div>
@@ -505,12 +649,12 @@ if ($mysqli->connect_errno) {
             <div id="eval_comments">Eval Comments Goes Here</div>
             <div id="sti-pd">STI-PD Goes Here</div>
 
-
         </div>
         <script>$("#wq_detail_tabs").tabs();</script>
 
 
 </form>
+
 </html>
 
 <?php
