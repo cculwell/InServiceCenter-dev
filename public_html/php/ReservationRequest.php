@@ -1,9 +1,16 @@
 <?php
 
-require "Common.php";
+include_once "../../Common.php";
+include_once "../../resources/config.php";
 
 //$conn = new mysqli("myathensricorg.ipowermysql.com", "amsti_01", "Capstone@17", "amsti_01");
-$conn = new mysqli("localhost", 'dbuser', '123', 'amsti_01');
+
+//Connect to the database
+$conn = new mysqli($config['db']['amsti_01']['host']
+    , $config['db']['amsti_01']['username']
+    , $config['db']['amsti_01']['password']
+    , $config['db']['amsti_01']['dbname']);
+//Get Error
 if ($conn -> connect_error) { die("Connection failed: " . $conn->connect_error); }
 
 $Program = $_POST['program'];
@@ -14,15 +21,15 @@ $RoomReservation = $_POST['room'];
 $Email = $_POST['email'];
 $PhoneNumber = $_POST['phone'];
 $BookedStatus = 'Pending';
-$smartBoard = (isset($_POST['smartBoard']) ? 'Yes': 'No');
+$smartBoard = (isset($_POST['Smartboard']) ? 'Yes': 'No');
 $Projector = (isset($_POST['projector']) ? 'Yes': 'No');
 $ExtensionCord = (isset($_POST['extensioncords']) ? 'Yes': 'No');
 $DocumentCamera = (isset($_POST['documentcamera']) ? 'Yes' : 'No');
 $AV_Need = (isset($_POST['avsetup']) ? 'Yes': 'No');
 $NumberEvents = $_POST['attend'];
 
-echo"Hello World";
-$sql_info = "insert into reservations (programName, programPerson,
+//Create Query to insert information for the event
+$sql_info = "INSERT INTO reservations (programName, programPerson,
                             programGroup, programDescription, room, email,
                             phone, bookedStatus, sm_board, ex_cord, projector,
                             document_camera, av_needs, num_events) " .
@@ -38,11 +45,11 @@ if($result == TRUE)
 else{
     echo"Connection Error: " . $conn->error;
 }
-echo"<h4>Result</h4>";
 
 
 
-/*
+
+//Get The primary key
 $ReservationID = $conn->insert_id;
 //Using Rick's way of putting dynamic date and time in MySQL
 $index = 0;
@@ -52,16 +59,26 @@ foreach ($_POST as $key)
     if(preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $key))
     {
         $startDate = FormatDate4Db($_POST['requesteddatefrom' . $index]);
-        $startTime = $_POST['starttime' . $index];
-        $endTime = $_POST['endtime' . $index];
-        $preTime = $_POST['preeventsetup' . $index];
-        $reservationDatesAndTime[$i] = "INSERT INTO reservationDate_Time (reservationID, StartDate, startTime,
+        $startTime = FormatTime4Db($_POST['starttime' . $index]);
+        $endTime = FormatTime4Db($_POST['endtime' . $index]);
+        $preTime = FormatTime4Db($_POST['preeventsetup' . $index]);
+        $reservationDatesAndTime[$index] = "INSERT INTO reservationDate_Time (reservationID, StartDate, startTime,
                                     endTime, preTime)" .
             "VALUES('$ReservationID', '$startDate', '$startTime', '$endTime', '$preTime')";
-        $i++;
+        $result = $conn->query($reservationDatesAndTime[$index]);
+        if($result == TRUE)
+        {
+            echo "<br> Day: $index successfuly inserted";
+        }
+        else
+        {
+            echo "<br> Day : $index hit a snag";
+            exit;
+        }
+        $index++;
     }
 };
-*/
+
 /*
 $sql = "INSERT INTO tblReservationRequest (vcProgram, vcSponsors, vcEventDesc, vcPrimary, vcPhone, vcEmail, dtFromDate, dtToDate, dtStartTime, dtEndTime, dtSetupTime, iAttendees, bSmartboard, bProjector, bCamera, bExtCords, bTech)
 VALUES ('". 
