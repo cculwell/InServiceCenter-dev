@@ -15,13 +15,6 @@ $config = array(
             "username" => "amsti_01",
             "password" => "Capstone@17",
             "host" => "localhost"
-        ), 
-
-        "admin_files" => array(
-            "dbname" => "admin_files",
-            "username" => "root",   /* CHANGE UN AND PW */
-            "password" => "",
-            "host" => "localhost"
         )
     ),
     "urls" => array(

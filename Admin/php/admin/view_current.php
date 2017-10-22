@@ -5,7 +5,7 @@
     $table = $_GET['table'];
     $page = $_GET['page'];
 
-    $db = $config['db']['admin_files'];
+    $db = $config['db']['amsti_01'];
     $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
 
     // Get the viewable file

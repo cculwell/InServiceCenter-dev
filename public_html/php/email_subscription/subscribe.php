@@ -9,7 +9,7 @@
     $captcha_hash = $_POST['captcha_hash'];
 
 
-    $db = $config['db']['admin_files'];
+    $db = $config['db']['amsti_01'];
     $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
 
     if ($email != "") {

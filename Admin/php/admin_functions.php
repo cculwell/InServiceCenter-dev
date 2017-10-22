@@ -6,7 +6,7 @@
 
         require "../resources/config.php";
 
-        $db = $config['db']['admin_files'];
+        $db = $config['db']['amsti_01'];
         $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
 
         $query = "SELECT * FROM $table ORDER BY id ASC";
@@ -40,7 +40,7 @@
 
         require "../../../resources/config.php";
 
-        $db = $config['db']['admin_files'];
+        $db = $config['db']['amsti_01'];
         $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
 
         $query = "SELECT name FROM $table WHERE name='$file'";
@@ -60,7 +60,7 @@
 
         require "../../../resources/config.php";
 
-        $db = $config['db']['admin_files'];
+        $db = $config['db']['amsti_01'];
         $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
 
         // Deactivate the 'current' file

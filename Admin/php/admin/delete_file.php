@@ -5,7 +5,7 @@
     $id = (int) $_GET['id'];
     $table = $_GET['table'];
 
-    $db = $config['db']['admin_files'];
+    $db = $config['db']['amsti_01'];
     $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
 
     $get_path_query = "SELECT * from $table WHERE id=$id";
