@@ -51,10 +51,7 @@ $(document).ready(function() {
         var form = $('form');
         //var formData = new FormData(document.querySelector('#RequestForm'));
         var url = "php/add_request.php"; // the script where you handle the form input.
-        //var test_data = { foo: [], bar: [ 'baz' ] };
         var form_data =form.serialize();
-        //alert(form_data);
-
 
         $.ajax({
             type: "POST",
@@ -63,12 +60,19 @@ $(document).ready(function() {
             data: form_data,
             success: function(data)
             {
-                //alert(data); // show response from the php script.
-                console.log(data);
+                alert("Request Successfully Submitted"); // show response from the php script.
+                // $('#RequestForm').trigger("reset");
+                $('#debug').html(data);
             },
-            error: function () {
-                alert("error");
+            error: function (data) {
+                // alert("error");
+            },
+            complete: function (data) {
+                // alert("complete");
+                // location.reload();
+
             }
+
         });
 
         event.preventDefault(); // avoid to execute the actual submit of the form.
@@ -106,6 +110,8 @@ $(document).ready(function(){
             i--;
         }
     });
+
+
 
 
 

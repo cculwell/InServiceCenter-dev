@@ -385,8 +385,8 @@ if ($mysqli->connect_errno) {
                     <div id="div_pop_dt">
                         <form class="form form-vertical" id="pop_dt_form_id">
                             <div class="form-group pop_dt_id_grp">
-                                <label class="column-label col-xs-3" for="pop_dt_id">ID</label>
-                                <input class="col-xs-9" type="number" id="pop_dt_id" disabled>
+                                <label class="column-label col-xs-3" for="pop_dt_id" hidden>ID</label>
+                                <input class="col-xs-9" type="number" id="pop_dt_id" disabled hidden>
                             </div>
                             <div class="form-group">
                                 <label class="column-label col-xs-3" for="pop_dt_date">Date:</label>
@@ -447,7 +447,6 @@ if ($mysqli->connect_errno) {
                             },
                             select: {
                                 style:      'single'
-                                //style: 'api'
                             },
                             ordering: false,
                             info:     false,
@@ -465,19 +464,10 @@ if ($mysqli->connect_errno) {
                                 { "width": "10%", "targets": 4},
                                 { "width": "15%", "targets": 5},
                                 { "width": "25%", "targets": 6},
-//                                { "width": "10%", "targets": 7},
                             ]
 
                         });
-//                        date_times.on('click', 'tr', function () {
-//                            //var data = table.row( this ).data();
-//                            var date_time = date_times.rows( { selected: true } ).data();
-//
-//                            alert( 'You clicked on '+date_time[0]+'\'s row' );
-//                            $("#div_pop_contact").dialog("open")
-//                                .dialog("option", "width", 500);
-//                            $("#contact_id").val(1);
-//                        });
+
 
 
 

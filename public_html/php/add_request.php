@@ -23,17 +23,41 @@ function phpAlert($msg) {
     echo '<script type="text/javascript">alert("' . $msg . '")</script>';
 }
 
+function convert_time($time){
+    if(strlen($time)==6){
+        $hour = substr($time,0,1);
+        $min =  substr($time,2,2);
+        $ap = substr($time,4,2);
+    }
+    else {
+        $hour = substr($time,0,2);
+        $min =  substr($time,3,2);
+        $ap = substr($time,5,2);
+    }
+    if($ap == 'pm') {
+        $hour = $hour + 12;
+    }
+    return $hour . ":" . $min . ":00";
+}
+
+function convert_date($date){
+    $mon = substr($date,0,2);
+    $day = substr($date,3,2);
+    $year = substr($date,6,4);
+    return $year . "-" . $mon . "-" . $day;
+}
+
 $request_parms = array(
     "request_type" => $_POST['RequestType']
     , "workflow_state" => "New"
     , "school" => $_POST['school']
     , "system" => $_POST['system']
-    , "request_desc" => $_POST['request_desc']
-    , "request_just" => $_POST['request_just']
+    , "request_desc" => htmlspecialchars($_POST['request_desc'])
+    , "request_just" => htmlspecialchars($_POST['request_just'])
     , "request_location" => $_POST['request_location']
     , "target_participants" => $_POST['target_participants']
     , "enrolled_participants" => $_POST['enrolled_participants']
-    , "total_hours" => $_POST['total_hours']
+//    , "total_hours" => $_POST['total_hours']
     , "total_cost" => $_POST['total_cost']
     , "eval_method" => $_POST['eval_method']
         //, "stipd" => $_POST['stipd']
@@ -75,18 +99,46 @@ if($request_parms['request_type'] == 'BookStudy') {
         , "contact_email" => $_POST['facilitator_email'])
     );
 }
+
 // Dynamically build an array for date times
 $date_time_parms = array();
 $i = 0;
 foreach($_POST as $key => $value)
 {
     if(preg_match('/^date/', $key)) {
-        $date_time_parms[$i] = array('date' => $_POST["date" . $i]
-        , 'start_time' => $_POST["sTime" . $i]
-        , 'end_time' => $_POST["eTime" . $i]);
+        $date_time_parms[$i] = array(
+          'request_date' => $_POST["date" . $i]
+        , 'request_start_time' => $_POST["sTime" . $i]
+        , 'request_end_time' => $_POST["eTime" . $i]
+        , 'request_break_time' => $_POST["bTime" . $i]);
         $i++;
     }
 }
+
+//foreach($date_time_parms as $dt) {
+////    print_r($dt['request_date']);
+////    echo '<br/>';
+//
+////    print_r(convert_time($dt['request_start_time']));
+//
+//
+//    $dt_sql = "insert into date_times (";
+//    $dt_sql .= "request_id,";
+//    $dt_sql .= implode(',', array_keys($dt));
+//    $dt_sql .= ") values (";
+//    $dt_sql .= $request_id . ",";
+//    $dt_sql .= $dt['request_date'] . ",";
+//    $dt_sql .= convert_time($dt['request_start_time']) . ",";
+//    $dt_sql .= convert_time($dt['request_end_time']) . ",";
+//    $dt_sql .= $dt['request_break_time'] ;
+////    $dt_sql .= implode(',', array_map('add_quotes', $dt));
+//    $dt_sql .= ")";
+//
+////    print_r($dt_sql);
+////    echo '<br/>';
+//
+//}
+
 
 
 # build request sql statement for insert
@@ -158,14 +210,49 @@ try {
 
     }
 
+    // insert dates and times
+    foreach ($date_time_parms as $dt) {
+        $dt_sql = "insert into date_times (";
+        $dt_sql .= "request_id,";
+        $dt_sql .= implode(',', array_keys($dt));
+        $dt_sql .= ") values (";
+        $dt_sql .= $request_id . ",'";
+        $dt_sql .= convert_date($dt['request_date']) . "','";
+        $dt_sql .= convert_time($dt['request_start_time']) . "','";
+        $dt_sql .= convert_time($dt['request_end_time']) . "',";
+        $dt_sql .= $dt['request_break_time'] ;
+        $dt_sql .= ")";
+
+        print_r($dt_sql);
+        if (!$mysqli->query($dt_sql)) {
+            //echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            throw new Exception("Cannot insert record. Reason :".$mysqli->error);
+        }
+
+    }
+
+
+
     // commit the transaction
     $mysqli->commit();
-    print "Successful Insert\n";
-    phpAlert("Test");
-
+    /* commit transaction */
+    if (!$mysqli->commit()) {
+        //print("Transaction commit failed\n");
+        echo "<script> console.log('Transaction commit failed')</script>";
+        phpAlert("Transaction failed");
+        exit();
+    }
+    else {
+        //print "Successful Insert\n";
+        echo "<script> console.log('Transaction successful')</script>";
+        phpAlert("Transaction successful");
+    }
 }
 catch (Exception $e)
 {
+//    echo "exception thrown\n";
+    echo "<script> console.log('Exception Thrown')</script>";
+    phpAlert("Exception Thrown");
     $mysqli->rollback();
     echo $e;
 }
