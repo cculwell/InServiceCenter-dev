@@ -1,0 +1,40 @@
+#report-name-placeholder
+{
+	font-weight: bold;
+	text-align: center;
+}
+
+#term-placeholder
+{
+	font-style: italic;
+	text-align: center;
+	font-size: 17px;
+}
+
+.panel-body 
+{
+	margin: auto;
+    background: #dcdcdc;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+}
+
+.button-container
+{
+	display: -webkit-inline-box;
+	position: relative;
+}
+
+.caret.caret-up 
+{
+    border-top-width: 0;
+    border-bottom: 4px solid #fff;
+}
+
+th,
+td
+{
+	text-align: center;
+}
