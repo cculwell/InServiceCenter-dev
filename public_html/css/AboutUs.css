@@ -14,12 +14,64 @@ h3
     text-align: center;
 }
 
+#ARI_thebigone {
+	height: 100%;
+    background-image: url(../img/PageBackground.jpg);
+	}
+
 .h2-text
 {
     font-family: brushscript;
     text-align: center;
 }
 
+.amstilogo
+{
+	width: 100%;
+    margin: auto;
+    display: block;
+}
+
+.logo
+{
+	width: 42%;
+}
+
+.TIMlogo
+{
+	width: 50%;
+	margin: auto;
+    display: block;
+}
+
+.ASIMlogo2
+{
+	width: 30%;
+}
+
+.logo_container
+{
+	background-image: none;
+	background-color: white;
+}
+
+.services
+{
+	margin-left: 3%;
+}
+
+.links
+{
+	display: block;
+	text-align: center;
+}
+
+.page_container
+{
+	margin-left: 5%;
+	margin-right: 5%;
+	padding-bottom: 5px;
+}
 
 .dropdown-content a:hover {background-color: #f1f1f1}
 
