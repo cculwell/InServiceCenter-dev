@@ -161,6 +161,7 @@ if ($mysqli->connect_errno) {
                             <option <?php if($workflow_state == 'Start Purchase Order') echo"selected";?> value="Start Purchase Order">Start Purchase Order</option>
                             <option <?php if($workflow_state == 'Order/Contract Issued') echo"selected";?> value="Order/Contract Issued">Order/Contract Issued</option>
                             <option <?php if($workflow_state == 'Completed') echo"selected";?> value="Completed">Completed</option>
+                            <option <?php if($workflow_state == 'Canceled') echo"selected";?> value="Canceled">Canceled</option>
                         </select>
                         <script>
                             $(document).ready(function(){
@@ -469,9 +470,6 @@ if ($mysqli->connect_errno) {
                         });
 
 
-
-
-
                         $("#div_pop_dt").dialog({
                             autoOpen: false,
                             buttons: {
@@ -486,6 +484,13 @@ if ($mysqli->connect_errno) {
 
                         $("#dt_new_btn").click(function(e) {
                             e.preventDefault();
+                            $("#pop_dt_id").val('');
+                            $("#pop_dt_date").val('');
+                            $("#pop_dt_start").val('');
+                            $("#pop_dt_end").val('');
+                            $("#pop_dt_break").val('');
+                            $("#pop_dt_note").val('');
+
                             $("#div_pop_dt").dialog("open")
                                 .dialog("option", "width", 500);
 
@@ -516,8 +521,6 @@ if ($mysqli->connect_errno) {
 
 
                     </script>
-
-
 
                 </div>
             </div>

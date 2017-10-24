@@ -223,7 +223,7 @@ try {
         $dt_sql .= $dt['request_break_time'] ;
         $dt_sql .= ")";
 
-        print_r($dt_sql);
+//        print_r($dt_sql);
         if (!$mysqli->query($dt_sql)) {
             //echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
             throw new Exception("Cannot insert record. Reason :".$mysqli->error);

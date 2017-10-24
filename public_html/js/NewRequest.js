@@ -60,9 +60,10 @@ $(document).ready(function() {
             data: form_data,
             success: function(data)
             {
-                alert("Request Successfully Submitted"); // show response from the php script.
+                // alert("Request Successfully Submitted"); // show response from the php script.
                 // $('#RequestForm').trigger("reset");
-                $('#debug').html(data);
+                // $('#debug').html(data);
+                console.log("Ajax Success");
             },
             error: function (data) {
                 // alert("error");

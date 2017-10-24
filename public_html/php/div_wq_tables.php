@@ -20,6 +20,7 @@ if ($mysqli->connect_errno) {
         <li><a href="#tab_start_po">Start Purchase Order</a></li>
         <li><a href="#tab_order_issued">Order/Contract Issued</a></li>
         <li><a href="#tab_completed">Completed</a></li>
+        <li><a href="#tab_canceled">Canceled</a></li>
     </ul>
     <div id="tab_new_req">
         <table id="tbl_new_req" class="display table-responsive" cellspacing="0" width="100%">
@@ -508,6 +509,87 @@ if ($mysqli->connect_errno) {
             } );
         </script>
     </div>
+
+    <div id="tab_canceled">
+        <table id="tbl_canceled" class="display table-responsive" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Request ID</th>
+                <th>Type</th>
+                <th>State</th>
+                <th>School</th>
+                <th>System</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Request ID</th>
+                <th>Type</th>
+                <th>State</th>
+                <th>School</th>
+                <th>System</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            <?PHP
+
+            $sql  = "select ";
+            $sql .= "request_id, request_type, workflow_state, school, system ";
+            $sql .= "from requests where workflow_state = 'Canceled'";
+
+            if ($result=mysqli_query($mysqli,$sql))
+            {
+                // Fetch one and one row
+                while ($row=mysqli_fetch_row($result))
+                {
+                    echo
+                        "<tr>"
+                        ."<td>".$row[0] ."</td>"
+                        ."<td>".$row[1] ."</td>"
+                        ."<td>".$row[2] ."</td>"
+                        ."<td>".$row[3] ."</td>"
+                        ."<td>".$row[4] ."</td>"
+                        ."</tr>";
+                }
+                // Free result set
+                mysqli_free_result($result);
+            }
+
+            //      mysqli_close($mysqli);
+
+            ?>
+            </tbody>
+        </table>
+        <script>
+            var queue_completed = $('#tbl_canceled').DataTable({
+                select: {
+                    style:          'single'
+                }
+            });
+            //queue.rows( { selected: true } ).data();
+            queue_completed.on( 'select', function ( e, dt, type, indexes ) {
+                if ( type === 'row' ) {
+                    //var data = queue.rows( indexes ).data().pluck( 'id' );
+                    var record = queue_completed.rows( { selected: true } ).data();
+                    // do something with the ID of the selected items
+                    //            console.log(record[0][0]);
+                    $.ajax({
+
+                        type: "POST",//post
+                        //url: $(this).attr('href'),
+                        url: "php/div_wq_form.php",
+                        data: "request_id="+record[0][0], // appears as $_POST['id'] @ ur backend side
+                        success: function(data) {
+                            // data is ur summary
+                            $('#div_wq_form').html(data);
+                        }
+
+                    });
+                }
+            } );
+        </script>
+    </div>
+
 </div>
 <script>
 //    $("#tabs").tabs();
