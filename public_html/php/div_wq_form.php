@@ -56,6 +56,7 @@ if ($mysqli->connect_errno) {
         $sql .= ", w.sti_title_nbr ";
         $sql .= ", w.folder_completed ";
         $sql .= ", r.request_location ";
+        $sql .= ", w.support_initiative ";
         $sql .= " from requests r ";
         $sql .= " left join workshops w ";
         $sql .= "   on r.request_id = w.request_id ";
@@ -91,6 +92,7 @@ if ($mysqli->connect_errno) {
         $eval_method = $row[11];
         $total_cost = $row[10];
         $request_location = $row[34];
+        $support_initiative = $row[35];
     }
     else
     {
@@ -110,6 +112,7 @@ if ($mysqli->connect_errno) {
         $eval_method = null;
         $total_cost = null;
         $request_location = null;
+        $support_initiative = null;
     }
     ?>
     <!-- Request Info -->
@@ -140,20 +143,21 @@ if ($mysqli->connect_errno) {
 
                 <div class="row form-group" id="request_type_state_row">
 
-                    <div class="col-xs-6 form-group">
-                        <label class="col-xs-6 control-label" for="request_type">Request Type:</label>
+                    <div class="col-xs-4 form-group">
+                        <label class="col-xs-3 control-label" for="request_type">Request Type:</label>
 
-                        <div class="col-xs-6 col-xs-pull-1" size="5">
+                        <div class="col-xs-9 col-xs-push-1" size="10">
                             <select id="request_type" class="form-control">
                                 <option <?php if($request_type == 'General') echo"selected";?> value="General">General</option>
                                 <option <?php if($request_type == 'BookStudy') echo"selected";?> value="BookStudy">Book Study</option>
                             </select>
                         </div>
                     </div>
-                <div class="col-xs-6 form-group">
-                    <label class="col-xs-6 control-label" for="workflow_state">Workflow State:</label>
 
-                    <div class="col-xs-6 col-xs-pull-1">
+                    <div class="col-xs-8 form-group">
+                    <label class="col-xs-3 control-label" for="workflow_state">Workflow State:</label>
+
+                    <div class="col-xs-9">
                         <select id="workflow_state" class="form-control">
                             <option <?php if($workflow_state == 'New') echo"selected";?> value="New">New</option>
                             <option <?php if($workflow_state == 'Under Review') echo"selected";?> value="Under Review">Under Review</option>
@@ -201,19 +205,38 @@ if ($mysqli->connect_errno) {
                             });
                         </script>
                     </div>
+                    </div>
+                    <div class="row form-group" id="support_init_row">
+                        <div class="col-xs-4 col-xs-push-0 form-group">
+                            <label class="col-xs-3 control-label" for="support_init">Support Initiative:</label>
+
+                            <div class="col-xs-9 col-xs-push-1" size="5">
+                                <select id="support_init" class="form-control">
+                                    <option <?php if($request_type == '') echo"selected";?> value=""></option>
+                                    <option <?php if($request_type == 'AMSTI') echo"selected";?> value="AMSTI">AMSTI</option>
+                                    <option <?php if($request_type == 'ASIM') echo"selected";?> value="ASIM">ASIM</option>
+                                    <option <?php if($request_type == 'TIM') echo"selected";?> value="TIM">TIM</option>
+                                    <option <?php if($request_type == 'RIC') echo"selected";?> value="RIC">RIC</option>
+                                    <option <?php if($request_type == 'LEA') echo"selected";?> value="LEA">LEA</option>
+                                    <option <?php if($request_type == 'ALSDE') echo"selected";?> value="ALSDE">ALSDE</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
                 </div>
 
-                    <div class="row form-group" id="school_system_row">
-                        <div class="col-xs-6 pull-left">
-                            <label for="school">School:</label>
-                            <input type="text" id="school" name="school" size="25"
-                                   maxlength="50" value="<?php echo $school;?>">
-                        </div>
-                        <div class="col-xs-6 pull-left">
-                            <label for="system">System: </label>
-                            <input type="text" id="system" name="system" size="25"
-                                   maxlength="50" value="<?php echo $system;?>">
-                        </div>
+                <div class="row form-group" id="school_system_row">
+                    <div class="col-xs-6 pull-left">
+                        <label for="school">School:</label>
+                        <input type="text" id="school" name="school" size="25"
+                               maxlength="50" value="<?php echo $school;?>">
+                    </div>
+                    <div class="col-xs-6 pull-left">
+                        <label for="system">System: </label>
+                        <input type="text" id="system" name="system" size="25"
+                               maxlength="50" value="<?php echo $system;?>">
                     </div>
                 </div>
 
@@ -643,7 +666,10 @@ if ($mysqli->connect_errno) {
             <div id="sti-pd">STI-PD Goes Here</div>
 
         </div>
-        <script>$("#wq_detail_tabs").tabs();</script>
+        <script>
+            $("#wq_detail_tabs").tabs();
+            $("#reports").load( 'reports.html' );
+        </script>
 
 
 </form>
