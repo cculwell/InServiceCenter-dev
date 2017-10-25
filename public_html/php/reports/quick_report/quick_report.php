@@ -90,7 +90,7 @@
                                     ."<td>". $row[4] ."</td>"   // Start Time
                                     ."<td>". $row[6] ."</td>"   // End Time
                                     ."<td>". $row[7] ."</td>"   // Location
-                                    ."<td>". "placeholder" ."</td>"   // Support Provided By
+                                    ."<td>". $row[11]."</td>"   // Support Provided By
                                     ."<td>". $row[9] ."</td>"   // Current Enrollment
                                     ."<td>". $row[8] ."</td>"   // Max Enrollment
                                     ."</tr>";

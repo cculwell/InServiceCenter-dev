@@ -90,6 +90,16 @@
             $title = "     " . $row[2];
             $pdf->SetFont('Times', 'BI', 12);
             $pdf->Cell(30, 10, $title, 0, 0);
+
+            if ($row[10] == 'Canceled')
+            {
+                // Write the canceled notification
+                $canceled = "         " . "***** CANCELED *****";
+                $pdf->SetFont('Times', 'B', 12);
+                $pdf->Cell(30, 10, "", 0, 0);
+                $pdf->Cell(30, 10, $canceled, 0, 0);
+            }
+
             $pdf->Ln(8);
 
             // Write dates of the program
@@ -115,7 +125,7 @@
 
             // Write who is providing support
             $pdf->SetFont('Times', '', 10);
-            $location = "     Support Provided By: " . "placeholder";
+            $location = "     Support Provided By: " . $row[11];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $location, 0, 0);
             $pdf->Ln(5);
