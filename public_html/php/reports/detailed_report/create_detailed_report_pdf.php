@@ -128,7 +128,7 @@
             $pdf->Ln(5);
 
             // Write who is providing support
-            $support = "     Support Provided By: " . $row[16];
+            $support = "     Support Provided By: " . $row[11];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $support, 0, 0);
             $pdf->Ln(5);
