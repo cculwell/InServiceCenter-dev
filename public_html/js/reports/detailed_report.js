@@ -1,9 +1,8 @@
-var term = "";
-
 $(document).ready(function() {
     var term_text = document.getElementById("term-and-year");
     var month = new Date().getMonth();
     var year = new Date().getFullYear();
+    var term = "";
 
     /* Get the term based on the current month */
     if (month >= 1 && month <= 4) {
@@ -22,7 +21,7 @@ $(document).ready(function() {
 
     term_text.innerHTML = term;
 
-    $('#quick_report_table').DataTable( {
+    $('#detailed_report_table').DataTable( {
         dom: 'Bfrtip',
         "scrollX": true,
         buttons: {
@@ -30,7 +29,7 @@ $(document).ready(function() {
                 {
                     extend: 'print',
                     text: 'Print Table', 
-                    title: 'Quick Report',
+                    title: 'Detailed Report',
                     autoPrint: true
                 },
                 {
@@ -44,21 +43,21 @@ $(document).ready(function() {
                     {
                         var req = new XMLHttpRequest();
 
-                        req.open("POST", "php/reports/quick_report/create_quick_report_pdf.php", true);
+                        req.open("POST", "php/reports/detailed_report/create_detailed_report_pdf.php", true);
                         req.responseType = "blob";
 
                         req.onreadystatechange = function () 
                         {
                             if (req.readyState === 4 && req.status === 200) 
                             {
-                                var filename = "QuickReport-" + new Date().getTime() + ".pdf";
+                                var filename = "DetailedReport-" + new Date().getTime() + ".pdf";
                                 if (typeof window.chrome !== 'undefined') 
                                 {
                                     // Chrome version
                                     var link = document.createElement('a');
 
                                     link.href = window.URL.createObjectURL(req.response);
-                                    link.download = "QuickReport-" + new Date().getTime() + ".pdf";
+                                    link.download = "DetailedReport-" + new Date().getTime() + ".pdf";
                                     link.click();
                                 } 
                                 else if (typeof window.navigator.msSaveBlob !== 'undefined') 
