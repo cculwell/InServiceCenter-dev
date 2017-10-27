@@ -18,7 +18,7 @@
 <html class="no-js" lang="en" dir="ltr">
 
     <head>
-        <title>Detailed Report</title>
+        <title>Financial Report</title>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,9 +55,9 @@
     <body>
         <div class="page_container">
             <h2 style="text-align: center;">Athens State University<br>Regional In-Service Center</h2>
-            <h3 style="text-align: center;">Detailed Report</h3>
+            <h3 style="text-align: center;">Financial Report</h3>
             <h4 id="term-and-year" style="text-align: center; font-style: italic;"></h4><br><br>
-            <table id="detailed_report_table" class="display compact table-responsive" cellspacing="0" width="100%">
+            <table id="financial_report_table" class="display compact table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Program ID</th>
@@ -72,16 +72,14 @@
                         <th>Target Audience</th>
                         <th>Current Enrollment</th>
                         <th>Maximum Enrollment</th>
-                        <th>Curriculum Area</th>
-                        <th>A/V Description</th>
-                        <th>Staff Notes</th>
-                        <th>Consultant</th>
+                        <th>Consultant Fee</th>
+                        <th>Misc Fees</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
 
-                        $sql = "SELECT * FROM detailed_report_data";
+                        $sql = "SELECT * FROM financial_report_data";
 
                         if ($result = mysqli_query($mysqli, $sql))
                         {
@@ -101,18 +99,23 @@
                                     ."<td>". $row[13] ."</td>"  // Target Audience
                                     ."<td>". $row[9] ."</td>"   // Current Enrollment
                                     ."<td>". $row[8] ."</td>"   // Max Enrollment
-                                    ."<td>". $row[14] ."</td>"  // Curriculum Area
-                                    ."<td>". $row[15] ."</td>"  // AV Description
-                                    ."<td>". $row[16] ."</td>"  // Staff Notes
-                                    ."<td>". $row[17] ."</td>"  // Consultant
+                                    ."<td>". $row[14] ."</td>"  // Consultant Fee                                    
+                                    ."<td>". $row[15] ."</td>"  // Misc Expenses
                                     ."</tr>";
                             }
                         }
                     ?>
                 </tbody>
+                <tfoot align="right">
+                    <tr>
+                        <th style="border-top: none;"></th>
+                        <th style="border-top: none;"></th>
+                        <th style="border-top: none;"></th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
-        <script type="text/javascript" src="js/reports/detailed_report.js"></script>
+        <script type="text/javascript" src="js/reports/financial_report.js"></script>
     </body>
 </html>
 
