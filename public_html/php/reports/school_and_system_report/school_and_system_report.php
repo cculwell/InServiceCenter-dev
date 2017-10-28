@@ -68,10 +68,10 @@
                 <tbody>
                     <?php
 
-                        $do_work = "r.system, COUNT(system), SUM(total_cost)";
-                        $join = "quick_report_data AS q" 
-                        $on = "ON r.request_id = q.request_id";
-                        $from = "requests r"
+                        $do_work = "r.system, COUNT(r.system), SUM(r.total_cost)";
+                        $from = "requests r";
+                        $join = "quick_report_data AS q";
+                        $on = "r.request_id = q.request_id";
                         $groub_by = "r.system";
 
                         $sql = "SELECT $do_work FROM $from JOIN $join ON $on GROUP BY $groub_by";
