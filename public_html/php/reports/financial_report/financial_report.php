@@ -54,7 +54,6 @@
     </head>
     <body>
         <div class="page_container">
-            <h2 style="text-align: center;">Athens State University<br>Regional In-Service Center</h2>
             <h3 style="text-align: center;">Financial Report</h3>
             <h4 id="term-and-year" style="text-align: center; font-style: italic;"></h4><br><br>
             <table id="financial_report_table" class="display compact table-responsive" cellspacing="0" width="100%">

@@ -25,7 +25,6 @@ $(document).ready(function() {
             },
             success: function(data)
             {
-                console.log(data);
                 if (data == "Successfully Subscribed!") {
                     subscribe_box.style.display = "none";
                     success_text.innerHTML = data;
@@ -61,9 +60,6 @@ $(document).ready(function() {
         var captcha_entered = document.getElementById('unsubscribe_captcha').value;
         var captcha_hash = jQuery("#unsubscribe_captcha").realperson('getHash');
         var url = "php/email_subscription/unsubscribe.php";
-
-        console.log(captcha);
-        console.log(captcha_hash);
 
         $.ajax({
             type: "POST",

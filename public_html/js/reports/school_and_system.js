@@ -29,7 +29,7 @@ $(document).ready(function() {
                 {
                     extend: 'print',
                     text: 'Print Table', 
-                    title: 'Quick Report',
+                    title: 'School and System Report',
                     autoPrint: true
                 },
                 {

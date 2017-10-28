@@ -1,41 +1,51 @@
 $(document).ready(function () {
 
-    /* Change caret direction to down */
+    // Change caret direction to down
     $(".dropdown").on("hide.bs.dropdown", function(){
         $("#reports_dropdown").html('Reports <span class="caret"></span>');
     });
 
-    /* Change caret direction to up */
+    // Change caret direction to up
     $(".dropdown").on("show.bs.dropdown", function(){
         $("#reports_dropdown").html('Reports <span class="caret caret-up"></span>');
     });
 
-    /* Display dropdown menu */
+    // Select report and load it
     $("body").on('click', '.dropdown-menu li a', function () {
 
+        var report = "";
         var type = $(this).data("type");
-        var report = document.getElementById("report-table-placeholder");
 
-        /* Create the report */
+        // Determine what report to load
         if (type == "1") {
-            report.innerHTML = "";
-            $("#report-table-placeholder").load( 'php/reports/quick_report/quick_report.php' );
+            report = 'php/reports/quick_report/quick_report.php';
         }
         else if (type == "2") {
-            report.innerHTML = "";
-            $("#report-table-placeholder").load( 'php/reports/detailed_report/detailed_report.php' );
+            report = 'php/reports/detailed_report/detailed_report.php';
         }
         else if (type == "3") {
-            report.innerHTML = "";
-            $("#report-table-placeholder").load( 'php/reports/financial_report/financial_report.php' );
+            report = 'php/reports/financial_report/financial_report.php';
         }
         else if (type == "4") {
-            report.innerHTML = "";
-            $("#report-table-placeholder").load( 'php/reports/curriculum_report/curriculum_report.php' );
+            report = 'php/reports/curriculum_report/curriculum_report.php';
         }
         else if (type == "5") {
-            report.innerHTML = "";
-            $("#report-table-placeholder").load( 'php/reports/school_and_system_report/school_and_system_report.php' );
+            report = 'php/reports/school_and_system_report/school_and_system_report.php';
         }
+
+        $.ajax({
+                    type: "POST",
+                    url: report,
+                    success: function(data)
+                    {
+                        $("#report-table-placeholder").empty();
+                        $("#report-table-placeholder").append(data);
+                    },
+                    error: function(jqXHR, exception) {
+                        alert('ERROR: (' + jqXHR + ')' + " " + exception);
+                    }
+                });
+
+                event.preventDefault(); // Avoid to execute the actual submit of the form.
     });
 });
