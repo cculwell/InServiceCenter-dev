@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="foundation/js/vendor/jquery.js"></script>
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="foundation/css/foundation.css">
+    <link rel="stylesheet" href="../resources/library/DataTables/datatables.css">
+
+    <script src="foundation/js/vendor/jquery.js"></script>
     <script src="../resources/library/bootstrap/js/bootstrap.js"></script>
     <script src="../resources/library/jquery-ui/jquery-ui.js"></script>
-    <link rel="stylesheet" href="foundation/css/foundation.css">
+    <script src="../resources/library/DataTables/datatables.js"></script>
+    <script src="../resources/library/DataTables/Select/js/dataTables.select.min.js"></script>
 
     <script src="js/CalendarAdmin.js"></script>
 
@@ -18,6 +22,35 @@
     <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet">
 </head>
 <body>
+
+<div class=" callout large">
+    <div class="row column text-center">
+        <img id="logo" src="img/Logo.jpg" width="30%" height="30%" alt="" />
+    </div>
+</div>
+<div class="container">
+
+    <div id="PendingQueue" class="panel panel-primary">
+        <div class="panel-heading">
+            <h3>Pending Reservation Queue</h3>
+        </div>
+        <div class="panel-body">
+            <div id="reservationQueue">
+                <script>
+                    //This will load to the CalendarAdmin.php PHP file
+                    //The PHP file will also load Edit_Form.php
+                    $('#reservationQueue').load('php/CalendarAdmin.php');
+                </script>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<!--
 <h1>Calendar Admin Page</h1>
 
 <div id = "admin-content" style="display: block" class="panel-body">
@@ -99,9 +132,8 @@
     </div>
 
 <script type="text/javascript" src="js/GoogleAPICall.js"></script>
-<script async defer src="https://apis.google.com/js/api.js"
-        onload="this.onload=function(){};handleClientLoad()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+<script async defer src="https://apis.google.com/js/api.js">
 </script>
+-->
 </body>
 </html>
