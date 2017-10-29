@@ -149,31 +149,43 @@
 
             // Write Curriculum Area
             $pdf->SetFont('Times', 'B', 10);
-            $curriculum_area = "Curriculum Area: " . $row[14];
             $pdf->Cell(40, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $curriculum_area, 0, 0);
-            $pdf->Ln(5);
+            $pdf->Cell(30, 10, "Curriculum Area:", 0, 0);
+            $pdf->Ln(7);
+            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(0, 5, $row[14], 0);
+            $pdf->Ln(3);
 
             // Write A/V Decsription
             $pdf->SetFont('Times', 'B', 10);
-            $av_description = "A/V Decsription: " . $row[15];
             $pdf->Cell(40, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $av_description, 0, 0);
-            $pdf->Ln(5);
-
-            // Write Staff Notes
-            $pdf->SetFont('Times', 'B', 10);
-            $staff_notes = "Staff Notes: " . $row[16];
-            $pdf->Cell(40, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $staff_notes, 0, 0);
-            $pdf->Ln(5);
+            $pdf->Cell(30, 10, "A/V Decsription:", 0, 0);
+            $pdf->Ln(7);
+            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(0, 5, $row[15], 0);
+            $pdf->Ln(3);
 
             // Write Consultant Name
             $pdf->SetFont('Times', 'B', 10);
-            $consultant = "Consultant: " . $row[17];
             $pdf->Cell(40, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $consultant, 0, 0);
-            $pdf->Ln(10);
+            $pdf->Cell(30, 10, "Consultant:", 0, 0);
+            $pdf->Ln(7);
+            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(0, 5, $row[17], 0);
+            $pdf->Ln(3);
+
+            // Write Staff Notes
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->Cell(30, 10, "Staff Notes:", 0, 0);
+            $pdf->Ln(7);
+            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->MultiCell(0, 5, $row[16], 0);
+            $pdf->Ln(5);
         }
     }
 

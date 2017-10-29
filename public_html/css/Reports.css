@@ -1,19 +1,18 @@
 #report-name-placeholder
 {
-	font-weight: bold;
-	text-align: center;
+    font-weight: bold;
+    text-align: center;
 }
 
 #term-placeholder
 {
-	font-style: italic;
-	text-align: center;
-	font-size: 17px;
+    font-style: italic;
+    text-align: center;
+    font-size: 17px;
 }
 
 .panel-body 
 {
-	margin: auto;
     background: #dcdcdc;
     position: relative;
     height: 100vh;
@@ -27,8 +26,132 @@
     border-bottom: 4px solid #fff;
 }
 
-th,
-td
+#quick_report_table
 {
-	text-align: center;
+    width: 2200px;
+}
+
+#detailed_report_table
+{
+    width: 3700px;
+}
+
+#financial_report_table
+{
+    width: 3150px;
+}
+
+table.dataTable thead tr th
+{
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/*Set column widths*/
+.program_id
+{
+    width: 200px;
+}
+
+.program_title
+{
+    width: 300px;
+}
+
+.start_date
+{
+    width: 150px;   
+}
+
+.end_date
+{
+    width: 150px;
+}
+
+.start_time
+{
+    width: 150px;
+}
+
+.end_time
+{
+    width: 150px;
+}
+
+.num_sessions
+{
+    width: 300px;
+}
+
+.location
+{
+    width: 200px; 
+}
+
+.support_provided
+{
+    width: 300px;
+}
+
+.target_audience
+{
+    width: 250px;
+}
+
+.current_enrollment
+{
+    width: 300px;
+}
+
+.max_enrollment
+{
+    width: 300px;
+}
+
+.curriculum_area
+{
+    width: 100px;
+}
+
+.av_description
+{
+    width: 200px;
+}
+
+.staff_notes
+{
+    width: 500px;
+}
+
+.consultatnt_name
+{
+    width: 150px;
+}
+
+.system_name
+{
+    width: 200px;
+}
+
+.offerings_per_system
+{
+    width: 100px;
+}
+
+.total_spent_per_system
+{
+    width: 100px;
+}
+
+.consultant_fee
+{
+    width: 200px
+}
+
+.misc_fees
+{
+    width: 200px;
 }

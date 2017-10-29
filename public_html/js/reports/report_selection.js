@@ -2,12 +2,12 @@ $(document).ready(function () {
 
     // Change caret direction to down
     $(".dropdown").on("hide.bs.dropdown", function(){
-        $("#reports_dropdown").html('Reports <span class="caret"></span>');
+        $("#reports_dropdown").html('Select A Report <span class="caret"></span>');
     });
 
     // Change caret direction to up
     $(".dropdown").on("show.bs.dropdown", function(){
-        $("#reports_dropdown").html('Reports <span class="caret caret-up"></span>');
+        $("#reports_dropdown").html('Select A Report <span class="caret caret-up"></span>');
     });
 
     // Select report and load it
@@ -38,11 +38,18 @@ $(document).ready(function () {
                     url: report,
                     success: function(data)
                     {
-                        $("#report-table-placeholder").empty();
-                        $("#report-table-placeholder").append(data);
+                        $("#report-table-placeholder").html(data);
                     },
                     error: function(jqXHR, exception) {
-                        alert('ERROR: (' + jqXHR + ')' + " " + exception);
+                        var error = '(' + jqXHR + ') ' + exception;
+                        if (error == "([object Object]) error")
+                        {
+                            alert("The requested report doesn't exist at this time.");
+                        }
+                        else
+                        {
+                            alert('ERROR: ' + error);
+                        }
                     }
                 });
 

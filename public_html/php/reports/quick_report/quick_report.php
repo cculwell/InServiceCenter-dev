@@ -32,43 +32,52 @@
         <link rel="stylesheet" href="css/Reports.css">
 
         <script src="../resources/library/jquery-3.2.1.min.js"></script>
-
-        <!-- Tables -- >
+        <script src="js/reports/quick_report.js"></script>
         <script src="../resources/library/DataTables/datatables.js"></script>
-
-        <!-- Buttons -->
         <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
         <script src="../resources/library/DataTables/Buttons/js/dataTables.buttons.min.js"></script>
-
-        <!-- Print button --> 
         <script src="../resources/library/DataTables/Buttons/js/buttons.print.min.js"></script>
-
-        <!-- PDF Button -->
         <script src="../resources/library/DataTables/Buttons/js/buttons.html5.min.js"></script>
         <script src="../resources/library/DataTables/Buttons/js/pdfmake.min.js"></script>
         <script src="../resources/library/DataTables/Buttons/js/vfs_fonts.js"></script>
-
-        <!-- Column Visibility Button -->
         <script src="../resources/library/DataTables/Buttons/js/buttons.colVis.min.js"></script>
 
     </head>
     <body>
         <div class="page_container">
-            <h3 style="text-align: center;">Quick Report</h3>
-            <h4 id="term-and-year" style="text-align: center; font-style: italic;"></h4><br><br>
-            <table id="quick_report_table" class="display compact table-responsive" cellspacing="0" width="100%">
+            <h3>Quick Report</h3>
+            <?php
+                $month = date('m');
+                $year = date('Y');
+                $semester = "";
+
+                // Determine semester based on current month
+                if ($month >= 1 && $month <=4) {
+                    $semester = "Spring" . " " . $year;
+                }
+                if ($month >= 5 && $month <=7) {
+                    $semester = "Summer" . " " . $year;
+                }
+                if ($month >= 8 && $month <=12) {
+                    $semester = "Fall" . " " . $year;
+                }
+
+                echo "<h4>" . $semester . "</h4>";
+            ?>
+            <br><br>
+            <table id="quick_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Program ID</th>
-                        <th>Program Title</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Location</th>
-                        <th>Support Provided By</th>
-                        <th>Current Enrollment</th>
-                        <th>Maximum Enrollment</th>
+                        <th class="program_id">Program ID</th>
+                        <th class="program_title">Program Title</th>
+                        <th class="start_date">Start Date</th>
+                        <th class="end_date">End Date</th>
+                        <th class="start_time">Start Time</th>
+                        <th class="end_time">End Time</th>
+                        <th class="location">Location</th>
+                        <th class="support_provided">Support Provided By</th>
+                        <th class="current_enrollment">Current Enrollment</th>
+                        <th class="max_enrollment">Maximum Enrollment</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,24 +91,37 @@
                             {
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[1] ."</td>"   // Program ID
-                                    ."<td>". $row[2] ."</td>"   // Program Title
-                                    ."<td>". $row[3] ."</td>"   // Start Date
-                                    ."<td>". $row[5] ."</td>"   // End Date
-                                    ."<td>". $row[4] ."</td>"   // Start Time
-                                    ."<td>". $row[6] ."</td>"   // End Time
-                                    ."<td>". $row[7] ."</td>"   // Location
-                                    ."<td>". $row[11]."</td>"   // Support Provided By
-                                    ."<td>". $row[9] ."</td>"   // Current Enrollment
-                                    ."<td>". $row[8] ."</td>"   // Max Enrollment
+                                    ."<td>". $row[1]  ."</td>"      // Program ID
+                                    ."<td>". $row[2]  ."</td>"      // Program Title
+                                    ."<td>". $row[3]  ."</td>"      // Start Date
+                                    ."<td>". $row[5]  ."</td>"      // End Date
+                                    ."<td>". $row[4]  ."</td>"      // Start Time
+                                    ."<td>". $row[6]  ."</td>"      // End Time
+                                    ."<td>". $row[7]  ."</td>"      // Location
+                                    ."<td>". $row[11] ."</td>"      // Support Provided By
+                                    ."<td>". $row[9]  ."</td>"      // Current Enrollment
+                                    ."<td>". $row[8]  ."</td>"      // Max Enrollment
                                     ."</tr>";
                             }
                         }
                     ?>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="program_id">Program ID</th>
+                        <th class="program_title">Program Title</th>
+                        <th class="start_date">Start Date</th>
+                        <th class="end_date">End Date</th>
+                        <th class="start_time">Start Time</th>
+                        <th class="end_time">End Time</th>
+                        <th class="location">Location</th>
+                        <th class="support_provided">Support Provided By</th>
+                        <th class="current_enrollment">Current Enrollment</th>
+                        <th class="max_enrollment">Maximum Enrollment</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
-        <script type="text/javascript" src="js/reports/quick_report.js"></script>
     </body>
 </html>
 

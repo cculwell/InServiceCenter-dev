@@ -158,7 +158,8 @@
 
             // // Write total fees
             $pdf->SetFont('Times', 'B', 11);
-            $total = "TOTAL: $" . (string)((float)$row[15] + (float)$row[14]);
+            $grand_total = (string)(number_format((float)$row[15] + (float)$row[14], 2, '.', ''));
+            $total = "TOTAL: $" . $grand_total;
             $pdf->Cell(80, 10, "", 0, 0);
             $pdf->Cell(30, 10, $total, 0, 0);
             $pdf->Ln(15);
@@ -215,7 +216,7 @@
     $pdf->Cell(50, 10, "", "", 0);
     $pdf->Cell(30, 10, "", "BL", 0);
     $pdf->Cell(30, 10, "GRAND TOTAL: $", "B", 0, "R");
-    $pdf->Cell(30, 10, $total_fees, "BR", 0, "C");
+    $pdf->Cell(30, 10, number_format((float)$total_fees, 2, '.', ''), "BR", 0, "C");
 
     $pdf->Output();
 ?>

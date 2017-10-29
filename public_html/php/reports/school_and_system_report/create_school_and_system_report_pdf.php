@@ -84,7 +84,7 @@
             $pdf->Ln(6);
 
             // Write the total PD's for the system
-            $total_pd = "Total Programs Offered: " . $row[1];
+            $total_pd = "Total Programs Offered:   " . $row[1];
             $pdf->SetFont('Times', '', 12);
             $pdf->Cell(20, 10, "", 0, 0);
             $pdf->Cell(30, 10, $total_pd, 0, 0);
@@ -92,7 +92,8 @@
 
             // Write the total spent on this PD
             $pdf->SetFont('Times', '', 12);
-            $total_spent = "Total Spent: $" . $row[2];
+            $get_total = (string)(number_format((float)$row[2], 2, '.', ''));
+            $total_spent = "Total Spent:   $" . $get_total;
             $pdf->Cell(20, 10, "", 0, 0);
             $pdf->Cell(30, 10, $total_spent, 0, 0);
             $pdf->Ln(10);

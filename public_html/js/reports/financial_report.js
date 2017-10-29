@@ -1,68 +1,23 @@
-var term = "";
-
 $(document).ready(function() {
-    var term_text = document.getElementById("term-and-year");
-    var month = new Date().getMonth();
-    var year = new Date().getFullYear();
-
-    /* Get the term based on the current month */
-    if (month >= 1 && month <= 4) {
-        term = "Spring";
-    }
-
-    if (month >= 5 && month <= 7) {
-        term = "Summer";
-    }
-
-    if (month >= 8 && month <= 12) {
-        term = "Fall";
-    }
-
-    term = term + " " + year;
-
-    term_text.innerHTML = term;
-
     $('#financial_report_table').DataTable( {
-        dom: 'Bfrtip',
-        "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
- 
-            // converting to interger to find total
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
- 
-            // Sum consultant fees
-            consultant_fee_total = api
-                .column(12)
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-
-            // Sum misc fees
-            misc_fee_total = api
-                .column(13)
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
- 
-            // Update footer
-            $(api.column(11).footer()).html('Totals:');
-            $(api.column(12).footer()).html('$' + consultant_fee_total);
-            $(api.column(13).footer()).html('$' + misc_fee_total);
-        },
+        dom:            'Bfrtip',
+        scrollX:        true,
+        autoWidth:      false,
         buttons: {
             buttons: [
                 {
                     extend: 'print',
                     text: 'Print Table', 
                     title: 'Financial Report',
-                    autoPrint: true
+                    autoPrint: true,
+                    customize: function (win) {
+                        $(win.document.body)
+                            .css('font-size', '10pt');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
                 },
                 {
                     extend: 'colvis',

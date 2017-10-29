@@ -32,47 +32,56 @@
         <link rel="stylesheet" href="css/Reports.css">
 
         <script src="../resources/library/jquery-3.2.1.min.js"></script>
-
-        <!-- Tables -- >
+        <script src="js/reports/financial_report.js"></script>
         <script src="../resources/library/DataTables/datatables.js"></script>
-
-        <!-- Buttons -->
         <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
         <script src="../resources/library/DataTables/Buttons/js/dataTables.buttons.min.js"></script>
-
-        <!-- Print button --> 
         <script src="../resources/library/DataTables/Buttons/js/buttons.print.min.js"></script>
-
-        <!-- PDF Button -->
         <script src="../resources/library/DataTables/Buttons/js/buttons.html5.min.js"></script>
         <script src="../resources/library/DataTables/Buttons/js/pdfmake.min.js"></script>
         <script src="../resources/library/DataTables/Buttons/js/vfs_fonts.js"></script>
-
-        <!-- Column Visibility Button -->
         <script src="../resources/library/DataTables/Buttons/js/buttons.colVis.min.js"></script>
 
     </head>
     <body>
         <div class="page_container">
-            <h3 style="text-align: center;">Financial Report</h3>
-            <h4 id="term-and-year" style="text-align: center; font-style: italic;"></h4><br><br>
-            <table id="financial_report_table" class="display compact table-responsive" cellspacing="0" width="100%">
+            <h3>Financial Report</h3>
+            <?php
+                $month = date('m');
+                $year = date('Y');
+                $semester = "";
+
+                // Determine semester based on current month
+                if ($month >= 1 && $month <=4) {
+                    $semester = "Spring" . " " . $year;
+                }
+                if ($month >= 5 && $month <=7) {
+                    $semester = "Summer" . " " . $year;
+                }
+                if ($month >= 8 && $month <=12) {
+                    $semester = "Fall" . " " . $year;
+                }
+
+                echo "<h4>" . $semester . "</h4>";
+            ?>
+            <br><br>
+            <table id="financial_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Program ID</th>
-                        <th>Program Title</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Number of Sessions</th>
-                        <th>Location</th>
-                        <th>Support Provided By</th>
-                        <th>Target Audience</th>
-                        <th>Current Enrollment</th>
-                        <th>Maximum Enrollment</th>
-                        <th>Consultant Fee</th>
-                        <th>Misc Fees</th>
+                        <th class="program_id">Program ID</th>
+                        <th class="program_title">Program Title</th>
+                        <th class="start_date">Start Date</th>
+                        <th class="end_date">End Date</th>
+                        <th class="start_time">Start Time</th>
+                        <th class="end_time">End Time</th>
+                        <th class="num_sessions">Number of Sessions</th>
+                        <th class="location">Location</th>
+                        <th class="support_provided">Support Provided By</th>
+                        <th class="target_audience">Target Audience</th>
+                        <th class="current_enrollment">Current Enrollment</th>
+                        <th class="max_enrollment">Maximum Enrollment</th>
+                        <th class="consultant_fee">Consultant Fees</th>
+                        <th class="misc_fees">Misc Fees</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,35 +95,89 @@
                             {
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[1] ."</td>"   // Program ID
-                                    ."<td>". $row[2] ."</td>"   // Program Title
-                                    ."<td>". $row[3] ."</td>"   // Start Date
-                                    ."<td>". $row[5] ."</td>"   // End Date
-                                    ."<td>". $row[4] ."</td>"   // Start Time
-                                    ."<td>". $row[6] ."</td>"   // End Time
-                                    ."<td>". $row[12] ."</td>"  // Number of Sessions
-                                    ."<td>". $row[7] ."</td>"   // Location
-                                    ."<td>". $row[11] ."</td>"  // Support Provided By
-                                    ."<td>". $row[13] ."</td>"  // Target Audience
-                                    ."<td>". $row[9] ."</td>"   // Current Enrollment
-                                    ."<td>". $row[8] ."</td>"   // Max Enrollment
-                                    ."<td>". $row[14] ."</td>"  // Consultant Fee                                    
-                                    ."<td>". $row[15] ."</td>"  // Misc Expenses
+                                    ."<td>". $row[1]  ."</td>"        // Program ID
+                                    ."<td>". $row[2]  ."</td>"        // Program Title
+                                    ."<td>". $row[3]  ."</td>"        // Start Date
+                                    ."<td>". $row[5]  ."</td>"        // End Date
+                                    ."<td>". $row[4]  ."</td>"        // Start Time
+                                    ."<td>". $row[6]  ."</td>"        // End Time
+                                    ."<td>". $row[12] ."</td>"        // Number of Sessions
+                                    ."<td>". $row[7]  ."</td>"        // Location
+                                    ."<td>". $row[11] ."</td>"        // Support Provided By
+                                    ."<td>". $row[13] ."</td>"        // Target Audience
+                                    ."<td>". $row[9]  ."</td>"        // Current Enrollment
+                                    ."<td>". $row[8]  ."</td>"        // Max Enrollment
+                                    ."<td>". "$" . $row[14] ."</td>"  // Consultant Fee                                    
+                                    ."<td>". "$" . $row[15] ."</td>"  // Misc Expenses
                                     ."</tr>";
                             }
                         }
                     ?>
                 </tbody>
-                <tfoot align="right">
+                <tfoot>
                     <tr>
-                        <th style="border-top: none;"></th>
-                        <th style="border-top: none;"></th>
-                        <th style="border-top: none;"></th>
+                        <th class="program_id">Program ID</th>
+                        <th class="program_title">Program Title</th>
+                        <th class="start_date">Start Date</th>
+                        <th class="end_date">End Date</th>
+                        <th class="start_time">Start Time</th>
+                        <th class="end_time">End Time</th>
+                        <th class="num_sessions">Number of Sessions</th>
+                        <th class="location">Location</th>
+                        <th class="support_provided">Support Provided By</th>
+                        <th class="target_audience">Target Audience</th>
+                        <th class="current_enrollment">Current Enrollment</th>
+                        <th class="max_enrollment">Maximum Enrollment</th>
+                        <th class="consultant_fee">Consultant Fees</th>
+                        <th class="misc_fees">Misc Fees</th>
                     </tr>
                 </tfoot>
             </table>
+            <br><br>
+            <table>
+                <col width="200">
+                <col width="80">
+                <col width="80">
+                <thead>
+                    <tr>
+                        <th style="font-weight: bold;
+                                   font-size: 14;
+                                   text-align: center;
+                                   text-decoration: underline;"
+                            colspan="2">Fee Totals</th>
+                    </tr>
+                </thead>
+                <?php
+                    // Get total consultant fees
+                    $sql = "SELECT SUM(consultant_fee) AS total_consultant_fees FROM financial_report_data";
+                    $consultant_fee_result = mysqli_query($mysqli, $sql); 
+                    $row = mysqli_fetch_assoc($consultant_fee_result); 
+                    $consultant_fees = $row['total_consultant_fees'];
+
+                    // Get total misc fees
+                    $sql = "SELECT SUM(misc_fee) AS total_misc_fees FROM financial_report_data";
+                    $misc_fees_result = mysqli_query($mysqli, $sql); 
+                    $row = mysqli_fetch_assoc($misc_fees_result); 
+                    $misc_fees = $row['total_misc_fees'];
+
+                    $total_fees = (float)$consultant_fees + (float)$misc_fees;
+
+                    echo
+                        "<tr>"
+                        ."<td style='font-weight: bold;'>Total Consultant Fees:</td>"
+                        ."<td>$". $consultant_fees  ."</td>"
+                        ."</tr>"
+                        ."<tr>"
+                        ."<td style='font-weight: bold;'>Total Misc. Fees:</td>"
+                        ."<td>$". $misc_fees  ."</td>"
+                        ."</tr>"
+                        ."<tr>"
+                        ."<td style='font-weight: bold;'>Total Fees:</td>"
+                        ."<td>$". $total_fees ."</td>"
+                        ."</tr>"
+                ?>
+            </table>
         </div>
-        <script type="text/javascript" src="js/reports/financial_report.js"></script>
     </body>
 </html>
 

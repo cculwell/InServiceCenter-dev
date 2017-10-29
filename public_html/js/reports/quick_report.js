@@ -1,37 +1,23 @@
-var term = "";
-
 $(document).ready(function() {
-    var term_text = document.getElementById("term-and-year");
-    var month = new Date().getMonth();
-    var year = new Date().getFullYear();
-
-    /* Get the term based on the current month */
-    if (month >= 1 && month <= 4) {
-        term = "Spring";
-    }
-
-    if (month >= 5 && month <= 7) {
-        term = "Summer";
-    }
-
-    if (month >= 8 && month <= 12) {
-        term = "Fall";
-    }
-
-    term = term + " " + year;
-
-    term_text.innerHTML = term;
-
     $('#quick_report_table').DataTable( {
-        dom: 'Bfrtip',
-        "scrollX": true,
+        dom:            'Bfrtip',
+        scrollX:        true,
+        autoWidth:      false,
         buttons: {
             buttons: [
                 {
                     extend: 'print',
                     text: 'Print Table', 
                     title: 'Quick Report',
-                    autoPrint: true
+                    autoPrint: true,
+                    customize: function (win) {
+                        $(win.document.body)
+                            .css('font-size', '10pt');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
                 },
                 {
                     extend: 'colvis',
