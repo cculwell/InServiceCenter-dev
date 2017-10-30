@@ -668,7 +668,6 @@ if ($mysqli->connect_errno) {
         </div>
         <script>
             $("#wq_detail_tabs").tabs();
-            $("#reports").load( 'reports.html' );
         </script>
 
 

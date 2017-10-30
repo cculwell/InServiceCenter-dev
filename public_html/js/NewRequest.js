@@ -48,6 +48,7 @@ $(document).ready(function() {
 
     // Ajax call to pass form to php
     $('#submitRequest').click(function() {
+        // $('#submitRequest').checkValidity();
         var form = $('form');
         //var formData = new FormData(document.querySelector('#RequestForm'));
         var url = "php/add_request.php"; // the script where you handle the form input.
@@ -70,10 +71,9 @@ $(document).ready(function() {
             },
             complete: function (data) {
                 // alert("complete");
-                // location.reload();
+                location.reload();
 
             }
-
         });
 
         event.preventDefault(); // avoid to execute the actual submit of the form.
@@ -81,6 +81,28 @@ $(document).ready(function() {
 
     $('.datepicker').datepicker();
     $('.timepicker').timepicker();
+
+
+    // $('#RequestForm').validate({
+    //     debug: true,
+    //     rule: {
+    //         school: 'required',
+    //         system: 'required'
+    //     },
+    //     messages: {},
+    //     errorPlacement: function(error, element) {
+    //         alert("error");
+    //         var placement = $(element).data('error');
+    //         if (placement) {
+    //             $(placement).append(error)
+    //         } else {
+    //             error.insertAfter(element);
+    //         }
+    //     },
+    //     errorElement : 'div',
+    //     errorLabelContainer: '.errorTxt'
+    //
+    // });
 
 });
 
@@ -111,9 +133,5 @@ $(document).ready(function(){
             i--;
         }
     });
-
-
-
-
 
 });

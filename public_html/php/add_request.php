@@ -231,8 +231,6 @@ try {
 
     }
 
-
-
     // commit the transaction
     $mysqli->commit();
     /* commit transaction */

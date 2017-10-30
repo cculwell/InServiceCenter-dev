@@ -17,6 +17,7 @@
     <script src="../resources/library/jquery-3.2.1.min.js"></script>
     <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
+    <!--<script src="../resources/library/jquery-validation/jquery.validate.js"></script>-->
     <script src="js/NewRequest.js"></script>
 
 
@@ -84,7 +85,7 @@
                                 <div class="col-md-12">
                                     <label class="col-md-push-12 pull-left">Request Description</label>
                                     <textarea class="form-control col-md-6" style="width:100%" rows="3"
-                                              id="request_desc" name="request_desc"></textarea>
+                                              id="request_desc" name="request_desc" minlength="10" required></textarea>
                                 </div>
                             </div>
 
@@ -127,13 +128,13 @@
                                 <div class="form-group col-md-3">
                                     <div class="input-group input-group-md">
                                         <label for="total_cost">Amt Requested / Total Cost</label>
-                                        <input type="number"  id="total_cost" name="total_cost" size="35" maxlength="25">
+                                        <input type="number"  id="total_cost" name="total_cost" size="35" maxlength="25" value="0">
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-3" id="cost_per_book_div">
                                     <label for="cost_per_book">Cost per Book</label>
-                                    <input type="number"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25">
+                                    <input type="number"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25" value="0">
                                 </div>
                                 <!--<div class="form-group col-md-4">-->
                                     <!--<label for="total_hours">Total Hours</label>-->
@@ -161,12 +162,12 @@
 
                                 <div class="form-group col-md-3" id="target_part_sec">
                                     <label for="eval_method">Target Participants #</label>
-                                    <input type="number"  id="target_participants" name="target_participants" size="40">
+                                    <input type="number"  id="target_participants" name="target_participants" size="40" value="0">
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label for="total_cost">Enrolled Participants #</label>
-                                    <input type="number"  id="enrolled_participants" name="enrolled_participants" size="40">
+                                    <input type="number"  id="enrolled_participants" name="enrolled_participants" size="40" value="0">
                                 </div>
                             </div>
                     </div>
@@ -233,12 +234,12 @@
                                 <!--div class="col-md-4"> </div> -->
                                 <div class="form-group col-md-4">
                                     <label for="company_phn_nbr">Phone</label>
-                                    <input type="text"  id="company_phn_nbr" name="company_phn_nbr" size="35" maxlength="50"
+                                    <input type="tel"  id="company_phn_nbr" name="company_phn_nbr" size="35" maxlength="50"
                                            class="phone_number">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="company_email">Email </label>
-                                    <input type="text"  id="company_email" name="company_email" size="35" maxlength="50">
+                                    <input type="email"  id="company_email" name="company_email" size="35" maxlength="50">
                                 </div>
                             </div>
                         </div>
@@ -256,11 +257,11 @@
                                 <!--div class="col-md-4"> </div> -->
                                 <div class="form-group col-md-4">
                                     <label for="company_phn_nbr">Phone</label>
-                                    <input type="text"  id="facilitator_phn_nbr" name="facilitator_phn_nbr" size="35" maxlength="50">
+                                    <input type="tel" pattern="^\d{4}-\d{3}-\d{4}$" id="facilitator_phn_nbr" name="facilitator_phn_nbr" size="35" maxlength="50">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="company_email">Email </label>
-                                    <input type="text"  id="facilitator_email" name="facilitator_email" size="35" maxlength="50">
+                                    <input type="email"  id="facilitator_email" name="facilitator_email" size="35" maxlength="50">
                                 </div>
                             </div>
                         </div>
@@ -282,7 +283,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="contact_email">Email </label>
-                                    <input type="text"  id="contact_email" name="contact_email" size="35" maxlength="50">
+                                    <input type="email"  id="contact_email" name="contact_email" size="35" maxlength="50">
                                 </div>
                                 <!--div class="col-md-4"> </div>
                                 <div class="col-md-4">
@@ -304,11 +305,24 @@
 
 
                 <!--<div id="debug">-->
-                    <!---->
+
+                <!--</div>-->
+
+                <!--<div class="errorTxt">-->
+                    <!--<span id="errNm2"></span>-->
+                    <!--<span id="errNm1"></span>-->
                 <!--</div>-->
             </div>
         </div>
     </div>
 </form>
+<!--<script>-->
+    <!--$("#RequestForm input").on('change,blur', validateForm);-->
 
+    <!--function validateForm() {-->
+    <!--// Caution : this refers to the HTMLElement-->
+        <!--$("#RequestForm").checkValidity();-->
+        <!--alert("Test");-->
+    <!--}-->
+<!--</script>-->
 </html>
