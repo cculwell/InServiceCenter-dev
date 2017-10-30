@@ -550,6 +550,16 @@ if ($mysqli->connect_errno) {
 
 
             <div id="contacts">
+                <!-- Contacts Buttons -->
+                <div class="row input-group" id="contact_button_row">
+                    <div class="form-group col-xs-12" id="contact_button_sec">
+                        <button id="contact_new_btn">New</button>
+                        <button id="contact_edit_btn">Edit</button>
+                        <button id="contact_delete_btn">Delete</button>
+                    </div>
+                </div>
+
+
                 <table id="tbl_contacts" class="display table-responsive" cellspacing="0" width="100%">
                     <thead>
                     <tr>
@@ -604,35 +614,35 @@ if ($mysqli->connect_errno) {
                     </tbody>
                 </table>
 
-                <!-- Popup Contacts -->
-<!--                <div id="div_pop_contact">-->
-<!--                    <form class="form form-vertical" id="pop_contact_form_id">-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="column-label col-xs-3" for="pop_contact_id">ID</label>-->
-<!--                            <input class="col-xs-9" type="text" id="pop_contact_id">-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="column-label col-xs-3" for="pop_contact_name">Name:</label>-->
-<!--                            <input class="col-xs-9" type="text" id="pop_contact_name">-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="column-label col-xs-3" for="pop_contact_role">Role:</label>-->
-<!--                            <input class="col-xs-9" type="text" id="pop_contact_role">-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="column-label col-xs-3" for="pop_contact_phn_nbr">Phone #:</label>-->
-<!--                            <input class="col-xs-9" type="text" id="pop_contact_phn_nbr">-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="column-label col-xs-3" for="pop_contact_email">Email:</label>-->
-<!--                            <input class="col-xs-9" type="text" id="pop_contact_email">-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label class="column-label col-xs-3" for="pop_contact_address">Address:</label>-->
-<!--                            <input class="col-xs-9" type="text" id="pop_contact_address">-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
+                 Popup Contacts
+                <div id="div_pop_contact">
+                    <form class="form form-vertical" id="pop_contact_form_id">
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_contact_id" hidden>ID</label>
+                            <input class="col-xs-9" type="text" id="pop_contact_id" disabled hidden>
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_contact_name">Name:</label>
+                            <input class="col-xs-9" type="text" id="pop_contact_name">
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_contact_role">Role:</label>
+                            <input class="col-xs-9" type="text" id="pop_contact_role">
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_contact_phn_nbr">Phone #:</label>
+                            <input class="col-xs-9" type="text" id="pop_contact_phn_nbr">
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_contact_email">Email:</label>
+                            <input class="col-xs-9" type="text" id="pop_contact_email">
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_contact_address">Address:</label>
+                            <input class="col-xs-9" type="text" id="pop_contact_address">
+                        </div>
+                    </form>
+                </div>
 
                 <script>
                     var contacts = $('#tbl_contacts').DataTable({
@@ -654,6 +664,45 @@ if ($mysqli->connect_errno) {
 //
 //
 //                    });
+
+
+                    $("#div_pop_contact").dialog({
+                        autoOpen: false,
+                        buttons: {
+                            Update: function(){
+
+                            },
+                            Cancel: function(){
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+
+                    $("#contact_new_btn").click(function(e) {
+                        e.preventDefault();
+//                        alert("You clicked New");
+
+                        $("#div_pop_contact").dialog("open")
+                            .dialog("option", "width", 500);
+
+                    });
+
+                    $("#contact_edit_btn").click(function(e) {
+                        e.preventDefault();
+//                        var contacts = date_times.rows( { selected: true } ).data();
+//                        alert("You clicked Edit")
+
+                        $("#div_pop_contact").dialog("open")
+                            .dialog("option", "width", 500);
+
+                        //$("#pop_dt_id_grp").hide();
+                    });
+
+                    $("#contact_delete_btn").click(function(e) {
+                        e.preventDefault();
+//                        alert("You clicked Delete");
+                    });
+
 
                 </script>
 
