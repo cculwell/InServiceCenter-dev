@@ -95,20 +95,20 @@
                             {
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[1]  ."</td>"        // Program ID
-                                    ."<td>". $row[2]  ."</td>"        // Program Title
-                                    ."<td>". $row[3]  ."</td>"        // Start Date
-                                    ."<td>". $row[5]  ."</td>"        // End Date
-                                    ."<td>". $row[4]  ."</td>"        // Start Time
-                                    ."<td>". $row[6]  ."</td>"        // End Time
-                                    ."<td>". $row[12] ."</td>"        // Number of Sessions
-                                    ."<td>". $row[7]  ."</td>"        // Location
-                                    ."<td>". $row[11] ."</td>"        // Support Provided By
-                                    ."<td>". $row[13] ."</td>"        // Target Audience
-                                    ."<td>". $row[9]  ."</td>"        // Current Enrollment
-                                    ."<td>". $row[8]  ."</td>"        // Max Enrollment
-                                    ."<td>". "$" . $row[14] ."</td>"  // Consultant Fee                                    
-                                    ."<td>". "$" . $row[15] ."</td>"  // Misc Expenses
+                                    ."<td>". $row[1]  ."</td>"                    // Program ID
+                                    ."<td>". $row[2]  ."</td>"                    // Program Title
+                                    ."<td>". $row[3]  ."</td>"                    // Start Date
+                                    ."<td>". $row[5]  ."</td>"                    // End Date
+                                    ."<td>". $row[4]  ."</td>"                    // Start Time
+                                    ."<td>". $row[6]  ."</td>"                    // End Time
+                                    ."<td>". $row[12] ."</td>"                    // Number of Sessions
+                                    ."<td class='location'>". $row[7]  ."</td>"   // Location
+                                    ."<td>". $row[11] ."</td>"                    // Support Provided By
+                                    ."<td>". $row[13] ."</td>"                    // Target Audience
+                                    ."<td>". $row[9]  ."</td>"                    // Current Enrollment
+                                    ."<td>". $row[8]  ."</td>"                    // Max Enrollment
+                                    ."<td>". "$" . $row[14] ."</td>"              // Consultant Fee                                    
+                                    ."<td>". "$" . $row[15] ."</td>"              // Misc Expenses
                                     ."</tr>";
                             }
                         }

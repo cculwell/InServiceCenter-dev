@@ -48,12 +48,24 @@ table.dataTable thead tr th
   word-break: break-all;
   word-break: break-word;
   hyphens: auto;
+  text-align: center;
+}
+
+td
+{
+    text-align: center;
+}
+
+td.notes,
+td.location
+{
+    text-align: left;
 }
 
 /*Set column widths*/
 .program_id
 {
-    width: 200px;
+    width: 70px;
 }
 
 .program_title
@@ -63,27 +75,27 @@ table.dataTable thead tr th
 
 .start_date
 {
-    width: 150px;   
+    width: 70px;   
 }
 
 .end_date
 {
-    width: 150px;
+    width: 70px;
 }
 
 .start_time
 {
-    width: 150px;
+    width: 70px;
 }
 
 .end_time
 {
-    width: 150px;
+    width: 70px;
 }
 
 .num_sessions
 {
-    width: 300px;
+    width: 70px;
 }
 
 .location
@@ -93,7 +105,7 @@ table.dataTable thead tr th
 
 .support_provided
 {
-    width: 300px;
+    width: 70px;
 }
 
 .target_audience
@@ -103,12 +115,12 @@ table.dataTable thead tr th
 
 .current_enrollment
 {
-    width: 300px;
+    width: 70px;
 }
 
 .max_enrollment
 {
-    width: 300px;
+    width: 70px;
 }
 
 .curriculum_area
@@ -138,20 +150,20 @@ table.dataTable thead tr th
 
 .offerings_per_system
 {
-    width: 100px;
+    width: 70px;
 }
 
 .total_spent_per_system
 {
-    width: 100px;
+    width: 70px;
 }
 
 .consultant_fee
 {
-    width: 200px
+    width: 70px
 }
 
 .misc_fees
 {
-    width: 200px;
+    width: 70px;
 }
