@@ -1,6 +1,6 @@
 <?php
 
-require "../resources/config.php";
+require "../../resources/config.php";
 
 function FormatDate4Db($date)
 {

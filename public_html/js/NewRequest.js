@@ -80,7 +80,10 @@ $(document).ready(function() {
     });
 
     $('.datepicker').datepicker();
-    $('.timepicker').timepicker();
+    $('.timepicker').timepicker({
+        disableTimeRanges: [['12:00am', '8:00am'], ['9:30pm', '11:59pm']],
+        disableTextInput: true
+    });
 
 
     // $('#RequestForm').validate({
@@ -113,9 +116,9 @@ $(document).ready(function(){
     var i=1;
     $("#add_date_row").click(function(){
         $('#addr'+i).html("<td>"+ (i+1) + "</td>" +
-            "<td><input  name='date"+i+"'  type='text' placeholder='MM/DD/YYYY'   class='form-control input-md datepicker'/></td>"+
-            "<td><input  name='sTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md timepicker'></td>" +
-            "<td><input  name='eTime"+i+"' type='text' placeholder='00:00 AM/PM'  class='form-control input-md timepicker'></td>" +
+            "<td><input  name='date"+i+"'  type='text' placeholder='mm/dd/yyyy' class='form-control input-md datepicker'/></td>"+
+            "<td><input  name='sTime"+i+"' type='text' placeholder='00:00am/pm' class='form-control input-md timepicker'></td>" +
+            "<td><input  name='eTime"+i+"' type='text' placeholder='00:00am/pm' class='form-control input-md timepicker'></td>" +
             "<td><input  name='bTime"+i+"' type='number' placeholder='' class='form-control input-md'></td>" //+
             // "<td><input  name='note"+i+"' type='text' placeholder=''  class='form-control input-md'></td>"
         );
@@ -124,7 +127,10 @@ $(document).ready(function(){
         i++;
 
         $('.datepicker').datepicker();
-        $('.timepicker').timepicker();
+        $('.timepicker').timepicker({
+            disableTimeRanges: [['12:00am', '8:00am'], ['9:30pm', '11:59pm']],
+            disableTextInput: true
+        });
     });
 
     $("#delete_date_row").click(function(){
