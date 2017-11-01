@@ -1,20 +1,42 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="css/MenuBar.css">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/Admin.css" />
+
+      <script src="../resources/library/jquery-3.2.1.min.js"></script>
+      <script src="../resources/library/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <!-- Create the menu bar -->
-        <div class="menu_bar">
-            <a href="AdminMain.php" target="_self">Home</a>
-            <a href="Email.php" target="_self">Subscribers</a>
-            <div class="dropdown">
-                <button class="dropdown_button">Upload Files</button>
-                    <div class="dropdown-content">
-                        <a href="Newsletters.php" target="_self">Newsletters</a>
-                        <a href="Bylaws.php" target="_self">Bylaws</a>
-                    </div>
-            </div> 
-        </div>
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand">Admin Page</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><a id="home" href="AdminMain.php">Home</a></li>
+              <li><a id="subscribers" href="Email.php">Subscribers</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Upload Files
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a id="newsletters" href="Newsletters.php">Newsletters</a></li>
+                  <li><a id="bylaws" href="Bylaws.php">Bylaws</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <script>
+            $('a').click(function(e){
+                var $this = $(this)
+                var href = $this.attr("href");
+
+                $(document.body).load(href);
+            });
+        </script>
     </body>
 </html>

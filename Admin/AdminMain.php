@@ -1,4 +1,6 @@
-<?php include "MenuBar.html"; ?>
+<?php
+    include "MenuBar.html";
+?>
 
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
@@ -14,7 +16,7 @@
     </head>
 
     <body>
-    	<div class="page_container"> 
+    	<div class="panel-body"> 
     		<h3>Welcome to the Admin Page. This page is still under construction</h3>
     	</div> 
     </body>

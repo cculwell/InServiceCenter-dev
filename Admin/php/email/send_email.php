@@ -28,10 +28,10 @@
         $message = stripslashes($_POST['message']);
 
         //create a From: mailheader
-        $mailheaders = "From: jason.verbosh@gmail.com";
+        $mailheaders = "From: jason.verbosh@gmail.com"; // CHANGE THIS WHEN DELIVERING
 
         $email_message = new PHPMailer();
-        $email_message->From = 'jason.verbosh@gmail.com';
+        $email_message->From = 'jason.verbosh@gmail.com';   // CHANGE THIS WHEN DELIVERING
         $email_message->FromName = 'Athens State Regional Inservice Center';
         $email_message->Subject = $subject;
         $email_message->Body = $message;

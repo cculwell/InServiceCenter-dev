@@ -6,8 +6,8 @@ $(document).ready(function() {
 
     // Ajax call to pass e-mail address to php
     $('#send_emails_button').click(function() {
-        var subject = document.getElementById('subject').value;
-        var message = document.getElementById('message').value;
+        var subject = document.getElementById('subject_text_edit').value;
+        var message = document.getElementById('message_text_edit').value;
         var url = "php/email/send_email.php";
 
         $.ajax({
