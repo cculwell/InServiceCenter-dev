@@ -55,23 +55,58 @@
     height: 100vh;
     background-color: lightgray;
     display: table;
+    padding: 15px;
 }
 
-.content_container {
-    padding: 25px;
+.panel-body 
+{
+    background: #dcdcdc;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;}
+
+.content_container,
+.content_container_left
+{
     width: 50%;
     display: table-cell;
 }
 
-.content_container label {
+.content_container_right
+{
+    padding-left: 30px;
+    width: 50%;
+    display: table-cell;
+}
+
+.content_container label 
+{
     font-weight: bold;
 }
 
-.content_container p {
+.content_container p 
+{
     font-weight: bold;
 }
 
-/* form */
+h3
+{
+    padding-bottom: 15px;  
+}
+
+#subject_text_edit,
+#message_text_edit
+{
+    border-width: 2px;
+    border-style: inset;
+    border-style: solid;
+    border-top-color: #9a9a9a;
+    border-left-color: #9a9a9a;
+    border-right-color: #eeeeee;
+    border-bottom-color: #eeeeee;
+}
+
 form input.text {
     width:95%; 
     font-size:16px;
@@ -84,41 +119,14 @@ form textarea {
     text-align: left;
     vertical-align: top;
     align-content:center;
+    box-sizing: border-box;
 }
 
-table {
-    width:100%; 
-    text-align:right; 
-    border:rgb(128,128,128); 
-    font-size:15px; 
-    color:#000;background:#fff;
-    overflow: scroll;
-}
-
-table th {
-    background-color: rgb(229, 229, 229); 
-    border:1px solid rgb(187, 187, 187); 
-    font-weight:bold; 
-    color:#000;
+th,
+td
+{
     text-align: center;
 }
-
-table td {
-    border: 1px solid rgb(221, 221, 221); 
-    padding:3px 6px;
-    text-align: center;
-}
-
-table tr {
-    border: 1px solid rgb(221, 221, 221); 
-    padding:3px 6px;
-    text-align: left;
-}
-
-table tr:hover {
-    background-color: rgb(240, 240, 240);
-    color:#000;
-} 
 
 a.large {
     padding: 5px; 
@@ -151,4 +159,30 @@ a.large:hover, a.large.current {
     border:solid 1px #349534; 
     background:#C9FFCA;
     color:#008000;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: auto;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a
+ {
+    color: white;
+}
+
+.navbar-inverse
+{
+    background: #335eff;
+    font-family: Arial;
+    width: 100%;
+}
+
+.navbar-inverse .navbar-nav>.open>a, 
+.navbar-inverse .navbar-nav>.open>a:focus, 
+.navbar-inverse .navbar-nav>.open>a:hover {
+    background: #ddd;
+    color: black;
 }

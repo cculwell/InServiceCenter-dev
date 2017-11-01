@@ -12,11 +12,18 @@
 
         <title>Newsletters</title>
 
+        <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
+        <link rel="stylesheet" href="../resources/library/DataTables/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="css/Admin.css" />
+
+        <script src="../resources/library/jquery-3.2.1.min.js"></script>
+        <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
     </head>
     
 <body>
-    <div class="page_container"> 
+    <div class="panel-body"> 
 
         <?php
             $newsletters = get_all_rows('newsletters');
@@ -24,15 +31,15 @@
         ?>     
 
         <div class="content_container">
-            <label>Currently Available Newsletters</label>
-            <table> 
-                <thread>
+            <h3>Newsletters</h3>
+            <table id="newsletter_table" class="display table-responsive" cellspacing="0" width="100%"> 
+                <thead>
                     <tr> 
                         <th>Newsletter Name</th> 
                         <th>Currently Newsletter</th> 
                         <th></th>
                     </tr>
-                </thread>
+                </thead>
                 <tbody>
                     <?php
                         foreach($newsletters as $row) {
@@ -62,9 +69,13 @@
             <label>Load a new newsletter:</label>
             <form action="php/admin/upload_file.php?table=newsletters&type=newsletter_to_upload&dir=Newsletters" method="post" enctype="multipart/form-data">
                 <input type="file" name="newsletter_to_upload" id="newsletter_to_upload"><br><br>
-                <input type="submit" name="submit" value="Submit">
+                <input type="submit" name="submit" id="submit_button" value="Submit">
             </form>
-
+            <script>
+                $(document).ready(function() {
+                    $('#newsletter_table').DataTable();
+                });
+            </script>
         </div>
     </div>
 </body>
