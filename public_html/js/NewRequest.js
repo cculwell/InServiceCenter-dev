@@ -86,26 +86,11 @@ $(document).ready(function() {
     });
 
 
-    // $('#RequestForm').validate({
-    //     debug: true,
-    //     rule: {
-    //         school: 'required',
-    //         system: 'required'
-    //     },
-    //     messages: {},
-    //     errorPlacement: function(error, element) {
-    //         alert("error");
-    //         var placement = $(element).data('error');
-    //         if (placement) {
-    //             $(placement).append(error)
-    //         } else {
-    //             error.insertAfter(element);
-    //         }
-    //     },
-    //     errorElement : 'div',
-    //     errorLabelContainer: '.errorTxt'
-    //
-    // });
+
+
+
+
+
 
 });
 
@@ -116,7 +101,7 @@ $(document).ready(function(){
     var i=1;
     $("#add_date_row").click(function(){
         $('#addr'+i).html("<td>"+ (i+1) + "</td>" +
-            "<td><input  name='date"+i+"'  type='text' placeholder='mm/dd/yyyy' class='form-control input-md datepicker'/></td>"+
+            "<td><input  name='date"+i+"'  type='date' placeholder='mm/dd/yyyy' class='form-control input-md datepicker'/></td>"+
             "<td><input  name='sTime"+i+"' type='text' placeholder='00:00am/pm' class='form-control input-md timepicker'></td>" +
             "<td><input  name='eTime"+i+"' type='text' placeholder='00:00am/pm' class='form-control input-md timepicker'></td>" +
             "<td><input  name='bTime"+i+"' type='number' placeholder='' class='form-control input-md'></td>" //+
