@@ -164,15 +164,15 @@
 
                     echo
                         "<tr>"
-                        ."<td style='font-weight: bold;'>Total Consultant Fees:</td>"
+                        ."<td style='font-weight: bold; text-align: left;'>Total Consultant Fees:</td>"
                         ."<td>$". $consultant_fees  ."</td>"
                         ."</tr>"
                         ."<tr>"
-                        ."<td style='font-weight: bold;'>Total Misc. Fees:</td>"
+                        ."<td style='font-weight: bold; text-align: left;'>Total Misc. Fees:</td>"
                         ."<td>$". $misc_fees  ."</td>"
                         ."</tr>"
                         ."<tr>"
-                        ."<td style='font-weight: bold;'>Total Fees:</td>"
+                        ."<td style='font-weight: bold; text-align: left;'>Total Fees:</td>"
                         ."<td>$". $total_fees ."</td>"
                         ."</tr>"
                 ?>
