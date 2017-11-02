@@ -30,9 +30,9 @@
 	display: inline-block;
 	float: left;
 	width:30%;  
-	margin-left: 80px;              
-	margin-bottom: 1px;
-	margin-top: 8px;      
+	margin-left: 6.5%;              
+	margin-bottom: 1%;
+     
 }
 
  #fax
@@ -40,9 +40,10 @@
 	display: inline-block;
 	float: auto;
 	width: 30%;
-	margin-left: -40px;
-	margin-bottom: 1px;
-	margin-top: 20px;      
+	margin-left: -3%;
+	margin-right: 33%;
+	margin-bottom: 1%;
+      
 }
 
 #twitter
@@ -50,9 +51,9 @@
 	display: inline-block;
 	float: right;
 	width: 30%;
-	margin-right: 90px;
-	margin-bottom: 1px;
-	margin-top: -45px; 
+	margin-right: 7.5%;
+	margin-bottom: 3%;
+	margin-top: -4.35%; 
 }
 
 #hours
