@@ -44,6 +44,10 @@
             $this->Cell(30, 10, 'Regional In-Service Center', 0, 0, 'C');
             $this->Ln(10);
             $this->Cell(80);
+            $this->SetFont('Times', 'B', 12);
+            $this->Cell(30, 10, 'Financial Report', 0, 0, 'C');
+            $this->Ln(10);
+            $this->Cell(80);
             $this->SetFont('Times', 'IB', 12);
             $this->Cell(30, 10, $semester, 0, 0, 'C');
             $this->Ln(20);
