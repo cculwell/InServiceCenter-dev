@@ -614,12 +614,12 @@ if ($mysqli->connect_errno) {
                     </tbody>
                 </table>
 
-                 Popup Contacts
+<!--                 Popup Contacts-->
                 <div id="div_pop_contact">
                     <form class="form form-vertical" id="pop_contact_form_id">
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_id" hidden>ID</label>
-                            <input class="col-xs-9" type="text" id="pop_contact_id" disabled hidden>
+                            <input class="col-xs-9" type="number" id="pop_contact_id" disabled hidden>
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_name">Name:</label>
@@ -631,11 +631,11 @@ if ($mysqli->connect_errno) {
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_phn_nbr">Phone #:</label>
-                            <input class="col-xs-9" type="text" id="pop_contact_phn_nbr">
+                            <input class="col-xs-9" type="tel" id="pop_contact_phn_nbr">
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_email">Email:</label>
-                            <input class="col-xs-9" type="text" id="pop_contact_email">
+                            <input class="col-xs-9" type="email" id="pop_contact_email">
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_address">Address:</label>
@@ -657,21 +657,150 @@ if ($mysqli->connect_errno) {
                             }
                         ]
                     });
-//                    contacts.on('dblclick', 'tr', function () {
-//                        //var data = table.row( this ).data();
-//                        var contact = contacts.rows( { selected: true } ).data();
-//                        alert( 'You clicked on '+contact[0]+'\'s row' );
-//
-//
-//                    });
+                    contacts.row().select();
 
 
-                    $("#div_pop_contact").dialog({
+                    var contact_dialog = $("#div_pop_contact").dialog({
+                        title: "Contact",
                         autoOpen: false,
                         buttons: {
-                            Update: function(){
+                            "Add / Update": function(){
+                                $request_id = $("#request_id").val();
+                                $c_id = $("#pop_contact_id").val();
+                                $c_name = $("#pop_contact_name").val();
+                                $c_role = $("#pop_contact_role").val();
+                                $c_phn = $("#pop_contact_phn_nbr").val();
+                                $c_email = $("#pop_contact_email").val();
+                                $c_add = $("#pop_contact_address").val();
 
+                                console.log($c_id);
+                                if($c_id == null
+                                      || $c_id == undefined
+                                      || $.isEmptyObject($c_id)
+                                  ) {
+//                                   console.log("if true");
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "php/workqueue.php",
+                                        data: { trigger_name: "add_contact",
+                                            request_id: $request_id,
+                                            contact_name:       $c_name,
+                                            contact_role:       $c_role,
+                                            contact_phn_nbr:    $c_phn,
+                                            contact_email:      $c_email,
+                                            contact_address:    $c_add
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: add_contact");
+                                            console.log(data);
+
+                                            contacts.row.add( [
+                                                $("#pop_contact_id").val(),
+                                                $("#pop_contact_name").val(),
+                                                $("#pop_contact_role").val(),
+                                                $("#pop_contact_phn_nbr").val(),
+                                                $("#pop_contact_email").val(),
+                                                $("#pop_contact_address").val()
+                                            ]).draw();
+
+                                        },
+                                        error: function(data){
+                                            console.log("error: add_contact");
+//                                            console.log(data);
+                                        },
+                                        complete: function(data){
+//                                            console.log("complete: add_contact");
+                                            $('.ui-dialog-content').dialog('close');
+                                            contacts.row().select();
+
+                                        }
+                                    });
+
+//                                    $.ajax({
+//                                        type: "POST",
+//                                        url:  "php/workqueue.php",
+//                                        data: { trigger_name: "add_contact",
+//                                            request_id:         $request_id
+//                                            contact_name:       $c_name,
+//                                            contact_role:       $c_role,
+//                                            contact_phn_nbr:    $c_phn,
+//                                            contact_email:      $c_email,
+//                                            contact_address:    $c_add
+//                                        },
+//                                        dataType: "json",
+//                                        success: function(data){
+//                                            console.log("success: add_contact");
+////                                            console.log(data);
+//                                            contacts
+//                                                .row.add( [
+//                                                    $c_id,
+//                                                    $c_name,
+//                                                    $c_role,
+//                                                    $c_phn,
+//                                                    $c_email,
+//                                                    $c_add
+//                                                ])
+//                                                .draw();
+//
+//
+//
+////                                                $("#pop_contact_id").val(),
+////                                                $("#pop_contact_name").val(),
+////                                                $("#pop_contact_role").val(),
+////                                                $("#pop_contact_phn_nbr").val(),
+////                                                $("#pop_contact_email").val(),
+////                                                $("#pop_contact_address").val()
+////                                                ]
+////                                            )
+////                                                .draw();
+//                                        },
+//                                        error: function(data){
+//                                            console.log("error: add_contact");
+//                                            console.log(data);
+//                                        },
+//                                        complete: function (data) {
+//                                            $("#div_pop_contact").dialog("close");
+//                                            contacts.row().select();
+//                                        }
+//                                    });
+                                } else {
+                                    $.ajax({
+                                        type: "POST",
+                                        url:  "php/workqueue.php",
+                                        data: { trigger_name: "edit_contact",
+                                            contact_id: $contact_id
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: edit_contact");
+//                                            console.log(data);
+                                            contacts
+                                                .rows('.selected')
+                                                .remove()
+                                                .draw();
+                                            contacts
+                                                .row.add( [
+                                                $("#pop_contact_id").val(),
+                                                $("#pop_contact_name").val(),
+                                                $("#pop_contact_role").val(),
+                                                $("#pop_contact_phn_nbr").val(),
+                                                $("#pop_contact_email").val(),
+                                                $("#pop_contact_address").val()
+                                                ])
+                                                .draw();
+                                        },
+                                        error: function(data){
+                                            console.log("error: edit_contact");
+                                        },
+                                        complete: function (data) {
+                                            $(this).dialog("close");
+                                            contacts.row().select();
+                                        }
+                                    });
+                                }
                             },
+
                             Cancel: function(){
                                 $(this).dialog("close");
                             }
@@ -680,7 +809,12 @@ if ($mysqli->connect_errno) {
 
                     $("#contact_new_btn").click(function(e) {
                         e.preventDefault();
-//                        alert("You clicked New");
+                        $("#pop_contact_id").val(null);
+                        $("#pop_contact_name").val(null);
+                        $("#pop_contact_role").val(null);
+                        $("#pop_contact_phn_nbr").val(null);
+                        $("#pop_contact_email").val(null);
+                        $("#pop_contact_address").val(null);
 
                         $("#div_pop_contact").dialog("open")
                             .dialog("option", "width", 500);
@@ -689,18 +823,47 @@ if ($mysqli->connect_errno) {
 
                     $("#contact_edit_btn").click(function(e) {
                         e.preventDefault();
-//                        var contacts = date_times.rows( { selected: true } ).data();
-//                        alert("You clicked Edit")
+                        var contact = contacts.rows( { selected: true } ).data();
+                        $("#pop_contact_id").val(contact[0][0]);
+                        $("#pop_contact_name").val(contact[0][1]);
+                        $("#pop_contact_role").val(contact[0][2]);
+                        $("#pop_contact_phn_nbr").val(contact[0][3]);
+                        $("#pop_contact_email").val(contact[0][4]);
+                        $("#pop_contact_address").val(contact[0][6]);
 
                         $("#div_pop_contact").dialog("open")
                             .dialog("option", "width", 500);
 
-                        //$("#pop_dt_id_grp").hide();
                     });
 
                     $("#contact_delete_btn").click(function(e) {
                         e.preventDefault();
-//                        alert("You clicked Delete");
+                        $this = $(e.target);
+                        var contact_record = contacts.rows( { selected: true } ).data();
+                        $contact_id = contact_record[0][0];
+                        console.log($contact_id);
+
+                        $.ajax({
+                            type: "POST",
+                            url:  "php/workqueue.php",
+                            data: { trigger_name: "delete_contact",
+                                contact_id: $contact_id
+                            },
+                            dataType: "json",
+                            success: function(data){
+                                console.log("success:");
+                                console.log(data);
+                            },
+                            error: function(data){
+                                console.log("success:");
+                            },
+                            complete: function (data) {
+                                contact_record
+                                    .rows('.selected')
+                                    .remove()
+                                    .draw();
+                            }
+                        });
                     });
 
 
