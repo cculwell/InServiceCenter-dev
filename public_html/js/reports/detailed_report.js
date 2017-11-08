@@ -6,6 +6,10 @@ $(document).ready(function() {
         buttons: {
             buttons: [
                 {
+                    extend: 'colvis',
+                    text: 'Hide/Unhide Columns'
+                },
+                {
                     extend: 'print',
                     text: 'Print Table', 
                     title: 'Detailed Report',
@@ -20,8 +24,9 @@ $(document).ready(function() {
                     }
                 },
                 {
-                    extend: 'colvis',
-                    text: 'Hide/Unhide Columns'
+                    extend: 'excel',
+                    text: 'Save to Excel',
+                    title: 'Detailed Report'
                 },
                 {
                     extend: 'pdfHtml5',
@@ -37,14 +42,14 @@ $(document).ready(function() {
                         {
                             if (req.readyState === 4 && req.status === 200) 
                             {
-                                var filename = "DetailedReport-" + new Date().getTime() + ".pdf";
+                                var filename = "Detailed Report-" + new Date().getTime() + ".pdf";
                                 if (typeof window.chrome !== 'undefined') 
                                 {
                                     // Chrome version
                                     var link = document.createElement('a');
 
                                     link.href = window.URL.createObjectURL(req.response);
-                                    link.download = "DetailedReport-" + new Date().getTime() + ".pdf";
+                                    link.download = "Detailed Report-" + new Date().getTime() + ".pdf";
                                     link.click();
                                 } 
                                 else if (typeof window.navigator.msSaveBlob !== 'undefined') 

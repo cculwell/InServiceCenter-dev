@@ -41,6 +41,8 @@
         <script src="../resources/library/DataTables/Buttons/js/pdfmake.min.js"></script>
         <script src="../resources/library/DataTables/Buttons/js/vfs_fonts.js"></script>
         <script src="../resources/library/DataTables/Buttons/js/buttons.colVis.min.js"></script>
+        <script src="../resources/library/DataTables/Buttons/js/jszip.min.js"></script>
+        <script src="../resources/library/DataTables/Buttons/js/buttons.flash.min.js"></script>
 
     </head>
     <body>
