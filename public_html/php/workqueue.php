@@ -51,6 +51,21 @@ if(isset($_POST['contact_address'])){
 }
 
 
+// Expenses
+if(isset($_POST['expense_id'])){
+    $expense_id = $_POST['expense_id'];
+}
+if(isset($_POST['expense_type'])){
+    $expense_type = $_POST['expense_type'];
+}
+if(isset($_POST['expense_amount'])){
+    $expense_amount = $_POST['expense_amount'];
+}
+if(isset($_POST['expense_note'])){
+    $expense_note = $_POST['expense_note'];
+}
+
+
 
 function workflow_state_change($mysqli,$request_id, $workflow_state) {
 
@@ -82,7 +97,7 @@ function delete_contact($mysqli,$contact_id) {
     if (mysqli_query($mysqli, $sql)) {
 //        echo "Record Deleted successfully";
     } else {
-        echo "Error Deleted record: " . mysqli_error($mysqli);
+        echo "Error Deleted Contact record: " . mysqli_error($mysqli);
     }
 }
 
@@ -146,6 +161,69 @@ function update_contact($mysqli
 
 
 
+function delete_expense($mysqli, $expense_id){
+
+    $sql  = "delete from expenses ";
+    $sql .= " where expense_id = ";
+    $sql .= $expense_id;
+
+    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Record Deleted successfully";
+    } else {
+        echo "Error Deleted Expense record: " . mysqli_error($mysqli);
+    }
+}
+
+function add_expense($mysqli
+    , $request_id
+    , $expense_type
+    , $expense_amount
+    , $expense_note) {
+
+    $sql  = " insert into expenses ( ";
+    $sql .= " request_id, expense_type, expense_amount, expense_note ";
+    $sql .= " ) values ( ";
+    $sql .= $request_id . ",'";
+    $sql .= $expense_type . "','";
+    $sql .= $expense_amount . "','";
+    $sql .= $expense_note . "' ) ";
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Record Add successfully";
+    } else {
+        echo "Error Add Expense record: " . mysqli_error($mysqli);
+    }
+
+    return $mysqli->insert_id;
+}
+
+function update_expense($mysqli
+    , $expense_id
+    , $expense_type
+    , $expense_amount
+    , $expense_note) {
+
+    $sql  = " update expenses set ";
+    $sql .= " expense_type = '" . $expense_type . "', ";
+    $sql .= " expense_amount = '" . $expense_amount . "', ";
+    $sql .= " expense_note = '" . $expense_note . "' ";
+    $sql .= " where expense_id = " . $expense_id . " ";
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Update successfully";
+    } else {
+        echo "Error Update Expense: " . mysqli_error($mysqli);
+    }
+
+//    return $mysqli->insert_id;
+}
+
+//print_r($_POST);
+
 if($trigger=="workflow_state_change"){
     workflow_state_change($mysqli,$request_id,$workflow_state);
 }
@@ -176,6 +254,27 @@ if($trigger=="add_contact"){
     echo $contact_id;
 }
 
+if($trigger=="delete_expense"){
+    delete_expense($mysqli,$expense_id);
+}
+
+if($trigger=="update_expense"){
+    update_expense($mysqli
+        , $expense_id
+        , $expense_type
+        , $expense_amount
+        , $expense_note);
+    echo $expense_id;
+}
+
+if($trigger=="add_expense"){
+    $expense_id = add_expense($mysqli
+        , $request_id
+        , $expense_type
+        , $expense_amount
+        , $expense_note);
+    echo $expense_id;
+}
 mysqli_close($mysqli);
 
 ?>
