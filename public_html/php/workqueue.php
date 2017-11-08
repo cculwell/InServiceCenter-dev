@@ -117,6 +117,32 @@ function add_contact($mysqli
     return $mysqli->insert_id;
 }
 
+function update_contact($mysqli
+    , $contact_id
+    , $contact_name
+    , $contact_role
+    , $contact_phn_nbr
+    , $contact_email
+    , $contact_address) {
+
+    $sql  = " update contacts set ";
+    $sql .= " contact_name = '" . $contact_name . "', ";
+    $sql .= " contact_role = '" . $contact_role . "', ";
+    $sql .= " contact_phn_nbr = '" . $contact_phn_nbr . "', ";
+    $sql .= " contact_email = '" . $contact_email . "', ";
+    $sql .= " contact_address = '" . $contact_address . "' ";
+    $sql .= " where contact_id = " . $contact_id . " ";
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Update successfully";
+    } else {
+        echo "Error Update Contact: " . mysqli_error($mysqli);
+    }
+
+//    return $mysqli->insert_id;
+}
 
 
 
@@ -126,6 +152,17 @@ if($trigger=="workflow_state_change"){
 
 if($trigger=="delete_contact"){
     delete_contact($mysqli,$contact_id);
+}
+
+if($trigger=="update_contact"){
+    update_contact($mysqli
+        , $contact_id
+        , $contact_name
+        , $contact_role
+        , $contact_phn_nbr
+        , $contact_email
+        , $contact_address);
+    echo $contact_id;
 }
 
 if($trigger=="add_contact"){

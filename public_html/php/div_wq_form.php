@@ -491,6 +491,7 @@ if ($mysqli->connect_errno) {
                             ]
 
                         });
+                        date_times.row().select();
 
 
                         $("#div_pop_dt").dialog({
@@ -507,12 +508,12 @@ if ($mysqli->connect_errno) {
 
                         $("#dt_new_btn").click(function(e) {
                             e.preventDefault();
-                            $("#pop_dt_id").val('');
-                            $("#pop_dt_date").val('');
-                            $("#pop_dt_start").val('');
-                            $("#pop_dt_end").val('');
-                            $("#pop_dt_break").val('');
-                            $("#pop_dt_note").val('');
+                            $("#pop_dt_id").val(null);
+                            $("#pop_dt_date").val(null);
+                            $("#pop_dt_start").val(null);
+                            $("#pop_dt_end").val(null);
+                            $("#pop_dt_break").val(null);
+                            $("#pop_dt_note").val(null);
 
                             $("#div_pop_dt").dialog("open")
                                 .dialog("option", "width", 500);
@@ -534,12 +535,31 @@ if ($mysqli->connect_errno) {
                             $("#div_pop_dt").dialog("open")
                                 .dialog("option", "width", 500);
 
-                            //$("#pop_dt_id_grp").hide();
                         });
 
                         $("#dt_delete_btn").click(function(e) {
                             e.preventDefault();
-                            alert("You clicked Delete");
+//                            alert("You clicked Delete");
+                            $this = $(e.target);
+                            var dt_record = date_times.rows({ selected: true} ).data();
+                            $dt_id = dt_record[0][0];
+                            console.log($dt_id);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "php/workqueue.php"
+                                data: { trigger_name: "datetime_delete",
+                                    request_dt_id: $dt_id
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    console.log("success: datetime delete");
+                                    console.log(data);
+                                },
+
+
+
+                            })
                         });
 
 
@@ -683,7 +703,7 @@ if ($mysqli->connect_errno) {
                                         type: "POST",
                                         url: "php/workqueue.php",
                                         data: { trigger_name: "add_contact",
-                                            request_id: $request_id,
+                                            request_id:         $request_id,
                                             contact_name:       $c_name,
                                             contact_role:       $c_role,
                                             contact_phn_nbr:    $c_phn,
@@ -693,10 +713,10 @@ if ($mysqli->connect_errno) {
                                         dataType: "json",
                                         success: function(data){
                                             console.log("success: add_contact");
-                                            console.log(data);
+//                                            console.log(data);
 
                                             contacts.row.add( [
-                                                $("#pop_contact_id").val(),
+                                                $("#pop_contact_id").val(data),
                                                 $("#pop_contact_name").val(),
                                                 $("#pop_contact_role").val(),
                                                 $("#pop_contact_phn_nbr").val(),
@@ -713,63 +733,19 @@ if ($mysqli->connect_errno) {
 //                                            console.log("complete: add_contact");
                                             $('.ui-dialog-content').dialog('close');
                                             contacts.row().select();
-
                                         }
                                     });
-
-//                                    $.ajax({
-//                                        type: "POST",
-//                                        url:  "php/workqueue.php",
-//                                        data: { trigger_name: "add_contact",
-//                                            request_id:         $request_id
-//                                            contact_name:       $c_name,
-//                                            contact_role:       $c_role,
-//                                            contact_phn_nbr:    $c_phn,
-//                                            contact_email:      $c_email,
-//                                            contact_address:    $c_add
-//                                        },
-//                                        dataType: "json",
-//                                        success: function(data){
-//                                            console.log("success: add_contact");
-////                                            console.log(data);
-//                                            contacts
-//                                                .row.add( [
-//                                                    $c_id,
-//                                                    $c_name,
-//                                                    $c_role,
-//                                                    $c_phn,
-//                                                    $c_email,
-//                                                    $c_add
-//                                                ])
-//                                                .draw();
-//
-//
-//
-////                                                $("#pop_contact_id").val(),
-////                                                $("#pop_contact_name").val(),
-////                                                $("#pop_contact_role").val(),
-////                                                $("#pop_contact_phn_nbr").val(),
-////                                                $("#pop_contact_email").val(),
-////                                                $("#pop_contact_address").val()
-////                                                ]
-////                                            )
-////                                                .draw();
-//                                        },
-//                                        error: function(data){
-//                                            console.log("error: add_contact");
-//                                            console.log(data);
-//                                        },
-//                                        complete: function (data) {
-//                                            $("#div_pop_contact").dialog("close");
-//                                            contacts.row().select();
-//                                        }
-//                                    });
                                 } else {
                                     $.ajax({
                                         type: "POST",
                                         url:  "php/workqueue.php",
-                                        data: { trigger_name: "edit_contact",
-                                            contact_id: $contact_id
+                                        data: { trigger_name: "update_contact",
+                                            contact_id:         $c_id,
+                                            contact_name:       $c_name,
+                                            contact_role:       $c_role,
+                                            contact_phn_nbr:    $c_phn,
+                                            contact_email:      $c_email,
+                                            contact_address:    $c_add
                                         },
                                         dataType: "json",
                                         success: function(data){
@@ -794,7 +770,7 @@ if ($mysqli->connect_errno) {
                                             console.log("error: edit_contact");
                                         },
                                         complete: function (data) {
-                                            $(this).dialog("close");
+                                            $('.ui-dialog-content').dialog('close');
                                             contacts.row().select();
                                         }
                                     });
