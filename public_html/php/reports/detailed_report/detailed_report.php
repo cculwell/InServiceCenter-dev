@@ -71,6 +71,7 @@
                 <thead>
                     <tr>
                         <th class="program_id">Program ID</th>
+                        <th class="sti_pd">STI PD</th>
                         <th class="program_title">Program Title</th>
                         <th class="start_date">Start Date</th>
                         <th class="end_date">End Date</th>
@@ -78,14 +79,15 @@
                         <th class="end_time">End Time</th>
                         <th class="num_sessions">Number of Sessions</th>
                         <th class="location">Location</th>
-                        <th class="support_provided">Support Provided By</th>
+                        <th class="support_provided">Initiative</th>
                         <th class="target_audience">Target Audience</th>
-                        <th class="current_enrollment">Current Enrollment</th>
-                        <th class="max_enrollment">Maximum Enrollment</th>
+                        <th class="school_system">School System</th>
+                        <th class="school">School</th>
                         <th class="curriculum_area">Curriculum Area</th>
-                        <th class="av_description">A/V Description</th>
-                        <th class="staff_notes">Staff Notes</th>
                         <th class="consultatnt_name">Consultant</th>
+                        <th class="current_enrollment">Current Enrollment</th>
+                        <th class="max_enrollment">Target Enrollment</th>
+                        <th class="status">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,21 +102,23 @@
                                 echo
                                     "<tr>"
                                     ."<td>". $row[1]  ."</td>"                    // Program ID
-                                    ."<td>". $row[2]  ."</td>"                    // Program Title
-                                    ."<td>". $row[3]  ."</td>"                    // Start Date
+                                    ."<td>". $row[2]  ."</td>"                    // STI PD
+                                    ."<td>". $row[3]  ."</td>"                    // Program Title
+                                    ."<td>". $row[4]  ."</td>"                    // Start Date
                                     ."<td>". $row[5]  ."</td>"                    // End Date
-                                    ."<td>". $row[4]  ."</td>"                    // Start Time
-                                    ."<td>". $row[6]  ."</td>"                    // End Time
-                                    ."<td>". $row[12] ."</td>"                    // Number of Sessions
-                                    ."<td class='location'>". $row[7] ."</td>"    // Location
-                                    ."<td>". $row[11] ."</td>"                    // Support Provided By
-                                    ."<td>". $row[13] ."</td>"                    // Target Audience
-                                    ."<td>". $row[9]  ."</td>"                    // Current Enrollment
-                                    ."<td>". $row[8]  ."</td>"                    // Max Enrollment
-                                    ."<td>". $row[14] ."</td>"                    // Curriculum Area
-                                    ."<td>". $row[15] ."</td>"                    // AV Description
-                                    ."<td class='notes'>". $row[16] ."</td>"      // Staff Notes
-                                    ."<td>". $row[17] ."</td>"                    // Consultant
+                                    ."<td>". $row[6]  ."</td>"                    // Start Time
+                                    ."<td>". $row[7]  ."</td>"                    // End Time
+                                    ."<td>". $row[8] ."</td>"                     // Number of Sessions
+                                    ."<td class='location'>". $row[9] ."</td>"    // Location
+                                    ."<td>". $row[10] ."</td>"                    // Initiative
+                                    ."<td>". $row[11] ."</td>"                    // Target Audience
+                                    ."<td>". $row[12] ."</td>"                    // School System
+                                    ."<td>". $row[13]  ."</td>"                   // School
+                                    ."<td>". $row[14]  ."</td>"                   // Curriculum Area
+                                    ."<td>". $row[15]  ."</td>"                   // Consultant
+                                    ."<td>". $row[16] ."</td>"                    // Current Enrollment
+                                    ."<td>". $row[17] ."</td>"                    // Target Enrollment
+                                    ."<td>". $row[18] ."</td>"                    // Status
                                     ."</tr>";
                             }
                         }
@@ -123,6 +127,7 @@
                 <tfoot>
                     <tr>
                         <th class="program_id">Program ID</th>
+                        <th class="sti_pd">STI PD</th>
                         <th class="program_title">Program Title</th>
                         <th class="start_date">Start Date</th>
                         <th class="end_date">End Date</th>
@@ -132,12 +137,13 @@
                         <th class="location">Location</th>
                         <th class="support_provided">Support Provided By</th>
                         <th class="target_audience">Target Audience</th>
-                        <th class="current_enrollment">Current Enrollment</th>
-                        <th class="max_enrollment">Maximum Enrollment</th>
+                        <th class="school_system">School System</th>
+                        <th class="school">School</th>
                         <th class="curriculum_area">Curriculum Area</th>
-                        <th class="av_description">A/V Description</th>
-                        <th class="staff_notes">Staff Notes</th>
                         <th class="consultatnt_name">Consultant</th>
+                        <th class="current_enrollment">Current Enrollment</th>
+                        <th class="max_enrollment">Target Enrollment</th>
+                        <th class="status">Status</th>
                     </tr>
                 </tfoot>
             </table>
