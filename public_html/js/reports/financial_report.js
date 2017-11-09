@@ -42,14 +42,14 @@ $(document).ready(function() {
                         {
                             if (req.readyState === 4 && req.status === 200) 
                             {
-                                var filename = "Financial Report-" + new Date().getTime() + ".pdf";
+                                var filename = "Financial Report.pdf";
                                 if (typeof window.chrome !== 'undefined') 
                                 {
                                     // Chrome version
                                     var link = document.createElement('a');
 
                                     link.href = window.URL.createObjectURL(req.response);
-                                    link.download = "Financial Report-" + new Date().getTime() + ".pdf";
+                                    link.download = filename;
                                     link.click();
                                 } 
                                 else if (typeof window.navigator.msSaveBlob !== 'undefined') 
