@@ -12,6 +12,9 @@
         printf("Connect failed: %s\n", $mysqli->connect_error);
         exit();
     }
+
+    $from_date = $_GET['from_date'];
+    $to_date = $_GET['to_date'];
 ?>
 
 <!DOCTYPE html>
@@ -49,22 +52,8 @@
         <div class="page_container">
             <h3>Detailed Report</h3>
             <?php
-                $month = date('m');
-                $year = date('Y');
-                $semester = "";
-
-                // Determine semester based on current month
-                if ($month >= 1 && $month <=4) {
-                    $semester = "Spring" . " " . $year;
-                }
-                if ($month >= 5 && $month <=7) {
-                    $semester = "Summer" . " " . $year;
-                }
-                if ($month >= 8 && $month <=12) {
-                    $semester = "Fall" . " " . $year;
-                }
-
-                echo "<h4>" . $semester . "</h4>";
+                echo "<h5>" . "From: " . $from_date . "</h5>";
+                echo "<h5>" . "To:   " . $to_date . "</h5>";
             ?>
             <br><br>
             <table id="detailed_report_table" class="display table-responsive" cellspacing="0" width="100%">
@@ -79,7 +68,7 @@
                         <th class="end_time">End Time</th>
                         <th class="num_sessions">Number of Sessions</th>
                         <th class="location">Location</th>
-                        <th class="support_provided">Initiative</th>
+                        <th class="initiative">Initiative</th>
                         <th class="target_audience">Target Audience</th>
                         <th class="school_system">School System</th>
                         <th class="school">School</th>
@@ -93,7 +82,7 @@
                 <tbody>
                     <?php
 
-                        $sql = "SELECT * FROM detailed_report_data";
+                        $sql = "SELECT * FROM detailed_report_data WHERE report_date BETWEEN '$from_date' AND '$to_date'";
 
                         if ($result = mysqli_query($mysqli, $sql))
                         {
@@ -101,24 +90,24 @@
                             {
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[1]  ."</td>"                    // Program ID
-                                    ."<td>". $row[2]  ."</td>"                    // STI PD
-                                    ."<td>". $row[3]  ."</td>"                    // Program Title
-                                    ."<td>". $row[4]  ."</td>"                    // Start Date
-                                    ."<td>". $row[5]  ."</td>"                    // End Date
-                                    ."<td>". $row[6]  ."</td>"                    // Start Time
-                                    ."<td>". $row[7]  ."</td>"                    // End Time
-                                    ."<td>". $row[8] ."</td>"                     // Number of Sessions
-                                    ."<td class='location'>". $row[9] ."</td>"    // Location
-                                    ."<td>". $row[10] ."</td>"                    // Initiative
-                                    ."<td>". $row[11] ."</td>"                    // Target Audience
-                                    ."<td>". $row[12] ."</td>"                    // School System
-                                    ."<td>". $row[13]  ."</td>"                   // School
-                                    ."<td>". $row[14]  ."</td>"                   // Curriculum Area
-                                    ."<td>". $row[15]  ."</td>"                   // Consultant
-                                    ."<td>". $row[16] ."</td>"                    // Current Enrollment
-                                    ."<td>". $row[17] ."</td>"                    // Target Enrollment
-                                    ."<td>". $row[18] ."</td>"                    // Status
+                                    ."<td>". $row[2]  ."</td>"                    // Program ID
+                                    ."<td>". $row[3]  ."</td>"                    // STI PD
+                                    ."<td>". $row[4]  ."</td>"                    // Program Title
+                                    ."<td>". $row[5]  ."</td>"                    // Start Date
+                                    ."<td>". $row[6]  ."</td>"                    // End Date
+                                    ."<td>". $row[7]  ."</td>"                    // Start Time
+                                    ."<td>". $row[8]  ."</td>"                    // End Time
+                                    ."<td>". $row[9] ."</td>"                     // Number of Sessions
+                                    ."<td class='location'>". $row[10] ."</td>"    // Location
+                                    ."<td>". $row[11] ."</td>"                    // Initiative
+                                    ."<td>". $row[12] ."</td>"                    // Target Audience
+                                    ."<td>". $row[13] ."</td>"                    // School System
+                                    ."<td>". $row[14]  ."</td>"                   // School
+                                    ."<td>". $row[15]  ."</td>"                   // Curriculum Area
+                                    ."<td>". $row[16]  ."</td>"                   // Consultant
+                                    ."<td>". $row[17] ."</td>"                    // Current Enrollment
+                                    ."<td>". $row[18] ."</td>"                    // Target Enrollment
+                                    ."<td>". $row[19] ."</td>"                    // Status
                                     ."</tr>";
                             }
                         }
@@ -135,7 +124,7 @@
                         <th class="end_time">End Time</th>
                         <th class="num_sessions">Number of Sessions</th>
                         <th class="location">Location</th>
-                        <th class="support_provided">Support Provided By</th>
+                        <th class="initiative">Support Provided By</th>
                         <th class="target_audience">Target Audience</th>
                         <th class="school_system">School System</th>
                         <th class="school">School</th>

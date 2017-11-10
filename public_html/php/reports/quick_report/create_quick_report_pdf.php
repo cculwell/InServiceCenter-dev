@@ -131,15 +131,20 @@
         }
     }
 
+    // Put totals on a seperate page
+    $pdf->AddPage();
+
     // Get the total number of programs
     $total_programs = mysqli_num_rows($result);
 
     // Get total number of canceled programs
-    $sql = "SELECT workflow_state FROM quick_report_data WHERE workflow_state='Canceled'";
+    $where = "workflow_state='Canceled' AND (report_date BETWEEN '$report_from' AND '$report_to')";
+    $sql = "SELECT workflow_state FROM quick_report_data WHERE $where";
     $total_canceled = mysqli_num_rows(mysqli_query($mysqli, $sql));
 
     // Get the total enrollment over al programs
-    $sql = "SELECT SUM(enrolled_participants) AS total_enrollment FROM quick_report_data";
+    $where = "workflow_state<>'Canceled' AND (report_date BETWEEN '$report_from' AND '$report_to')";
+    $sql = "SELECT SUM(enrolled_participants) AS total_enrollment FROM quick_report_data WHERE $where";
     $enrollment_result = mysqli_query($mysqli, $sql); 
     $row = mysqli_fetch_assoc($enrollment_result); 
     $total_enrollment = $row['total_enrollment'];

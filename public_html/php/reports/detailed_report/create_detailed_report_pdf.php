@@ -2,6 +2,9 @@
     require '../../../../resources/library/Reports/fpdf181/fpdf.php';
     require "../../../../resources/config.php";
 
+    $report_from = $_POST['report_from'];
+    $report_to = $_POST['report_to'];
+
     # create connection to database
     $mysqli = new mysqli($config['db']['amsti_01']['host']
         , $config['db']['amsti_01']['username']
@@ -30,7 +33,7 @@
             $this->Cell(80);
             $this->SetFont('Times', 'B', 12);
             $this->Cell(30, 10, 'Detailed Report', 0, 0, 'C');
-            $this->Ln(20);
+            $this->Ln(10);
         }
 
         // Page footer
@@ -48,13 +51,18 @@
         }
     }
 
-    $sql = "SELECT * FROM detailed_report_data";
+    $sql = "SELECT * FROM detailed_report_data WHERE report_date BETWEEN '$report_from' AND '$report_to'";
 
     // Instanciation of inherited class
     $pdf = new PDF('P', 'mm', 'A4');
 
     $pdf->AliasNbPages();
     $pdf->AddPage();
+
+    $pdf->SetFont('Times', 'I', 11);
+    $pdf->Cell(80);
+    $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+    $pdf->Ln(20);
 
     $pdf->SetFont('Times', 'B', 12);
     $pdf->Cell(30, 10, "Program ID#", 'B', 0);
@@ -66,16 +74,16 @@
         while ($row = mysqli_fetch_row($result))
         {
             // Write program ID
-            $id = $row[1];
+            $id = $row[2];
             $pdf->SetFont('Times', 'B', 12);
             $pdf->Cell(30, 10, $id, 0, 0, 'C');
 
             // Write the program title
-            $title = "     " . $row[3];
+            $title = "     " . $row[4];
             $pdf->SetFont('Times', 'BI', 12);
             $pdf->Cell(30, 10, $title, 0, 0);
 
-            if ($row[18] == 'Canceled')
+            if ($row[19] == 'Canceled')
             {
                 // Write the canceled notification
                 $canceled = "         " . "***** CANCELED *****";
@@ -88,52 +96,52 @@
 
             // Write STI PD
             $pdf->SetFont('Times', '', 10);
-            $sti_pd = "     " . $row[2];
+            $sti_pd = "     " . $row[3];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $sti_pd, 0, 0);
             $pdf->Ln(8);
 
             // Write dates of the program
             $pdf->SetFont('Times', '', 10);
-            $dates = "     Date: " . $row[4] . " to " . $row[5];
+            $dates = "     Date: " . $row[5] . " to " . $row[6];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $dates, 0, 0);
             $pdf->Ln(5);
 
             // Write times of the program
-            $times = "     Times: " . $row[6] . " to " . $row[7];
+            $times = "     Times: " . $row[7] . " to " . $row[8];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $times, 0, 0);
             $pdf->Ln(5);
 
             // Write number of sessions for the program
-            $sessions = "     Number of Sessions: " . $row[8];
+            $sessions = "     Number of Sessions: " . $row[9];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $sessions, 0, 0);
             $pdf->Ln(5);
 
             // Write location of the program
-            $location = "     Location: " . $row[9];
+            $location = "     Location: " . $row[10];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $location, 0, 0);
             $pdf->Ln(5);
 
             // Write who is providing support
-            $initiative = "     Initiative: " . $row[10];
+            $initiative = "     Initiative: " . $row[11];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $initiative, 0, 0);
             $pdf->Ln(5);
 
             // Write the target audience
-            $target_audience = "     Target Audience: " . $row[11];
+            $target_audience = "     Target Audience: " . $row[12];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $target_audience, 0, 0);
             $pdf->Ln(5);
 
             // Write enrollment numbers for the program
             $pdf->SetFont('Times', '', 10);
-            $enrollment = "     Current Enrollment: " . $row[16] 
-                          . "   " . "Maximum Enrollment: " . $row[17];
+            $enrollment = "     Current Enrollment: " . $row[17] 
+                          . "   " . "Maximum Enrollment: " . $row[18];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $enrollment, 0, 0);
             $pdf->Ln(5);
@@ -145,7 +153,7 @@
             $pdf->Ln(7);
             $pdf->Cell(50, 10, "", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(0, 5, $row[12], 0);
+            $pdf->Cell(0, 5, $row[13], 0);
             $pdf->Ln(3);
 
             // Write School System
@@ -155,7 +163,7 @@
             $pdf->Ln(7);
             $pdf->Cell(50, 10, "", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(0, 5, $row[13], 0);
+            $pdf->Cell(0, 5, $row[14], 0);
             $pdf->Ln(3);
 
             // Write Curriculum Area
@@ -165,7 +173,7 @@
             $pdf->Ln(7);
             $pdf->Cell(50, 10, "", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(0, 5, $row[14], 0);
+            $pdf->Cell(0, 5, $row[15], 0);
             $pdf->Ln(3);
 
             // Write Consultant Name
@@ -175,20 +183,25 @@
             $pdf->Ln(7);
             $pdf->Cell(50, 10, "", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(0, 5, $row[15], 0);
-            $pdf->Ln(10);
+            $pdf->Cell(0, 5, $row[16], 0);
+            $pdf->Ln(20);
         }
     }
+
+    // Put totals on a seperate page
+    $pdf->AddPage();
 
     // Get the total number of programs
     $total_programs = mysqli_num_rows($result);
 
     // Get total number of canceled programs
-    $sql = "SELECT workflow_state FROM detailed_report_data WHERE workflow_state='Canceled'";
+    $where = "workflow_state='Canceled' AND (report_date BETWEEN '$report_from' AND '$report_to')";
+    $sql = "SELECT workflow_state FROM detailed_report_data WHERE $where";
     $total_canceled = mysqli_num_rows(mysqli_query($mysqli, $sql));
 
     // Get the total enrollment over all programs
-    $sql = "SELECT SUM(enrolled_participants) AS total_enrollment FROM detailed_report_data";
+    $where = "workflow_state<>'Canceled' AND (report_date BETWEEN '$report_from' AND '$report_to')";
+    $sql = "SELECT SUM(enrolled_participants) AS total_enrollment FROM detailed_report_data WHERE $where";
     $enrollment_result = mysqli_query($mysqli, $sql); 
     $row = mysqli_fetch_assoc($enrollment_result); 
     $total_enrollment = $row['total_enrollment'];
