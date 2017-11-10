@@ -10,28 +10,46 @@
         <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
+        <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
         <link rel="stylesheet" href="css/Reports.css">
         
         <script src="../resources/library/jquery-3.2.1.min.js"></script>
         <script src="../resources/library/bootstrap/js/bootstrap.min.js"></script>
         <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
-
-        <script type="text/javascript" src="js/reports/report_selection.js"></script>
+        <script src="js/reports/report_selection.js"></script>
+        <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
 
     </head>
     <body>
         <div class="panel-body">
-            <div class="dropdown">
-                <button id="reports_dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select A Report <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#" data-type="1">Quick Report</a></li>
-                  <li><a href="#" data-type="2">Detailed Report</a></li>
-                  <li><a href="#" data-type="3">Financial Report</a></li>
-                  <li><a href="#" data-type="4">Curriculum Area Report</a></li>
-                  <li><a href="#" data-type="5">School and System Report</a></li>
-                </ul>
-            </div>
-            <br>
+            <table class="table-responsive">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th id="query_from_header" class="text-center">From Date</th>
+                    <th id="query_to_header" class="text-center">To Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="selection_button">
+                            <div class="dropdown">
+                                <button id="reports_dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select A Report <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#" data-type="1">Quick Report</a></li>
+                                  <li><a href="#" data-type="2">Detailed Report</a></li>
+                                  <li><a href="#" data-type="3">Financial Report</a></li>
+                                  <li><a href="#" data-type="4">Curriculum Area Report</a></li>
+                                  <li><a href="#" data-type="5">School and System Report</a></li>
+                                  <li><a href="#" data-type="6">Initiative Report</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td id="query_from_picker"><input type="date" placeholder='mm/dd/yyyy' id="from_date" class="form-control datepicker"/></td>
+                        <td id="query_to_picker"><input type="date" placeholder='mm/dd/yyyy' id="to_date" class="form-control datepicker"/></td>
+                    </tr>
+                </tbody>
+            </table>
             <div id="report-table-placeholder"></div>
         </div>
     </body>

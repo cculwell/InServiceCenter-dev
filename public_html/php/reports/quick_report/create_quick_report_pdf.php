@@ -2,6 +2,9 @@
     require '../../../../resources/library/Reports/fpdf181/fpdf.php';
     require "../../../../resources/config.php";
 
+    $report_from = $_POST['report_from'];
+    $report_to = $_POST['report_to'];
+
     # create connection to database
     $mysqli = new mysqli($config['db']['amsti_01']['host']
         , $config['db']['amsti_01']['username']
@@ -18,23 +21,7 @@
     {
         // Page header
         function Header()
-        {
-
-            $month = date('m');
-            $year = date('Y');
-            $semester = "";
-
-            // Determine semester based on current month
-            if ($month >= 1 && $month <=4) {
-                $semester = "Spring" . " " . $year;
-            }
-            if ($month >= 5 && $month <=7) {
-                $semester = "Summer" . " " . $year;
-            }
-            if ($month >= 8 && $month <=12) {
-                $semester = "Fall" . " " . $year;
-            }
-
+        {   
             // Create the title
             $this->SetFont('Times','B', 14);
             $this->Cell(80);
@@ -47,10 +34,6 @@
             $this->SetFont('Times', 'B', 12);
             $this->Cell(30, 10, 'Quick Report', 0, 0, 'C');
             $this->Ln(10);
-            $this->Cell(80);
-            $this->SetFont('Times', 'IB', 12);
-            $this->Cell(30, 10, $semester, 0, 0, 'C');
-            $this->Ln(20);
         }
 
         // Page footer
@@ -68,13 +51,18 @@
         }
     }
 
-    $sql = "SELECT * FROM quick_report_data";
+    $sql = "SELECT * FROM quick_report_data WHERE report_date BETWEEN '$report_from' AND '$report_to'";
 
     // Instanciation of inherited class
     $pdf = new PDF('P', 'mm', 'A4');
 
     $pdf->AliasNbPages();
     $pdf->AddPage();
+
+    $pdf->SetFont('Times', 'I', 11);
+    $pdf->Cell(80);
+    $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+    $pdf->Ln(20);
 
     $pdf->SetFont('Times', 'B', 12);
     $pdf->Cell(30, 10, "Program ID#", 'B', 0);
@@ -86,12 +74,12 @@
         while ($row = mysqli_fetch_row($result))
         {
             // Write program ID
-            $id = $row[1];
+            $id = $row[2];
             $pdf->SetFont('Times', 'B', 12);
             $pdf->Cell(30, 10, $id, 0, 0, 'C');
 
             // Write the program title
-            $title = "     " . $row[2];
+            $title = "     " . $row[4];
             $pdf->SetFont('Times', 'BI', 12);
             $pdf->Cell(30, 10, $title, 0, 0);
 
@@ -108,35 +96,35 @@
 
             // Write dates of the program
             $pdf->SetFont('Times', '', 10);
-            $dates = "     Date: " . $row[3] . " to " . $row[5];
+            $dates = "     Date: " . $row[5] . " to " . $row[7];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $dates, 0, 0);
             $pdf->Ln(5);
 
             // Write times of the program
             $pdf->SetFont('Times', '', 10);
-            $times = "     Times: " . $row[4] . " to " . $row[6];
+            $times = "     Times: " . $row[6] . " to " . $row[8];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $times, 0, 0);
             $pdf->Ln(5);
 
             // Write location of the program
             $pdf->SetFont('Times', '', 10);
-            $location = "     Location: " . $row[7];
+            $location = "     Location: " . $row[9];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $location, 0, 0);
             $pdf->Ln(5);
 
             // Write who is providing support
             $pdf->SetFont('Times', '', 10);
-            $location = "     Support Provided By: " . $row[11];
+            $location = "     Support Provided By: " . $row[14];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $location, 0, 0);
             $pdf->Ln(5);
 
             // Write enrollment numbers for the program
-            $enrollment = "     Current Enrollment: " . $row[9] 
-                          . "   " . "Maximum Enrollment: " . $row[8];
+            $enrollment = "     Current Enrollment: " . $row[12] 
+                          . "   " . "Maximum Enrollment: " . $row[11];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $enrollment, 0, 0);
             $pdf->Ln(10);

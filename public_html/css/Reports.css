@@ -126,7 +126,7 @@ td.location
     width: 200px; 
 }
 
-.support_provided
+.initiative
 {
     width: 70px;
 }
@@ -158,7 +158,7 @@ td.location
 
 .system_name
 {
-    width: 200px;
+    width: 100px;
 }
 
 .offerings_per_system
