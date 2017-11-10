@@ -66,11 +66,33 @@
                             <div class="row form-group" id="school_system_row">
                                 <div class="col-md-6 pull-left">
                                     <label for="school">School</label>
-                                    <input type="text" id="school" name="school" size="35" maxlength="50" minlength="3">
+                                    <!--<input type="text" id="school" name="school" size="35" maxlength="50" minlength="3">-->
+
+                                    <style> select { width: 400px } </style>
+                                    <select id="school" name="school">
+                                        <option>One</option>
+                                        <option>Two</option>
+                                        <option>Three</option>
+                                    </select>
+                                    <script> $("#school").selectmenu(); </script>
+
                                 </div>
+
+
+
                                 <div class="col-md-6 pull-left">
                                     <label for="system">System</label>
-                                    <input type="text" id="system" name="system" size="35" maxlength="50">
+                                    <!--<input type="text" id="system" name="system" size="35" maxlength="50">-->
+
+                                    <style> select { width: 400px } </style>
+                                    <select id="system" name="system">
+                                        <option>One</option>
+                                        <option>Two</option>
+                                        <option>Three</option>
+                                    </select>
+                                    <script> $("#system").selectmenu(); </script>
+
+
                                 </div>
                             </div>
                         </div>
@@ -205,7 +227,7 @@
                                             <tbody>
                                             <tr id='addr0'>
                                                 <td>1</td>
-                                                <td><input type="date" name='date0'  placeholder='mm/dd/yyyy' class="form-control datepicker"/></td>
+                                                <td><input type="text" name='date0'  placeholder='mm/dd/yyyy' class="form-control datepicker"/></td>
                                                 <td><input type="text" name='sTime0' placeholder='00:00am/pm' class="form-control timepicker"/></td>
                                                 <td><input type="text" name='eTime0' placeholder='00:00am/pm' class="form-control timepicker"/></td>
                                                 <td><input type="number" name='bTime0' placeholder='' class="form-control"/></td>
