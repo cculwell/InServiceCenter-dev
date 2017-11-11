@@ -51,38 +51,10 @@ table.dataTable thead tfoot tr th
   text-align: center;
 }
 
-#query_from_header,
-#query_to_header
-{
-    width: 50px;
-}
-
-#query_to_picker
-{
-    width: 50px;
-}
-
-#selection_button
-{
-    width: 50px;
-    padding-right: 20px;
-}
-
-#query_from_picker
-{
-    width: 50px;
-    padding-right: 10px;
-}
-
 td,
 th
 {
     text-align: center;
-}
-
-td.location
-{
-    text-align: left;
 }
 
 /*Set column widths*/

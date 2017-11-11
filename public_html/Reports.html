@@ -22,19 +22,32 @@
     </head>
     <body>
         <div class="panel-body">
-            <table class="table-responsive">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th id="query_from_header" class="text-center">From Date</th>
-                    <th id="query_to_header" class="text-center">To Date</th>
-                </tr>
-                </thead>
+            <table class="display table-responsive">
                 <tbody>
                     <tr>
-                        <td id="selection_button">
-                            <div class="dropdown">
-                                <button id="reports_dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select A Report <span class="caret"></span></button>
+                        <td>
+                            <h4 class="from_label">Report Start Date</h4>
+                        </td>
+                        <td>
+                            <h4 class="to_label">Report End Date</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-right: 10px;">
+                            <input type="date" placeholder='mm/dd/yyyy' id="from_date" class="form-control datepicker" required/></td>
+                        <td>
+                            <input type="date" placeholder='mm/dd/yyyy' id="to_date" class="form-control datepicker" required="" />
+                        </td>
+                        <td>
+                            <h5 style="font-weight: bold; padding-left: 10px;" id="message"></h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 20px;" colspan="2">
+                            <div class="btn-group">
+                                <button type="button" id="generate_report" class="btn btn-primary">Select A Report to Generate</button>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                   <li><a href="#" data-type="1">Quick Report</a></li>
                                   <li><a href="#" data-type="2">Detailed Report</a></li>
@@ -45,11 +58,10 @@
                                 </ul>
                             </div>
                         </td>
-                        <td id="query_from_picker"><input type="date" placeholder='mm/dd/yyyy' id="from_date" class="form-control datepicker"/></td>
-                        <td id="query_to_picker"><input type="date" placeholder='mm/dd/yyyy' id="to_date" class="form-control datepicker"/></td>
                     </tr>
                 </tbody>
             </table>
+            <br>
             <div id="report-table-placeholder"></div>
         </div>
     </body>
