@@ -13,8 +13,8 @@
         exit();
     }
 
-    $from_date = $_GET['from_date'];
-    $to_date = $_GET['to_date'];
+    $from_date = $_POST['from_date'];
+    $to_date = $_POST['to_date'];
 ?>
 
 <!DOCTYPE html>

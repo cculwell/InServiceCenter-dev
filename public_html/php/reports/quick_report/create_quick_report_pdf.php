@@ -51,7 +51,9 @@
         }
     }
 
-    $sql = "SELECT * FROM quick_report_data WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+    $sql = "SELECT * 
+            FROM quick_report_data 
+            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
 
     // Instanciation of inherited class
     $pdf = new PDF('P', 'mm', 'A4');
@@ -143,7 +145,7 @@
     $total_canceled = mysqli_num_rows(mysqli_query($mysqli, $sql));
 
     // Get the total enrollment over al programs
-    $where = "workflow_state<>'Canceled' AND (report_date BETWEEN '$report_from' AND '$report_to')";
+    $where = "workflow_state <> 'Canceled' AND (report_date BETWEEN '$report_from' AND '$report_to')";
     $sql = "SELECT SUM(enrolled_participants) AS total_enrollment FROM quick_report_data WHERE $where";
     $enrollment_result = mysqli_query($mysqli, $sql); 
     $row = mysqli_fetch_assoc($enrollment_result); 

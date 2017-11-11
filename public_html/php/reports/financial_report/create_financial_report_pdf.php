@@ -205,7 +205,11 @@
     $pdf->Cell(90, 10, "Grand Totals", "LTR", 0, "C");
     $pdf->Ln(8);
 
-    $sql = "SELECT SUM(consultant_fee) AS total_consultant_fees FROM financial_report_data";
+    $sql = "SELECT SUM(consultant_fee) AS total_consultant_fees 
+            FROM financial_report_data
+            WHERE (report_date BETWEEN '$report_from' AND '$report_to')
+            AND workflow_state <> 'Canceled'";
+
     $consultant_result = mysqli_query($mysqli, $sql); 
     $row = mysqli_fetch_assoc($consultant_result); 
     $total_consultant_fees = $row['total_consultant_fees'];
@@ -216,11 +220,12 @@
     $pdf->Cell(30, 10, "$" . number_format((float)$total_consultant_fees, 2, '.', ''), "R", 0, "L");
     $pdf->Ln(5);
 
-    $sql = "SELECT DISTINCT(e.expense_type), SUM(e.expense_amount) FROM expenses e 
+    $sql = "SELECT DISTINCT(e.expense_type), SUM(e.expense_amount) 
+            FROM expenses e 
             JOIN (SELECT request_id 
                   FROM financial_report_data 
-                  WHERE report_date 
-                  BETWEEN '$report_from' AND '$report_to') rq 
+                  WHERE (report_date BETWEEN '$report_from' AND '$report_to')
+                  AND workflow_state <> 'Canceled') rq 
             ON e.request_id = rq.request_id
             GROUP BY e.expense_type";
 
@@ -235,13 +240,14 @@
             $pdf->Ln(5);
         }
     }
+
     $pdf->Ln(5);
 
     // Get total of misc fees the get grand total of misc and consultant fees
     $sql = "SELECT SUM(consultant_fee) + SUM(total_misc_expenses) AS total 
             FROM financial_report_data 
-            WHERE report_date 
-            BETWEEN '$report_from' AND '$report_to'";
+            WHERE (report_date BETWEEN '$report_from' AND '$report_to')
+            AND workflow_state <> 'Canceled'";
 
     $total_fees_result = mysqli_query($mysqli, $sql); 
     $row = mysqli_fetch_assoc($total_fees_result); 
