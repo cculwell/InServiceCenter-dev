@@ -2,7 +2,7 @@ $(document).ready(function() {
     var from = document.getElementById("from_date").value;
     var to = document.getElementById("to_date").value;
 
-    $('#financial_report_table').DataTable( {
+    $('#initiative_report_table').DataTable( {
         dom:            'Bfrtip',
         scrollX:        true,
         autoWidth:      false,
@@ -15,7 +15,7 @@ $(document).ready(function() {
                 {
                     extend: 'print',
                     text: 'Print Table', 
-                    title: 'Financial Report',
+                    title: 'Initiative Report',
                     autoPrint: true,
                     customize: function (win) {
                         $(win.document.body)
@@ -29,7 +29,7 @@ $(document).ready(function() {
                 {
                     extend: 'excel',
                     text: 'Save to Excel',
-                    title: 'Financial Report'
+                    title: 'Initiative Report'
                 },
                 {
                     extend: 'pdfHtml5',
@@ -42,15 +42,15 @@ $(document).ready(function() {
                         fd.append("report_from", from);
                         fd.append("report_to", to);
 
-                        req.open("POST", "php/reports/financial_report/create_financial_report_pdf.php", true);
+                        req.open("POST", "php/reports/initiative_report/create_initiative_report_pdf.php", true);
                         req.responseType = "blob";
 
                         req.onreadystatechange = function () 
                         {
                             if (req.readyState === 4 && req.status === 200) 
                             {
-                                var filename = "Financial Report.pdf";
-                                
+                                var filename = "Initiative Report.pdf";
+
                                 if (typeof window.chrome !== 'undefined') 
                                 {
                                     // Chrome version

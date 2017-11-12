@@ -199,6 +199,11 @@
     // Put totals on a seperate page
     $pdf->AddPage();
 
+    $pdf->SetFont('Times', 'I', 11);
+    $pdf->Cell(80);
+    $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+    $pdf->Ln(20);
+
     $pdf->Ln(10);
     $pdf->SetFont('Times', 'B', 13);
     $pdf->Cell(50, 10, "", 0, 0);

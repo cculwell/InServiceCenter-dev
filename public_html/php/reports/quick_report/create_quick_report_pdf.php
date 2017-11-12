@@ -136,6 +136,11 @@
     // Put totals on a seperate page
     $pdf->AddPage();
 
+    $pdf->SetFont('Times', 'I', 11);
+    $pdf->Cell(80);
+    $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+    $pdf->Ln(20);
+
     // Get the total number of programs
     $total_programs = mysqli_num_rows($result);
 

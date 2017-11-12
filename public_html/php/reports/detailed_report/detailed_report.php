@@ -72,7 +72,7 @@
                         <th class="target_audience">Target Audience</th>
                         <th class="school_system">School System</th>
                         <th class="school">School</th>
-                        <th class="curriculum_area">Curriculum Area</th>
+                        <th class="curriculum">Curriculum Area</th>
                         <th class="consultatnt_name">Consultant</th>
                         <th class="current_enrollment">Current Enrollment</th>
                         <th class="max_enrollment">Target Enrollment</th>
@@ -128,7 +128,7 @@
                         <th class="target_audience">Target Audience</th>
                         <th class="school_system">School System</th>
                         <th class="school">School</th>
-                        <th class="curriculum_area">Curriculum Area</th>
+                        <th class="curriculum">Curriculum Area</th>
                         <th class="consultatnt_name">Consultant</th>
                         <th class="current_enrollment">Current Enrollment</th>
                         <th class="max_enrollment">Target Enrollment</th>

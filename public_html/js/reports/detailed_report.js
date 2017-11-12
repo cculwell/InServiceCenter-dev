@@ -50,6 +50,7 @@ $(document).ready(function() {
                             if (req.readyState === 4 && req.status === 200) 
                             {
                                 var filename = "Detailed Report.pdf";
+                                
                                 if (typeof window.chrome !== 'undefined') 
                                 {
                                     // Chrome version

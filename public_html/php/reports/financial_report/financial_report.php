@@ -81,7 +81,7 @@
                 <tbody>
                     <?php
 
-                        $sql = "SELECT * FROM financial_report_data  WHERE report_date BETWEEN '$from_date' AND '$to_date'";
+                        $sql = "SELECT * FROM financial_report_data WHERE report_date BETWEEN '$from_date' AND '$to_date'";
 
                         if ($result = mysqli_query($mysqli, $sql))
                         {
