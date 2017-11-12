@@ -1,3 +1,19 @@
+<?php
+require "../../resources/config.php";
+# create connection to database
+$mysqli = new mysqli($config['db']['amsti_01']['host']
+    , $config['db']['amsti_01']['username']
+    , $config['db']['amsti_01']['password']
+    , $config['db']['amsti_01']['dbname']);
+
+/* check connection */
+if ($mysqli->connect_errno) {
+    printf("Connect failed: %s\n", $mysqli->connect_error);
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
 
@@ -64,6 +80,22 @@
                         <div class="panel-heading">School / System</div>
                         <div class="panel-body">
                             <div class="row form-group" id="school_system_row">
+
+
+                                <div class="col-md-6 pull-left">
+                                    <label for="system">System</label>
+
+                                    <style> select { width: 400px } </style>
+                                    <select id="system" name="system">
+                                        <option>Athens City Schools</option>
+                                    </select>
+                                    <script> $("#system").selectmenu(); </script>
+
+                                </div>
+
+
+
+
                                 <div class="col-md-6 pull-left">
                                     <label for="school">School</label>
                                     <!--<input type="text" id="school" name="school" size="35" maxlength="50" minlength="3">-->
@@ -80,20 +112,10 @@
 
 
 
-                                <div class="col-md-6 pull-left">
-                                    <label for="system">System</label>
-                                    <!--<input type="text" id="system" name="system" size="35" maxlength="50">-->
-
-                                    <style> select { width: 400px } </style>
-                                    <select id="system" name="system">
-                                        <option>One</option>
-                                        <option>Two</option>
-                                        <option>Three</option>
-                                    </select>
-                                    <script> $("#system").selectmenu(); </script>
 
 
-                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -339,45 +361,3 @@
 </form>
 </html>
 
-<!--<script>-->
-<!--$(function () {-->
-<!--$.validator.setDefaults({-->
-<!--errorClass: 'help-block',-->
-<!--highlight: function(element){-->
-<!--$(element)-->
-<!--.closest('.form-group')-->
-<!--.addClass('has-error');-->
-<!--},-->
-<!--unhighlight: function(element) {-->
-<!--$(element)-->
-<!--.closest('.form-group')-->
-<!--.removeClass('has-error');-->
-<!--},-->
-<!--errorPlacement: function(error, element) {-->
-<!--if(element.prop('type') == 'checkbox') {-->
-<!--error.insertAfter(element.parent());-->
-<!--} else if (element.prop('type') == 'textarea') {-->
-<!--error.insertAfter(element.parent());-->
-<!--}-->
-<!--else {-->
-<!--error.insertAfter(element);-->
-<!--}-->
-<!--}-->
-<!--});-->
-
-
-<!--$("#RequestForm").validate({-->
-
-<!--rules: {-->
-<!--school:{-->
-<!--required: true,-->
-<!--minLength: 2-->
-<!--},-->
-<!--system:{-->
-<!--required: true,-->
-<!--minLength: 2-->
-<!--}-->
-<!--}-->
-<!--});-->
-<!--});-->
-<!--</script>-->
