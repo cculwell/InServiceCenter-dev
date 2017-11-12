@@ -67,7 +67,9 @@
     $pdf->Cell(0, 10, "     Program Title", 'B', 0);
     $pdf->Ln(10);
 
-    $sql = "SELECT * FROM financial_report_data WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+    $sql = "SELECT * 
+            FROM financial_report_data 
+            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
 
     if ($result = mysqli_query($mysqli, $sql))
     {

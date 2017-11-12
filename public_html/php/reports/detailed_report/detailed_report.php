@@ -82,7 +82,9 @@
                 <tbody>
                     <?php
 
-                        $sql = "SELECT * FROM detailed_report_data WHERE report_date BETWEEN '$from_date' AND '$to_date'";
+                        $sql = "SELECT * 
+                                FROM detailed_report_data 
+                                WHERE report_date BETWEEN '$from_date' AND '$to_date'";
 
                         if ($result = mysqli_query($mysqli, $sql))
                         {
@@ -90,24 +92,24 @@
                             {
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[2]  ."</td>"                    // Program ID
-                                    ."<td>". $row[3]  ."</td>"                    // STI PD
-                                    ."<td>". $row[4]  ."</td>"                    // Program Title
-                                    ."<td>". $row[5]  ."</td>"                    // Start Date
-                                    ."<td>". $row[6]  ."</td>"                    // End Date
-                                    ."<td>". $row[7]  ."</td>"                    // Start Time
-                                    ."<td>". $row[8]  ."</td>"                    // End Time
-                                    ."<td>". $row[9] ."</td>"                     // Number of Sessions
-                                    ."<td class='location'>". $row[10] ."</td>"    // Location
-                                    ."<td>". $row[11] ."</td>"                    // Initiative
-                                    ."<td>". $row[12] ."</td>"                    // Target Audience
-                                    ."<td>". $row[13] ."</td>"                    // School System
-                                    ."<td>". $row[14]  ."</td>"                   // School
-                                    ."<td>". $row[15]  ."</td>"                   // Curriculum Area
-                                    ."<td>". $row[16]  ."</td>"                   // Consultant
-                                    ."<td>". $row[17] ."</td>"                    // Current Enrollment
-                                    ."<td>". $row[18] ."</td>"                    // Target Enrollment
-                                    ."<td>". $row[19] ."</td>"                    // Status
+                                    ."<td>". $row[2]  ."</td>"       // Program ID
+                                    ."<td>". $row[3]  ."</td>"       // STI PD
+                                    ."<td>". $row[4]  ."</td>"       // Program Title
+                                    ."<td>". $row[5]  ."</td>"       // Start Date
+                                    ."<td>". $row[6]  ."</td>"       // End Date
+                                    ."<td>". $row[7]  ."</td>"       // Start Time
+                                    ."<td>". $row[8]  ."</td>"       // End Time
+                                    ."<td>". $row[9]  ."</td>"       // Number of Sessions
+                                    ."<td>". $row[10] ."</td>"       // Location
+                                    ."<td>". $row[11] ."</td>"       // Initiative
+                                    ."<td>". $row[12] ."</td>"       // Target Audience
+                                    ."<td>". $row[13] ."</td>"       // School System
+                                    ."<td>". $row[14] ."</td>"       // School
+                                    ."<td>". $row[15] ."</td>"       // Curriculum Area
+                                    ."<td>". $row[16] ."</td>"       // Consultant
+                                    ."<td>". $row[17] ."</td>"       // Current Enrollment
+                                    ."<td>". $row[18] ."</td>"       // Target Enrollment
+                                    ."<td>". $row[19] ."</td>"       // Status
                                     ."</tr>";
                             }
                         }
