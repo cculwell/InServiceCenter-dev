@@ -52,12 +52,11 @@ $(document).ready(function() {
         var form = $('form');
         //var formData = new FormData(document.querySelector('#RequestForm'));
         var url = "php/add_request.php"; // the script where you handle the form input.
-        var form_data =form.serialize();
+        var form_data = form.serialize();
 
         $.ajax({
             type: "POST",
             url: url,
-            //data: $("#RequestForm").serialize(), // serializes the form's elements.
             data: form_data,
             success: function(data)
             {
@@ -71,7 +70,7 @@ $(document).ready(function() {
             },
             complete: function (data) {
                 // alert("complete");
-                location.reload();
+                // location.reload();
 
             }
         });
@@ -101,7 +100,7 @@ $(document).ready(function(){
     var i=1;
     $("#add_date_row").click(function(){
         $('#addr'+i).html("<td>"+ (i+1) + "</td>" +
-            "<td><input  name='date"+i+"'  type='date' placeholder='mm/dd/yyyy' class='form-control input-md datepicker'/></td>"+
+            "<td><input  name='date"+i+"'  type='text' placeholder='mm/dd/yyyy' class='form-control input-md datepicker'/></td>"+
             "<td><input  name='sTime"+i+"' type='text' placeholder='00:00am/pm' class='form-control input-md timepicker'></td>" +
             "<td><input  name='eTime"+i+"' type='text' placeholder='00:00am/pm' class='form-control input-md timepicker'></td>" +
             "<td><input  name='bTime"+i+"' type='number' placeholder='' class='form-control input-md'></td>" //+

@@ -6,6 +6,10 @@ $(document).ready(function() {
         buttons: {
             buttons: [
                 {
+                    extend: 'colvis',
+                    text: 'Hide/Unhide Columns'
+                },
+                {
                     extend: 'print',
                     text: 'Print Table', 
                     title: 'School and System Report',
@@ -20,8 +24,9 @@ $(document).ready(function() {
                     }
                 },
                 {
-                    extend: 'colvis',
-                    text: 'Hide/Unhide Columns'
+                    extend: 'excel',
+                    text: 'Save to Excel',
+                    title: 'School and System Report'
                 },
                 {
                     extend: 'pdfHtml5',
@@ -37,14 +42,14 @@ $(document).ready(function() {
                         {
                             if (req.readyState === 4 && req.status === 200) 
                             {
-                                var filename = "SchoolSystemReport-" + new Date().getTime() + ".pdf";
+                                var filename = "School and System Report.pdf";
                                 if (typeof window.chrome !== 'undefined') 
                                 {
                                     // Chrome version
                                     var link = document.createElement('a');
 
                                     link.href = window.URL.createObjectURL(req.response);
-                                    link.download = "SchoolSystemReport-" + new Date().getTime() + ".pdf";
+                                    link.download = filename;
                                     link.click();
                                 } 
                                 else if (typeof window.navigator.msSaveBlob !== 'undefined') 

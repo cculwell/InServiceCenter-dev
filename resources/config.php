@@ -50,4 +50,12 @@ or define("TEMPLATES_PATH", realpath(dirname(__FILE__) . '/templates'));
 ini_set("error_reporting", "true");
 error_reporting(E_ALL|E_STRCT);
 
+function debug_to_console( $data ) {
+    $output = $data;
+    if ( is_array( $output ) )
+        $output = implode( ',', $output);
+
+    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+}
+
 ?>

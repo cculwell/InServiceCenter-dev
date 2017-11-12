@@ -244,9 +244,7 @@ if ($mysqli->connect_errno) {
             <ul id="wq_details_tabs_ul">
                 <li><a href="#request_info">Request Info</a></li>
                 <li><a href="#contacts">Contacts</a></li>
-                <li><a href="#program_exp">Program Expenses</a></li>
-                <li><a href="#consultant_exp">Consultant Expense</a></li>
-                <li><a href="#reports">Reports</a></li>
+                <li><a href="#expenses">Expenses</a></li>
                 <li><a href="#eval_comments">Comments</a></li>
                 <li><a href="#sti-pd">STI-PD</a></li>
             </ul>
@@ -491,6 +489,7 @@ if ($mysqli->connect_errno) {
                             ]
 
                         });
+                        date_times.row().select();
 
 
                         $("#div_pop_dt").dialog({
@@ -507,12 +506,12 @@ if ($mysqli->connect_errno) {
 
                         $("#dt_new_btn").click(function(e) {
                             e.preventDefault();
-                            $("#pop_dt_id").val('');
-                            $("#pop_dt_date").val('');
-                            $("#pop_dt_start").val('');
-                            $("#pop_dt_end").val('');
-                            $("#pop_dt_break").val('');
-                            $("#pop_dt_note").val('');
+                            $("#pop_dt_id").val(null);
+                            $("#pop_dt_date").val(null);
+                            $("#pop_dt_start").val(null);
+                            $("#pop_dt_end").val(null);
+                            $("#pop_dt_break").val(null);
+                            $("#pop_dt_note").val(null);
 
                             $("#div_pop_dt").dialog("open")
                                 .dialog("option", "width", 500);
@@ -534,12 +533,37 @@ if ($mysqli->connect_errno) {
                             $("#div_pop_dt").dialog("open")
                                 .dialog("option", "width", 500);
 
-                            //$("#pop_dt_id_grp").hide();
                         });
 
                         $("#dt_delete_btn").click(function(e) {
                             e.preventDefault();
-                            alert("You clicked Delete");
+//                            alert("You clicked Delete");
+
+                            $this = $(e.target);
+                            var dt_record = date_times.rows({ selected: true} ).data();
+                            $dt_id = dt_record[0][0];
+                            console.log($dt_id);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "php/workqueue.php",
+                                data: { trigger_name: "datetime_delete",
+                                    request_dt_id: $dt_id
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    console.log("success: datetime delete");
+                                    console.log(data);
+                                },
+                                error: function(data){
+                                    console.log("error: datetime delete");
+                                    console.log(data);
+                                },
+                                complete: function (data) {
+                                    console.log("complete: datetime delete");
+                                    console.log(data);
+                                }
+                            });
                         });
 
 
@@ -614,12 +638,12 @@ if ($mysqli->connect_errno) {
                     </tbody>
                 </table>
 
-                 Popup Contacts
+<!--                 Popup Contacts-->
                 <div id="div_pop_contact">
                     <form class="form form-vertical" id="pop_contact_form_id">
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_id" hidden>ID</label>
-                            <input class="col-xs-9" type="text" id="pop_contact_id" disabled hidden>
+                            <input class="col-xs-9" type="number" id="pop_contact_id" disabled hidden>
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_name">Name:</label>
@@ -631,11 +655,11 @@ if ($mysqli->connect_errno) {
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_phn_nbr">Phone #:</label>
-                            <input class="col-xs-9" type="text" id="pop_contact_phn_nbr">
+                            <input class="col-xs-9" type="tel" id="pop_contact_phn_nbr">
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_email">Email:</label>
-                            <input class="col-xs-9" type="text" id="pop_contact_email">
+                            <input class="col-xs-9" type="email" id="pop_contact_email">
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_address">Address:</label>
@@ -657,21 +681,106 @@ if ($mysqli->connect_errno) {
                             }
                         ]
                     });
-//                    contacts.on('dblclick', 'tr', function () {
-//                        //var data = table.row( this ).data();
-//                        var contact = contacts.rows( { selected: true } ).data();
-//                        alert( 'You clicked on '+contact[0]+'\'s row' );
-//
-//
-//                    });
+                    contacts.row().select();
 
 
-                    $("#div_pop_contact").dialog({
+                    var contact_dialog = $("#div_pop_contact").dialog({
+                        title: "Contact",
                         autoOpen: false,
                         buttons: {
-                            Update: function(){
+                            "Add / Update": function(){
+                                $request_id = $("#request_id").val();
+                                $c_id = $("#pop_contact_id").val();
+                                $c_name = $("#pop_contact_name").val();
+                                $c_role = $("#pop_contact_role").val();
+                                $c_phn = $("#pop_contact_phn_nbr").val();
+                                $c_email = $("#pop_contact_email").val();
+                                $c_add = $("#pop_contact_address").val();
 
+                                console.log($c_id);
+                                if($c_id == null
+                                      || $c_id == undefined
+                                      || $.isEmptyObject($c_id)
+                                  ) {
+//                                   console.log("if true");
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "php/workqueue.php",
+                                        data: { trigger_name: "add_contact",
+                                            request_id:         $request_id,
+                                            contact_name:       $c_name,
+                                            contact_role:       $c_role,
+                                            contact_phn_nbr:    $c_phn,
+                                            contact_email:      $c_email,
+                                            contact_address:    $c_add
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: add_contact");
+//                                            console.log(data);
+
+                                            contacts.row.add( [
+                                                $("#pop_contact_id").val(data),
+                                                $("#pop_contact_name").val(),
+                                                $("#pop_contact_role").val(),
+                                                $("#pop_contact_phn_nbr").val(),
+                                                $("#pop_contact_email").val(),
+                                                $("#pop_contact_address").val()
+                                            ]).draw();
+
+                                        },
+                                        error: function(data){
+                                            console.log("error: add_contact");
+//                                            console.log(data);
+                                        },
+                                        complete: function(data){
+//                                            console.log("complete: add_contact");
+                                            $('.ui-dialog-content').dialog('close');
+                                            contacts.row().select();
+                                        }
+                                    });
+                                } else {
+                                    $.ajax({
+                                        type: "POST",
+                                        url:  "php/workqueue.php",
+                                        data: { trigger_name: "update_contact",
+                                            contact_id:         $c_id,
+                                            contact_name:       $c_name,
+                                            contact_role:       $c_role,
+                                            contact_phn_nbr:    $c_phn,
+                                            contact_email:      $c_email,
+                                            contact_address:    $c_add
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: edit_contact");
+//                                            console.log(data);
+                                            contacts
+                                                .rows('.selected')
+                                                .remove()
+                                                .draw();
+                                            contacts
+                                                .row.add( [
+                                                $("#pop_contact_id").val(),
+                                                $("#pop_contact_name").val(),
+                                                $("#pop_contact_role").val(),
+                                                $("#pop_contact_phn_nbr").val(),
+                                                $("#pop_contact_email").val(),
+                                                $("#pop_contact_address").val()
+                                                ])
+                                                .draw();
+                                        },
+                                        error: function(data){
+                                            console.log("error: edit_contact");
+                                        },
+                                        complete: function (data) {
+                                            $('.ui-dialog-content').dialog('close');
+                                            contacts.row().select();
+                                        }
+                                    });
+                                }
                             },
+
                             Cancel: function(){
                                 $(this).dialog("close");
                             }
@@ -680,7 +789,12 @@ if ($mysqli->connect_errno) {
 
                     $("#contact_new_btn").click(function(e) {
                         e.preventDefault();
-//                        alert("You clicked New");
+                        $("#pop_contact_id").val(null);
+                        $("#pop_contact_name").val(null);
+                        $("#pop_contact_role").val(null);
+                        $("#pop_contact_phn_nbr").val(null);
+                        $("#pop_contact_email").val(null);
+                        $("#pop_contact_address").val(null);
 
                         $("#div_pop_contact").dialog("open")
                             .dialog("option", "width", 500);
@@ -689,30 +803,356 @@ if ($mysqli->connect_errno) {
 
                     $("#contact_edit_btn").click(function(e) {
                         e.preventDefault();
-//                        var contacts = date_times.rows( { selected: true } ).data();
-//                        alert("You clicked Edit")
+                        var contact = contacts.rows( { selected: true } ).data();
+                        $("#pop_contact_id").val(contact[0][0]);
+                        $("#pop_contact_name").val(contact[0][1]);
+                        $("#pop_contact_role").val(contact[0][2]);
+                        $("#pop_contact_phn_nbr").val(contact[0][3]);
+                        $("#pop_contact_email").val(contact[0][4]);
+                        $("#pop_contact_address").val(contact[0][6]);
 
                         $("#div_pop_contact").dialog("open")
                             .dialog("option", "width", 500);
 
-                        //$("#pop_dt_id_grp").hide();
                     });
 
                     $("#contact_delete_btn").click(function(e) {
                         e.preventDefault();
-//                        alert("You clicked Delete");
+                        $this = $(e.target);
+                        var contact_record = contacts.rows( { selected: true } ).data();
+                        $contact_id = contact_record[0][0];
+                        console.log($contact_id);
+
+                        $.ajax({
+                            type: "POST",
+                            url:  "php/workqueue.php",
+                            data: { trigger_name: "delete_contact",
+                                contact_id: $contact_id
+                            },
+                            dataType: "json",
+                            success: function(data){
+                                console.log("success:");
+                                console.log(data);
+                            },
+                            error: function(data){
+                                console.log("success:");
+                            },
+                            complete: function (data) {
+                                contact_record
+                                    .rows('.selected')
+                                    .remove()
+                                    .draw();
+                            }
+                        });
                     });
 
 
                 </script>
 
 
+            </div> <!-- End Contacts -->
+
+
+
+            <div id="expenses">
+                <div class="row input-group" id="expense_button_row">
+                    <div class="form-group col-xs-12" id="expense_button_sec">
+                        <button id="expense_new_btn">New</button>
+                        <button id="expense_edit_btn">Edit</button>
+                        <button id="expense_delete_btn">Delete</button>
+                    </div>
+                </div>
+
+
+                <table id="tbl_expenses" class="display table-responsive" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Note</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <?PHP
+
+                    $sql_expenses  = "select ";
+                    $sql_expenses .= "expense_id, expense_type, expense_amount, expense_note ";
+                    $sql_expenses .= "from expenses where request_id = ";
+                    $sql_expenses .= $request_id;
+
+                    if ($result_expenses=mysqli_query($mysqli,$sql_expenses))
+                    {
+                        // Fetch one and one row
+                        while ($row=mysqli_fetch_row($result_expenses))
+                        {
+                            echo
+                                "<tr>"
+                                ."<td>".$row[0] ."</td>"
+                                ."<td>".$row[1] ."</td>"
+                                ."<td>".$row[2] ."</td>"
+                                ."<td>".$row[3] ."</td>"
+                                ."</tr>";
+                        }
+                        // Free result set
+                        mysqli_free_result($result_expenses);
+                    }
+
+                    //      mysqli_close($mysqli);
+
+                    ?>
+                    </tbody>
+                </table>
+
+                <!--                 Popup expenses-->
+                <div id="div_pop_expense">
+                    <form class="form form-vertical" id="pop_expense_form_id">
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_expense_id" hidden>ID</label>
+                            <input class="col-xs-9" type="number" id="pop_expense_id" disabled hidden>
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_expense_type">Type:</label>
+                            <input class="col-xs-9" type="text" id="pop_expense_type">
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_expense_amount">Amount:</label>
+                            <input class="col-xs-9" type="text" id="pop_expense_amount">
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_expense_note">Note:</label>
+                            <input class="col-xs-9" type="tel" id="pop_expense_note">
+                        </div>
+                    </form>
+                </div>
+
+                <script>
+                    var expenses = $('#tbl_expenses').DataTable({
+                        "footerCallback": function ( row, data, start, end, display ) {
+                            var api = this.api(), data;
+
+                            // Remove the formatting to get integer data for summation
+                            var intVal = function ( i ) {
+                                return typeof i === 'string' ?
+                                    i.replace(/[\$,]/g, '')*1 :
+                                    typeof i === 'number' ?
+                                        i : 0;
+                            };
+
+                            // Total over all pages
+                            total = api
+                                .column( 2 )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
+
+                            // Total over this page
+                            pageTotal = api
+                                .column( 2, { page: 'current'} )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
+
+                            // Update footer
+                            $( api.column( 2 ).footer() ).html(
+                                //pageTotal +' ( '+ total +' total)'
+                                'Total: ' + pageTotal
+                            );
+                        },
+                        select: {
+                            style:          'single'
+                        },
+                        columnDefs: [
+                            {
+                                "targets": [ 0 ],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            { "width": "20%", "targets": 1},
+                            { "width": "30%", "targets": 2},
+                            { "width": "50%", "targets": 3},
+                        ]
+                    });
+                    expenses.row().select();
+
+
+                    var expense_dialog = $("#div_pop_expense").dialog({
+                        title: "Expense",
+                        autoOpen: false,
+                        buttons: {
+                            "Add / Update": function(){
+                                $request_id = $("#request_id").val();
+                                $expense_id = $("#pop_expense_id").val();
+                                $expense_type = $("#pop_expense_type").val();
+                                $expense_amount = $("#pop_expense_amount").val();
+                                $expsene_note = $("#pop_expense_note").val();
+
+//                                console.log($expense_id);
+                                if($expense_id == null
+                                    || $expense_id == undefined
+                                    || $.isEmptyObject($expense_id)
+                                ) {
+//                                   console.log("if true");
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "php/workqueue.php",
+                                        data: { trigger_name: "add_expense",
+                                            request_id:         $request_id,
+                                            expense_id:         $expense_id,
+                                            expense_type:       $expense_type,
+                                            expense_amount:     $expense_amount,
+                                            expense_note:       $expsene_note
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: add_expense");
+//                                            console.log(data);
+                                            expenses.row.add( [
+                                                $("#pop_expense_id").val(data),
+                                                $("#pop_expense_type").val(),
+                                                $("#pop_expense_amount").val(),
+                                                $("#pop_expense_note").val()
+                                            ]).draw();
+
+                                        },
+                                        error: function(data){
+                                            console.log("error: add_expense");
+//                                            console.log(data);
+                                        },
+                                        complete: function(data){
+                                            console.log("complete: add_expense");
+                                            $('.ui-dialog-content').dialog('close');
+                                            expenses.row().select();
+                                        }
+                                    });
+                                } else {
+                                    $.ajax({
+                                        type: "POST",
+                                        url:  "php/workqueue.php",
+                                        data: { trigger_name: "update_expense",
+                                            expense_id:         $expense_id,
+                                            expense_type:       $expense_type,
+                                            expense_amount:      $expense_amount,
+                                            expense_note:       $expsene_note
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: edit_expense");
+//                                            console.log(data);
+                                            expenses
+                                                .rows('.selected')
+                                                .remove()
+                                                .draw();
+                                            expenses
+                                                .row.add( [
+                                                $("#pop_expense_id").val(),
+                                                $("#pop_expense_type").val(),
+                                                $("#pop_expense_amount").val(),
+                                                $("#pop_expense_note").val()
+                                            ])
+                                                .draw();
+                                        },
+                                        error: function(data){
+                                            console.log("error: edit_expense");
+                                        },
+                                        complete: function (data) {
+                                            $('.ui-dialog-content').dialog('close');
+                                            expenses.row().select();
+                                        }
+                                    });
+                                }
+                            },
+
+                            Cancel: function(){
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+
+                    $("#expense_new_btn").click(function(e) {
+                        e.preventDefault();
+                        $("#pop_expense_id").val(null);
+                        $("#pop_expense_type").val(null);
+                        $("#pop_expense_amount").val(null);
+                        $("#pop_expense_note").val(null);
+
+                        $("#div_pop_expense").dialog("open")
+                            .dialog("option", "width", 500);
+
+                    });
+
+                    $("#expense_edit_btn").click(function(e) {
+                        e.preventDefault();
+                        var expense = expenses.rows( { selected: true } ).data();
+                        $("#pop_expense_id").val(expense[0][0]);
+                        $("#pop_expense_type").val(expense[0][1]);
+                        $("#pop_expense_amount").val(expense[0][2]);
+                        $("#pop_expense_note").val(expense[0][3]);
+
+                        $("#div_pop_expense").dialog("open")
+                            .dialog("option", "width", 500);
+
+                    });
+
+                    $("#expense_delete_btn").click(function(e) {
+                        e.preventDefault();
+                        $this = $(e.target);
+                        var expense_record = expenses.rows( { selected: true } ).data();
+                        $expense_id = expense_record[0][0];
+                        console.log($expense_id);
+
+                        $.ajax({
+                            type: "POST",
+                            url:  "php/workqueue.php",
+                            data: { trigger_name: "delete_expense",
+                                expense_id: $expense_id
+                            },
+                            dataType: "json",
+                            success: function(data){
+                                console.log("success:");
+                                console.log(data);
+                            },
+                            error: function(data){
+                                console.log("success:");
+                            },
+                            complete: function (data) {
+                                expense_record
+                                    .rows('.selected')
+                                    .remove()
+                                    .draw();
+                            }
+                        });
+                    });
+
+
+                </script>
+
+            </div> <!-- End Expenses -->
+
+
+
+
+
+
+
+
+
+            <div id="eval_comments">Eval Comments Goes Here
+
             </div>
-            <div id="program_exp">Program Exp Goes Here</div>
-            <div id="consultant_exp">Consultant Exp Goes Here</div>
-            <div id="reports">Reports Goes Here</div>
-            <div id="eval_comments">Eval Comments Goes Here</div>
-            <div id="sti-pd">STI-PD Goes Here</div>
+            <div id="sti-pd">STI-PD Goes Here
+
+            </div>
 
         </div>
         <script>

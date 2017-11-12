@@ -24,13 +24,13 @@ if ($mysqli->connect_errno) {
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
     <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
-<!--    <link rel="stylesheet" href="css/NewRequest.css">-->
+    <link rel="stylesheet" href="css/NewRequest.css">
 
     <script src="../resources/library/jquery-3.2.1.min.js"></script>
     <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
     <script src="../resources/library/jquery-validation/jquery.validate.js"></script>
-<!--    <script src="js/NewRequest.js"></script>-->
+    <script src="js/NewRequest.js"></script>
 
 
 </head>
@@ -178,6 +178,56 @@ if ($mysqli->connect_errno) {
                                         <label for="total_cost">Enrolled Participants #</label>
                                         <input type="number"  id="enrolled_participants" name="enrolled_participants" size="40">
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Date(s) and Time(s) -->
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Date(s) and Time(s)</div>
+                            <div class="panel-body">
+                                <div class="container col-xs-12">
+                                    <div class="row clearfix">
+                                        <div class="col-md-12 column">
+                                            <table class="table table-bordered table-hover table-responsive" id="tab_logic">
+                                                <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Date</th>
+                                                    <th class="text-center">Start Time</th>
+                                                    <th class="text-center">End Time</th>
+                                                    <th class="text-center">Break Time (Hours)</th>
+                                                    <!--<th class="text-center">Hours</th>-->
+
+                                                </tr>
+                                                </thead>
+                                                <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <!--<th></th>-->
+                                                </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                <tr id='addr0'>
+                                                    <td>1</td>
+                                                    <td><input type="date" name='date0'  placeholder='mm/dd/yyyy' class="form-control datepicker"/></td>
+                                                    <td><input type="text" name='sTime0' placeholder='00:00am/pm' class="form-control timepicker"/></td>
+                                                    <td><input type="text" name='eTime0' placeholder='00:00am/pm' class="form-control timepicker"/></td>
+                                                    <td><input type="number" name='bTime0' placeholder='' class="form-control"/></td>
+                                                    <!--<td><input type="number" name='hours' placeholder='' class="form-control"/></td>-->
+                                                </tr>
+                                                <tr id='addr1'></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <a id="add_date_row" class="btn btn-success pull-left">Add Row</a>
+                                    <a id='delete_date_row' class="btn btn-danger pull-right">Delete Row</a>
                                 </div>
                             </div>
                         </div>

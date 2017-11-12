@@ -41,7 +41,7 @@
     width: 3150px;
 }
 
-table.dataTable thead tr th
+table.dataTable thead tfoot tr th
 {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -51,15 +51,10 @@ table.dataTable thead tr th
   text-align: center;
 }
 
-td
+td,
+th
 {
     text-align: center;
-}
-
-td.notes,
-td.location
-{
-    text-align: left;
 }
 
 /*Set column widths*/
@@ -70,7 +65,7 @@ td.location
 
 .program_title
 {
-    width: 300px;
+    width: 200px;
 }
 
 .start_date
@@ -103,14 +98,14 @@ td.location
     width: 200px; 
 }
 
-.support_provided
+.initiative
 {
     width: 70px;
 }
 
 .target_audience
 {
-    width: 250px;
+    width: 150px;
 }
 
 .current_enrollment
@@ -128,16 +123,6 @@ td.location
     width: 100px;
 }
 
-.av_description
-{
-    width: 200px;
-}
-
-.staff_notes
-{
-    width: 500px;
-}
-
 .consultatnt_name
 {
     width: 150px;
@@ -145,7 +130,7 @@ td.location
 
 .system_name
 {
-    width: 200px;
+    width: 100px;
 }
 
 .offerings_per_system
@@ -166,4 +151,24 @@ td.location
 .misc_fees
 {
     width: 70px;
+}
+
+.sti_pd
+{
+    width: 70px;
+}
+
+.school_system
+{
+    width: 100px;
+}
+
+.school
+{
+    width: 100px;
+}
+
+.status
+{
+    width: 50px;
 }
