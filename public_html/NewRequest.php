@@ -1,5 +1,5 @@
 <?php
-require "../../resources/config.php";
+require "../resources/config.php";
 # create connection to database
 $mysqli = new mysqli($config['db']['amsti_01']['host']
     , $config['db']['amsti_01']['username']
@@ -82,14 +82,35 @@ if ($mysqli->connect_errno) {
                             <div class="row form-group" id="school_system_row">
 
 
+
+
+
                                 <div class="col-md-6 pull-left">
                                     <label for="system">System</label>
 
                                     <style> select { width: 400px } </style>
                                     <select id="system" name="system">
-                                        <option>Athens City Schools</option>
+                                        <option>Select System</option>
+                                        <?php
+                                        $system_result = $mysqli->query("SELECT DISTINCT system from systems_schools ORDER BY system ") or die($mysqli->error);
+
+                                        while ($row = mysqli_fetch_array($system_result)) {
+                                            echo "<option value='" . $row['system'] . "'>" . $row['system'] . "</option>";
+                                        }
+                                        ?>
                                     </select>
-                                    <script> $("#system").selectmenu(); </script>
+                                    <script>
+
+                                        $("#system").selectmenu();
+
+                                        $(document).ready(function(){
+                                            $('#system').change(function(e){
+
+                                            }
+                                        }
+
+
+                                    </script>
 
                                 </div>
 
@@ -98,22 +119,21 @@ if ($mysqli->connect_errno) {
 
                                 <div class="col-md-6 pull-left">
                                     <label for="school">School</label>
-                                    <!--<input type="text" id="school" name="school" size="35" maxlength="50" minlength="3">-->
 
                                     <style> select { width: 400px } </style>
                                     <select id="school" name="school">
-                                        <option>One</option>
-                                        <option>Two</option>
-                                        <option>Three</option>
+                                        <option>Select School</option>
+                                        <?php
+                                        $school_result = $mysqli->query("SELECT DISTINCT school from systems_schools ORDER BY school ") or die($mysqli->error);
+
+                                        while ($row = mysqli_fetch_array($school_result)) {
+                                            echo "<option value='" . $row['school'] . "'>" . $row['school'] . "</option>";
+                                        }
+                                        ?>
                                     </select>
                                     <script> $("#school").selectmenu(); </script>
 
                                 </div>
-
-
-
-
-
 
 
                             </div>
