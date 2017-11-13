@@ -79,8 +79,10 @@ if ($mysqli->connect_errno) {
 
         $request_type = $row[1];
         $workflow_state = $row[2];
-        $school = $row[3];
-        $system = $row[4];
+//        $school = $row[3];
+//        $system = $row[4];
+        $system = str_replace(' ','_',$row[4]);
+        $school = str_replace(' ','_',$row[3]);
         $program_nbr = $row[21];
         $workshop = null;
         $request_desc = $row[5];
@@ -229,15 +231,57 @@ if ($mysqli->connect_errno) {
 
                 <div class="row form-group" id="school_system_row">
                     <div class="col-xs-6 pull-left">
-                        <label for="school">School:</label>
-                        <input type="text" id="school" name="school" size="25"
-                               maxlength="50" value="<?php echo $school;?>">
+                        <label for="system">System</label>
+                        <style> select { width: 400px } </style>
+
+                        <select id="system" name="system">
+                            <option value="">--</option>
+                            <?php
+                            $system_results = $mysqli->query("select distinct system from systems_schools order by system") or die($mysqli->error);
+                            while ($row = mysqli_fetch_array($system_results)) {
+                                $system_val = str_replace(' ','_',$row['system']);
+                                echo "<option value='" . $system_val . "'>" . $row['system'] . "</option>";
+                            }
+                            ?>
+                        </select>
+
                     </div>
+
+
                     <div class="col-xs-6 pull-left">
-                        <label for="system">System: </label>
-                        <input type="text" id="system" name="system" size="25"
-                               maxlength="50" value="<?php echo $system;?>">
+                        <label for="system">School</label>
+                        <style> select { width: 400px } </style>
+
+                        <select id="school" name="school">
+                            <option value="">--</option>
+                            <?php
+                            $school_results = $mysqli->query("select school, system from systems_schools order by system, school") or die($mysqli->error);
+                            while ($row = mysqli_fetch_array($school_results)) {
+                                $system_val = str_replace(' ','_',$row['system']);
+                                $school_val = str_replace(' ','_',$row['school']);
+                                echo "<option value='" . $school_val . "' data-chained='" . $system_val . "'>" . $row['school'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
+                    <script>
+                        $('#system').val("<?php echo $system; ?>").attr('selected','selected');
+                        $("#school").chained("#system");
+                        $('#school').val("<?php echo $school; ?>").attr('selected','selected');
+                    </script>
+
+
+
+<!--                    <div class="col-xs-6 pull-left">-->
+<!--                        <label for="school">School:</label>-->
+<!--                        <input type="text" id="school" name="school" size="25"-->
+<!--                               maxlength="50" value="--><?php //echo $school;?><!--">-->
+<!--                    </div>-->
+<!--                    <div class="col-xs-6 pull-left">-->
+<!--                        <label for="system">System: </label>-->
+<!--                        <input type="text" id="system" name="system" size="25"-->
+<!--                               maxlength="50" value="--><?php //echo $system;?><!--">-->
+<!--                    </div>-->
                 </div>
 
         <div id="wq_detail_tabs">

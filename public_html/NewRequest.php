@@ -28,11 +28,13 @@ if ($mysqli->connect_errno) {
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
     <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
+
     <link rel="stylesheet" href="css/NewRequest.css">
 
     <script src="../resources/library/jquery-3.2.1.min.js"></script>
     <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
+    <script src="../resources/library/jquery_chained/jquery.chained.js"></script>
     <!--<script src="../resources/library/jquery-validation/jquery.validate.js"></script>-->
     <script src="js/NewRequest.js"></script>
 
@@ -81,59 +83,43 @@ if ($mysqli->connect_errno) {
                         <div class="panel-body">
                             <div class="row form-group" id="school_system_row">
 
-
-
-
-
                                 <div class="col-md-6 pull-left">
-                                    <label for="system">System</label>
+                                    <label for="system" hidden>System</label>
 
-                                    <style> select { width: 400px } </style>
+
                                     <select id="system" name="system">
-                                        <option>Select System</option>
+                                        <option value="">Select System</option>
                                         <?php
-                                        $system_result = $mysqli->query("SELECT DISTINCT system from systems_schools ORDER BY system ") or die($mysqli->error);
-
-                                        while ($row = mysqli_fetch_array($system_result)) {
-                                            echo "<option value='" . $row['system'] . "'>" . $row['system'] . "</option>";
+                                        $system_results = $mysqli->query("select distinct system from systems_schools order by system") or die($mysqli->error);
+                                        while ($row = mysqli_fetch_array($system_results)) {
+                                            $system_val = str_replace(' ','_',$row['system']);
+                                            echo "<option value='" . $system_val . "'>" . $row['system'] . "</option>";
                                         }
                                         ?>
                                     </select>
-                                    <script>
-
-                                        $("#system").selectmenu();
-
-                                        $(document).ready(function(){
-                                            $('#system').change(function(e){
-
-                                            }
-                                        }
-
-
-                                    </script>
 
                                 </div>
-
-
 
 
                                 <div class="col-md-6 pull-left">
-                                    <label for="school">School</label>
+                                    <label for="system" hidden>School</label>
 
-                                    <style> select { width: 400px } </style>
                                     <select id="school" name="school">
-                                        <option>Select School</option>
+                                        <option value="">Select School</option>
                                         <?php
-                                        $school_result = $mysqli->query("SELECT DISTINCT school from systems_schools ORDER BY school ") or die($mysqli->error);
-
-                                        while ($row = mysqli_fetch_array($school_result)) {
-                                            echo "<option value='" . $row['school'] . "'>" . $row['school'] . "</option>";
+                                        $school_results = $mysqli->query("select school, system from systems_schools order by system, school") or die($mysqli->error);
+                                        while ($row = mysqli_fetch_array($school_results)) {
+                                            $system_val = str_replace(' ','_',$row['system']);
+                                            $school_val = str_replace(' ','_',$row['school']);
+                                            echo "<option value='" . $school_val . "' data-chained='" . $system_val . "'>" . $row['school'] . "</option>";
                                         }
                                         ?>
                                     </select>
-                                    <script> $("#school").selectmenu(); </script>
-
                                 </div>
+                                <script>
+                                    $("#school").chained("#system");
+                                </script>
+
 
 
                             </div>

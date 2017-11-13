@@ -50,8 +50,8 @@ function convert_date($date){
 $request_parms = array(
     "request_type" => $_POST['RequestType']
     , "workflow_state" => "New"
-    , "school" => $_POST['school']
-    , "system" => $_POST['system']
+    , "school" => str_replace('_', ' ',$_POST['school'])
+    , "system" => str_replace('_',' ',$_POST['system'])
     , "request_desc" => htmlspecialchars($_POST['request_desc'])
     , "request_just" => htmlspecialchars($_POST['request_just'])
     , "request_location" => $_POST['request_location']
