@@ -71,10 +71,30 @@
     $pdf->Cell(0, 10, "     Program Title", 'B', 0);
     $pdf->Ln(10);
 
+    $count = 0;
+
     if ($result = mysqli_query($mysqli, $sql))
     {
         while ($row = mysqli_fetch_row($result))
         {
+            // Create page break that doesn't cut off a group
+            if($count == 5)
+            {
+                $pdf->AddPage();
+
+                $pdf->SetFont('Times', 'I', 11);
+                $pdf->Cell(80);
+                $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+                $pdf->Ln(20);
+
+                $pdf->SetFont('Times', 'B', 12);
+                $pdf->Cell(30, 10, "Program ID#", 'B', 0);
+                $pdf->Cell(0, 10, "     Program Title", 'B', 0);
+                $pdf->Ln(10);
+
+                $count = 0;
+            }
+
             // Write program ID
             $id = $row[2];
             $pdf->SetFont('Times', 'B', 12);
@@ -85,13 +105,13 @@
             $pdf->SetFont('Times', 'BI', 12);
             $pdf->Cell(30, 10, $title, 0, 0);
 
-            if ($row[10] == 'Canceled')
+            if ($row[13] == 'Canceled')
             {
                 // Write the canceled notification
-                $canceled = "         " . "***** CANCELED *****";
+                $canceled = "***** CANCELED *****";
                 $pdf->SetFont('Times', 'B', 12);
                 $pdf->Cell(30, 10, "", 0, 0);
-                $pdf->Cell(30, 10, $canceled, 0, 0);
+                $pdf->Cell(0, 10, $canceled, 0, 0, 'R');
             }
 
             $pdf->Ln(8);
@@ -119,7 +139,7 @@
 
             // Write who is providing support
             $pdf->SetFont('Times', '', 10);
-            $location = "     Support Provided By: " . $row[14];
+            $location = "     Initiative: " . $row[14];
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $location, 0, 0);
             $pdf->Ln(5);
@@ -130,6 +150,8 @@
             $pdf->Cell(30, 10, "", 0, 0);
             $pdf->Cell(30, 10, $enrollment, 0, 0);
             $pdf->Ln(10);
+
+            $count++;
         }
     }
 
@@ -149,9 +171,10 @@
     $sql = "SELECT workflow_state FROM quick_report_data WHERE $where";
     $total_canceled = mysqli_num_rows(mysqli_query($mysqli, $sql));
 
-    // Get the total enrollment over al programs
-    $where = "workflow_state <> 'Canceled' AND (report_date BETWEEN '$report_from' AND '$report_to')";
+    // Get the total enrollment over all programs
+    $where = "report_date BETWEEN '$report_from' AND '$report_to'";
     $sql = "SELECT SUM(enrolled_participants) AS total_enrollment FROM quick_report_data WHERE $where";
+
     $enrollment_result = mysqli_query($mysqli, $sql); 
     $row = mysqli_fetch_assoc($enrollment_result); 
     $total_enrollment = $row['total_enrollment'];

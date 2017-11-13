@@ -105,10 +105,20 @@
                                     ."<td>". $row[11] ."</td>"          // School System
                                     ."<td>". $row[15] ."</td>"          // Current Enrollment
                                     ."<td>". $row[14] ."</td>"          // Max Enrollment
-                                    ."<td>". "$" . $row[17] ."</td>"    // Consultant Fee                                    
-                                    ."<td>". "$" . $row[18] ."</td>"    // Misc Expenses
-                                    ."<td>". $row[16] ."</td>"          // Status
-                                    ."</tr>";
+                                    ."<td>". "$" . $row[17] ."</td>";   // Consultant Fee       
+
+                                if ($row[18] == NULL)
+                                {
+                                    echo "<td>$0</td>"                  // Misc Expenses   
+                                         ."<td>". $row[16] ."</td>"     // Status
+                                         ."</tr>";
+                                } 
+                                else 
+                                {
+                                   echo "<td>". "$" . $row[18] ."</td>" // Misc Expenses
+                                         ."<td>". $row[16] ."</td>"     // Status
+                                         ."</tr>";
+                                }                            
                             }
                         }
                     ?>

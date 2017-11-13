@@ -51,6 +51,10 @@
         }
     }
 
+    $sql = "SELECT * 
+            FROM financial_report_data 
+            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+
     //Instanciation of inherited class
     $pdf = new PDF('P', 'mm', 'A4');
 
@@ -67,14 +71,30 @@
     $pdf->Cell(0, 10, "     Program Title", 'B', 0);
     $pdf->Ln(10);
 
-    $sql = "SELECT * 
-            FROM financial_report_data 
-            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+    $count = 0;
 
     if ($result = mysqli_query($mysqli, $sql))
     {
         while ($row = mysqli_fetch_row($result))
         {
+            // Create page break that doesn't cut off a group
+            if($count == 2)
+            {
+                $pdf->AddPage();
+
+                $pdf->SetFont('Times', 'I', 11);
+                $pdf->Cell(80);
+                $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+                $pdf->Ln(20);
+
+                $pdf->SetFont('Times', 'B', 12);
+                $pdf->Cell(30, 10, "Program ID#", 'B', 0);
+                $pdf->Cell(0, 10, "     Program Title", 'B', 0);
+                $pdf->Ln(10);
+
+                $count = 0;
+            }
+
             // Write program ID
             $id = $row[2];
             $pdf->SetFont('Times', 'B', 12);
@@ -88,10 +108,10 @@
             if ($row[16] == 'Canceled')
             {
                 // Write the canceled notification
-                $canceled = "         " . "***** CANCELED *****";
+                $canceled = "***** CANCELED *****";
                 $pdf->SetFont('Times', 'B', 12);
                 $pdf->Cell(30, 10, "", 0, 0);
-                $pdf->Cell(30, 10, $canceled, 0, 0);
+                $pdf->Cell(0, 10, $canceled, 0, 0, 'R');
             }
 
             $pdf->Ln(5);
@@ -195,6 +215,8 @@
             $pdf->Cell(45, 10, "", 0, 0);
             $pdf->Cell(30, 10, $total_text, 0, 0);
             $pdf->Ln(15);
+
+            $count++;
         }
     }
 
@@ -214,8 +236,7 @@
 
     $sql = "SELECT SUM(consultant_fee) AS total_consultant_fees 
             FROM financial_report_data
-            WHERE (report_date BETWEEN '$report_from' AND '$report_to')
-            AND workflow_state <> 'Canceled'";
+            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
 
     $consultant_result = mysqli_query($mysqli, $sql); 
     $row = mysqli_fetch_assoc($consultant_result); 
@@ -231,8 +252,7 @@
             FROM expenses e 
             JOIN (SELECT request_id 
                   FROM financial_report_data 
-                  WHERE (report_date BETWEEN '$report_from' AND '$report_to')
-                  AND workflow_state <> 'Canceled') rq 
+                  WHERE report_date BETWEEN '$report_from' AND '$report_to') AS rq 
             ON e.request_id = rq.request_id
             GROUP BY e.expense_type";
 
@@ -253,8 +273,7 @@
     // Get total of misc fees the get grand total of misc and consultant fees
     $sql = "SELECT SUM(consultant_fee) + SUM(total_misc_expenses) AS total 
             FROM financial_report_data 
-            WHERE (report_date BETWEEN '$report_from' AND '$report_to')
-            AND workflow_state <> 'Canceled'";
+            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
 
     $total_fees_result = mysqli_query($mysqli, $sql); 
     $row = mysqli_fetch_assoc($total_fees_result); 
