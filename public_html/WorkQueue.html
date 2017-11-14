@@ -34,6 +34,14 @@
                 <div class="col-xs-12  row">
 
                     <div class="col-xs-12 panel-primary row">
+                    <div class="panel-heading">Admin</div>
+                    <div class="panel-body" id="reports_page"></div>
+                    <script>
+                        $("#reports_page").load( 'php/div_wq_admin.php' );
+                    </script>
+                    </div>
+
+                    <div class="col-xs-12 panel-primary row">
                         <div class="panel-heading">Work Queue</div>
                         <div class="panel-body" id="div_wq_tables"></div>
                         <script>
@@ -42,13 +50,7 @@
                         </script>
                     </div>
 
-                    <!--<div class="col-xs-12 panel-primary row">-->
-                        <!--<div class="panel-heading">Reports</div>-->
-                        <!--<div class="panel-body" id="reports_page"></div>-->
-                        <!--<script>-->
-<!--//                            $("#reports_page").load( 'Reports.html' );-->
-                        <!--</script>-->
-                    <!--</div>-->
+
 
 
                 </div>

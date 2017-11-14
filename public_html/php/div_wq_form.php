@@ -270,18 +270,6 @@ if ($mysqli->connect_errno) {
                         $('#school').val("<?php echo $school; ?>").attr('selected','selected');
                     </script>
 
-
-
-<!--                    <div class="col-xs-6 pull-left">-->
-<!--                        <label for="school">School:</label>-->
-<!--                        <input type="text" id="school" name="school" size="25"-->
-<!--                               maxlength="50" value="--><?php //echo $school;?><!--">-->
-<!--                    </div>-->
-<!--                    <div class="col-xs-6 pull-left">-->
-<!--                        <label for="system">System: </label>-->
-<!--                        <input type="text" id="system" name="system" size="25"-->
-<!--                               maxlength="50" value="--><?php //echo $system;?><!--">-->
-<!--                    </div>-->
                 </div>
 
         <div id="wq_detail_tabs">
@@ -290,7 +278,7 @@ if ($mysqli->connect_errno) {
                 <li><a href="#contacts">Contacts</a></li>
                 <li><a href="#expenses">Expenses</a></li>
                 <li><a href="#eval_comments">Comments</a></li>
-                <li><a href="#sti-pd">STI-PD</a></li>
+                <li><a href="#staff_notes">Notes</a></li>
             </ul>
 
             <div id="request_info">
@@ -418,10 +406,10 @@ if ($mysqli->connect_errno) {
                         $sql_dates_times .= $request_id;
                         $sql_dates_times .= " order by request_date, request_start_time";
 
-                        if ($result_contacts=mysqli_query($mysqli,$sql_dates_times))
+                        if ($result_dt=mysqli_query($mysqli,$sql_dates_times))
                         {
                             // Fetch one and one row
-                            while ($row=mysqli_fetch_row($result_contacts))
+                            while ($row=mysqli_fetch_row($result_dt))
                             {
                                 echo
                                     "<tr>"
@@ -440,7 +428,7 @@ if ($mysqli->connect_errno) {
                                     ."</tr>";
                             }
                             // Free result set
-                            mysqli_free_result($result_contacts);
+                            mysqli_free_result($result_dt);
                         }
 
                         //      mysqli_close($mysqli);
@@ -529,17 +517,125 @@ if ($mysqli->connect_errno) {
                                 { "width": "15%", "targets": 3},
                                 { "width": "10%", "targets": 4},
                                 { "width": "15%", "targets": 5},
-                                { "width": "25%", "targets": 6},
+                                { "width": "25%", "targets": 6}
                             ]
 
                         });
                         date_times.row().select();
 
-
                         $("#div_pop_dt").dialog({
+                            title: "Date / Time",
                             autoOpen: false,
                             buttons: {
-                                Update: function(){
+                                "Add / Update": function(){
+                                    $request_id = $("#request_id").val();
+                                    $dt_id = $("#pop_dt_id").val();
+                                    $dt_date = $("#pop_dt_date").val();
+                                    $dt_start = $("#pop_dt_start").val();
+                                    $dt_end = $("#pop_dt_end").val();
+                                    $dt_break = $("#pop_dt_break").val();
+                                    $dt_note = $("#pop_dt_note").val();
+
+                                    console.log($dt_id);
+
+                                    if($dt_id == null
+                                        || $dt_id == undefined
+                                        || $.isEmptyObject($dt_id)){
+
+                                        console.log("new date/time");
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "php/workqueue.php",
+                                            data: {
+                                                trigger_name: "add_date_time",
+                                                request_id: $request_id,
+                                                dt_id: $dt_id,
+                                                dt_date: $dt_date,
+                                                dt_start: $dt_start,
+                                                dt_end: $dt_end,
+                                                dt_break: $dt_break,
+                                                dt_note: $dt_note
+                                            },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                console.log("success: add_date_time");
+                                                    console.log(data);
+//                                                s_time = $("#pop_dt_start").val();
+//                                                e_time = $("#pop_dt_end").val();
+//                                                b_time = $("#pop_dt_end").val();
+//                                                $hours = e_time - s_time - b_time;
+
+                                                date_times.row.add([
+                                                    $("#pop_dt_id").val(data),
+                                                    $("#pop_dt_date").val(),
+                                                    $("#pop_dt_start").val(),
+                                                    $("#pop_dt_end").val(),
+                                                    $("#pop_dt_break").val(),
+//                                                    $hours,
+                                                    null,
+                                                    $("#pop_dt_note").val()
+                                                ]).draw();
+                                            },
+                                            error: function(data) {
+                                                console.log("error: add_date_time");
+                                                console.log(data);
+                                            },
+                                            complete: function(data) {
+                                                console.log("complete: add_date_time");
+                                                $('.ui-dialog-content').dialog('close');
+                                                date_times.row().select();
+                                            }
+                                        });
+                                    } else {
+                                        console.log("edit date/time");
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "php/workqueue.php",
+                                            data: {
+                                                trigger_name: "update_date_time",
+                                                request_id: $request_id,
+                                                dt_id: $dt_id,
+                                                dt_date: $dt_date,
+                                                dt_start: $dt_start,
+                                                dt_end: $dt_end,
+                                                dt_break: $dt_break,
+                                                dt_note: $dt_note
+                                            },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                console.log("success: update_date_time");
+                                                console.log(data);
+
+                                                date_times
+                                                    .rows('.selected')
+                                                    .remove()
+                                                    .draw();
+
+                                                date_times.row.add([
+                                                    $("#pop_dt_id").val(data),
+                                                    $("#pop_dt_date").val(),
+                                                    $("#pop_dt_start").val(),
+                                                    $("#pop_dt_end").val(),
+                                                    $("#pop_dt_break").val(),
+                                                    null,
+                                                    $("#pop_dt_note").val()
+                                                ]).draw();
+                                            },
+                                            error: function(data) {
+                                                console.log("error: update_date_time");
+                                                console.log(data);
+                                            },
+                                            complete: function(data) {
+                                                console.log("complete: update_date_time");
+                                                $('.ui-dialog-content').dialog('close');
+                                                date_times.row().select();
+                                            }
+                                        });
+
+
+                                    }
 
                                 },
                                 Cancel: function(){
@@ -592,7 +688,7 @@ if ($mysqli->connect_errno) {
                                 type: "POST",
                                 url: "php/workqueue.php",
                                 data: { trigger_name: "datetime_delete",
-                                    request_dt_id: $dt_id
+                                    dt_id: $dt_id
                                 },
                                 dataType: "json",
                                 success: function(data) {
@@ -606,6 +702,11 @@ if ($mysqli->connect_errno) {
                                 complete: function (data) {
                                     console.log("complete: datetime delete");
                                     console.log(data);
+                                    date_times
+                                        .rows('.selected')
+                                        .remove()
+                                        .draw();
+                                    date_times.row().select();
                                 }
                             });
                         });
@@ -965,7 +1066,16 @@ if ($mysqli->connect_errno) {
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_expense_type">Type:</label>
-                            <input class="col-xs-9" type="text" id="pop_expense_type">
+<!--                            <input class="col-xs-9" type="text" id="pop_expense_type">-->
+                            <select id="pop_expense_type" name="pop_expense_type" style="width: 300px">
+                                <option value="">--</option>
+                                <option value="Books">Books</option>
+                                <option value="Consultant Expense">Consultant Expense</option>
+                                <option value="Facility Rental">Facility Rental</option>
+                                <option value="Substitute Reimbursement">Substitute Reimbursement</option>
+                                <option value="Travel Expense">Travel Expense</option>
+                                <option value="Misc.">Misc.</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_expense_amount">Amount:</label>
@@ -1184,21 +1294,500 @@ if ($mysqli->connect_errno) {
             </div> <!-- End Expenses -->
 
 
+            <div id="eval_comments">
+                <div class="row input-group" id="comments_button_row">
+                    <div class="form-group col-xs-12" id="comments_button_sec">
+                        <button id="comment_new_btn">New</button>
+                        <button id="comment_edit_btn">Edit</button>
+                        <button id="comment_delete_btn">Delete</button>
+                    </div>
+                </div>
 
 
+                <table id="tbl_comments" class="display table-responsive" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <?PHP
+
+                    $sql_comments  = "select ";
+                    $sql_comments .= "comment_id, comment_date, comment_text ";
+                    $sql_comments .= "from comments where request_id = ";
+                    $sql_comments .= $request_id;
+
+                    if ($result_comments=mysqli_query($mysqli,$sql_comments))
+                    {
+                        // Fetch one and one row
+                        while ($row=mysqli_fetch_row($result_comments))
+                        {
+                            echo
+                                "<tr>"
+                                ."<td>".$row[0] ."</td>"
+                                ."<td>".$row[1] ."</td>"
+                                ."<td>".$row[2] ."</td>"
+                                ."</tr>";
+                        }
+                        // Free result set
+                        mysqli_free_result($result_comments);
+                    }
+
+                    //      mysqli_close($mysqli);
+
+                    ?>
+                    </tbody>
+                </table>
+
+                <!--                 Popup comments-->
+                <div id="div_pop_comment">
+                    <form class="form form-vertical" id="pop_comment_form_id">
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_comment_id" hidden>ID</label>
+                            <input class="col-xs-9" type="number" id="pop_comment_id" disabled hidden>
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_comment_date">Date:</label>
+                            <input class="col-xs-9" type="date" id="pop_comment_date">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_comment_text">Comment:</label>
+                            <input class="col-xs-9" type="text" id="pop_comment_text">
+
+                        </div>
+                    </form>
+                </div>
+
+                <script>
+                    var comments = $('#tbl_comments').DataTable({
+                        select: {
+                            style:          'single'
+                        },
+                        columnDefs: [
+                            {
+                                "targets": [ 0 ],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            { "width": "20%", "targets": 1},
+                            { "width": "80%", "targets": 2}
+                        ]
+                    });
+
+                    comments.row().select();
 
 
+                    var comment_dialog = $("#div_pop_comment").dialog({
+                        title: "Comment",
+                        autoOpen: false,
+                        buttons: {
+                            "Add / Update": function(){
+                                $request_id = $("#request_id").val();
+                                $comment_id = $("#pop_comment_id").val();
+                                $comment_date = $("#pop_comment_date").val();
+                                $comment_text = $("#pop_comment_text").val();
 
 
+//                                console.log($comment_id);
+                                if($comment_id == null
+                                    || $comment_id == undefined
+                                    || $.isEmptyObject($comment_id)
+                                ) {
+//                                   console.log("if true");
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "php/workqueue.php",
+                                        data: { trigger_name: "add_comment",
+                                            request_id:         $request_id,
+                                            comment_id:         $comment_id,
+                                            comment_date:       $comment_date,
+                                            comment_text:       $comment_text
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: add_comment");
+//                                            console.log(data);
+                                            comments.row.add( [
+                                                $("#pop_comment_id").val(data),
+                                                $("#pop_comment_date").val(),
+                                                $("#pop_comment_text").val()
+                                            ]).draw();
 
-            <div id="eval_comments">Eval Comments Goes Here
+                                        },
+                                        error: function(data){
+                                            console.log("error: add_comment");
+//                                            console.log(data);
+                                        },
+                                        complete: function(data){
+                                            console.log("complete: add_comment");
+                                            $('.ui-dialog-content').dialog('close');
+                                            comments.row().select();
+                                        }
+                                    });
+                                } else {
+                                    $.ajax({
+                                        type: "POST",
+                                        url:  "php/workqueue.php",
+                                        data: { trigger_name: "update_comment",
+                                            comment_id:         $comment_id,
+                                            comment_date:       $comment_date,
+                                            comment_text:       $comment_text
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: edit_comment");
+//                                            console.log(data);
+                                            comments
+                                                .rows('.selected')
+                                                .remove()
+                                                .draw();
+                                            comments
+                                                .row.add( [
+                                                $("#pop_comment_id").val(),
+                                                $("#pop_comment_date").val(),
+                                                $("#pop_comment_text").val()
+                                            ])
+                                                .draw();
+                                        },
+                                        error: function(data){
+                                            console.log("error: edit_comment");
+                                        },
+                                        complete: function (data) {
+                                            $('.ui-dialog-content').dialog('close');
+                                            comments.row().select();
+                                        }
+                                    });
+                                }
+                            },
 
-            </div>
+                            Cancel: function(){
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+
+                    $("#comment_new_btn").click(function(e) {
+                        e.preventDefault();
+                        $("#pop_comment_id").val(null);
+                        $("#pop_comment_date").val(null);
+                        $("#pop_comment_text").val(null);
+
+                        $("#div_pop_comment").dialog("open")
+                            .dialog("option", "width", 500);
+
+                    });
+
+                    $("#comment_edit_btn").click(function(e) {
+                        e.preventDefault();
+                        var comment = comments.rows( { selected: true } ).data();
+                        $("#pop_comment_id").val(comment[0][0]);
+                        $("#pop_comment_date").val(comment[0][1]);
+                        $("#pop_comment_text").val(comment[0][2]);
+
+                        $("#div_pop_comment").dialog("open")
+                            .dialog("option", "width", 500);
+
+                    });
+
+                    $("#comment_delete_btn").click(function(e) {
+                        e.preventDefault();
+                        $this = $(e.target);
+                        var comment_record = comments.rows( { selected: true } ).data();
+                        $comment_id = comment_record[0][0];
+                        console.log($comment_id);
+
+                        $.ajax({
+                            type: "POST",
+                            url:  "php/workqueue.php",
+                            data: { trigger_name: "delete_comment",
+                                comment_id: $comment_id
+                            },
+                            dataType: "json",
+                            success: function(data){
+                                console.log("success:");
+                                console.log(data);
+                            },
+                            error: function(data){
+                                console.log("error:");
+                            },
+                            complete: function (data) {
+                                comment_record
+                                    .rows('.selected')
+                                    .remove()
+                                    .draw();
+                            }
+                        });
+                    });
+
+                </script>
+
+            </div> <!-- End comments -->
+
+
+            <div id="staff_notes">
+                <div class="row input-group" id="notes_button_row">
+                    <div class="form-group col-xs-12" id="notes_button_sec">
+                        <button id="note_new_btn">New</button>
+                        <button id="note_edit_btn">Edit</button>
+                        <button id="note_delete_btn">Delete</button>
+                    </div>
+                </div>
+
+
+                <table id="tbl_notes" class="display table-responsive" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>note</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <?PHP
+
+                    $sql_notes  = "select ";
+                    $sql_notes .= "note_id, note_date, note_text ";
+                    $sql_notes .= "from notes where request_id = ";
+                    $sql_notes .= $request_id;
+
+                    if ($result_notes=mysqli_query($mysqli,$sql_notes))
+                    {
+                        // Fetch one and one row
+                        while ($row=mysqli_fetch_row($result_notes))
+                        {
+                            echo
+                                "<tr>"
+                                ."<td>".$row[0] ."</td>"
+                                ."<td>".$row[1] ."</td>"
+                                ."<td>".$row[2] ."</td>"
+                                ."</tr>";
+                        }
+                        // Free result set
+                        mysqli_free_result($result_notes);
+                    }
+
+                    //      mysqli_close($mysqli);
+
+                    ?>
+                    </tbody>
+                </table>
+
+                <!--                 Popup notes-->
+                <div id="div_pop_note">
+                    <form class="form form-vertical" id="pop_note_form_id">
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_note_id" hidden>ID</label>
+                            <input class="col-xs-9" type="number" id="pop_note_id" disabled hidden>
+                        </div>
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_note_date">Date:</label>
+                            <input class="col-xs-9" type="date" id="pop_note_date">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="column-label col-xs-3" for="pop_note_text">note:</label>
+                            <input class="col-xs-9" type="text" id="pop_note_text">
+
+                        </div>
+                    </form>
+                </div>
+
+                <script>
+                    var notes = $('#tbl_notes').DataTable({
+                        select: {
+                            style:          'single'
+                        },
+                        columnDefs: [
+                            {
+                                "targets": [ 0 ],
+                                "visible": false,
+                                "searchable": false
+                            },
+                            { "width": "20%", "targets": 1},
+                            { "width": "80%", "targets": 2}
+                        ]
+                    });
+
+                    notes.row().select();
+
+
+                    var note_dialog = $("#div_pop_note").dialog({
+                        title: "note",
+                        autoOpen: false,
+                        buttons: {
+                            "Add / Update": function(){
+                                $request_id = $("#request_id").val();
+                                $note_id = $("#pop_note_id").val();
+                                $note_date = $("#pop_note_date").val();
+                                $note_text = $("#pop_note_text").val();
+
+
+//                                console.log($note_id);
+                                if($note_id == null
+                                    || $note_id == undefined
+                                    || $.isEmptyObject($note_id)
+                                ) {
+//                                   console.log("if true");
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "php/workqueue.php",
+                                        data: { trigger_name: "add_note",
+                                            request_id:         $request_id,
+                                            note_id:         $note_id,
+                                            note_date:       $note_date,
+                                            note_text:       $note_text
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: add_note");
+//                                            console.log(data);
+                                            notes.row.add( [
+                                                $("#pop_note_id").val(data),
+                                                $("#pop_note_date").val(),
+                                                $("#pop_note_text").val()
+                                            ]).draw();
+
+                                        },
+                                        error: function(data){
+                                            console.log("error: add_note");
+//                                            console.log(data);
+                                        },
+                                        complete: function(data){
+                                            console.log("complete: add_note");
+                                            $('.ui-dialog-content').dialog('close');
+                                            notes.row().select();
+                                        }
+                                    });
+                                } else {
+                                    $.ajax({
+                                        type: "POST",
+                                        url:  "php/workqueue.php",
+                                        data: { trigger_name: "update_note",
+                                            note_id:         $note_id,
+                                            note_date:       $note_date,
+                                            note_text:       $note_text
+                                        },
+                                        dataType: "json",
+                                        success: function(data){
+                                            console.log("success: edit_note");
+//                                            console.log(data);
+                                            notes
+                                                .rows('.selected')
+                                                .remove()
+                                                .draw();
+                                            notes
+                                                .row.add( [
+                                                $("#pop_note_id").val(),
+                                                $("#pop_note_date").val(),
+                                                $("#pop_note_text").val()
+                                            ])
+                                                .draw();
+                                        },
+                                        error: function(data){
+                                            console.log("error: edit_note");
+                                        },
+                                        complete: function (data) {
+                                            $('.ui-dialog-content').dialog('close');
+                                            notes.row().select();
+                                        }
+                                    });
+                                }
+                            },
+
+                            Cancel: function(){
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+
+                    $("#note_new_btn").click(function(e) {
+                        e.preventDefault();
+                        $("#pop_note_id").val(null);
+                        $("#pop_note_date").val(null);
+                        $("#pop_note_text").val(null);
+
+                        $("#div_pop_note").dialog("open")
+                            .dialog("option", "width", 500);
+
+                    });
+
+                    $("#note_edit_btn").click(function(e) {
+                        e.preventDefault();
+                        var note = notes.rows( { selected: true } ).data();
+                        $("#pop_note_id").val(note[0][0]);
+                        $("#pop_note_date").val(note[0][1]);
+                        $("#pop_note_text").val(note[0][2]);
+
+                        $("#div_pop_note").dialog("open")
+                            .dialog("option", "width", 500);
+
+                    });
+
+                    $("#note_delete_btn").click(function(e) {
+                        e.preventDefault();
+                        $this = $(e.target);
+                        var note_record = notes.rows( { selected: true } ).data();
+                        $note_id = note_record[0][0];
+                        console.log($note_id);
+
+                        $.ajax({
+                            type: "POST",
+                            url:  "php/workqueue.php",
+                            data: { trigger_name: "delete_note",
+                                note_id: $note_id
+                            },
+                            dataType: "json",
+                            success: function(data){
+                                console.log("success:");
+                                console.log(data);
+                            },
+                            error: function(data){
+                                console.log("error:");
+                            },
+                            complete: function (data) {
+                                note_record
+                                    .rows('.selected')
+                                    .remove()
+                                    .draw();
+                            }
+                        });
+                    });
+
+                </script>
+
+            </div> <!-- End notes -->
+
+
+        </div>
+
+    <div class="row form-group" id="stipd_row">
+        <div class="form-group">
             <div id="sti-pd">STI-PD Goes Here
 
             </div>
 
         </div>
+    </div>
+
+
         <script>
             $("#wq_detail_tabs").tabs();
         </script>
