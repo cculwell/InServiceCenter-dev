@@ -89,34 +89,37 @@
                         {
                             while ($row = mysqli_fetch_row($result))
                             {
+                                $consultant_fees = number_format((float)$row[17], 2, '.', '');
+                                $misc_fees = number_format((float)$row[18], 2, '.', '');
+
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[2]  ."</td>"          // Program ID
-                                    ."<td>". $row[3]  ."</td>"          // STI ID
-                                    ."<td>". $row[4]  ."</td>"          // Program Title
-                                    ."<td>". $row[5]  ."</td>"          // Start Date
-                                    ."<td>". $row[6]  ."</td>"          // End Date
-                                    ."<td>". $row[7]  ."</td>"          // Start Time
-                                    ."<td>". $row[8]  ."</td>"          // End Time
-                                    ."<td>". $row[9]  ."</td>"          // Number of Sessions
-                                    ."<td>". $row[10] ."</td>"          // Location
-                                    ."<td>". $row[12] ."</td>"          // Initiative
-                                    ."<td>". $row[13] ."</td>"          // Target Audience
-                                    ."<td>". $row[11] ."</td>"          // School System
-                                    ."<td>". $row[15] ."</td>"          // Current Enrollment
-                                    ."<td>". $row[14] ."</td>"          // Max Enrollment
-                                    ."<td>". "$" . $row[17] ."</td>";   // Consultant Fee       
+                                    ."<td>". $row[2]  ."</td>"                  // Program ID
+                                    ."<td>". $row[3]  ."</td>"                  // STI ID
+                                    ."<td>". $row[4]  ."</td>"                  // Program Title
+                                    ."<td>". $row[5]  ."</td>"                  // Start Date
+                                    ."<td>". $row[6]  ."</td>"                  // End Date
+                                    ."<td>". $row[7]  ."</td>"                  // Start Time
+                                    ."<td>". $row[8]  ."</td>"                  // End Time
+                                    ."<td>". $row[9]  ."</td>"                  // Number of Sessions
+                                    ."<td>". $row[10] ."</td>"                  // Location
+                                    ."<td>". $row[12] ."</td>"                  // Initiative
+                                    ."<td>". $row[13] ."</td>"                  // Target Audience
+                                    ."<td>". $row[11] ."</td>"                  // School System
+                                    ."<td>". $row[15] ."</td>"                  // Current Enrollment
+                                    ."<td>". $row[14] ."</td>"                  // Max Enrollment
+                                    ."<td>". "$" . $consultant_fees ."</td>";   // Consultant Fee       
 
                                 if ($row[18] == NULL)
                                 {
-                                    echo "<td>$0</td>"                  // Misc Expenses   
-                                         ."<td>". $row[16] ."</td>"     // Status
+                                    echo "<td>$0.00</td>"                          // Misc Expenses   
+                                         ."<td>". $row[16] ."</td>"             // Status
                                          ."</tr>";
                                 } 
                                 else 
                                 {
-                                   echo "<td>". "$" . $row[18] ."</td>" // Misc Expenses
-                                         ."<td>". $row[16] ."</td>"     // Status
+                                   echo "<td>". "$" . $misc_fees ."</td>"       // Misc Expenses
+                                         ."<td>". $row[16] ."</td>"             // Status
                                          ."</tr>";
                                 }                            
                             }

@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    var from = document.getElementById("from_date").value;
+    var to = document.getElementById("to_date").value;
+
     $('#school_and_system_report_table').DataTable( {
         dom:            'Bfrtip',
         scrollX:        true,
@@ -34,6 +37,10 @@ $(document).ready(function() {
                     action: function(e, dt, node, config) 
                     {
                         var req = new XMLHttpRequest();
+                        var fd = new FormData();
+
+                        fd.append("report_from", from);
+                        fd.append("report_to", to);
 
                         req.open("POST", "php/reports/school_and_system_report/create_school_and_system_report_pdf.php", true);
                         req.responseType = "blob";
@@ -66,7 +73,7 @@ $(document).ready(function() {
                                 }
                             }
                         };
-                        req.send();
+                        req.send(fd);
                     }
                 }
             ],

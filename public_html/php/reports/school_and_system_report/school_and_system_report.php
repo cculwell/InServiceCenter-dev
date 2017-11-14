@@ -12,6 +12,9 @@
         printf("Connect failed: %s\n", $mysqli->connect_error);
         exit();
     }
+
+    $from_date = $_POST['from_date'];
+    $to_date = $_POST['to_date'];
 ?>
 
 <!DOCTYPE html>
@@ -49,65 +52,72 @@
         <div class="page_container">
             <h3>School and System Served Report</h3>
             <?php
-                $month = date('m');
-                $year = date('Y');
-                $semester = "";
-
-                // Determine semester based on current month
-                if ($month >= 1 && $month <=4) {
-                    $semester = "Spring" . " " . $year;
-                }
-                if ($month >= 5 && $month <=7) {
-                    $semester = "Summer" . " " . $year;
-                }
-                if ($month >= 8 && $month <=12) {
-                    $semester = "Fall" . " " . $year;
-                }
-
-                echo "<h4>" . $semester . "</h4>";
+                echo "<h5>" . "From: " . $from_date . "</h5>";
+                echo "<h5>" . "To:   " . $to_date . "</h5>";
             ?>
             <br><br>
             <table id="school_and_system_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th class="system_name">System Name</th>
-                        <th class="offerings_per_system">Total PD Offerings Per System</th>
-                        <th class="total_spent_per_system">Total Spent Per System</th>
+                        <th class="curriculum_area">Category</th>
+                        <th class="program_title">Program Title</th>
+                        <th class="school">School</th>
+                        <th class="initiative">Initiative</th>
+                        <th class="consultatnt_fees">Total Consultant Fees</th>
+                        <th class="misc_expenses">Total Misc Expenses</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-
-                        $do_work = "r.system, COUNT(r.system), SUM(r.total_cost)";
-                        $from = "requests r";
-                        $join = "quick_report_data AS q";
-                        $on = "r.request_id = q.request_id";
-                        $groub_by = "r.system";
-
-                        $sql = "SELECT $do_work FROM $from JOIN $join ON $on GROUP BY $groub_by";
+                    
+                        $sql = "SELECT * 
+                                FROM school_and_system_report_data 
+                                WHERE report_date BETWEEN '$from_date' AND '$to_date'";
 
                         if ($result = mysqli_query($mysqli, $sql))
                         {
                             while ($row = mysqli_fetch_row($result))
                             {
+                                $consultatnt_fees = number_format((float)$row[7], 2, '.', '');
+                                $misc_expenses = number_format((float)$row[8], 2, '.', '');
+                                
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[0] ."</td>"         // System
-                                    ."<td>". $row[1] ."</td>"         // Total Offerings
-                                    ."<td>". "$" . $row[2] ."</td>"   // Total Spent
-                                    ."</tr>";
+                                    ."<td>". $row[2] ."</td>"                 // System
+                                    ."<td>". $row[3] ."</td>"                 // Category
+                                    ."<td>". $row[4] ."</td>"                 // Program Title
+                                    ."<td>". $row[5] ."</td>"                 // School
+                                    ."<td>". $row[6] ."</td>"                 // Initiative
+                                    ."<td>$". $consultatnt_fees  ."</td>";    // Consultant Fees
+
+                                if ($row[8] == NULL)
+                                {
+                                    echo "<td>$0.00</td>"                     // Misc Expenses   
+                                         ."</tr>";
+                                } 
+                                else 
+                                {
+                                   echo "<td>$" . $misc_expenses ."</td>"     // Misc Expenses
+                                        ."</tr>";
+                                } 
                             }
                         }
                     ?>
                 </tbody>
                 <tfoot>
-                    <tr>
                         <th class="system_name">System Name</th>
-                        <th class="offerings_per_system">Total PD Offerings Per System</th>
-                        <th class="total_spent_per_system">Total Spent Per System</th>
+                        <th class="curriculum_area">Category</th>
+                        <th class="program_title">Program Title</th>
+                        <th class="school">School</th>
+                        <th class="initiative">Initiative</th>
+                        <th class="consultatnt_fees">Total Consultant Fees</th>
+                        <th class="misc_expenses">Total Misc Expenses</th>
                     </tr>
                 </tfoot>
             </table>
+            <br><br><br>
+            <h4>Consultant Fees and Misc Fees are totals. To see the detailed breakdown print the PDF report.</h4>
         </div>
     </body>
 </html>

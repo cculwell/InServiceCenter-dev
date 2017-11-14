@@ -2,6 +2,9 @@
     require '../../../../resources/library/Reports/fpdf181/fpdf.php';
     require "../../../../resources/config.php";
 
+    $report_from = $_POST['report_from'];
+    $report_to = $_POST['report_to'];
+
     # create connection to database
     $mysqli = new mysqli($config['db']['amsti_01']['host']
         , $config['db']['amsti_01']['username']
@@ -19,22 +22,6 @@
         // Page header
         function Header()
         {
-
-            $month = date('m');
-            $year = date('Y');
-            $semester = "";
-
-            // Determine semester based on current month
-            if ($month >= 1 && $month <=4) {
-                $semester = "Spring" . " " . $year;
-            }
-            if ($month >= 5 && $month <=7) {
-                $semester = "Summer" . " " . $year;
-            }
-            if ($month >= 8 && $month <=12) {
-                $semester = "Fall" . " " . $year;
-            }
-
             // Create the title
             $this->SetFont('Times','B', 14);
             $this->Cell(80);
@@ -47,10 +34,6 @@
             $this->SetFont('Times', 'B', 12);
             $this->Cell(30, 10, 'School and System Report', 0, 0, 'C');
             $this->Ln(10);
-            $this->Cell(80);
-            $this->SetFont('Times', 'IB', 12);
-            $this->Cell(30, 10, $semester, 0, 0, 'C');
-            $this->Ln(20);
         }
 
         // Page footer
@@ -68,7 +51,10 @@
         }
     }
 
-    $sql = "SELECT * FROM school_and_system_report_data";
+    $field = "system";
+    $table = "school_and_system_report_data";
+    $where = "report_date BETWEEN '$report_from' AND '$report_to'";
+    $systems = "SELECT DISTINCT($field) FROM $table WHERE $where";
 
     // Instanciation of inherited class
     $pdf = new PDF('P', 'mm', 'A4');
@@ -76,31 +62,253 @@
     $pdf->AliasNbPages();
     $pdf->AddPage();
 
-    if ($result = mysqli_query($mysqli, $sql))
+    $pdf->SetFont('Times', 'I', 11);
+    $pdf->Cell(80);
+    $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+    $pdf->Ln(20);
+
+    $pdf->SetFont('Times', 'B', 12);
+    $pdf->Cell(40, 10, "School System", 'B', 0);
+    $pdf->Cell(0, 10, "     School System Information", 'B', 0);
+    $pdf->Ln(11);
+
+    $count = 0;
+
+    // Get school systems
+    if ($system_result = mysqli_query($mysqli, $systems))
     {
-        while ($row = mysqli_fetch_row($result))
+        while ($system = mysqli_fetch_row($system_result))
         {
             // Write the system name
-            $system = $row[0] . ":";
-            $pdf->SetFont('Times', 'BI', 14);
-            $pdf->Cell(10, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $system, 0, 0, 'L');
-            $pdf->Ln(6);
+            $school_system = $system[0];
+            $system_text = $school_system . ":";
+            $pdf->SetFont('Times', 'B', 14);
+            $pdf->Cell(30, 10, $system_text, 0, 0, 'L');
+            $pdf->Ln(8);
 
-            // Write the total PD's for the system
-            $total_pd = "Total Programs Offered:   " . $row[1];
-            $pdf->SetFont('Times', '', 12);
-            $pdf->Cell(20, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $total_pd, 0, 0);
-            $pdf->Ln(5);
+            $field = "curriculum_area";
+            $table = "school_and_system_report_data";
+            $match = "system='$school_system'";
+            $system_curriculums = "SELECT DISTINCT($field) FROM $table WHERE $match";
 
-            // Write the total spent on this PD
-            $pdf->SetFont('Times', '', 12);
-            $get_total = (string)(number_format((float)$row[2], 2, '.', ''));
-            $total_spent = "Total Spent:   $" . $get_total;
-            $pdf->Cell(20, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $total_spent, 0, 0);
-            $pdf->Ln(10);
+            // Get each curriculum area from the school system
+            if ($system_curriculums_result = mysqli_query($mysqli, $system_curriculums))
+            {
+                while ($curriculum = mysqli_fetch_row($system_curriculums_result))
+                {
+                    // Create page break that doesn't cut off a group
+                    if($count == 5)
+                    {
+                        $pdf->AddPage();
+                        $pdf->Ln(1);
+
+                        $pdf->SetFont('Times', 'I', 11);
+                        $pdf->Cell(80);
+                        $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+                        $pdf->Ln(20);
+
+                        $pdf->SetFont('Times', 'B', 12);
+                        $pdf->Cell(40, 10, "School System", 'B', 0);
+                        $pdf->Cell(0, 10, "     School System Information", 'B', 0);
+                        $pdf->Ln(10);
+
+                        $count = 0;
+                    }
+
+                    $the_curriculum = $curriculum[0];
+                    $pdf->SetFont('Times', 'B', 12);
+                    $pdf->Cell(45, 10, "", 0, 0);
+                    $pdf->Cell(20, 10, "Category: ", 0, 0, 'L');
+                    $pdf->SetFont('Times', '', 12);
+                    $pdf->Cell(30, 10, $the_curriculum, 0, 0, 'L');
+                    $pdf->Ln(8);
+
+                    $fields = "pd_title, school, support_initiative";
+                    $table = "school_and_system_report_data";
+                    $match1 = "system='$school_system'";
+                    $match2 = "curriculum_area='$the_curriculum'";
+                    $system_programs = "SELECT $fields FROM $table WHERE $match1 AND $match2";
+
+                    // Get the data from each program in the systems's curriculum
+                    if ($system_programs_result = mysqli_query($mysqli, $system_programs))
+                    {
+                        while ($program = mysqli_fetch_row($system_programs_result))
+                        {
+                            // Write the total PD's for the system
+                            $pdf->SetFont('Times', '', 12);
+                            $pdf->Cell(55, 5, "", 0, 0);
+                            $pdf->Cell(55, 5, "Title of Training: ", 0, 0);
+                            $pdf->MultiCell(0, 5, $program[0], 0, 'L');
+                            $pdf->Cell(55, 5, "", 0, 0);
+                            $pdf->Cell(55, 5, "School: ", 0, 0);
+                            $pdf->Cell(0, 5, $program[1], 0, 'L');
+                            $pdf->Ln(5);
+                            $pdf->Cell(55, 5, "", 0, 0);
+                            $pdf->Cell(55, 5, "Initiative Providing Support: ", 0, 0);
+                            $pdf->Cell(0, 5, $program[2], 0, 'L');
+                            $pdf->Ln(8);
+                        }
+                        $count++;
+                    }
+                    $pdf->Ln(5);
+                }
+            }
+            $count++;
+        }
+
+        // Create totals page
+        $pdf->AddPage();
+
+        $pdf->SetFont('Times', 'I', 11);
+        $pdf->Cell(80);
+        $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+        $pdf->Ln(20);
+
+        $pdf->SetFont('Times', 'B', 12);
+        $pdf->Cell(60, 10, "School System Totals", 'B', 0);
+        $pdf->Cell(0, 10, "Curriculum/Initiative Totals", 'B', 0);
+        $pdf->Ln(10);
+
+        $field = "s.system, COUNT(s.system)";
+        $table = "school_and_system_report_data s";
+        $match1 = "report_date BETWEEN '$report_from' AND '$report_to'";
+        $group = "s.system";
+
+        $systems = "SELECT $field FROM $table WHERE $match1 GROUP BY $group";
+
+        $curriculum_rows = 0;
+
+        if ($systems_result = mysqli_query($mysqli, $systems))
+        {
+            while ($system = mysqli_fetch_row($systems_result))
+            {
+                $system_name = $system[0];
+                $system_count = $system[1];
+
+                $pdf->SetFont('Times', 'B', 12);
+                $pdf->Cell(40, 10, $system_name . ": ", 0, 0, 'R');
+                $pdf->SetFont('Times', '', 12);
+                $pdf->Cell(20, 10, $system_count, 0, 0, 'L');
+
+                $field = "s.curriculum_area, COUNT(s.curriculum_area)";
+                $table = "school_and_system_report_data s";
+                $match1 = "(report_date BETWEEN '$report_from' AND '$report_to')";
+                $match2 = "system='$system_name'";
+                $group = "s.curriculum_area";
+
+                $system_curriculums = "SELECT $field FROM $table WHERE $match1 AND $match2 GROUP BY $group";
+
+                if ($system_curriculums_result = mysqli_query($mysqli, $system_curriculums))
+                {
+                    while ($curriculum = mysqli_fetch_row($system_curriculums_result))
+                    {
+                        $curriculum_name = $curriculum[0];
+                        $curriculum_count = $curriculum[1];
+
+                        if($curriculum_rows == 1)
+                        {
+                            $pdf->Cell(60, 10, "", 0, 0); 
+                            $pdf->SetFont('Times', 'B', 12);
+                            $pdf->Cell(40, 10, $curriculum_name . ": ", 0, 0, 'L');
+                            $pdf->SetFont('Times', '', 12);
+                            $pdf->Cell(30, 10, $curriculum_count, 0, 0, 'L');
+                            $pdf->Ln(5);                           
+                            $curriculum_rows = 0;
+                        }
+                        else
+                        {
+                            $pdf->SetFont('Times', 'B', 12);
+                            $pdf->Cell(40, 10, $curriculum_name . ": ", 0, 0, 'L');
+                            $pdf->SetFont('Times', '', 12);
+                            $pdf->Cell(30, 10, $curriculum_count, 0, 0, 'L');
+                            $pdf->Ln(5);     
+                        }
+
+                        if($curriculum_count > 0)
+                        {
+                            $field = "s.support_initiative, COUNT(s.support_initiative)";
+                            $table = "school_and_system_report_data s";
+                            $match1 = "(report_date BETWEEN '$report_from' AND '$report_to')";
+                            $match2 = "system='$system_name'";
+                            $match3 = "curriculum_area='$curriculum_name'";
+                            $group = "s.support_initiative";
+
+                            $curriculum_initiatives = "SELECT $field FROM $table 
+                                                       WHERE $match1 AND $match2 AND $match3 GROUP BY $group";
+
+                            if ($curriculum_initiatives_result = mysqli_query($mysqli, $curriculum_initiatives))
+                            {
+                                while ($initiative = mysqli_fetch_row($curriculum_initiatives_result))
+                                {
+                                    $initiative_name = $initiative[0];
+                                    $initiative_count = $initiative[1];
+
+                                    $pdf->SetFont('Times', '', 12);
+                                    $pdf->Cell(70, 10, "", 0, 0);
+                                    $pdf->Cell(30, 10, $initiative_name . ": ", 0, 0, 'L');
+                                    $pdf->Cell(0, 10, $initiative_count, 0, 0, 'L');
+                                    $pdf->Ln(5);
+                                }
+                            }
+                            $pdf->Ln(3);
+                            $curriculum_rows++;
+                        }
+                    }
+                }
+                $pdf->Ln(5);
+                $curriculum_rows = 0;
+            }
+        }
+
+        // Calculate the total spent for each system
+        $pdf->AddPage();
+
+        $pdf->SetFont('Times', 'I', 11);
+        $pdf->Cell(80);
+        $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+        $pdf->Ln(20);
+
+        $pdf->SetFont('Times', 'B', 12);
+        $pdf->Cell(50, 10, "School System", 'B', 0);
+        $pdf->Cell(0, 10, "Totals Spent Per System", 'B', 0);
+        $pdf->Ln(10);
+
+        $sql = "SELECT DISTINCT s.system 
+                FROM school_and_system_report_data s 
+                WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+
+        if ($system_totals_result = mysqli_query($mysqli, $sql))
+        {
+            while ($system = mysqli_fetch_row($system_totals_result))
+            {
+                $system_name = $system[0];
+
+                $pdf->SetFont('Times', 'B', 12);
+                $pdf->Cell(40, 10, $system_name . ": ", "", 0, "R");
+                $pdf->Ln(5);
+
+                $sql = "SELECT e.expense_type, SUM(e.expense_amount) 
+                        FROM expenses e 
+                        JOIN (SELECT s.request_id, s.system
+                              FROM school_and_system_report_data s
+                              WHERE (report_date BETWEEN '$report_from' AND '$report_to')
+                              AND s.system = '$system_name') AS rq 
+                        ON e.request_id = rq.request_id
+                        GROUP BY e.expense_type";
+
+                if ($system_expenses_result = mysqli_query($mysqli, $sql))
+                {
+                    while ($expense = mysqli_fetch_row($system_expenses_result))
+                    {
+                        $pdf->SetFont('Times', '', 12);
+                        $pdf->Cell(50, 10, "", 0, 0);
+                        $pdf->Cell(30, 10, $expense[0] . ": ", "", 0, "L");
+                        $pdf->Cell(30, 10, "$" . number_format((float)$expense[1], 2, '.', ''), 0, 0, "L");
+                        $pdf->Ln(5);
+                    }
+                }
+                $pdf->Ln(5);
+            }
         }
     }
 
