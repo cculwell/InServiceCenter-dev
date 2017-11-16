@@ -212,11 +212,91 @@ else
 
             save_request_btn.click(function (e) {
                 e.preventDefault();
+                //request table items
                 $request_id = $("#request_id").val();
+                $request_type = $("#request_type").val();
+                $workflow_state = $("#workflow_state").val();
+                $school = $("#school").val();
+                $system = $("#system").val();
+                $request_desc = $("#request_desc").val();
+                $request_just = $("#request_just").val();
+                $request_location = $("#request_location").val();
+                $target_participants = $("#target_participants").val();
+                $enrolled_participants = $("#enrolled_participants").val();
+                $total_cost = $("#total_cost").val();
+                $eval_method = $("#eval_method").val();
+                $stipd = $("#stipd").val();
+                $workshop = $("#workshop").val();
+                $report_date = $("#report_date").val();
+                $stipd_title = $("#stipd_title").val();
+                $folder_completed = $("#folder_completed").val();
+                $director_name = $("#director_name").val();
+                $board_approval = $("#board_approval").val();
+                $amt_sponsored = $("#amt_sponsored").val();
+                $payment_type = $("#payment_type").val();
+
+
                 if($request_id == null || $request_id == undefined || $.isEmptyObject($request_id)){
                     console.log("new request");
                 } else {
                     console.log("update request");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "php/workqueue.php",
+                        data: {
+                            trigger_name: "update_request",
+                            // request table items
+                            request_id: $request_id,
+                            request_type: $request_type,
+                            workflow_state: $workflow_state,
+                            school: $school,
+                            system: $system,
+                            request_desc: $request_desc,
+                            request_just: $request_just,
+                            request_location: $request_location,
+                            target_participants: $target_participants,
+                            enrolled_participants: $enrolled_participants,
+                            total_cost: $total_cost,
+                            eval_method: $eval_method,
+                            stipd: $stipd,
+                            workshop: $workshop,
+                            report_date: $report_date,
+                            stipd_title: $stipd_title,
+                            folder_completed: $folder_completed,
+                            director_name: $director_name,
+                            board_approval: $board_approval,
+                            amt_sponsored: $amt_sponsored,
+                            payment_type: $payment_type
+
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            console.log("success: update_request");
+                            console.log(data);
+
+                        },
+                        error: function(data) {
+                            console.log("error: update_request");
+                            console.log(data);
+                        },
+                        complete: function(data) {
+                            console.log("complete: update_request");
+                        }
+                    });
+
+
+
+
+
+
+
+
+
+
+
+
+
                 }
             })
 
@@ -232,11 +312,15 @@ else
 
         <div class="col-xs-2 col-xs-pull-0">
             <label for="workshop">Workshop:</label>
-            <input type="checkbox" id="workshop" name="workshop" size="10"
-                value="<?php echo $workshop;?>">
+            <input type="checkbox" id="workshop" name="workshop" size="10">
+
+            <script>
+
+            </script>
+
         </div>
 
-        <div class="col-xs-6 col-xs-pull-2">
+        <div class="col-xs-6 col-xs-pull-0">
             <label for="report_date">Report Date:</label>
             <input type="date" id="report_date" name="report_date" size="10"
                    value="<?php echo $report_date;?>">
