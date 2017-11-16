@@ -34,7 +34,6 @@
         <link rel="stylesheet" href="../resources/library/DataTables/Buttons/css/buttons.dataTables.min.css">
         <link rel="stylesheet" href="css/Reports.css">
 
-        <script src="../resources/library/jquery-3.2.1.min.js"></script>
         <script src="js/reports/school_and_system.js"></script>
         <script src="../resources/library/DataTables/datatables.js"></script>
         <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
@@ -51,21 +50,17 @@
     <body>
         <div class="page_container">
             <h3>School and System Served Report</h3>
-            <?php
-                echo "<h5>" . "From: " . $from_date . "</h5>";
-                echo "<h5>" . "To:   " . $to_date . "</h5>";
-            ?>
             <br><br>
             <table id="school_and_system_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th class="system_name">System Name</th>
-                        <th class="curriculum_area">Category</th>
+                        <th class="curriculum">Category</th>
                         <th class="program_title">Program Title</th>
                         <th class="school">School</th>
                         <th class="initiative">Initiative</th>
-                        <th class="consultatnt_fees">Total Consultant Fees</th>
-                        <th class="misc_expenses">Total Misc Expenses</th>
+                        <th class="consultatnt_fee">Total Consultant Fees</th>
+                        <th class="misc_fees">Total Misc Expenses</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,12 +102,12 @@
                 </tbody>
                 <tfoot>
                         <th class="system_name">System Name</th>
-                        <th class="curriculum_area">Category</th>
+                        <th class="curriculum">Category</th>
                         <th class="program_title">Program Title</th>
                         <th class="school">School</th>
                         <th class="initiative">Initiative</th>
-                        <th class="consultatnt_fees">Total Consultant Fees</th>
-                        <th class="misc_expenses">Total Misc Expenses</th>
+                        <th class="consultatnt_fee">Total Consultant Fees</th>
+                        <th class="misc_fees">Total Misc Expenses</th>
                     </tr>
                 </tfoot>
             </table>
