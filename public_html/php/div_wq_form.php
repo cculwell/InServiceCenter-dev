@@ -13,140 +13,240 @@ if ($mysqli->connect_errno) {
 }
 ?>
 
-<form id="request_form">
-    <?PHP
+<?PHP
 
-    if (isset($_POST['request_id'])) {
-        //echo "This var is set so I will print.";
-        $request_id = $_POST['request_id'];
+if (isset($_POST['request_id'])) {
+    //echo "This var is set so I will print.";
+    $request_id = $_POST['request_id'];
 
-        $sql  = "select ";
-        $sql .= "  r.request_id ";
-        $sql .= ", r.request_type ";
-        $sql .= ", r.workflow_state ";
-        $sql .= ", r.school ";
-        $sql .= ", r.system ";
-        $sql .= ", r.request_desc ";
-        $sql .= ", r.request_just ";
-        $sql .= ", r.target_participants ";
-        $sql .= ", r.enrolled_participants ";
-        $sql .= ", r.total_hours ";
-        $sql .= ", r.total_cost ";
-        $sql .= ", r.eval_method ";
-        $sql .= ", r.stipd ";
-        $sql .= ", b.book_id ";
-        $sql .= ", b.book_title ";
-        $sql .= ", b.publisher ";
-        $sql .= ", b.isbn ";
-        $sql .= ", b.cost_per_book ";
-        $sql .= ", b.study_format ";
-        $sql .= ", b.admin_signature ";
-        $sql .= ", w.workshop_id ";
-        $sql .= ", w.program_nbr ";
-        $sql .= ", w.pd_title ";
-        $sql .= ", w.pd_desc ";
-        $sql .= ", w.standards_covered ";
-        $sql .= ", w.target_group ";
-        $sql .= ", w.actual_participants ";
-        $sql .= ", w.consultant_fee ";
-        $sql .= ", w.travel ";
-        $sql .= ", w.other_info ";
-        $sql .= ", w.stipd ";
-        $sql .= ", w.room_res_needed ";
-        $sql .= ", w.sti_title_nbr ";
-        $sql .= ", w.folder_completed ";
-        $sql .= ", r.request_location ";
-        $sql .= ", w.support_initiative ";
-        $sql .= " from requests r ";
-        $sql .= " left join workshops w ";
-        $sql .= "   on r.request_id = w.request_id ";
-        $sql .= " left join books b ";
-        $sql .= "   on r.request_id = b.request_id ";
-        $sql .= " where r.request_id = ";
-        $sql .= $request_id;
 
-//        $sql  = "select ";
-//        $sql .= "request_id, request_type, workflow_state, school, system ";
-//        $sql .= "from requests where request_id = ";
-//        $sql .= $request_id;
+    $sql  = "select ";
+    $sql .= "  r.request_id ";
+    $sql .= ", r.request_type ";
+    $sql .= ", r.workflow_state ";
+    $sql .= ", r.school ";
+    $sql .= ", r.system ";
+    $sql .= ", r.request_desc ";
+    $sql .= ", r.request_just ";
+    $sql .= ", r.request_location ";
+    $sql .= ", r.target_participants ";
+    $sql .= ", r.enrolled_participants ";
+    $sql .= ", r.total_cost ";
+    $sql .= ", r.eval_method ";
+    $sql .= ", r.stipd ";               // duplicated with stipd in workshops
+    $sql .= ", r.workshop ";
+    $sql .= ", r.report_date ";
+    $sql .= ", r.stipd_title ";        //this may be duplicated
+    $sql .= ", r.folder_completed ";
+    $sql .= ", r.director_name ";
+    $sql .= ", r.board_approval ";
+    $sql .= ", r.amt_sponsored ";
+    $sql .= ", r.payment_type ";
+    // inservice_order in table but should be removed ?
 
-        if ($result=mysqli_query($mysqli,$sql))
-        {
-            $row = mysqli_fetch_row($result);
-            // Free result set
-            mysqli_free_result($result);
-        }
+    $sql .= ", b.book_id ";
+    $sql .= ", b.book_title ";
+    $sql .= ", b.publisher ";
+    $sql .= ", b.isbn ";
+    $sql .= ", b.cost_per_book ";
+    $sql .= ", b.study_format ";
+    $sql .= ", b.admin_signature ";
 
-        $request_type = $row[1];
-        $workflow_state = $row[2];
-//        $school = $row[3];
-//        $system = $row[4];
-        $system = str_replace(' ','_',$row[4]);
-        $school = str_replace(' ','_',$row[3]);
-        $program_nbr = $row[21];
-        $workshop = null;
-        $request_desc = $row[5];
-        $request_just = $row[6];
-        $target_participants = $row[7];
-        $enrolled_participants = $row[8];
-        $actual_participants = $row[26];
-        $study_format = $row[18];
-        $eval_method = $row[11];
-        $total_cost = $row[10];
-        $request_location = $row[34];
-        $support_initiative = $row[35];
-    }
-    else
+    $sql .= ", w.workshop_id ";
+    $sql .= ", w.program_nbr ";
+    $sql .= ", w.pd_title ";        // maybe duplicated with stipd_title in requests
+    $sql .= ", w.pd_desc ";
+    $sql .= ", w.target_group ";
+    $sql .= ", w.actual_participants ";
+    $sql .= ", w.travel ";
+    $sql .= ", w.other_info ";
+    $sql .= ", w.room_res_needed ";
+    $sql .= ", w.sti_title_nbr ";
+    $sql .= ", w.support_initiative ";
+    $sql .= ", w.curriculum ";
+
+    $sql .= " from requests r ";
+    $sql .= " left join workshops w ";
+    $sql .= "   on r.request_id = w.request_id ";
+    $sql .= " left join books b ";
+    $sql .= "   on r.request_id = b.request_id ";
+    $sql .= " where r.request_id = ";
+    $sql .= $request_id;
+
+//    echo $sql;
+
+
+    if ($result=mysqli_query($mysqli,$sql))
     {
-        $request_id = null;
-        $request_type = null;
-        $workflow_state = null;
-        $school = null;
-        $system = null;
-        $program_nbr = null;
-        $workshop = "Yes";
-        $request_desc = null;
-        $request_just = null;
-        $target_participants = null;
-        $enrolled_participants = null;
-        $actual_participants = null;
-        $study_format = null;
-        $eval_method = null;
-        $total_cost = null;
-        $request_location = null;
-        $support_initiative = null;
+//        $row = mysqli_fetch_row($result);
+
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        // Free result set
+        mysqli_free_result($result);
     }
-    ?>
+
+
+//        while (list($key, $value) = each($row)) {
+//            echo "Key: $key; Value: $value<br />\n";
+//        }
+
+//    print_r($row);
+
+    // Requests
+    $request_type = $row['request_type'];
+    $workflow_state = $row['workflow_state'];
+    $system = str_replace(' ','_',$row['system']);
+    $school = str_replace(' ','_',$row['school']);
+    $request_desc = $row['request_desc'];
+    $request_just = $row['request_just'];
+    $request_location = $row['request_location'];
+    $target_participants = $row['target_participants'];
+    $enrolled_participants = $row['enrolled_participants'];
+    $total_cost = $row['total_cost'];
+    $eval_method = $row['eval_method'];
+    $stipd = $row['stipd'];
+    $workshop = $row['workshop'];
+    $report_date = $row['report_date'];
+    $stipd_title = $row['stipd_title'];
+    $folder_completed = $row['folder_completed'];
+    $director_name = $row['director_name'];
+    $board_approval = $row['board_approval'];
+    $amt_sponsored = $row['amt_sponsored'];
+    $payment_type = $row['payment_type'];
+
+    // Books
+    $book_id = $row['book_id'];
+    $book_title = $row['book_title'];
+    $publisher = $row['publisher'];
+    $isbn = $row['isbn'];
+    $cost_per_book = $row['cost_per_book'];
+    $study_format = $row['study_format'];
+    $admin_signature = $row['admin_signature'];
+
+    // Workshops
+    $workshop_id = $row['workshop_id'];
+    $program_nbr = $row['program_nbr'];
+    $pd_title = $row['pd_title'];
+    $pd_desc = $row['pd_desc'];
+    $target_group = $row['target_group'];
+    $actual_participants = $row['actual_participants'];
+    $travel = $row['travel'];
+    $other_info = $row['other_info'];
+    $room_res_needed = $row['room_res_needed'];
+    $sti_title_nbr = $row['sti_title_nbr'];
+    $support_initiative = $row['support_initiative'];
+    $curriculum = $row['curriculum'];
+
+}
+else
+{
+    // Requests
+    $request_id = null;
+    $request_type = null;
+    $workflow_state = null;
+    $system = null;
+    $school = null;
+    $request_desc = null;
+    $request_just = null;
+    $request_location = null;
+    $target_participants = null;
+    $enrolled_participants = null;
+    $total_cost = null;
+    $eval_method = null;
+    $stipd = null;
+    $workshop = null;
+    $report_date = null;
+    $stipd_title = null;
+    $folder_completed = null;
+    $director_name = null;
+    $board_approval = null;
+    $amt_sponsored = null;
+    $payment_type = null;
+
+    // Books
+    $book_id = null;
+    $book_title = null;
+    $publisher = null;
+    $isbn = null;
+    $cost_per_book = null;
+    $study_format = null;
+    $admin_signature = null;
+
+    // Workshops
+    $workshop_id = null;
+    $program_nbr = null;
+    $pd_title = null;
+    $pd_desc = null;
+    $target_group = null;
+    $actual_participants = null;
+    $travel = null;
+    $other_info = null;
+    $room_res_needed = null;
+    $sti_title_nbr = null;
+    $support_initiative = null;
+    $curriculum = null;
+}
+?>
+
+<form id="request_form">
+
+
+
     <!-- Request Info -->
+    <div class="row input-group" id="request_buttons">
+        <div class="form-group col-xs-12" id="request_btn_sec">
+            <button id="new_request_btn" name="new_request_btn">New</button>
+            <button id="save_request_btn" name="save_request_btn">Save</button>
+        </div>
 
-<!--    <div class="panel panel-primary">-->
-<!--        <div class="panel-heading">Request Information</div>-->
-<!--        <div class="panel-body">-->
-            <div class="row form-group" id="request_info">
-                <div class="col-xs-4">
-                    <label for="request_id">Request ID:</label>
-                    <input type="text" id="request_id" name="request_id" size="10"
-                           value="<?php echo $request_id;?>" disabled>
-                </div>
-                <div class="col-xs-4">
-                    <label for="program_nbr">Program #:</label>
-                    <input type="text" id="program_nbr" name="program_nbr" size="10"
-                           value="<?php echo $program_nbr;?>">
-                </div>
-                <div class="col-xs-4 col-xs-pull-1">
-                    <label for="workshop">Workshop:</label>
-                    <input type="checkbox" id="workshop" name="workshop" size="5000"
-                        value="1">
-                </div>
+        <script>
 
+            new_request_btn = $("#new_request_btn").button();
 
+            new_request_btn.click(function(e) {
+                e.preventDefault();
+                location.reload();
+            });
 
-            </div>
+            save_request_btn = $("#save_request_btn").button();
+
+            save_request_btn.click(function (e) {
+                e.preventDefault();
+                $request_id = $("#request_id").val();
+                if($request_id == null || $request_id == undefined || $.isEmptyObject($request_id)){
+                    console.log("new request");
+                } else {
+                    console.log("update request");
+                }
+            })
+
+        </script>
+    </div>
+
+    <div class="row form-group" id="request_info">
+        <div class="col-xs-2">
+            <label for="request_id">Request ID:</label>
+            <input type="text" id="request_id" name="request_id" size="10"
+                   value="<?php echo $request_id;?>" disabled>
+        </div>
+
+        <div class="col-xs-2 col-xs-pull-0">
+            <label for="workshop">Workshop:</label>
+            <input type="checkbox" id="workshop" name="workshop" size="10"
+                value="<?php echo $workshop;?>">
+        </div>
+
+        <div class="col-xs-6 col-xs-pull-2">
+            <label for="report_date">Report Date:</label>
+            <input type="date" id="report_date" name="report_date" size="10"
+                   value="<?php echo $report_date;?>">
+        </div>
+    </div>
 
                 <div class="row form-group" id="request_type_state_row">
 
                     <div class="col-xs-4 form-group">
-                        <label class="col-xs-3 control-label" for="request_type">Request Type:</label>
+                        <label class="col-xs-3 control-label" for="request_type">Type:</label>
 
                         <div class="col-xs-9 col-xs-push-1" size="10">
                             <select id="request_type" class="form-control">
@@ -156,10 +256,10 @@ if ($mysqli->connect_errno) {
                         </div>
                     </div>
 
-                    <div class="col-xs-8 form-group">
+                    <div class="col-xs-2 form-group">
                     <label class="col-xs-3 control-label" for="workflow_state">Workflow State:</label>
 
-                    <div class="col-xs-9">
+                    <div class="col-xs-4" style="width: 200px">
                         <select id="workflow_state" class="form-control">
                             <option <?php if($workflow_state == 'New') echo"selected";?> value="New">New</option>
                             <option <?php if($workflow_state == 'Under Review') echo"selected";?> value="Under Review">Under Review</option>
@@ -174,32 +274,25 @@ if ($mysqli->connect_errno) {
                                 $('#workflow_state').change(function(e){
                                     $this = $(e.target);
                                     $request_id = $('#request_id')[0].value;
-
-//                                        console.log($request_id);
                                     $.ajax({
                                         type: "POST",
                                         url:  "php/workqueue.php", // Don't know asp/asp.net at all so you will have to do this bit
                                         data: { trigger_name: "workflow_state_change",
                                             request_id: $request_id,
                                             workflow_state: $this.val()
-//                                                workflow_state: $("#workflow_state option:selected").text()
                                         },
                                         dataType: "html",
                                         success: function(data){
-//                                                $('#debug').html("success");
                                             console.log("success:");
                                             console.log(data);
                                             $("#div_wq_tables").load( 'php/div_wq_tables.php' );
 
-//                                                alert(data);
                                         },
                                         error: function(data){
-//                                                $('#debug').html("error");
                                             console.log("success:");
-//                                                console.log(data);
                                         },
                                         complete: function (data) {
-//                                                $("#tabs").tabs({ active: 1 });
+
                                         }
                                     });
                                 });
@@ -207,6 +300,7 @@ if ($mysqli->connect_errno) {
                             });
                         </script>
                     </div>
+
                     </div>
                     <div class="row form-group" id="support_init_row">
                         <div class="col-xs-4 col-xs-push-0 form-group">
@@ -229,9 +323,26 @@ if ($mysqli->connect_errno) {
                     </div>
                 </div>
 
+                <div class="row form-group" id="title">
+                    <div class="col-xs-6 pull-left">
+                        <label for="pd_title">PD Title:</label>
+                        <input type="text"  id="pd_title" name="pd_title" style="width: 400px"
+                                maxlength="100" value="<?php echo $pd_title;?>">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="program_nbr">Program #:</label>
+                        <input type="text" id="program_nbr" name="program_nbr" size="10"
+                               value="<?php echo $program_nbr;?>"
+                    </div>
+
+
+                </div>
+
+
+
                 <div class="row form-group" id="school_system_row">
                     <div class="col-xs-6 pull-left">
-                        <label for="system">System</label>
+                        <label for="system">System:</label>
                         <style> select { width: 400px } </style>
 
                         <select id="system" name="system">
@@ -249,7 +360,7 @@ if ($mysqli->connect_errno) {
 
 
                     <div class="col-xs-6 pull-left">
-                        <label for="system">School</label>
+                        <label for="system">School:</label>
                         <style> select { width: 400px } </style>
 
                         <select id="school" name="school">
@@ -302,19 +413,19 @@ if ($mysqli->connect_errno) {
                 <!-- Location and Targets -->
                 <div class="row form-group" id="location_participants_row">
                     <div class="form-group col-xs-4" id="target_part_sec">
-                        <label for="eval_method">Target Participants #</label>
+                        <label for="eval_method">Target #</label>
                         <input type="text"  id="target_participants" name="target_participants"
                                maxlength="50" value="<?php echo $target_participants;?>">
                     </div>
 
                     <div class="form-group col-xs-4">
-                        <label for="total_cost">Enrolled Participants #</label>
+                        <label for="total_cost">Enrolled #</label>
                         <input type="text"  id="enrolled_participants" name="enrolled_participants"
                                maxlength="25" value="<?php echo $enrolled_participants;?>">
                     </div>
 
                     <div class="form-group col-xs-4">
-                        <label for="total_cost">Actual Participants #</label>
+                        <label for="total_cost">Actual #</label>
                         <input type="text"  id="actual_participants" name="actual_participants"
                                maxlength="25" value="<?php echo $actual_participants;?>">
                     </div>
@@ -337,7 +448,7 @@ if ($mysqli->connect_errno) {
 
                     <div class="form-group col-xs-4">
                         <div class="input-group input-group-xs">
-                            <label for="total_cost">Request Amt / Tot Cost</label>
+                            <label for="total_cost">Request Amt.</label>
                             <input type="text"  id="total_cost" name="total_cost"
                                    maxlength="25" value="<?php echo $total_cost;?>">
                         </div>
@@ -346,6 +457,38 @@ if ($mysqli->connect_errno) {
 <!--                        <label for="total_hours">Total Hours</label>-->
 <!--                        <input type="text"  id="total_hours" name="total_hours" maxlength="25">-->
 <!--                    </div>-->
+                </div>
+
+                <!-- curriculum -->
+                <div class="row input-group" id="curriculum_participants_row">
+                    <div class="form-group col-xs-12" id="curriculum_sec">
+                        <label for="study_format">Curriculum:</label>
+                        <select id="curriculum" name="curriculum">
+                            <option <?php if($curriculum == '') echo"selected";?>  value="">--</option>
+                            <option <?php if($curriculum == 'Biology') echo"selected";?>  value="Biology">Biology</option>
+                            <option <?php if($curriculum == 'Chemistry') echo"selected";?>  value="Chemistry">Chemistry</option>
+                            <option <?php if($curriculum == 'English/Language Art') echo"selected";?>  value="English/Language Art">English/Language Art</option>
+                            <option <?php if($curriculum == 'Technology') echo"selected";?>  value="Technology">Technology</option>
+                            <option <?php if($curriculum == 'Career Tech') echo"selected";?>  value="Career Tech">Career Tech</option>
+                            <option <?php if($curriculum == 'Counseling') echo"selected";?>  value="Counseling">Counseling</option>
+                            <option <?php if($curriculum == 'Climate and Culture') echo"selected";?>  value="Climate and Culture">Climate and Culture</option>
+                            <option <?php if($curriculum == 'Effective Instruction') echo"selected";?>  value="Effective Instruction">Effective Instruction</option>
+                            <option <?php if($curriculum == 'Fine Arts') echo"selected";?>  value="Fine Arts">Fine Arts</option>
+                            <option <?php if($curriculum == 'Foreign Language') echo"selected";?>  value="Foreign Language">Foreign Language</option>
+                            <option <?php if($curriculum == 'Gifted') echo"selected";?>  value="Gifted">Gifted</option>
+                            <option <?php if($curriculum == 'Interdisciplinary') echo"selected";?>  value="Interdisciplinary">Interdisciplinary</option>
+                            <option <?php if($curriculum == 'Leadership') echo"selected";?>  value="Leadership">Leadership</option>
+                            <option <?php if($curriculum == 'Library Media Services') echo"selected";?>  value="Library Media Services">Library Media Services</option>
+                            <option <?php if($curriculum == 'Mathematics') echo"selected";?>  value="Mathematics">Mathematics</option>
+                            <option <?php if($curriculum == 'NBCT') echo"selected";?>  value="NBCT">NBCT</option>
+                            <option <?php if($curriculum == 'Physics') echo"selected";?>  value="Physics">Physics</option>
+                            <option <?php if($curriculum == 'Physical Education') echo"selected";?>  value="Physical Education">Physical Education</option>
+                            <option <?php if($curriculum == 'Science') echo"selected";?>  value="Science">Science</option>
+                            <option <?php if($curriculum == 'Social Studies') echo"selected";?>  value="Social Studies">Social Studies</option>
+                            <option <?php if($curriculum == 'Special Education') echo"selected";?>  value="Special Education">Special Education</option>
+                            <option <?php if($curriculum == 'Other') echo"selected";?>  value="Other">Other</option>
+                        </select>
+                    </div>
                 </div>
 
                 <!-- Location and Targets -->
@@ -1777,12 +1920,57 @@ if ($mysqli->connect_errno) {
 
 
         </div>
+    <div class="row form-group">
+        <div>
+
+        </div>
+    </div>
 
     <div class="row form-group" id="stipd_row">
         <div class="form-group">
-            <div id="sti-pd">STI-PD Goes Here
+            <div id="stipd_sec">
+
+                <div class="row form-group" id="request_info">
+                    <div class="col-xs-4">
+                        <label for="stipd">STIPD:</label>
+                        <select id="stipd" name="stipd" style="width: 100px">
+                            <option <?php if($stipd == '') echo"selected";?> value="">--</option>
+                            <option <?php if($stipd == 'Yes') echo"selected";?> value="Yes">Yes</option>
+                            <option <?php if($stipd == 'No') echo"selected";?> value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-xs-4 col-xs-pull-1">
+                        <label for="director_name">Director:</label>
+                        <input type="text" id="director_name" name="director_name" size="25"
+                               value="<?php echo $director_name;?>">
+                    </div>
+
+                    <div class="col-xs-4 col-xs-pull-2">
+                        <label for="board_approval">Board Approval:</label>
+                        <select id="board_approval" name="board_approval" style="width: 100px">
+                            <option <?php if($board_approval == '') echo"selected";?> value="">--</option>
+                            <option <?php if($board_approval == 'Yes') echo"selected";?> value="Yes">Yes</option>
+                            <option <?php if($board_approval == 'No') echo"selected";?> value="No">No</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="row form-group">
+
+                <div class="col-xs-4">
+                    <label for="amt_sponsored">Amt Sponsored:</label>
+                    <input type="number" id="amt_sponsored" name="amt_sponsored" size="5"
+                           value="<?php echo $amt_sponsored;?>">
+                </div>
+
+                <div class="col-xs-4 col-xs-pull-1">
+                    <label for="payment_type">Payment Type:</label>
+                    <input type="text" id="payment_type" name="payment_type" size="20"
+                           value="<?php echo $payment_type; ?>">
+                </div>
 
             </div>
+
 
         </div>
     </div>

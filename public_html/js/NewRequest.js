@@ -50,14 +50,29 @@ $(document).ready(function() {
     $('#submitRequest').click(function() {
         // $('#submitRequest').checkValidity();
         var form = $('form');
-        //var formData = new FormData(document.querySelector('#RequestForm'));
         var url = "php/add_request.php"; // the script where you handle the form input.
+
+        var captcha = $("#captcha").val();
+        var captcha_hash = $("#captcha").realperson('getHash');
+        var settings = $("#captcha").realperson('option');
+        console.log(settings);
+        console.log(captcha);
+        console.log(captcha_hash);
+
         var form_data = form.serialize();
+
+        // form_data.push({name: "captcha_hash", value: captcha_hash});
+
+        // $('#debug').html(form_data);
 
         $.ajax({
             type: "POST",
             url: url,
-            data: form_data,
+            // data: form_data,
+            data: {
+                captcha: captcha,
+                captcha_hash: captcha_hash
+            },
             success: function(data)
             {
                 // alert("Request Successfully Submitted"); // show response from the php script.
