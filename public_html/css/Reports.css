@@ -13,11 +13,48 @@
 
 .panel-body 
 {
-    background: #dcdcdc;
+    background: white;
     position: relative;
     height: 100vh;
     width: 100%;
     overflow: auto;
+}
+
+div.dataTables_wrapper #detailed_report_table
+{
+    width: 2000px;
+    margin: 0 auto;
+}
+
+
+div.dataTables_wrapper #quick_report_table
+{
+    width: 1500px;
+    margin: 0 auto;
+}
+
+div.dataTables_wrapper #financial_report_table
+{
+    width: 1500px;
+    margin: 0 auto;
+}
+
+div.dataTables_wrapper #curriculum_report_table
+{
+    width: 1290px;
+    margin: 0 auto;
+}
+
+div.dataTables_wrapper #school_and_system_report_table
+{
+    width: 1400px;
+    margin: 0 auto;
+}
+
+div.dataTables_wrapper #initiative_report_table
+{
+    width: 2500px;
+    margin: 0 auto;
 }
 
 .caret.caret-up 
@@ -26,20 +63,30 @@
     border-bottom: 4px solid #fff;
 }
 
+/*#curriculum_report_table
+{
+    width: 1300vw;
+}
+
+#school_and_system_report_table
+{
+    width: 710px;
+}
+
 #quick_report_table
 {
-    width: 2200px;
+    width: 960px;
 }
 
 #detailed_report_table
 {
-    width: 3700px;
+    width: 1500px;
 }
 
 #financial_report_table
 {
-    width: 3150px;
-}
+    width: 1540px;
+}*/
 
 table.dataTable thead tfoot tr th
 {
@@ -57,8 +104,7 @@ th
     text-align: center;
 }
 
-/*Set column widths*/
-.program_id
+/*.program_id
 {
     width: 70px;
 }
@@ -121,9 +167,14 @@ th
 .curriculum
 {
     width: 100px;
+}*/
+
+.curriculum_report_item
+{
+    width: 150px;
 }
 
-.consultatnt_name
+/*.consultatnt_name
 {
     width: 150px;
 }
@@ -158,11 +209,6 @@ th
     width: 70px;
 }
 
-.school_system
-{
-    width: 100px;
-}
-
 .school
 {
     width: 100px;
@@ -171,4 +217,4 @@ th
 .status
 {
     width: 50px;
-}
+}*/

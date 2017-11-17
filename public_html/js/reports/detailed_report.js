@@ -5,7 +5,6 @@ $(document).ready(function() {
     $('#detailed_report_table').DataTable( {
         dom:            'Bfrtip',
         scrollX:        true,
-        autoWidth:      false,
         buttons: {
             buttons: [
                 {

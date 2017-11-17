@@ -34,7 +34,6 @@
         <link rel="stylesheet" href="../resources/library/DataTables/Buttons/css/buttons.dataTables.min.css">
         <link rel="stylesheet" href="css/Reports.css">
 
-        <script src="../resources/library/jquery-3.2.1.min.js"></script>
         <script src="js/reports/quick_report.js"></script>
         <script src="../resources/library/DataTables/datatables.js"></script>
         <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
@@ -51,10 +50,6 @@
     <body>
         <div class="page_container">
             <h3>Quick Report</h3>
-            <?php
-                echo "<h5>" . "From: " . $from_date . "</h5>";
-                echo "<h5>" . "To:   " . $to_date . "</h5>";
-            ?>
             <br><br>
             <table id="quick_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
