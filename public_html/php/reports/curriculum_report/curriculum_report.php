@@ -34,7 +34,6 @@
         <link rel="stylesheet" href="../resources/library/DataTables/Buttons/css/buttons.dataTables.min.css">
         <link rel="stylesheet" href="css/Reports.css">
 
-        <script src="../resources/library/jquery-3.2.1.min.js"></script>
         <script src="js/reports/curriculum_report.js"></script>
         <script src="../resources/library/DataTables/datatables.js"></script>
         <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
@@ -51,21 +50,17 @@
     <body>
         <div class="page_container">
             <h3>Curriculum Report</h3>
-            <?php
-                echo "<h5>" . "From: " . $from_date . "</h5>";
-                echo "<h5>" . "To:   " . $to_date . "</h5>";
-            ?>
             <br><br>
             <table id="curriculum_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th class="curriculum">Curriculum</th>
-                        <th class="initiative">AMSTI</th>
-                        <th class="initiative">ASIM</th>
-                        <th class="initiative">TIM</th>
-                        <th class="initiative">Inservice</th>
-                        <th class="initiative">ALSDE</th>
-                        <th class="initiative">LEA</th>
+                        <th class="curriculum_report_item">AMSTI</th>
+                        <th class="curriculum_report_item">ASIM</th>
+                        <th class="curriculum_report_item">TIM</th>
+                        <th class="curriculum_report_item">Inservice</th>
+                        <th class="curriculum_report_item">ALSDE</th>
+                        <th class="curriculum_report_item">LEA</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,12 +120,12 @@
                 <tfoot>
                     <tr>
                         <th class="curriculum">Curriculum</th>
-                        <th class="initiative">AMSTI</th>
-                        <th class="initiative">ASIM</th>
-                        <th class="initiative">TIM</th>
-                        <th class="initiative">Inservice</th>
-                        <th class="initiative">ALSDE</th>
-                        <th class="initiative">LEA</th>
+                        <th class="curriculum_report_item">AMSTI</th>
+                        <th class="curriculum_report_item">ASIM</th>
+                        <th class="curriculum_report_item">TIM</th>
+                        <th class="curriculum_report_item">Inservice</th>
+                        <th class="curriculum_report_item">ALSDE</th>
+                        <th class="curriculum_report_item">LEA</th>
                     </tr>
                     </tr>
                 </tfoot>

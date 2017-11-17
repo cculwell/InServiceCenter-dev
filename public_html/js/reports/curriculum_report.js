@@ -5,7 +5,7 @@ $(document).ready(function() {
     $('#curriculum_report_table').DataTable( {
         dom:            'Bfrtip',
         scrollX:        true,
-        autoWidth:      false,
+        autoWidth:      true,
         buttons: {
             buttons: [
                 {
