@@ -52,7 +52,10 @@ if ($mysqli->connect_errno) {
                         $("span.ui-dialog-title").text("Report Selection"); 
                     }
                 }
-            ]
+            ],
+            open: function(event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
         });
 
         $("#view_reports_selection").dialog({
@@ -70,8 +73,8 @@ if ($mysqli->connect_errno) {
                     }
                 },
                 { 
-                    id: "generage_report",
-                    text: "Generate Report",
+                    id: "show_report",
+                    text: "Show Report",
                     class: "btn btn-secondary", 
                     click: function() {
                         var error_message = "";
@@ -127,6 +130,7 @@ if ($mysqli->connect_errno) {
 
                         title_bar = report_name + "     " + start_date + " - " + end_date;
 
+                        document.getElementById("message").innerHTML = "";
                         document.getElementById("view_report").innerHTML = "Processing.....";
                         $("#view_report").load(report, {from_date: start_date, to_date: end_date});
                         $(this).dialog("close");
@@ -136,7 +140,10 @@ if ($mysqli->connect_errno) {
                         $("span.ui-dialog-title").text(title_bar); 
                     }
                 }
-            ]
+            ],
+            open: function(event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
         });
 
         report_button = $("#admin_report").button();
