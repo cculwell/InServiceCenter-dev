@@ -59,7 +59,9 @@ if ($mysqli->connect_errno) {
 </body>
 <script>
     $('#captcha').realperson({chars: $.realperson.alphanumeric, length: 5});
-    $('#captcha').click();
+//    $('#captcha').click();
+
+
 
     $('#submitRequest').click(function() {
         // $('#submitRequest').checkValidity();
@@ -68,11 +70,10 @@ if ($mysqli->connect_errno) {
 
         var $captcha_entered = $("#captcha").val();
         var captcha_hash = $("#captcha").realperson('getHash');
-//        var settings = $("#captcha").realperson('option');
 
-//        console.log(settings);
-//        console.log(captcha);
-//        console.log(captcha_hash);
+        $(document).ready(function(){
+            $('.realperson-challenge').trigger("click");
+        });
 
         var form_data = form.serialize();
 
@@ -99,6 +100,10 @@ if ($mysqli->connect_errno) {
                 }
             });
         });
+
+
+
+
 
 </script>
 
