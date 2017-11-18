@@ -61,6 +61,9 @@ if ($mysqli->connect_errno) {
     $('#captcha').realperson({chars: $.realperson.alphanumeric, length: 5});
 //    $('#captcha').click();
 
+    $(document).ready(function(){
+        $('.realperson-challenge').trigger("click");
+    });
 
 
     $('#submitRequest').click(function() {
@@ -71,9 +74,7 @@ if ($mysqli->connect_errno) {
         var $captcha_entered = $("#captcha").val();
         var captcha_hash = $("#captcha").realperson('getHash');
 
-        $(document).ready(function(){
-            $('.realperson-challenge').trigger("click");
-        });
+
 
         var form_data = form.serialize();
 

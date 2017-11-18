@@ -28,7 +28,7 @@ if ($mysqli->connect_errno) {
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
     <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
-
+    <link rel="stylesheet" type="text/css" href="../resources/library/realperson-2.0.1/jquery.realperson.css">
     <link rel="stylesheet" href="css/NewRequest.css">
 
     <script src="../resources/library/jquery-3.2.1.min.js"></script>
@@ -36,7 +36,13 @@ if ($mysqli->connect_errno) {
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
     <script src="../resources/library/jquery_chained/jquery.chained.js"></script>
     <!--<script src="../resources/library/jquery-validation/jquery.validate.js"></script>-->
+    <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
+    <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
+
     <script src="js/NewRequest.js"></script>
+
+
+
 
 
 </head>
@@ -345,17 +351,21 @@ if ($mysqli->connect_errno) {
                         <!--div class="panel-footer">Panel footer</div> -->
                     </div>
 
+                    <div class="captcha_container">
+                        <input  type="text" id="captcha" name="captcha">
+                    </div>
+
                     <div class="btn-group">
                         <button id="submitRequest" type="button" class="btn btn-primary">Submit Form</button>
                     </div>
 
+
                 </form>
+                <script>
+                    $('#captcha').realperson({chars: $.realperson.alphanumeric, length: 5});
+                </script>
                 <!--<button id="submitForm" class="btn btn-primary btn-md" type="submit">Submit Form</button>-->
 
-
-                <!--<div id="debug">-->
-
-                <!--</div>-->
 
                 <!--<div class="errorTxt">-->
                     <!--<span id="errNm2"></span>-->

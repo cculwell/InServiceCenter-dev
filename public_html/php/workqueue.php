@@ -17,13 +17,123 @@ if(isset($_POST['trigger_name'])){
     $trigger = $_POST['trigger_name'];
 }
 
+
+// Requests
 if(isset($_POST['request_id'])) {
     $request_id = $_POST['request_id'];
+}
+if(isset($_POST['request_type'])) {
+    $request_type = $_POST['request_type'];
 }
 if(isset($_POST['workflow_state'])){
     $workflow_state = $_POST['workflow_state'];
 }
+if(isset($_POST['school'])) {
+    $school = $_POST['school'];
+}
+if(isset($_POST['system'])) {
+    $system = $_POST['system'];
+}
+if(isset($_POST['request_desc'])) {
+    $request_desc = $_POST['request_desc'];
+}
+if(isset($_POST['request_just'])) {
+    $request_just = $_POST['request_just'];
+}
+if(isset($_POST['request_location'])) {
+    $request_location = $_POST['request_location'];
+}
+if(isset($_POST['target_participants'])) {
+    $target_participants = $_POST['target_participants'];
+}
+if(isset($_POST['enrolled_participants'])) {
+    $enrolled_participants = $_POST['enrolled_participants'];
+}
+if(isset($_POST['total_cost'])) {
+    $total_cost = $_POST['total_cost'];
+}
+if(isset($_POST['eval_method'])) {
+    $eval_method = $_POST['eval_method'];
+}
+if(isset($_POST['stipd'])) {
+    $stipd = $_POST['stipd'];
+}
+if(isset($_POST['workshop'])) {
+    $workshop = $_POST['workshop'];
+}
+if(isset($_POST['report_date'])) {
+    $report_date = $_POST['report_date'];
+}
+if(isset($_POST['request_title'])) {
+    $request_title = $_POST['request_title'];
+}
+if(isset($_POST['folder_completed'])) {
+    $folder_completed = $_POST['folder_completed'];
+}
+if(isset($_POST['director_name'])) {
+    $director_name = $_POST['director_name'];
+}
+if(isset($_POST['board_approval'])) {
+    $board_approval = $_POST['board_approval'];
+}
+if(isset($_POST['amt_sponsored'])) {
+    $amt_sponsored = $_POST['amt_sponsored'];
+}
+if(isset($_POST['payment_type'])) {
+    $payment_type = $_POST['payment_type'];
+}
 
+// Books
+if(isset($_POST['book_id'])) {
+    $book_id = $_POST['book_id'];
+}
+if(isset($_POST['book_title'])) {
+    $book_title = $_POST['book_title'];
+}
+if(isset($_POST['publisher'])) {
+    $publisher = $_POST['publisher'];
+}
+if(isset($_POST['isbn'])) {
+    $isbn = $_POST['isbn'];
+}
+if(isset($_POST['cost_per_book'])) {
+    $cost_per_book = $_POST['cost_per_book'];
+}
+if(isset($_POST['study_format'])) {
+    $study_format = $_POST['study_format'];
+}
+if(isset($_POST['admin_signature'])) {
+    $admin_signature = $_POST['admin_signature'];
+}
+
+// Workshops
+if(isset($_POST['workshop_id'])) {
+    $workshop_id = $_POST['workshop_id'];
+}
+if(isset($_POST['program_nbr'])) {
+    $program_nbr = $_POST['program_nbr'];
+}
+if(isset($_POST['pd_title'])) {
+    $pd_title = $_POST['pd_title'];
+}
+if(isset($_POST['target_group'])) {
+    $target_group = $_POST['target_group'];
+}
+if(isset($_POST['actual_participants'])) {
+    $actual_participants = $_POST['actual_participants'];
+}
+if(isset($_POST['travel'])) {
+    $travel = $_POST['travel'];
+}
+if(isset($_POST['room_res_needed'])) {
+    $room_res_needed = $_POST['room_res_needed'];
+}
+if(isset($_POST['support_initiative'])) {
+    $support_initiative = $_POST['support_initiative'];
+}
+if(isset($_POST['curriculum'])) {
+    $curriculum = $_POST['curriculum'];
+}
 
 
 
@@ -108,7 +218,7 @@ if(isset($_POST['note_text'])){
 }
 
 
-
+//echo "Request Title: " . $request_title . PHP_EOL;
 
 
 function workflow_state_change($mysqli,$request_id, $workflow_state) {
@@ -459,7 +569,336 @@ function delete_note($mysqli, $note_id){
 }
 
 
+function delete_workshop($mysqli, $workshop_id){
+
+    $sql  = "delete from workshops ";
+    $sql .= " where workshop_id = ";
+    $sql .= $workshop_id;
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Record Deleted successfully";
+    } else {
+        echo "Error Deleted workshop: " . mysqli_error($mysqli);
+    }
+}
+
+function update_workshop($mysqli
+    , $workshop_id
+    , $program_nbr
+    , $pd_title
+    , $target_group
+    , $actual_participants
+    , $travel
+    , $room_res_needed
+    , $support_initiative
+    , $curriculum) {
+
+    $sql  = " update workshops set ";
+    $sql .= " program_nbr = '" . $program_nbr . "', ";
+    $sql .= " pd_title = '" . $pd_title . "', ";
+    $sql .= " target_group = '" . $target_group . "', ";
+    $sql .= " actual_participants = '" . $actual_participants . "', ";
+    $sql .= " travel = '" . $travel . "', ";
+    $sql .= " room_res_needed = '" . $room_res_needed . "', ";
+    $sql .= " support_initiative = '" . $support_initiative . "', ";
+    $sql .= " curriculum = '" . $curriculum . "' ";
+    $sql .= " where workshop_id = " . $workshop_id . " ";
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Update successfully";
+    } else {
+        echo "Error Update Workshop: " . mysqli_error($mysqli);
+    }
+
+//    return $mysqli->insert_id;
+}
+
+function add_workshop($mysqli
+    , $request_id
+    , $program_nbr
+    , $pd_title
+    , $target_group
+    , $actual_participants
+    , $travel
+    , $room_res_needed
+    , $support_initiative
+    , $curriculum) {
+
+    $sql  = " insert into workshops ( ";
+    $sql .= " request_id, program_nbr, pd_title, target_group, actual_participants, ";
+    $sql .= " travel, room_res_needed, support_initiative, curriculum ";
+    $sql .= " ) values ( ";
+    $sql .= $request_id . ",'";
+    $sql .= $program_nbr . "','";
+    $sql .= $pd_title . "','";
+    $sql .= $target_group . "','";
+    $sql .= $actual_participants . "','";
+    $sql .= $travel . "','";
+    $sql .= $room_res_needed . "','";
+    $sql .= $support_initiative . "','";
+    $sql .= $curriculum . "' ) ";
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Record Add successfully";
+    } else {
+        echo "Error Add workshop: " . mysqli_error($mysqli);
+    }
+
+    return $mysqli->insert_id;
+}
+
+
+function delete_book($mysqli, $book_id){
+
+    $sql  = "delete from books ";
+    $sql .= " where book_id = ";
+    $sql .= $book_id;
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Record Deleted successfully";
+    } else {
+        echo "Error Deleted Book: " . mysqli_error($mysqli);
+    }
+}
+
+function update_book($mysqli
+    , $book_id
+    , $book_title
+    , $publisher
+    , $isbn
+    , $cost_per_book
+    , $study_format
+    , $admin_signature) {
+
+    $sql  = " update books set ";
+    $sql .= " book_title = '" . $book_title . "', ";
+    $sql .= " publisher = '" . $publisher . "', ";
+    $sql .= " isbn = '" . $isbn . "', ";
+    $sql .= " cost_per_book = '" . $cost_per_book . "', ";
+    $sql .= " study_format = '" . $study_format . "', ";
+    $sql .= " admin_signature = '" . $admin_signature . "' ";
+    $sql .= " where book_id = " . $book_id . " ";
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Update successfully";
+    } else {
+        echo "Error Update book: " . mysqli_error($mysqli);
+    }
+
+//    return $mysqli->insert_id;
+}
+
+
+function add_book($mysqli
+    , $request_id
+    , $book_title
+    , $publisher
+    , $isbn
+    , $cost_per_book
+    , $study_format
+    , $admin_signature) {
+
+    $sql  = " insert into books ( ";
+    $sql .= " request_id, book_title, publisher, isbn, cost_per_book, ";
+    $sql .= " study_format, admin_signature ";
+    $sql .= " ) values ( ";
+    $sql .= $request_id . ",'";
+    $sql .= $book_title . "','";
+    $sql .= $publisher . "','";
+    $sql .= $isbn . "','";
+    $sql .= $cost_per_book . "','";
+    $sql .= $study_format . "','";
+    $sql .= $admin_signature . "' ) ";
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Record Add successfully";
+    } else {
+        echo "Error Add Book: " . mysqli_error($mysqli);
+    }
+
+    return $mysqli->insert_id;
+}
+
+function update_request($mysqli
+    , $request_id
+    , $request_type
+    , $workflow_state
+    , $school
+    , $system
+    , $request_desc
+    , $request_just
+    , $request_location
+    , $target_participants
+    , $enrolled_participants
+    , $total_cost
+    , $eval_method
+    , $stipd
+    , $workshop
+    , $report_date
+    , $request_title
+    , $folder_completed
+    , $director_name
+    , $board_approval
+    , $amt_sponsored
+    , $payment_type) {
+
+    $sql  = " update requests set ";
+    $sql .= " request_type = '" . $request_type . "', ";
+    $sql .= " workflow_state = '" . $workflow_state . "', ";
+    $sql .= " school = '" . $school . "', ";
+    $sql .= " system = '" . $system . "', ";
+    $sql .= " request_desc = '" . $request_desc . "', ";
+    $sql .= " request_just = '" . $request_just . "', ";
+    $sql .= " request_location = '" . $request_location . "', ";
+    $sql .= " target_participants = '" . $target_participants . "', ";
+    $sql .= " enrolled_participants = '" . $enrolled_participants . "', ";
+    $sql .= " total_cost = '" . $total_cost . "', ";
+    $sql .= " eval_method = '" . $eval_method . "', ";
+    $sql .= " stipd = '" . $stipd . "', ";
+    $sql .= " workshop = '" . $workshop . "', ";
+    $sql .= " report_date = '" . $report_date . "', ";
+    $sql .= " request_title = '" . $request_title . "', ";
+    $sql .= " folder_completed = '" . $folder_completed . "', ";
+    $sql .= " director_name = '" . $director_name . "', ";
+    $sql .= " board_approval = '" . $board_approval . "', ";
+    $sql .= " amt_sponsored = '" . $amt_sponsored . "', ";
+    $sql .= " payment_type = '" . $payment_type . "' ";
+    $sql .= " where request_id = " . $request_id . " ";
+
+//    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Update successfully";
+    } else {
+        echo "Error Update requests: " . mysqli_error($mysqli);
+    }
+
+//    return $mysqli->insert_id;
+}
+
+function add_request($mysqli
+    , $request_type
+    , $workflow_state
+    , $school
+    , $system
+    , $request_desc
+    , $request_just
+    , $request_location
+    , $target_participants
+    , $enrolled_participants
+    , $total_cost
+    , $eval_method
+    , $stipd
+    , $workshop
+    , $report_date
+    , $request_title
+    , $folder_completed
+    , $director_name
+    , $board_approval
+    , $amt_sponsored
+    , $payment_type) {
+
+    $sql  = " insert into requests ( ";
+    $sql .= " request_type, workflow_state, school, system, request_desc, request_just, request_location, ";
+    $sql .= " target_participants, enrolled_participants, total_cost, eval_method, stipd, workshop, report_date, ";
+    $sql .= " request_title, folder_completed, director_name, board_approval, amt_sponsored, payment_type ";
+    $sql .= " ) values ( '";
+    $sql .= $request_type . "','";
+    $sql .= $workflow_state . "','";
+    $sql .= $school . "','";
+    $sql .= $system . "','";
+    $sql .= $request_desc . "','";
+    $sql .= $request_just . "','";
+    $sql .= $request_location . "','";
+    $sql .= $target_participants . "','";
+    $sql .= $enrolled_participants . "','";
+    $sql .= $total_cost . "','";
+    $sql .= $eval_method . "','";
+    $sql .= $stipd . "','";
+    $sql .= $workshop . "','";
+    $sql .= $report_date . "','";
+    $sql .= $request_title . "','";
+    $sql .= $folder_completed . "','";
+    $sql .= $director_name . "','";
+    $sql .= $board_approval . "','";
+    $sql .= $amt_sponsored . "','";
+    $sql .= $payment_type . "' ) ";
+
+    echo $sql;
+
+    if (mysqli_query($mysqli, $sql)) {
+//        echo "Record Add successfully";
+    } else {
+        echo "Error Add Request: " . mysqli_error($mysqli);
+    }
+
+    return $mysqli->insert_id;
+}
+
+
 //print_r($_POST);
+
+if($trigger=="save_request"){
+    if($request_id==NULL){
+        $request_id = add_request($mysqli
+            , $request_type
+            , $workflow_state
+            , $school
+            , $system
+            , $request_desc
+            , $request_just
+            , $request_location
+            , $target_participants
+            , $enrolled_participants
+            , $total_cost
+            , $eval_method
+            , $stipd
+            , $workshop
+            , $report_date
+            , $request_title
+            , $folder_completed
+            , $director_name
+            , $board_approval
+            , $amt_sponsored
+            , $payment_type);
+        echo $request_id;
+    } else {
+        update_request($mysqli
+            , $request_id
+            , $request_type
+            , $workflow_state
+            , $school
+            , $system
+            , $request_desc
+            , $request_just
+            , $request_location
+            , $target_participants
+            , $enrolled_participants
+            , $total_cost
+            , $eval_method
+            , $stipd
+            , $workshop
+            , $report_date
+            , $request_title
+            , $folder_completed
+            , $director_name
+            , $board_approval
+            , $amt_sponsored
+            , $payment_type);
+    }
+}
 
 
 
@@ -576,6 +1015,8 @@ if($trigger=="delete_note"){
     delete_note($mysqli,$note_id);
     echo $note_id;
 }
+
+
 
 
 mysqli_close($mysqli);

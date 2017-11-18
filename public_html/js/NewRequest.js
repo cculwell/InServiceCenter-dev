@@ -46,6 +46,8 @@ function selectRequestType() {
 
 $(document).ready(function() {
 
+    $('.realperson-challenge').trigger("click");
+
     // Ajax call to pass form to php
     $('#submitRequest').click(function() {
         // $('#submitRequest').checkValidity();
@@ -55,9 +57,9 @@ $(document).ready(function() {
         var captcha = $("#captcha").val();
         var captcha_hash = $("#captcha").realperson('getHash');
         var settings = $("#captcha").realperson('option');
-        console.log(settings);
-        console.log(captcha);
-        console.log(captcha_hash);
+        // console.log(settings);
+        // console.log(captcha);
+        // console.log(captcha_hash);
 
         var form_data = form.serialize();
 
@@ -100,13 +102,11 @@ $(document).ready(function() {
     });
 
 
-
-
-
-
-
-
 });
+
+// $(document).ready(function(){
+//     $('.realperson-challenge').trigger("click");
+// });
 
 
 // jQuery Code to Add , Delete rows
