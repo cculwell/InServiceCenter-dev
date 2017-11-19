@@ -36,7 +36,7 @@ if (isset($_POST['request_id'])) {
     $sql .= ", r.stipd ";               // duplicated with stipd in workshops
     $sql .= ", r.workshop ";
     $sql .= ", r.report_date ";
-    $sql .= ", r.stipd_title ";        //this may be duplicated
+    $sql .= ", r.request_title ";        //this may be duplicated
     $sql .= ", r.folder_completed ";
     $sql .= ", r.director_name ";
     $sql .= ", r.board_approval ";
@@ -54,14 +54,11 @@ if (isset($_POST['request_id'])) {
 
     $sql .= ", w.workshop_id ";
     $sql .= ", w.program_nbr ";
-    $sql .= ", w.pd_title ";        // maybe duplicated with stipd_title in requests
-    $sql .= ", w.pd_desc ";
+    $sql .= ", w.pd_title ";
     $sql .= ", w.target_group ";
     $sql .= ", w.actual_participants ";
     $sql .= ", w.travel ";
-    $sql .= ", w.other_info ";
     $sql .= ", w.room_res_needed ";
-    $sql .= ", w.sti_title_nbr ";
     $sql .= ", w.support_initiative ";
     $sql .= ", w.curriculum ";
 
@@ -107,7 +104,7 @@ if (isset($_POST['request_id'])) {
     $stipd = $row['stipd'];
     $workshop = $row['workshop'];
     $report_date = $row['report_date'];
-    $stipd_title = $row['stipd_title'];
+    $request_title = $row['request_title'];
     $folder_completed = $row['folder_completed'];
     $director_name = $row['director_name'];
     $board_approval = $row['board_approval'];
@@ -127,13 +124,10 @@ if (isset($_POST['request_id'])) {
     $workshop_id = $row['workshop_id'];
     $program_nbr = $row['program_nbr'];
     $pd_title = $row['pd_title'];
-    $pd_desc = $row['pd_desc'];
     $target_group = $row['target_group'];
     $actual_participants = $row['actual_participants'];
     $travel = $row['travel'];
-    $other_info = $row['other_info'];
     $room_res_needed = $row['room_res_needed'];
-    $sti_title_nbr = $row['sti_title_nbr'];
     $support_initiative = $row['support_initiative'];
     $curriculum = $row['curriculum'];
 
@@ -156,7 +150,7 @@ else
     $stipd = null;
     $workshop = null;
     $report_date = null;
-    $stipd_title = null;
+    $request_title = null;
     $folder_completed = null;
     $director_name = null;
     $board_approval = null;
@@ -176,21 +170,40 @@ else
     $workshop_id = null;
     $program_nbr = null;
     $pd_title = null;
-    $pd_desc = null;
     $target_group = null;
     $actual_participants = null;
     $travel = null;
-    $other_info = null;
     $room_res_needed = null;
-    $sti_title_nbr = null;
     $support_initiative = null;
     $curriculum = null;
 }
 ?>
 
+<style>
+    label {
+        font-size: smaller;
+    }
+
+    input {
+        font-size: smaller;
+    }
+
+    select {
+        font-size: smaller;
+    }
+
+    option {
+        font-size: smaller;
+    }
+
+    .ui-widget
+    {
+        font-size: 80%;
+    }
+
+</style>
+
 <form id="request_form">
-
-
 
     <!-- Request Info -->
     <div class="row input-group" id="request_buttons">
@@ -228,24 +241,42 @@ else
                 $stipd = $("#stipd").val();
                 $workshop = $("#workshop").val();
                 $report_date = $("#report_date").val();
-                $stipd_title = $("#stipd_title").val();
+                $request_title = $("#request_title").val();
                 $folder_completed = $("#folder_completed").val();
                 $director_name = $("#director_name").val();
                 $board_approval = $("#board_approval").val();
                 $amt_sponsored = $("#amt_sponsored").val();
                 $payment_type = $("#payment_type").val();
 
+                $book_id = $("#book_id").val();
+                $book_title = $("#book_title").val();
+                $publisher = $("#publisher").val();
+                $isbn = $("#isbn").val();
+                $cost_per_book = $("#cost_per_book").val();
+                $study_format = $("#study_format").val();
+                $admin_signature = $("#admin_signature").val();
 
-                if($request_id == null || $request_id == undefined || $.isEmptyObject($request_id)){
-                    console.log("new request");
-                } else {
-                    console.log("update request");
+                $workshop_id = $("#workshop_id").val();
+                $program_nbr = $("#program_nbr").val();
+                $pd_title = $("#pd_title").val();
+                $target_group = $("#target_group").val();
+                $actual_participants = $("#actual_participants").val();
+                $travel = $("#travel").val();
+                $room_res_needed = $("#room_res_needed").val();
+                $support_initiative = $("#support_initiative").val();
+                $curriculum = $("#curriculum").val();
+
+//
+//                if($request_id == null || $request_id == undefined || $.isEmptyObject($request_id)){
+//                    console.log("new request");
+//                } else {
+//                    console.log("update request");
 
                     $.ajax({
                         type: "POST",
                         url: "php/workqueue.php",
                         data: {
-                            trigger_name: "update_request",
+                            trigger_name: "save_request",
                             // request table items
                             request_id: $request_id,
                             request_type: $request_type,
@@ -262,210 +293,301 @@ else
                             stipd: $stipd,
                             workshop: $workshop,
                             report_date: $report_date,
-                            stipd_title: $stipd_title,
+                            request_title: $request_title,
                             folder_completed: $folder_completed,
                             director_name: $director_name,
                             board_approval: $board_approval,
                             amt_sponsored: $amt_sponsored,
-                            payment_type: $payment_type
+                            payment_type: $payment_type,
+
+                            book_id: $book_id,
+                            book_title: $book_title,
+                            publisher: $publisher,
+                            isbn: $isbn,
+                            cost_per_book: $cost_per_book,
+                            study_format: $study_format,
+                            admin_signature: $admin_signature,
+
+                            workshop_id: $workshop_id,
+                            program_nbr: $program_nbr,
+                            pd_title: $pd_title,
+                            target_group: $target_group,
+                            actual_participants: $actual_participants,
+                            travel: $travel,
+                            room_res_needed: $room_res_needed,
+                            support_initiative: $support_initiative,
+                            curriculum: $curriculum
 
                         },
                         dataType: "json",
                         success: function(data) {
-                            console.log("success: update_request");
+                            console.log("success: save_request");
                             console.log(data);
 
                         },
                         error: function(data) {
-                            console.log("error: update_request");
+                            console.log("error: save_request");
                             console.log(data);
                         },
                         complete: function(data) {
-                            console.log("complete: update_request");
+                            console.log("complete: save_request");
                         }
                     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-                }
-            })
+//                }
+            });
 
         </script>
     </div>
 
     <div class="row form-group" id="request_info">
-        <div class="col-xs-2">
+        <div class="col-xs-4">
             <label for="request_id">Request ID:</label>
-            <input type="text" id="request_id" name="request_id" size="10"
+            <input type="text" id="request_id" name="request_id" size="5"
+                   style="text-align: center"
                    value="<?php echo $request_id;?>" disabled>
+
         </div>
 
-        <div class="col-xs-2 col-xs-pull-0">
+        <input id="workshop_id" name="workshop_id" value="<?php echo $workshop_id;?>" hidden>
+
+
+
+        <div class="col-xs-4 col-xs-pull-0">
             <label for="workshop">Workshop:</label>
-            <input type="checkbox" id="workshop" name="workshop" size="10">
+            <input type="checkbox" id="workshop" name="workshop" size="10"
+                   value="<?php echo $workshop;?>">
 
             <script>
+
+                if($("#workshop").val() == 'Yes'){
+                    $( "#workshop" ).prop( "checked", true );
+                } else {
+                    $( "#workshop" ).prop( "checked", false );
+                }
+
+                $("#workshop").change(function(e) {
+                    if (this.checked) {
+                        $("#workshop").val('Yes');
+                    } else {
+                        $("#workshop").val('No');
+                    }
+                });
+
+
 
             </script>
 
         </div>
 
-        <div class="col-xs-6 col-xs-pull-0">
-            <label for="report_date">Report Date:</label>
-            <input type="date" id="report_date" name="report_date" size="10"
-                   value="<?php echo $report_date;?>">
+        <div class="col-xs-4 col-xs-pull-0">
+            <label for="report_date">Report:</label>
+            <input type="date" id="report_date" name="report_date" size="5"
+                   style="width: 125px;"
+                   value="<?php echo $report_date;?>" class="">
         </div>
     </div>
 
-                <div class="row form-group" id="request_type_state_row">
+    <div class="row form-group" id="request_type_state_row">
 
-                    <div class="col-xs-4 form-group">
-                        <label class="col-xs-3 control-label" for="request_type">Type:</label>
+        <div class="col-xs-4 form-group">
+            <label class="col-xs-4 control-label" for="workflow_state">Workflow:</label>
 
-                        <div class="col-xs-9 col-xs-push-1" size="10">
-                            <select id="request_type" class="form-control">
-                                <option <?php if($request_type == 'General') echo"selected";?> value="General">General</option>
-                                <option <?php if($request_type == 'BookStudy') echo"selected";?> value="BookStudy">Book Study</option>
-                            </select>
-                        </div>
-                    </div>
+            <div class="col-xs-8">
+                <select id="workflow_state" class="form-control ui-corner-all" style="width: 150px;">
+                    <option <?php if($workflow_state == 'New') echo"selected";?> value="New">New</option>
+                    <option <?php if($workflow_state == 'Under Review') echo"selected";?> value="Under Review">Under Review</option>
+                    <option <?php if($workflow_state == 'Board Vote') echo"selected";?> value="Board Vote">Board Vote</option>
+                    <option <?php if($workflow_state == 'Start Purchase Order') echo"selected";?> value="Start Purchase Order">Start Purchase Order</option>
+                    <option <?php if($workflow_state == 'Order/Contract Issued') echo"selected";?> value="Order/Contract Issued">Order/Contract Issued</option>
+                    <option <?php if($workflow_state == 'Completed') echo"selected";?> value="Completed">Completed</option>
+                    <option <?php if($workflow_state == 'Canceled') echo"selected";?> value="Canceled">Canceled</option>
+                </select>
+                <script>
+                    $(document).ready(function(){
+                        $('#workflow_state').change(function(e){
+                            $this = $(e.target);
+                            $request_id = $('#request_id')[0].value;
+                            $.ajax({
+                                type: "POST",
+                                url:  "php/workqueue.php", // Don't know asp/asp.net at all so you will have to do this bit
+                                data: { trigger_name: "workflow_state_change",
+                                    request_id: $request_id,
+                                    workflow_state: $this.val()
+                                },
+                                dataType: "html",
+                                success: function(data){
+                                    console.log("success:");
+                                    console.log(data);
+                                    $("#div_wq_tables").load( 'php/div_wq_tables.php' );
 
-                    <div class="col-xs-2 form-group">
-                    <label class="col-xs-3 control-label" for="workflow_state">Workflow State:</label>
+                                },
+                                error: function(data){
+                                    console.log("success:");
+                                },
+                                complete: function (data) {
 
-                    <div class="col-xs-4" style="width: 200px">
-                        <select id="workflow_state" class="form-control">
-                            <option <?php if($workflow_state == 'New') echo"selected";?> value="New">New</option>
-                            <option <?php if($workflow_state == 'Under Review') echo"selected";?> value="Under Review">Under Review</option>
-                            <option <?php if($workflow_state == 'Board Vote') echo"selected";?> value="Board Vote">Board Vote</option>
-                            <option <?php if($workflow_state == 'Start Purchase Order') echo"selected";?> value="Start Purchase Order">Start Purchase Order</option>
-                            <option <?php if($workflow_state == 'Order/Contract Issued') echo"selected";?> value="Order/Contract Issued">Order/Contract Issued</option>
-                            <option <?php if($workflow_state == 'Completed') echo"selected";?> value="Completed">Completed</option>
-                            <option <?php if($workflow_state == 'Canceled') echo"selected";?> value="Canceled">Canceled</option>
-                        </select>
-                        <script>
-                            $(document).ready(function(){
-                                $('#workflow_state').change(function(e){
-                                    $this = $(e.target);
-                                    $request_id = $('#request_id')[0].value;
-                                    $.ajax({
-                                        type: "POST",
-                                        url:  "php/workqueue.php", // Don't know asp/asp.net at all so you will have to do this bit
-                                        data: { trigger_name: "workflow_state_change",
-                                            request_id: $request_id,
-                                            workflow_state: $this.val()
-                                        },
-                                        dataType: "html",
-                                        success: function(data){
-                                            console.log("success:");
-                                            console.log(data);
-                                            $("#div_wq_tables").load( 'php/div_wq_tables.php' );
-
-                                        },
-                                        error: function(data){
-                                            console.log("success:");
-                                        },
-                                        complete: function (data) {
-
-                                        }
-                                    });
-                                });
-
+                                }
                             });
-                        </script>
-                    </div>
+                        });
 
-                    </div>
-                    <div class="row form-group" id="support_init_row">
-                        <div class="col-xs-4 col-xs-push-0 form-group">
-                            <label class="col-xs-3 control-label" for="support_init">Support Initiative:</label>
-
-                            <div class="col-xs-9 col-xs-push-1" size="5">
-                                <select id="support_init" class="form-control">
-                                    <option <?php if($request_type == '') echo"selected";?> value=""></option>
-                                    <option <?php if($request_type == 'AMSTI') echo"selected";?> value="AMSTI">AMSTI</option>
-                                    <option <?php if($request_type == 'ASIM') echo"selected";?> value="ASIM">ASIM</option>
-                                    <option <?php if($request_type == 'TIM') echo"selected";?> value="TIM">TIM</option>
-                                    <option <?php if($request_type == 'RIC') echo"selected";?> value="RIC">RIC</option>
-                                    <option <?php if($request_type == 'LEA') echo"selected";?> value="LEA">LEA</option>
-                                    <option <?php if($request_type == 'ALSDE') echo"selected";?> value="ALSDE">ALSDE</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-                </div>
-
-                <div class="row form-group" id="title">
-                    <div class="col-xs-6 pull-left">
-                        <label for="pd_title">PD Title:</label>
-                        <input type="text"  id="pd_title" name="pd_title" style="width: 400px"
-                                maxlength="100" value="<?php echo $pd_title;?>">
-                    </div>
-                    <div class="col-xs-6">
-                        <label for="program_nbr">Program #:</label>
-                        <input type="text" id="program_nbr" name="program_nbr" size="10"
-                               value="<?php echo $program_nbr;?>"
-                    </div>
+                    });
+                </script>
+            </div>
+        </div>
 
 
-                </div>
+        <div class="col-xs-4 form-group">
+            <label class="col-xs-3 control-label" for="request_type">Type:</label>
+
+            <div class="col-xs-9 col-xs-pull-1" size="10">
+                <select id="request_type" class="form-control">
+                    <option <?php if($request_type == 'General') echo"selected";?> value="General">General</option>
+                    <option <?php if($request_type == 'BookStudy') echo"selected";?> value="BookStudy">Book Study</option>
+                </select>
+
+                <script>
+
+                    $("#request_type").change(function(e){
+                        e.preventDefault();
+                        rt_val = $("#request_type").val();
+                        if(rt_val == 'General') {
+                            console.log('General');
+                            $("#request_desc_row").show();
+                            $("#book_title_row").hide();
+                            $("#format_method_row").show();
+                            $("#study_format_sec").hide();
+                            $("#eval_method_sec").show();
+                            $("#cost_per_book_div").hide();
+                        } else {
+                            console.log('BookStudy');
+                            $("#request_desc_row").hide();
+                            $("#book_title_row").show();
+                            $("#format_method_row").show();
+                            $("#study_format_sec").show();
+                            $("#eval_method_sec").hide();
+                            $("#cost_per_book_div").show();
+                        }
+                    });
+
+                    $(document).ready(function(){
+                        rt_val = $("#request_type").val();
+                        if(rt_val == 'General') {
+                            console.log('General');
+                            $("#request_desc_row").show();
+                            $("#book_title_row").hide();
+                            $("#format_method_row").show();
+                            $("#study_format_sec").hide();
+                            $("#eval_method_sec").show();
+                            $("#cost_per_book_div").hide();
+                        } else {
+                            console.log('BookStudy');
+                            $("#request_desc_row").hide();
+                            $("#book_title_row").show();
+                            $("#format_method_row").show();
+                            $("#study_format_sec").show();
+                            $("#eval_method_sec").hide();
+                            $("#cost_per_book_div").show();
+                        }
+                    });
+
+                </script>
+
+            </div>
+        </div>
+
+
+        <div class="col-xs-4 col-xs-pull-1 form-group">
+            <label class="col-xs-8 control-label" for="support_initiative">Support Initiative:</label>
+
+            <div class="col-xs-4 col-xs-pull-2" size="5">
+                <select id="support_initiative" name="support_initiative" class="form-control" style="width: 100px">
+                    <option <?php if($support_initiative == '') echo"selected";?> value=""></option>
+                    <option <?php if($support_initiative == 'AMSTI') echo"selected";?> value="AMSTI">AMSTI</option>
+                    <option <?php if($support_initiative == 'ASIM') echo"selected";?> value="ASIM">ASIM</option>
+                    <option <?php if($support_initiative == 'TIM') echo"selected";?> value="TIM">TIM</option>
+                    <option <?php if($support_initiative == 'RIC') echo"selected";?> value="RIC">RIC</option>
+                    <option <?php if($support_initiative == 'LEA') echo"selected";?> value="LEA">LEA</option>
+                    <option <?php if($support_initiative == 'ALSDE') echo"selected";?> value="ALSDE">ALSDE</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row col-xs-12 pull-left" id="request_title_row">
+
+        <div class="col-xs-8 col-xs-pull-1 form-group">
+            <label for="request_title">Title:</label>
+            <input type="text"  id="request_title" name="request_title" style="width: 270px"
+                   maxlength="100" value="<?php echo $request_title;?>">
+        </div>
+
+    </div>
+
+
+    <div class="row col-xs-12 form-group pull-left" id="pd_title_row">
+
+        <div class="col-xs-8 col-xs-pull-1 form-group">
+            <label for="pd_title">PD Title:</label>
+            <input type="text"  id="pd_title" name="pd_title" style="width: 250px"
+                    maxlength="100" value="<?php echo $pd_title;?>">
+        </div>
+
+        <div class="col-xs-4 col-xs-pull-2 form-group">
+            <label for="program_nbr">Program #:</label>
+            <input type="text" id="program_nbr" name="program_nbr" size="10"
+                   value="<?php echo $program_nbr;?>"
+        </div>
+
+    </div>
 
 
 
-                <div class="row form-group" id="school_system_row">
-                    <div class="col-xs-6 pull-left">
-                        <label for="system">System:</label>
-                        <style> select { width: 400px } </style>
+    <div class="row form-group" id="school_system_row">
+        <div class="col-xs-6 pull-left">
+            <label for="system">System:</label>
+            <style> select { width: 200px } </style>
 
-                        <select id="system" name="system">
-                            <option value="">--</option>
-                            <?php
-                            $system_results = $mysqli->query("select distinct system from systems_schools order by system") or die($mysqli->error);
-                            while ($row = mysqli_fetch_array($system_results)) {
-                                $system_val = str_replace(' ','_',$row['system']);
-                                echo "<option value='" . $system_val . "'>" . $row['system'] . "</option>";
-                            }
-                            ?>
-                        </select>
+            <select id="system" name="system">
+                <option value="">--</option>
+                <?php
+                $system_results = $mysqli->query("select distinct system from systems_schools order by system") or die($mysqli->error);
+                while ($row = mysqli_fetch_array($system_results)) {
+                    $system_val = str_replace(' ','_',$row['system']);
+                    echo "<option value='" . $system_val . "'>" . $row['system'] . "</option>";
+                }
+                ?>
+            </select>
 
-                    </div>
+        </div>
 
 
-                    <div class="col-xs-6 pull-left">
-                        <label for="system">School:</label>
-                        <style> select { width: 400px } </style>
+        <div class="col-xs-6 pull-left">
+            <label for="system">School:</label>
+            <style> select { width: 200px } </style>
 
-                        <select id="school" name="school">
-                            <option value="">--</option>
-                            <?php
-                            $school_results = $mysqli->query("select school, system from systems_schools order by system, school") or die($mysqli->error);
-                            while ($row = mysqli_fetch_array($school_results)) {
-                                $system_val = str_replace(' ','_',$row['system']);
-                                $school_val = str_replace(' ','_',$row['school']);
-                                echo "<option value='" . $school_val . "' data-chained='" . $system_val . "'>" . $row['school'] . "</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <script>
-                        $('#system').val("<?php echo $system; ?>").attr('selected','selected');
-                        $("#school").chained("#system");
-                        $('#school').val("<?php echo $school; ?>").attr('selected','selected');
-                    </script>
+            <select id="school" name="school">
+                <option value="">--</option>
+                <?php
+                $school_results = $mysqli->query("select school, system from systems_schools order by system, school") or die($mysqli->error);
+                while ($row = mysqli_fetch_array($school_results)) {
+                    $system_val = str_replace(' ','_',$row['system']);
+                    $school_val = str_replace(' ','_',$row['school']);
+                    echo "<option value='" . $school_val . "' data-chained='" . $system_val . "'>" . $row['school'] . "</option>";
+                }
+                ?>
+            </select>
+        </div>
+        <script>
+            $('#system').val("<?php echo $system; ?>").attr('selected','selected');
+            $("#school").chained("#system");
+            $('#school').val("<?php echo $school; ?>").attr('selected','selected');
 
-                </div>
+
+        </script>
+
+    </div>
 
         <div id="wq_detail_tabs">
             <ul id="wq_details_tabs_ul">
@@ -485,6 +607,10 @@ else
                                   id="request_desc" name="request_desc"><?php echo $request_desc;?></textarea>
                     </div>
                 </div>
+
+
+
+
                 <!-- Request Justification -->
                 <div class="row form-group" id="request_just_row">
                     <div class="col-xs-12">
@@ -494,58 +620,96 @@ else
                     </div>
                 </div>
 
-                <!-- Location and Targets -->
-                <div class="row form-group" id="location_participants_row">
-                    <div class="form-group col-xs-4" id="target_part_sec">
-                        <label for="eval_method">Target #</label>
-                        <input type="text"  id="target_participants" name="target_participants"
-                               maxlength="50" value="<?php echo $target_participants;?>">
-                    </div>
+
+
+                <!-- Book Title -->
+                <div class="row form-group" id="book_title_row">
+                    <input type="number" id="book_id" name="book_id" hidden value="<?php echo $book_id;?>">
 
                     <div class="form-group col-xs-4">
-                        <label for="total_cost">Enrolled #</label>
-                        <input type="text"  id="enrolled_participants" name="enrolled_participants"
-                               maxlength="25" value="<?php echo $enrolled_participants;?>">
+                        <label for="book_title">Book Title</label>
+                        <input type="text" id="book_title" name="book_title" size="20" maxlength="100"
+                               style="text-align: center"
+                            value="<?php echo $book_title;?>">
                     </div>
 
-                    <div class="form-group col-xs-4">
-                        <label for="total_cost">Actual #</label>
-                        <input type="text"  id="actual_participants" name="actual_participants"
-                               maxlength="25" value="<?php echo $actual_participants;?>">
+                    <div class="form-group col-xs-4 ">
+                        <label for="publisher">Publisher</label>
+                        <input type="text"  id="publisher" name="publisher" size="20" maxlength="50"
+                               style="text-align: center"
+                            value="<?php echo $publisher;?>">
                     </div>
+                    <div class="form-group col-xs-4">
+                        <label for="isbn" style="width: 100px;">ISBN</label>
+                        <input type="text"  id="isbn" name="isbn" size="20" maxlength="25"
+                               style="text-align: center"
+                            value="<?php echo $isbn;?>">
+                    </div>
+
                 </div>
+
 
                 <!-- Method of Eval or Format of Study -->
                 <div class="row form-group" id="format_method_row">
 
                     <div class="form-group col-xs-4 " id="study_format_sec">
                         <label for="study_format">Study Format</label>
-                        <input type="text"  id="study_format" name="study_format"
+                        <input type="text"  id="study_format" name="study_format" size="20"
+                               style="text-align: center"
                                maxlength="100" value="<?php echo $study_format;?>">
                     </div>
 
                     <div class="form-group col-xs-4" id="eval_method_sec">
                         <label for="eval_method">Evaluation Method</label>
-                        <input type="text"  id="eval_method" name="eval_method"
+                        <input type="text"  id="eval_method" name="eval_method" size="20"
+                               style="text-align: center"
                                maxlength="50" value="<?php echo $eval_method;?>">
                     </div>
 
                     <div class="form-group col-xs-4">
                         <div class="input-group input-group-xs">
                             <label for="total_cost">Request Amt.</label>
-                            <input type="text"  id="total_cost" name="total_cost"
+                            <input type="text"  id="total_cost" name="total_cost" size="20"
+                                   style="text-align: center"
                                    maxlength="25" value="<?php echo $total_cost;?>">
                         </div>
                     </div>
-<!--                    <div class="form-group col-xs-4">-->
-<!--                        <label for="total_hours">Total Hours</label>-->
-<!--                        <input type="text"  id="total_hours" name="total_hours" maxlength="25">-->
-<!--                    </div>-->
+                    <div class="form-group col-xs-4" id="cost_per_book_div">
+                        <label for="cost_per_book">Cost / Book:</label>
+                        <input type="text"  id="cost_per_book" name="cost_per_book" maxlength="25" size="20"
+                               style="text-align: center"
+                               value="<?php echo $cost_per_book; ?>">
+                    </div>
                 </div>
 
+                <!-- Location and Targets -->
+                <div class="row form-group" id="location_participants_row">
+                    <div class="form-group col-xs-4" id="target_part_sec">
+                        <label for="eval_method">Target #</label>
+                        <input type="text"  id="target_participants" name="target_participants" size="20"
+                               style="text-align: center"
+                               maxlength="50" value="<?php echo $target_participants;?>">
+                    </div>
+
+                    <div class="form-group col-xs-4">
+                        <label for="total_cost">Enrolled #</label>
+                        <input type="text"  id="enrolled_participants" name="enrolled_participants" size="20"
+                               style="text-align: center"
+                               maxlength="25" value="<?php echo $enrolled_participants;?>">
+                    </div>
+
+                    <div class="form-group col-xs-4">
+                        <label for="total_cost">Actual #</label>
+                        <input type="text"  id="actual_participants" name="actual_participants" size="20"
+                               style="text-align: center"
+                               maxlength="25" value="<?php echo $actual_participants;?>">
+                    </div>
+                </div>
+
+
                 <!-- curriculum -->
-                <div class="row input-group" id="curriculum_participants_row">
-                    <div class="form-group col-xs-12" id="curriculum_sec">
+                <div class="row input-group col-xs-12" id="curriculum_participants_row">
+                    <div class="form-group col-xs-4" id="curriculum_sec">
                         <label for="study_format">Curriculum:</label>
                         <select id="curriculum" name="curriculum">
                             <option <?php if($curriculum == '') echo"selected";?>  value="">--</option>
@@ -572,7 +736,33 @@ else
                             <option <?php if($curriculum == 'Special Education') echo"selected";?>  value="Special Education">Special Education</option>
                             <option <?php if($curriculum == 'Other') echo"selected";?>  value="Other">Other</option>
                         </select>
+
+                        <script>
+                            $("#curriculum").selectmenu();
+                        </script>
                     </div>
+
+                    <div class="form-group col-xs-4">
+                        <label for="target_group">Audience</label>
+                        <input type="text"  id="target_group" name="target_group" maxlength="50" size="20"
+                               style="text-align: center"
+                               value="<?php echo $target_group;?>">
+                    </div>
+
+                    <div class="form-group col-xs-4">
+                        <label for="travel">Travel:</label>
+                        <select id="travel" name="curriculum">
+                            <option <?php if($travel == '') echo"selected";?>  value="">--</option>
+                            <option <?php if($travel == 'Yes') echo"selected";?>  value="Yes">Yes</option>
+                            <option <?php if($travel == 'No') echo"selected";?>  value="No">No</option>
+                        </select>
+
+                        <script>
+                            $("#travel").selectmenu();
+                        </script>
+                    </div>
+
+
                 </div>
 
                 <!-- Location and Targets -->
@@ -2010,6 +2200,26 @@ else
         </div>
     </div>
 
+    <div class="row form-group col-xs-12" id="admin_sig_row">
+        <div class="form-group">
+            <div id="admin_signature_div">
+                <div class="col-xs-6">
+                    <label for="admin_signature">Admin Signature:</label>
+                    <input type="text" id="admin_signature" name="admin_signature" size="35"
+                           value="<?php echo $admin_signature;?>">
+                </div>
+
+                <div class="col-xs-6">
+                    <label for="folder_completed">Folder Completed:</label>
+                    <input type="text" id="folder_completed" name="folder_completed" size="35"
+                           value="<?php echo $folder_completed;?>">
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
     <div class="row form-group" id="stipd_row">
         <div class="form-group">
             <div id="stipd_sec">
@@ -2022,21 +2232,31 @@ else
                             <option <?php if($stipd == 'Yes') echo"selected";?> value="Yes">Yes</option>
                             <option <?php if($stipd == 'No') echo"selected";?> value="No">No</option>
                         </select>
+
+                        <script>
+                            $("#stipd").selectmenu();
+                        </script>
+
                     </div>
 
-                    <div class="col-xs-4 col-xs-pull-1">
+                    <div class="col-xs-4 col-xs-pull-0">
                         <label for="director_name">Director:</label>
                         <input type="text" id="director_name" name="director_name" size="25"
+                               style="text-align: center"
                                value="<?php echo $director_name;?>">
                     </div>
 
-                    <div class="col-xs-4 col-xs-pull-2">
+                    <div class="col-xs-4 col-xs-pull-0">
                         <label for="board_approval">Board Approval:</label>
                         <select id="board_approval" name="board_approval" style="width: 100px">
                             <option <?php if($board_approval == '') echo"selected";?> value="">--</option>
                             <option <?php if($board_approval == 'Yes') echo"selected";?> value="Yes">Yes</option>
                             <option <?php if($board_approval == 'No') echo"selected";?> value="No">No</option>
                         </select>
+
+                        <script>
+                            $("#board_approval").selectmenu();
+                        </script>
                     </div>
             </div>
             <div class="row form-group">
@@ -2044,13 +2264,28 @@ else
                 <div class="col-xs-4">
                     <label for="amt_sponsored">Amt Sponsored:</label>
                     <input type="number" id="amt_sponsored" name="amt_sponsored" size="5"
-                           value="<?php echo $amt_sponsored;?>">
+                           style="text-align: center"
+                           value="<?php echo $amt_sponsored;?>" style="width: 50px">
                 </div>
 
-                <div class="col-xs-4 col-xs-pull-1">
+                <div class="col-xs-4 col-xs-pull-0">
                     <label for="payment_type">Payment Type:</label>
                     <input type="text" id="payment_type" name="payment_type" size="20"
+                           style="text-align: center"
                            value="<?php echo $payment_type; ?>">
+                </div>
+
+                <div class="col-xs-4">
+                    <label for="room_res_needed">Rm Reservation:</label>
+                    <select id="room_res_needed" name="room_res_needed" >
+                        <option <?php if($travel == '') echo"selected";?>  value="">--</option>
+                        <option <?php if($travel == 'Yes') echo"selected";?>  value="Yes">Yes</option>
+                        <option <?php if($travel == 'No') echo"selected";?>  value="No">No</option>
+                    </select>
+
+                    <script>
+                        $("#room_res_needed").selectmenu();
+                    </script>
                 </div>
 
             </div>
@@ -2058,7 +2293,6 @@ else
 
         </div>
     </div>
-
 
         <script>
             $("#wq_detail_tabs").tabs();

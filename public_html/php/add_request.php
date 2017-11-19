@@ -7,6 +7,23 @@
  */
 
 require "../../resources/config.php";
+require "../php/captcha/get_captcha_hash.php";
+
+
+$captcha_entered = $_POST['captcha'];
+$captcha_hash = $_POST['captcha_hash'];
+
+
+debug_to_console(rpHash($captcha_entered));
+debug_to_console(rpHash32($captcha_entered));
+
+if (rpHash($captcha_entered) == $captcha_hash) {
+
+    debug_to_console("matched");
+} else {
+    debug_to_console("did not match");
+}
+print_r($_POST);
 
 # Handle single-quotes for string nad null
 function add_quotes($str) {
@@ -46,6 +63,11 @@ function convert_date($date){
     $year = substr($date,6,4);
     return $year . "-" . $mon . "-" . $day;
 }
+
+
+
+
+
 
 $request_parms = array(
     "request_type" => $_POST['RequestType']
@@ -114,32 +136,6 @@ foreach($_POST as $key => $value)
         $i++;
     }
 }
-
-//foreach($date_time_parms as $dt) {
-////    print_r($dt['request_date']);
-////    echo '<br/>';
-//
-////    print_r(convert_time($dt['request_start_time']));
-//
-//
-//    $dt_sql = "insert into date_times (";
-//    $dt_sql .= "request_id,";
-//    $dt_sql .= implode(',', array_keys($dt));
-//    $dt_sql .= ") values (";
-//    $dt_sql .= $request_id . ",";
-//    $dt_sql .= $dt['request_date'] . ",";
-//    $dt_sql .= convert_time($dt['request_start_time']) . ",";
-//    $dt_sql .= convert_time($dt['request_end_time']) . ",";
-//    $dt_sql .= $dt['request_break_time'] ;
-////    $dt_sql .= implode(',', array_map('add_quotes', $dt));
-//    $dt_sql .= ")";
-//
-////    print_r($dt_sql);
-////    echo '<br/>';
-//
-//}
-
-
 
 # build request sql statement for insert
 $request_sql  = "insert into requests (";

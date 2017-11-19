@@ -2,7 +2,7 @@
     function rpHash($value) {
         $hash = 5381;
         $value = strtoupper($value);
-        
+
         for($i = 0; $i < strlen($value); $i++) {
             $hash = (leftShift32($hash, 5) + $hash) + ord(substr($value, $i));
         }
@@ -25,4 +25,14 @@
         return ($binary{0} == "0" ? bindec($binary) :
             -(pow(2, 31) - bindec(substr($binary, 1))));
     }
+
+function rpHash32($value) {
+    $hash = 5381;
+    $value = strtoupper($value);
+    for($i = 0; $i < strlen($value); $i++) {
+        $hash = (($hash << 5) + $hash) + ord(substr($value, $i));
+    }
+    return $hash;
+}
+
 ?>
