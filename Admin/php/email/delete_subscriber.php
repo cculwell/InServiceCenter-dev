@@ -2,19 +2,29 @@
     // Delete a subscriber from the database
     require "../../../resources/config.php";
 
-    $id = (int) $_GET['id'];
+    $email = $_POST['email'];
 
-    $db = $config['db']['amsti_01'];
-    $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
+    # create connection to database
+    $mysqli = new mysqli($config['db']['amsti_01']['host']
+        , $config['db']['amsti_01']['username']
+        , $config['db']['amsti_01']['password']
+        , $config['db']['amsti_01']['dbname']);
 
-    $query = "DELETE FROM subscribers WHERE id=$id LIMIT 1"; 
-    if ($link->query($query) or die($link->error)) {
-        echo "<script type='text/javascript'>alert('Subscriber deleted.')</script>";
+    /* check connection */
+    if ($mysqli->connect_errno) {
+        echo "Connect failed: " . $mysqli->connect_error;
+        exit();
+    }
+
+    $sql = "DELETE FROM subscribers WHERE email='$email' LIMIT 1"; 
+    $result = mysqli_query($mysqli, $sql);
+
+    if ($result) {
+        echo "removed";
     }
     else {
-        echo "<script type='text/javascript'>alert('ERROR: There was an error removing the subscriber from the database.')</script>";
+        echo "ERROR:  " . mysqli_error($mysqli);
     }
 
-    $link->close();
-    header('refresh: 0; URL=../../Email.php');
+    mysqli_close($mysqli);
 ?>

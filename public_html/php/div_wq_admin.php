@@ -14,6 +14,9 @@ if ($mysqli->connect_errno) {
 }
 ?>
 
+<button id="send_emails" name="send_emails">Email Newsletter</button>
+<button id="newsletter_upload" name="">Newsletter Management</button>
+<button id="bylaws_upload" name="">Bylaws Management</button>
 <button id="admin_report" name="admin_report">Reports</button>
 <button id="admin_users" name="admin_users">Users</button>
 
@@ -35,6 +38,9 @@ if ($mysqli->connect_errno) {
     <div id="message"></div>
 </div>
 <div id="view_report" name="view_report"></div>
+<div id="pop_bylaws_upload" name="pop_bylaws_upload"></div>
+<div id="pop_newsletter_upload" name="pop_newsletter_upload"></div>
+<div id="pop_email" name="pop_email"></div>
 <div id="pop_users" name="pop_users"></div>
 
 <script>
@@ -49,7 +55,63 @@ if ($mysqli->connect_errno) {
                     click: function() { 
                         $("#view_report").empty();
                         $(this).dialog("close");
-                        $("span.ui-dialog-title").text("Report Selection"); 
+                    }
+                }
+            ],
+            open: function(event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
+        });
+
+        $("#pop_email").dialog({
+            title: 'Manage Subscribers/Send Newsletter',
+            autoOpen: false,
+            buttons: [
+                { 
+                    id: "cancel",
+                    text: "Cancel", 
+                    class: "btn btn-secondary",
+                    click: function() { 
+                        $("#pop_email").empty();
+                        $(this).dialog("close");
+                    }
+                }
+            ],
+            open: function(event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
+        });
+
+        $("#pop_bylaws_upload").dialog({
+            title: 'Bylaws Management',
+            autoOpen: false,
+            buttons: [
+                { 
+                    id: "cancel",
+                    text: "Cancel", 
+                    class: "btn btn-secondary",
+                    click: function() { 
+                        $("#pop_bylaws_upload").empty();
+                        $(this).dialog("close");
+                    }
+                }
+            ],
+            open: function(event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
+        });
+
+        $("#pop_newsletter_upload").dialog({
+            title: 'Newsletter Management',
+            autoOpen: false,
+            buttons: [
+                { 
+                    id: "cancel",
+                    text: "Cancel", 
+                    class: "btn btn-secondary",
+                    click: function() { 
+                        $("#pop_newsletter_upload").empty();
+                        $(this).dialog("close");
                     }
                 }
             ],
@@ -147,10 +209,42 @@ if ($mysqli->connect_errno) {
         });
 
         report_button = $("#admin_report").button();
-
         report_button.click(function(e) {
             e.preventDefault(); 
             $("#view_reports_selection").dialog("open");
+            $("span.ui-dialog-title").text('Report Selection');
+        });
+
+        email_button = $("#send_emails").button();
+        email_button.click(function(e) {
+            e.preventDefault();
+            $("#pop_email").load("../Admin/Email.php");
+            $("#pop_email").dialog("open")
+                .dialog("option", "width", $(window).width())
+                .dialog("option", "height",$(window).height());
+            $("span.ui-dialog-title").text('Manage Subscribers/Send Newsletter');
+        });
+
+        upload_bylaws_button = $("#bylaws_upload").button();
+        upload_bylaws_button.click(function(e) {
+            e.preventDefault();
+
+            $("#pop_bylaws_upload").load("../Admin/Bylaws.php");
+            $("#pop_bylaws_upload").dialog("open")
+                .dialog("option", "width", $(window).width())
+                .dialog("option", "height",$(window).height());
+            $("span.ui-dialog-title").text('Manage Bylaws');
+        });
+
+        upload_newsletters_button = $("#newsletter_upload").button();
+        upload_newsletters_button.click(function(e) {
+            e.preventDefault();
+
+            $("#pop_newsletter_upload").load("../Admin/Newsletters.php");
+            $("#pop_newsletter_upload").dialog("open")
+                .dialog("option", "width", $(window).width())
+                .dialog("option", "height",$(window).height());
+            $("span.ui-dialog-title").text('Manage Newsletters');
         });
 
         $("#pop_users").dialog({
@@ -176,3 +270,6 @@ if ($mysqli->connect_errno) {
 
 </script>
 
+<?php
+    mysqli_close($mysqli);
+?>

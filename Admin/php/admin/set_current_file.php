@@ -1,46 +1,50 @@
-<?php   
-    // Set the selected file to the current viewable file
+<?php
     require "../../../resources/config.php";
-    
-    $id = (int) $_GET['id'];
-    $table = $_GET['table'];
 
-    $db = $config['db']['amsti_01'];
-    $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
+    # create connection to database
+    $mysqli = new mysqli($config['db']['amsti_01']['host']
+        , $config['db']['amsti_01']['username']
+        , $config['db']['amsti_01']['password']
+        , $config['db']['amsti_01']['dbname']);
 
-    $get_state_query = "SELECT * from $table WHERE id=$id";
-    $get_state = $link->query($get_state_query) or die($link->error);
+    /* check connection */
+    if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
+    }
 
-    if ($get_state) {
+    $file = $_POST['file'];
+    $table = $_POST['table'];
+
+    // Check if the file exists
+    $sql = "SELECT name from $table WHERE name='$file'";
+
+    if (mysqli_query($mysqli, $sql))
+    {
         // Reset all files to 'deactived'
-        $query = "UPDATE $table SET current='no' WHERE current='yes'";
-        $result = $link->query($query) or die("Error : ".mysqli_error($link));
+        $sql = "UPDATE $table SET current='no' WHERE current='yes'";
 
-        if ($result) {
-            $row = mysqli_fetch_array($get_state);
-            $current_state = $row['current'];
-
-            if ($current_state == 'yes') {
-                $query = "UPDATE $table SET current='no' WHERE id=$id LIMIT 1";
+        if ($reset_result = mysqli_query($mysqli, $sql))
+        {
+            $sql = "UPDATE $table SET current='yes' WHERE name='$file' LIMIT 1";
+            if (mysqli_query($mysqli, $sql))
+            {
+                echo "set_current";
             }
-            if ($current_state  == 'no') {
-                $query = "UPDATE $table SET current='yes' WHERE id=$id LIMIT 1";
-            }
-
-            $stmt = $link->query($query) or die($link->error);
-            if (!$stmt) {
-                echo "<script type='text/javascript'>alert('ERROR: There was a problem setting the state of the selected file.')</script>"; 
+            else
+            {
+                echo "ERROR:  " . mysqli_error($mysqli);
             }
         }
-        else {
-            echo "<script type='text/javascript'>alert('ERROR: There was a problem deactivating the current file.')</script>";  
+        else 
+        {
+            echo "ERROR:  " . mysqli_error($mysqli);
         }
     }
-    else {
-        echo "<script type='text/javascript'>alert('ERROR: There was a problem getting the state of the selected file.')</script>";       
+    else
+    {
+        echo "ERROR:  " . mysqli_error($mysqli);
     }
 
-    $link->close();
-    $url = "../../" . ucwords($table) . ".php";
-    header('refresh: 0; URL=' . $url);
+    mysqli_close($mysqli);
 ?>

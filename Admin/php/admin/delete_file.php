@@ -1,45 +1,72 @@
 <?php
-    // Delete a file from the database
     require "../../../resources/config.php";
 
-    $id = (int) $_GET['id'];
-    $table = $_GET['table'];
+    # create connection to database
+    $mysqli = new mysqli($config['db']['amsti_01']['host']
+        , $config['db']['amsti_01']['username']
+        , $config['db']['amsti_01']['password']
+        , $config['db']['amsti_01']['dbname']);
 
-    $db = $config['db']['amsti_01'];
-    $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');
-
-    $get_path_query = "SELECT * from $table WHERE id=$id";
-    $get_path = $link->query($get_path_query) or die($link->error);
-
-    // Delete file on the server
-    $row = mysqli_fetch_array($get_path);
-    $file_to_delete = $row['file_path'];
-
-    if (file_exists($file_to_delete)) {
-        if (unlink($file_to_delete)) {
-
-            // Delete database reference after file deletion
-            $query = "DELETE FROM $table WHERE id=$id LIMIT 1"; 
-            if ($link->query($query) or die($link->error)) {
-                echo "<script type='text/javascript'>alert('File deleted!')</script>";
-            }
-            else {
-                echo "<script type='text/javascript'>alert('ERROR: The file reference was not deleted from the database.')</script>";
-            }
-        }
-        else {
-            echo "<script type='text/javascript'>alert('ERROR: The file was unable to be deleted.')</script>";
-        }
-    }
-    else {
-        // Delete database reference when file isn't stored locally anymore
-        $query = "DELETE FROM $table WHERE id=$id LIMIT 1"; 
-        if ($link->query($query) or die($link->error)) {
-            echo "<script type='text/javascript'>alert('File was missing but the database reference has been removed.')</script>";
-        }
+    /* check connection */
+    if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
     }
 
-    $link->close();
-    $url = "../../" . ucwords($table) . ".php";
-    header('refresh: 0; URL=' . $url);
+    $file = $_POST['file'];
+    $table = $_POST['table'];
+
+    // Check if the file exists
+    $sql = "SELECT * from $table WHERE name='$file'";
+
+    if ($result = mysqli_query($mysqli, $sql))
+    {
+        $row = mysqli_fetch_row($result);
+        $file_to_delete = $row[3];
+
+        // If it exists delete it
+        if (file_exists($file_to_delete)) 
+        {
+            // Delete file
+            if (unlink($file_to_delete)) 
+            {
+                // Delete database reference after file deletion
+                $sql = "DELETE FROM $table WHERE name='$file' LIMIT 1"; 
+
+                if (mysqli_query($mysqli, $sql)) 
+                {
+                    echo "deleted";
+                }
+                else 
+                {
+                    echo "ERROR:  " . mysqli_error($mysqli);
+                }
+            }
+            else 
+            {
+                echo "Unable to delete: " . $file . " from the server.";
+            }
+        }
+        else 
+        {
+            // Delete database reference when file isn't on the server for some reason
+            $sql = "DELETE FROM $table WHERE name='$file' LIMIT 1"; 
+
+            if (mysqli_query($mysqli, $sql))
+            {
+                echo "deleted";
+            }
+            else 
+            {
+                echo "ERROR:  " . mysqli_error($mysqli);
+            }
+        }
+    }
+    // Can't fine database reference
+    else
+    {
+        echo "No database entry found for file: " . $file;
+    }
+
+    mysqli_close($mysqli);
 ?>

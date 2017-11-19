@@ -1,66 +1,94 @@
 <?php
-    require "../admin_functions.php";
+    require "../../../resources/config.php";
 
-    // Set size limits and allowed amoutn of uploads
-    ini_set('post_max_size', '40M');
-    ini_set('upload_max_filesize', '40M');
-    ini_set('max_file_uploads', 10);
+    $file = $_FILES['the_file']['name'];
+    $size = $_FILES['the_file']['size'];
+    $error = $_FILES['the_file']['error'];
+    $tmp = $_FILES['the_file']['tmp_name'];
+    $table = $_POST['table'];
+    $directory = $_POST['directory'];
+    $target = "../../../Uploads/" . $directory . "/" . $file;
 
-    $table = $_GET['table'];
-    $type = $_GET['type'];
-    $dir = $_GET['dir'];
+    # create connection to database
+    $mysqli = new mysqli($config['db']['amsti_01']['host']
+        , $config['db']['amsti_01']['username']
+        , $config['db']['amsti_01']['password']
+        , $config['db']['amsti_01']['dbname']);
 
-    // Check that the user selected a file to upload
-    if (empty($_FILES[$type]['name'])) {
-        echo "<script type='text/javascript'>alert('Please select a file to upload.')</script>";
+    /* check connection */
+    if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
     }
-    else {
-        // Security checks
-        $size = $_FILES[$type]["size"];
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime_type = finfo_file($finfo, $_FILES[$type]['tmp_name']);
 
-        $uploaded_file = $_FILES[$type]["name"];
+    // Check if a file already exists
+    function does_file_exist($table, $file) {
 
-        $target = "../../../Uploads/" . $dir . "/" . $uploaded_file;
-        $file_type = pathinfo($uploaded_file, PATHINFO_EXTENSION);
+        $sql = "SELECT name FROM $table WHERE name='$file'";
 
-
-        if ($size > 5242880) {
-            echo "<script type='text/javascript'>alert('File size exceeds the allowable limit..')</script>"; 
-        }
-
-        // Check if the file already exists
-        elseif (check_if_file_exists($table, $uploaded_file))
-        {         
-            echo "<script type='text/javascript'>alert('File $uploaded_file already exists. Please rename the file and try again.')</script>";
-        }
-
-        // Allow only PDF file formats, Part 1
-        elseif($mime_type != 'application/pdf') {
-            echo "<script type='text/javascript'>alert('Unsupported MIME type.')</script>";
-        }
-
-        // Allow only PDF file formats, Part 2
-        elseif($file_type != "pdf") {
-            echo "<script type='text/javascript'>alert('Only PDF files are able to be uploaded.')</script>";
-        }
-
-        // Try to upload the file
-        elseif (move_uploaded_file($_FILES[$type]["tmp_name"], $target)) {
-
-            if (add_file_to_database($table, $uploaded_file, $target)) {
-                echo "<script type='text/javascript'>alert('$uploaded_file was successfully uploaded')</script>";
+        if ($result = mysqli_query($GLOBALS['mysqli'], $sql))
+        {
+            if(mysqli_num_rows($result) > 0)
+            {
+                echo $file . " already exists. Please rename/remove the file and try again.";
+                return true;
             }
             else
             {
-                echo "<script type='text/javascript'>alert('$uploaded_file was NOT uploaded successfully')</script>";
+                return false;
             }
         }
-        else {
-            echo "<script type='text/javascript'>alert('$uploaded_file was NOT uploaded successfully.')</script>";
-        } 
+        else
+        {
+            echo "ERROR:  " . mysqli_error($GLOBALS['mysqli']);
+            return true;
+        }
     }
-    $url = "../../" . ucwords($table) . ".php";
-    header('refresh: 0; URL=' . $url);
+
+    // Add a new file to the database and activate it as the 'current' file
+    function add_file_to_database($table, $file, $target) {
+
+        // Deactivate the 'current' file
+        $sql = "UPDATE $table SET current='no' WHERE current='yes'";
+
+        if ($result = mysqli_query($GLOBALS['mysqli'], $sql))
+        {
+            $target = addslashes($target);
+
+            $sql = "INSERT INTO $table (name, current, file_path) VALUES ('$file','yes','$target')";
+            if ($result = mysqli_query($GLOBALS['mysqli'], $sql))
+            {
+                echo $file . " successfully uploaded.";
+            }
+            else
+            {
+                echo "ERROR adding file:  " . mysqli_error($GLOBALS['mysqli']);
+            }
+        }
+        else
+        {
+            echo "ERROR resetting current:  " . mysqli_error($GLOBALS['mysqli']);
+        }
+    }
+
+    if ( 0 < $error ) 
+    {
+        echo 'ERROR: ' . $error;
+    }
+
+    // Check if the file already exists
+    if (!(does_file_exist($table, $file)))
+    {
+        // Try to upload the file
+        if (move_uploaded_file($tmp, $target)) 
+        {
+            add_file_to_database($table, $file, $target);
+        }
+        else 
+        {
+            echo "$file was NOT uploaded.";
+        }
+    }
+
+    mysqli_close($mysqli);
 ?>
