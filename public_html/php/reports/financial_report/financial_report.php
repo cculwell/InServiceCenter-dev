@@ -68,8 +68,7 @@
                         <th class="system_name">School System</th>
                         <th class="current_enrollment">Current Enrollment</th>
                         <th class="max_enrollment">Target Enrollment</th>
-                        <th class="consultant_fee">Consultant Fees</th>
-                        <th class="misc_fees">Misc Fees</th>
+                        <th class="total_expenses">Total Expenses</th>
                         <th class="status">Status</th>
                     </tr>
                 </thead>
@@ -84,8 +83,7 @@
                         {
                             while ($row = mysqli_fetch_row($result))
                             {
-                                $consultant_fees = number_format((float)$row[17], 2, '.', '');
-                                $misc_fees = number_format((float)$row[18], 2, '.', '');
+                                $total_expenses = number_format((float)$row[16], 2, '.', '');
 
                                 echo
                                     "<tr>"
@@ -98,23 +96,22 @@
                                     ."<td>". $row[8]  ."</td>"                  // End Time
                                     ."<td>". $row[9]  ."</td>"                  // Number of Sessions
                                     ."<td>". $row[10] ."</td>"                  // Location
-                                    ."<td>". $row[12] ."</td>"                  // Initiative
-                                    ."<td>". $row[13] ."</td>"                  // Target Audience
-                                    ."<td>". $row[11] ."</td>"                  // School System
-                                    ."<td>". $row[15] ."</td>"                  // Current Enrollment
-                                    ."<td>". $row[14] ."</td>"                  // Max Enrollment
-                                    ."<td>". "$" . $consultant_fees ."</td>";   // Consultant Fee       
+                                    ."<td>". $row[11] ."</td>"                  // Initiative
+                                    ."<td>". $row[12] ."</td>"                  // Target Audience
+                                    ."<td>". $row[13] ."</td>"                  // School System
+                                    ."<td>". $row[14] ."</td>"                  // Current Enrollment
+                                    ."<td>". $row[15] ."</td>";                 // Max Enrollment     
 
-                                if ($row[18] == NULL)
+                                if ($row[16] == NULL)
                                 {
-                                    echo "<td>$0.00</td>"                          // Misc Expenses   
-                                         ."<td>". $row[16] ."</td>"             // Status
+                                    echo "<td>$0.00</td>"                       // Total Expenses  
+                                         ."<td>". $row[17] ."</td>"             // Status
                                          ."</tr>";
                                 } 
                                 else 
                                 {
-                                   echo "<td>". "$" . $misc_fees ."</td>"       // Misc Expenses
-                                         ."<td>". $row[16] ."</td>"             // Status
+                                   echo "<td>". "$" . $total_expenses ."</td>"  // Total Expenses
+                                         ."<td>". $row[17] ."</td>"             // Status
                                          ."</tr>";
                                 }                            
                             }
@@ -137,14 +134,13 @@
                         <th class="system_name">School System</th>
                         <th class="current_enrollment">Current Enrollment</th>
                         <th class="max_enrollment">Target Enrollment</th>
-                        <th class="consultant_fee">Consultant Fees</th>
-                        <th class="misc_fees">Misc Fees</th>
+                        <th class="total_expenses">Total Expenses</th>
                         <th class="status">Status</th>
                     </tr>
                 </tfoot>
             </table>
             <br><br><br>
-            <h4>Consultant Fees and Misc Fees are totals. To see the detailed breakdown print the PDF report.</h4>
+            <h4>Total fess are a sum of all fees. To see a detailed breakdown print the PDF report.</h4>
         </div>
     </body>
 </html>

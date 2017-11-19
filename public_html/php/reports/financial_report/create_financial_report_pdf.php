@@ -124,53 +124,77 @@
             $pdf->Ln(8);
 
             // Write dates of the program
+            $date_range = $row[5] . " to " . $row[6];
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Date: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $dates = "     Date: " . $row[5] . " to " . $row[7];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $dates, 0, 0);
+            $pdf->Cell(30, 10, $date_range, 0, 0, 'L');
+
             $pdf->Ln(5);
 
             // Write times of the program
-            $times = "     Times: " . $row[6] . " to " . $row[8];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $times, 0, 0);
+            $time_range = $row[7] . " to " . $row[8];
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Times: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $time_range, 0, 0, 'L');
             $pdf->Ln(5);
 
             // Write number of sessions for the program
-            $sessions = "     Number of Sessions: " . $row[9];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $sessions, 0, 0);
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Number of Sessions: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[9], 0, 0, 'L');
             $pdf->Ln(5);
 
             // Write location of the program
-            $location = "     Location: " . $row[10];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $location, 0, 0);
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Location: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[10], 0, 0, 'L');
             $pdf->Ln(5);
 
-            // Write who is providing support
-            $initiative = "     Initiative: " . $row[12];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $initiative, 0, 0);
+            // Write the initiative providing support
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Initiative: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[11], 0, 0, 'L');
             $pdf->Ln(5);
 
             // Write the target audience
-            $target_audience = "     Target Audience: " . $row[13];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $target_audience, 0, 0);
-            $pdf->Ln(5);
-
-            // Write enrollment numbers for the program
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Target Audience: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $enrollment = "     Current Enrollment: " . $row[15] 
-                          . "   " . "Maximum Enrollment: " . $row[14];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $enrollment, 0, 0);
+            $pdf->Cell(30, 10, $row[12], 0, 0, 'L');
             $pdf->Ln(5);
 
-            $system = "     School System: " . $row[11];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $system, 0, 0);
+            // Write current enrollment
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Current Enrollment: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[14], 0, 0, 'L');
+            $pdf->Ln(5);
+
+            // Write max enrollment
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Maximum Enrollment: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[15], 0, 0, 'L');
+            $pdf->Ln(5);
+
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "School System: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[13], 0, 0, 'L');
             $pdf->Ln(7);
 
             // Begin writing the expenses for the program
@@ -179,14 +203,7 @@
             $pdf->Cell(30, 10, "Program Expenses:", 0, 0);
             $pdf->Ln(5);
 
-            // Write consultant fee
-            $pdf->SetFont('Times', '', 10);
-            $consultant = "Consultant Fee: $" . $row[17];
-            $pdf->Cell(45, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $consultant, 0, 0);
-            $pdf->Ln(5);
-
-            $total = (float)$row[17];
+            $total = 0.0;
 
             $request_id = $row[0];
             $fields = "request_id, expense_type, expense_amount";
@@ -198,10 +215,11 @@
                 while ($expense = mysqli_fetch_row($expense_result))
                 {
                     // Write expense name and amount
-                    $pdf->SetFont('Times', '', 10);
-                    $expense_text = $expense[1] . ": $" . $expense[2];
                     $pdf->Cell(45, 10, "", 0, 0);
-                    $pdf->Cell(30, 10, $expense_text, 0, 0);
+                    $pdf->SetFont('Times', 'B', 10);
+                    $pdf->Cell(35, 10, $expense[1], 0, 0);
+                    $pdf->SetFont('Times', '', 10);
+                    $pdf->Cell(10, 10, "$" . number_format((float)$expense[2], 2, '.', ''), 0, 0, 'L');
                     $pdf->Ln(5);
 
                     $total = $total + (float)$expense[2];
@@ -210,10 +228,11 @@
 
             // Write total expenses for the program
             $pdf->Ln(2);
-            $pdf->SetFont('Times', 'B', 10);
-            $total_text = "Total Expenses: $" . number_format((float)$total, 2, '.', '');
             $pdf->Cell(45, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $total_text, 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(35, 10, "Total Expenses: ", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(10, 10, "$" . number_format((float)$total, 2, '.', ''), 0, 0, 'L"');
             $pdf->Ln(15);
 
             $count++;
@@ -229,25 +248,13 @@
     $pdf->Ln(20);
 
     $pdf->Ln(10);
+    $pdf->SetFont('Times', 'BU', 13);
+    $pdf->Cell(40, 10, "", 0, 0);
+    $pdf->Cell(110, 10, "Totals By Expense", "LTR", 0, "C");
     $pdf->SetFont('Times', 'B', 13);
-    $pdf->Cell(50, 10, "", 0, 0);
-    $pdf->Cell(90, 10, "Grand Totals", "LTR", 0, "C");
     $pdf->Ln(8);
 
-    $sql = "SELECT SUM(consultant_fee) AS total_consultant_fees 
-            FROM financial_report_data
-            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
-
-    $consultant_result = mysqli_query($mysqli, $sql); 
-    $row = mysqli_fetch_assoc($consultant_result); 
-    $total_consultant_fees = $row['total_consultant_fees'];
-
-    $pdf->Cell(50, 10, "", "", 0);
-    $pdf->Cell(10, 10, "", "L", 0);
-    $pdf->Cell(50, 10, "Consultant: ", "", 0, "L");
-    $pdf->Cell(30, 10, "$" . number_format((float)$total_consultant_fees, 2, '.', ''), "R", 0, "L");
-    $pdf->Ln(5);
-
+    // Get total expenses by expense type
     $sql = "SELECT DISTINCT(e.expense_type), SUM(e.expense_amount) 
             FROM expenses e 
             JOIN (SELECT request_id 
@@ -260,29 +267,56 @@
     {
         while ($row = mysqli_fetch_row($result))
         {
-            $pdf->Cell(50, 10, "", "", 0);
+            $pdf->Cell(40, 10, "", 0, 0);
             $pdf->Cell(10, 10, "", "L", 0);
-            $pdf->Cell(50, 10, $row[0] . ": ", "", 0, "L");
+            $pdf->Cell(70, 10, $row[0] . ": ", "", 0, "L");
             $pdf->Cell(30, 10, "$" . number_format((float)$row[1], 2, '.', ''), "R", 0, "L");
-            $pdf->Ln(5);
+            $pdf->Ln(7);
         }
     }
 
-    $pdf->Ln(5);
+    // Get total expenses
+    $sql = "SELECT SUM(f.total_expenses)
+            FROM financial_report_data f
+            WHERE f.report_date BETWEEN '$report_from' AND '$report_to'";
 
-    // Get total of misc fees the get grand total of misc and consultant fees
-    $sql = "SELECT SUM(consultant_fee) + SUM(total_misc_expenses) AS total 
-            FROM financial_report_data 
-            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+    $result = mysqli_query($mysqli, $sql); 
+    $row = mysqli_fetch_row($result); 
 
-    $total_fees_result = mysqli_query($mysqli, $sql); 
-    $row = mysqli_fetch_assoc($total_fees_result); 
-    $total_fees = $row['total'];
+    $pdf->Cell(40, 10, "", 0, 0);
+    $pdf->Cell(10, 10, "", "L", 0);
+    $pdf->Cell(70, 10, "TOTAL EXPENSES: ", "", 0, "L");
+    $pdf->Cell(30, 10, "$" . number_format((float)$row[0], 2, '.', ''), "R", 0);
+    $pdf->Ln(10);
 
-    $pdf->Cell(50, 10, "", "", 0);
-    $pdf->Cell(10, 10, "", "BL", 0);
-    $pdf->Cell(50, 10, "TOTAL SPENT: ", "B", 0, "L");
-    $pdf->Cell(30, 10, "$" . number_format((float)$total_fees, 2, '.', ''), "BR", 0);
+    $pdf->SetFont('Times', 'BU', 13);
+    $pdf->Cell(40, 10, "", 0, 0);
+    $pdf->Cell(110, 10, "Totals Per System", "LR", 0, "C");
+    $pdf->SetFont('Times', 'B', 13);
+    $pdf->Ln(8);
+
+    $sql = "SELECT rq.system, SUM(e.expense_amount) 
+            FROM expenses e 
+            JOIN (SELECT f.request_id, f.system
+                  FROM financial_report_data f 
+                  WHERE report_date BETWEEN '2017-10-29' AND '2017-11-26') AS rq 
+            ON e.request_id = rq.request_id
+            GROUP BY rq.system";
+
+    if ($result = mysqli_query($mysqli, $sql))
+    {
+        while ($row = mysqli_fetch_row($result))
+        {
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->Cell(10, 10, "", "L", 0);
+            $pdf->Cell(70, 10, $row[0] . ": ", "", 0, "L");
+            $pdf->Cell(30, 10, "$" . number_format((float)$row[1], 2, '.', ''), "R", 0, "L");
+            $pdf->Ln(7);
+        }
+    }
+
+    $pdf->Cell(40, 10, "", 0, 0);
+    $pdf->Cell(110, 10, "", "LBR", 0, 0);
 
     $pdf->Output();
 ?>
