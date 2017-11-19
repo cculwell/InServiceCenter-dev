@@ -49,7 +49,7 @@ if ($mysqli->connect_errno) {
 
 <div class="callout large">
     <div class="row column text-center">
-        <img id="logo" src="img/Logo.jpg" width="30%" height="30%" alt="" />
+        <img id="logo" src="img/Logo.jpg" width="25%" height="25%" alt="" />
     </div>
 </div>
 
@@ -367,10 +367,10 @@ if ($mysqli->connect_errno) {
                 <!--<button id="submitForm" class="btn btn-primary btn-md" type="submit">Submit Form</button>-->
 
 
-                <!--<div class="errorTxt">-->
-                    <!--<span id="errNm2"></span>-->
-                    <!--<span id="errNm1"></span>-->
-                <!--</div>-->
+    <!--                <div class="errorTxt">-->
+    <!--                    <span id="errNm2"></span>-->
+    <!--                    <span id="errNm1"></span>-->
+    <!--                </div>-->
             </div>
         </div>
     </div>

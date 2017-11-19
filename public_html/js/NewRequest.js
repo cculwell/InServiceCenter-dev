@@ -50,40 +50,41 @@ $(document).ready(function() {
 
     // Ajax call to pass form to php
     $('#submitRequest').click(function() {
+        event.preventDefault(); // avoid to execute the actual submit of the form.
         // $('#submitRequest').checkValidity();
+
         var form = $('form');
         var url = "php/add_request.php"; // the script where you handle the form input.
 
-        var captcha = $("#captcha").val();
+        // var captcha = $("#captcha").val();
         var captcha_hash = $("#captcha").realperson('getHash');
-        var settings = $("#captcha").realperson('option');
-        // console.log(settings);
-        // console.log(captcha);
-        // console.log(captcha_hash);
+
 
         var form_data = form.serialize();
 
-        // form_data.push({name: "captcha_hash", value: captcha_hash});
+        form_data = form_data + "&captcha_hash=" + captcha_hash;
+
+        // console.log(form_data);
 
         // $('#debug').html(form_data);
 
         $.ajax({
             type: "POST",
             url: url,
-            // data: form_data,
-            data: {
-                captcha: captcha,
-                captcha_hash: captcha_hash
-            },
+            data: form_data,
             success: function(data)
             {
+                if(data=="captcha failed"){
+                    alert("Incorrect Captcha");
+                    $('.realperson-challenge').trigger("click");
+                }
                 // alert("Request Successfully Submitted"); // show response from the php script.
-                // $('#RequestForm').trigger("reset");
+                $('#RequestForm').trigger("reset");
                 // $('#debug').html(data);
                 console.log("Ajax Success");
             },
             error: function (data) {
-                // alert("error");
+                alert("Error: Check all Fields and resubmit!");
             },
             complete: function (data) {
                 // alert("complete");
@@ -92,7 +93,7 @@ $(document).ready(function() {
             }
         });
 
-        event.preventDefault(); // avoid to execute the actual submit of the form.
+
     });
 
     $('.datepicker').datepicker();
@@ -103,10 +104,6 @@ $(document).ready(function() {
 
 
 });
-
-// $(document).ready(function(){
-//     $('.realperson-challenge').trigger("click");
-// });
 
 
 // jQuery Code to Add , Delete rows
