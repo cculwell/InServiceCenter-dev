@@ -13,6 +13,9 @@ require "../php/captcha/get_captcha_hash.php";
 $captcha_entered = $_POST['captcha'];
 $captcha_hash = $_POST['captcha_hash'];
 
+//$report_date = date("Y-m-d");
+//echo $report_date;
+
 
 
 # Handle single-quotes for string nad null
@@ -60,8 +63,6 @@ function convert_date($date){
 if (rpHash($captcha_entered) == $captcha_hash) {
 //    debug_to_console("matched");
 
-    //print_r($_POST);
-
     $request_parms = array(
         "request_type" => $_POST['RequestType']
     , "workflow_state" => "New"
@@ -72,10 +73,9 @@ if (rpHash($captcha_entered) == $captcha_hash) {
     , "request_location" => $_POST['request_location']
     , "target_participants" => $_POST['target_participants']
     , "enrolled_participants" => $_POST['enrolled_participants']
-//    , "total_hours" => $_POST['total_hours']
     , "total_cost" => $_POST['total_cost']
     , "eval_method" => $_POST['eval_method']
-        //, "stipd" => $_POST['stipd']
+    , "report_date" => date("Y-m-d")
     );
 
     $book_parms = array(
@@ -234,6 +234,9 @@ if (rpHash($captcha_entered) == $captcha_hash) {
 //            echo "<script> console.log('Transaction successful')</script>";
 //            phpAlert("Transaction successful");
         }
+
+        echo $request_id;
+
     }
     catch (Exception $e)
     {
@@ -246,6 +249,8 @@ if (rpHash($captcha_entered) == $captcha_hash) {
 
     /* close connection */
     $mysqli->close();
+
+
 
 } else {
 //    debug_to_console("did not match");

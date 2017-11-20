@@ -44,13 +44,25 @@ if(isset($_POST['request_location'])) {
     $request_location = $_POST['request_location'];
 }
 if(isset($_POST['target_participants'])) {
-    $target_participants = $_POST['target_participants'];
+    if(is_numeric($_POST['target_participants'])){
+        $target_participants = $_POST['target_participants'];
+    } else {
+        $target_participants = 0;
+    }
 }
 if(isset($_POST['enrolled_participants'])) {
-    $enrolled_participants = $_POST['enrolled_participants'];
+    if(is_numeric($_POST['enrolled_participants'])){
+        $enrolled_participants = $_POST['enrolled_participants'];
+    } else {
+        $enrolled_participants = 0;
+    }
 }
 if(isset($_POST['total_cost'])) {
-    $total_cost = $_POST['total_cost'];
+    if(is_numeric($_POST['total_cost'])){
+        $total_cost = $_POST['total_cost'];
+    } else {
+        $total_cost = 0;
+    }
 }
 if(isset($_POST['eval_method'])) {
     $eval_method = $_POST['eval_method'];
@@ -77,7 +89,11 @@ if(isset($_POST['board_approval'])) {
     $board_approval = $_POST['board_approval'];
 }
 if(isset($_POST['amt_sponsored'])) {
-    $amt_sponsored = $_POST['amt_sponsored'];
+    if(is_numeric($_POST['amt_sponsored'])){
+        $amt_sponsored = $_POST['amt_sponsored'];
+    } else {
+        $amt_sponsored = 0;
+    }
 }
 if(isset($_POST['payment_type'])) {
     $payment_type = $_POST['payment_type'];
@@ -97,7 +113,11 @@ if(isset($_POST['isbn'])) {
     $isbn = $_POST['isbn'];
 }
 if(isset($_POST['cost_per_book'])) {
-    $cost_per_book = $_POST['cost_per_book'];
+    if(is_numeric($_POST['cost_per_book'])){
+        $cost_per_book = $_POST['cost_per_book'];
+    } else {
+        $cost_per_book = 0;
+    }
 }
 if(isset($_POST['study_format'])) {
     $study_format = $_POST['study_format'];
@@ -120,7 +140,11 @@ if(isset($_POST['target_group'])) {
     $target_group = $_POST['target_group'];
 }
 if(isset($_POST['actual_participants'])) {
-    $actual_participants = $_POST['actual_participants'];
+    if(is_numeric($_POST['actual_participants'])){
+        $actual_participants = $_POST['actual_participants'];
+    } else {
+        $actual_participants = 0;
+    }
 }
 if(isset($_POST['travel'])) {
     $travel = $_POST['travel'];
@@ -229,7 +253,7 @@ function workflow_state_change($mysqli,$request_id, $workflow_state) {
     $sql .= "' where request_id = ";
     $sql .= $request_id;
 
-    echo $sql;
+//    echo $sql;
 
     if (mysqli_query($mysqli, $sql)) {
         echo "Record updated successfully";
@@ -320,7 +344,7 @@ function delete_expense($mysqli, $expense_id){
     $sql .= " where expense_id = ";
     $sql .= $expense_id;
 
-    echo $sql;
+//    echo $sql;
 
     if (mysqli_query($mysqli, $sql)) {
 //        echo "Record Deleted successfully";
@@ -836,7 +860,7 @@ function add_request($mysqli
     $sql .= $amt_sponsored . "','";
     $sql .= $payment_type . "' ) ";
 
-    echo $sql;
+//    echo $sql;
 
     if (mysqli_query($mysqli, $sql)) {
 //        echo "Record Add successfully";
@@ -851,6 +875,10 @@ function add_request($mysqli
 //print_r($_POST);
 
 if($trigger=="save_request"){
+
+    $return_ids = array('request_id' => '', 'workshop_id' => '', 'book_id' => '');
+
+    // Insert or update requests
     if($request_id==NULL){
         $request_id = add_request($mysqli
             , $request_type
@@ -873,7 +901,9 @@ if($trigger=="save_request"){
             , $board_approval
             , $amt_sponsored
             , $payment_type);
-        echo $request_id;
+//        echo $request_id;
+//        $return_ids['request_id'] = $request_id;
+        $_POST['request_id'] = $request_id;
     } else {
         update_request($mysqli
             , $request_id
@@ -897,10 +927,76 @@ if($trigger=="save_request"){
             , $board_approval
             , $amt_sponsored
             , $payment_type);
+//        $return_ids['request_id'] = $request_id;
+        $_POST['request_id'] = $request_id;
     }
+
+    // Insert or update workshop
+    if($workshop=="Yes"){
+        if($workshop_id==NULL){
+//            echo "Add workshop";
+            $workshop_id = add_workshop($mysqli
+                , $request_id
+                , $program_nbr
+                , $pd_title
+                , $target_group
+                , $actual_participants
+                , $travel
+                , $room_res_needed
+                , $support_initiative
+                , $curriculum);
+//            $return_ids['workshop_id'] = $workshop_id;
+            $_POST['workshop_id'] = $workshop_id;
+        } else {
+//            echo "Update Workshop";
+            update_workshop($mysqli
+                , $workshop_id
+                , $program_nbr
+                , $pd_title
+                , $target_group
+                , $actual_participants
+                , $travel
+                , $room_res_needed
+                , $support_initiative
+                , $curriculum);
+//            $return_ids['workshop_id'] = $workshop_id;
+            $_POST['workshop_id'] = $workshop_id;
+        }
+    }
+
+    // Insert or Update book
+    if($request_type=="BookStudy"){
+        if($book_id==NULL){
+//            echo "add bookstudy";
+            $book_id = add_book($mysqli
+                , $request_id
+                , $book_title
+                , $publisher
+                , $isbn
+                , $cost_per_book
+                , $study_format
+                , $admin_signature);
+            echo $book_id;
+//            $return_ids['book_id'] = $book_id;
+            $_POST['book_id'] = $book_id;
+        } else {
+//            echo "update book study";
+            update_book($mysqli
+                , $book_id
+                , $book_title
+                , $publisher
+                , $isbn
+                , $cost_per_book
+                , $study_format
+                , $admin_signature);
+//            $return_ids['book_id'] = $book_id;
+            $_POST['book_id'] = $book_id;
+        }
+    }
+    echo json_encode($_POST);
 }
 
-
+//print_r($_POST);
 
 if($trigger=="workflow_state_change"){
     workflow_state_change($mysqli,$request_id,$workflow_state);

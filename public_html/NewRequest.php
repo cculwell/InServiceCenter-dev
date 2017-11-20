@@ -35,7 +35,7 @@ if ($mysqli->connect_errno) {
     <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
     <script src="../resources/library/jquery_chained/jquery.chained.js"></script>
-    <!--<script src="../resources/library/jquery-validation/jquery.validate.js"></script>-->
+<!--    <script src="../resources/library/jquery-validation/jquery.validate.js"></script>-->
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
 
@@ -149,16 +149,19 @@ if ($mysqli->connect_errno) {
                             <div class="row form-group" id="book_title_row">
                                 <div class="form-group col-md-4">
                                     <label for="book_title">Book Title</label>
-                                    <input type="text" id="book_title" name="book_title" size="35" maxlength="100">
+                                    <input type="text" id="book_title" name="book_title" size="35" maxlength="100"
+                                           style="text-align: center">
                                 </div>
                                 <!--div class="col-md-4"> </div> -->
                                 <div class="form-group col-md-4 ">
                                     <label for="publisher">Publisher</label>
-                                    <input type="text"  id="publisher" name="publisher" size="35" maxlength="50">
+                                    <input type="text"  id="publisher" name="publisher" size="35" maxlength="50"
+                                           style="text-align: center">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="isbn">ISBN</label>
-                                    <input type="text"  id="isbn" name="isbn" size="35" maxlength="25">
+                                    <input type="text"  id="isbn" name="isbn" size="35" maxlength="25"
+                                           style="text-align: center">
                                 </div>
                                 <div class="col-md-4"> </div>
                                 <!--<div class="form-group col-md-4 pull-left  ">-->
@@ -173,24 +176,28 @@ if ($mysqli->connect_errno) {
 
                                 <div class="form-group col-md-4 " id="study_format_sec">
                                     <label for="study_format">Study Format</label>
-                                    <input type="text"  id="study_format" name="study_format" size="35" maxlength="100">
+                                    <input type="text"  id="study_format" name="study_format" size="35" maxlength="100"
+                                           style="text-align: center">
                                 </div>
 
                                 <div class="form-group col-md-4" id="eval_method_sec">
                                     <label for="eval_method">Evaluation Method</label>
-                                    <input type="text"  id="eval_method" name="eval_method" size="35" maxlength="50">
+                                    <input type="text"  id="eval_method" name="eval_method" size="35" maxlength="50"
+                                           style="text-align: center">
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <div class="input-group input-group-md">
                                         <label for="total_cost">Amt Requested / Total Cost</label>
-                                        <input type="number"  id="total_cost" name="total_cost" size="35" maxlength="25" value="0">
+                                        <input type="number"  id="total_cost" name="total_cost" size="35" maxlength="25" value="0"
+                                               style="text-align: center">
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-3" id="cost_per_book_div">
                                     <label for="cost_per_book">Cost per Book</label>
-                                    <input type="number"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25" value="0">
+                                    <input type="number"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25" value="0"
+                                           style="text-align: center">
                                 </div>
                                 <!--<div class="form-group col-md-4">-->
                                     <!--<label for="total_hours">Total Hours</label>-->
@@ -218,12 +225,14 @@ if ($mysqli->connect_errno) {
 
                                 <div class="form-group col-md-3" id="target_part_sec">
                                     <label for="eval_method">Target Participants #</label>
-                                    <input type="number"  id="target_participants" name="target_participants" size="40" value="0">
+                                    <input type="number"  id="target_participants" name="target_participants" size="40" value="0"
+                                           style="text-align: center">
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label for="total_cost">Enrolled Participants #</label>
-                                    <input type="number"  id="enrolled_participants" name="enrolled_participants" size="40" value="0">
+                                    <input type="number"  id="enrolled_participants" name="enrolled_participants" size="40" value="0"
+                                           style="text-align: center">
                                 </div>
                             </div>
                     </div>

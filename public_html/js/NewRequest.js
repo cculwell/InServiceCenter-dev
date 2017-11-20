@@ -72,16 +72,20 @@ $(document).ready(function() {
             type: "POST",
             url: url,
             data: form_data,
+            dataType: "json",
             success: function(data)
             {
                 if(data=="captcha failed"){
                     alert("Incorrect Captcha");
                     $('.realperson-challenge').trigger("click");
                 }
-                // alert("Request Successfully Submitted"); // show response from the php script.
-                $('#RequestForm').trigger("reset");
                 // $('#debug').html(data);
                 console.log("Ajax Success");
+                var test = JSON.stringify(data,null,'\t');
+                console.log(test);
+                alert("Your Request ID is " + test + " please save this for your record!!!");
+                // $('#RequestForm').trigger("reset");
+                location.reload();
             },
             error: function (data) {
                 alert("Error: Check all Fields and resubmit!");

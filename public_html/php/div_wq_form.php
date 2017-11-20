@@ -11,6 +11,9 @@ if ($mysqli->connect_errno) {
     printf("Connect failed: %s\n", $mysqli->connect_error);
     exit();
 }
+
+//echo "Today is " . date("m/d/Y") . "<br>";
+
 ?>
 
 <?PHP
@@ -33,10 +36,10 @@ if (isset($_POST['request_id'])) {
     $sql .= ", r.enrolled_participants ";
     $sql .= ", r.total_cost ";
     $sql .= ", r.eval_method ";
-    $sql .= ", r.stipd ";               // duplicated with stipd in workshops
+    $sql .= ", r.stipd ";
     $sql .= ", r.workshop ";
     $sql .= ", r.report_date ";
-    $sql .= ", r.request_title ";        //this may be duplicated
+    $sql .= ", r.request_title ";
     $sql .= ", r.folder_completed ";
     $sql .= ", r.director_name ";
     $sql .= ", r.board_approval ";
@@ -143,18 +146,18 @@ else
     $request_desc = null;
     $request_just = null;
     $request_location = null;
-    $target_participants = null;
-    $enrolled_participants = null;
-    $total_cost = null;
+    $target_participants = 0;
+    $enrolled_participants = 0;
+    $total_cost = 0;
     $eval_method = null;
     $stipd = null;
     $workshop = null;
-    $report_date = null;
+    $report_date = date("Y-m-d");
     $request_title = null;
     $folder_completed = null;
     $director_name = null;
     $board_approval = null;
-    $amt_sponsored = null;
+    $amt_sponsored = 0;
     $payment_type = null;
 
     // Books
@@ -162,7 +165,7 @@ else
     $book_title = null;
     $publisher = null;
     $isbn = null;
-    $cost_per_book = null;
+    $cost_per_book = 0;
     $study_format = null;
     $admin_signature = null;
 
@@ -171,7 +174,7 @@ else
     $program_nbr = null;
     $pd_title = null;
     $target_group = null;
-    $actual_participants = null;
+    $actual_participants = 0;
     $travel = null;
     $room_res_needed = null;
     $support_initiative = null;
@@ -322,15 +325,23 @@ else
                         dataType: "json",
                         success: function(data) {
                             console.log("success: save_request");
-                            console.log(data);
-
+//                            console.log(data);
+//                            console.debug(data);
+//                            var obj = JSON.parse(data);
+                            test = JSON.stringify(data,null,'\t');
+                            console.log(test);
+                            $("#request_id").val(data.request_id);
+                            $("#workshop").val(data.workshop_id);
+                            $("#book_id").val(data.book_id);
                         },
                         error: function(data) {
                             console.log("error: save_request");
                             console.log(data);
+
                         },
                         complete: function(data) {
                             console.log("complete: save_request");
+                            $("#div_wq_tables").load( 'php/div_wq_tables.php' );
                         }
                     });
 
@@ -351,8 +362,6 @@ else
 
         <input id="workshop_id" name="workshop_id" value="<?php echo $workshop_id;?>" hidden>
 
-
-
         <div class="col-xs-4 col-xs-pull-0">
             <label for="workshop">Workshop:</label>
             <input type="checkbox" id="workshop" name="workshop" size="10"
@@ -362,15 +371,51 @@ else
 
                 if($("#workshop").val() == 'Yes'){
                     $( "#workshop" ).prop( "checked", true );
+
+                    $("#program_nbr_fg").show();
+                    $("#pd_title_fg").show();
+                    $("#target_group_fg").show();
+                    $("#actual_participants_fg").show();
+                    $("#travel_fg").show();
+                    $("#room_res_fg").show();
+                    $("#curriculum_sec").show();
+                    $("#support_initiative_sec").show();
                 } else {
                     $( "#workshop" ).prop( "checked", false );
+
+                    $("#program_nbr_fg").hide();
+                    $("#pd_title_fg").hide();
+                    $("#target_group_fg").hide();
+                    $("#actual_participants_fg").hide();
+                    $("#travel_fg").hide();
+                    $("#room_res_fg").hide();
+                    $("#curriculum_sec").hide();
+                    $("#support_initiative_sec").hide();
                 }
 
                 $("#workshop").change(function(e) {
                     if (this.checked) {
                         $("#workshop").val('Yes');
+
+                        $("#program_nbr_fg").show();
+                        $("#pd_title_fg").show();
+                        $("#target_group_fg").show();
+                        $("#actual_participants_fg").show();
+                        $("#travel_fg").show();
+                        $("#room_res_fg").show();
+                        $("#curriculum_sec").show();
+                        $("#support_initiative_sec").show();
                     } else {
                         $("#workshop").val('No');
+
+                        $("#program_nbr_fg").hide();
+                        $("#pd_title_fg").hide();
+                        $("#target_group_fg").hide();
+                        $("#actual_participants_fg").hide();
+                        $("#travel_fg").hide();
+                        $("#room_res_fg").hide();
+                        $("#curriculum_sec").hide();
+                        $("#support_initiative_sec").hide();
                     }
                 });
 
@@ -452,7 +497,7 @@ else
                         e.preventDefault();
                         rt_val = $("#request_type").val();
                         if(rt_val == 'General') {
-                            console.log('General');
+//                            console.log('General');
                             $("#request_desc_row").show();
                             $("#book_title_row").hide();
                             $("#format_method_row").show();
@@ -460,7 +505,7 @@ else
                             $("#eval_method_sec").show();
                             $("#cost_per_book_div").hide();
                         } else {
-                            console.log('BookStudy');
+//                            console.log('BookStudy');
                             $("#request_desc_row").hide();
                             $("#book_title_row").show();
                             $("#format_method_row").show();
@@ -473,7 +518,7 @@ else
                     $(document).ready(function(){
                         rt_val = $("#request_type").val();
                         if(rt_val == 'General') {
-                            console.log('General');
+//                            console.log('General');
                             $("#request_desc_row").show();
                             $("#book_title_row").hide();
                             $("#format_method_row").show();
@@ -481,7 +526,7 @@ else
                             $("#eval_method_sec").show();
                             $("#cost_per_book_div").hide();
                         } else {
-                            console.log('BookStudy');
+//                            console.log('BookStudy');
                             $("#request_desc_row").hide();
                             $("#book_title_row").show();
                             $("#format_method_row").show();
@@ -497,7 +542,7 @@ else
         </div>
 
 
-        <div class="col-xs-4 col-xs-pull-1 form-group">
+        <div class="col-xs-4 col-xs-pull-1 form-group" id="support_initiative_sec">
             <label class="col-xs-8 control-label" for="support_initiative">Support Initiative:</label>
 
             <div class="col-xs-4 col-xs-pull-2" size="5">
@@ -528,13 +573,13 @@ else
 
     <div class="row col-xs-12 form-group pull-left" id="pd_title_row">
 
-        <div class="col-xs-8 col-xs-pull-1 form-group">
+        <div class="col-xs-8 col-xs-pull-1 form-group" id="pd_title_fg">
             <label for="pd_title">PD Title:</label>
             <input type="text"  id="pd_title" name="pd_title" style="width: 250px"
                     maxlength="100" value="<?php echo $pd_title;?>">
         </div>
 
-        <div class="col-xs-4 col-xs-pull-2 form-group">
+        <div class="col-xs-4 col-xs-pull-2 form-group" id="program_nbr_fg">
             <label for="program_nbr">Program #:</label>
             <input type="text" id="program_nbr" name="program_nbr" size="10"
                    value="<?php echo $program_nbr;?>"
@@ -616,7 +661,7 @@ else
                     <div class="col-xs-12">
                         <label class="col-md-push-12 pull-left">Need / Justification</label>
                         <textarea class="form-control col-md-6" style="width:100%" rows="3"
-                                  id="request_just" name="request_just"><?php echo $request_desc;?></textarea>
+                                  id="request_just" name="request_just"><?php echo $request_just;?></textarea>
                     </div>
                 </div>
 
@@ -698,7 +743,7 @@ else
                                maxlength="25" value="<?php echo $enrolled_participants;?>">
                     </div>
 
-                    <div class="form-group col-xs-4">
+                    <div class="form-group col-xs-4" id="actual_participants_fg">
                         <label for="total_cost">Actual #</label>
                         <input type="text"  id="actual_participants" name="actual_participants" size="20"
                                style="text-align: center"
@@ -710,7 +755,7 @@ else
                 <!-- curriculum -->
                 <div class="row input-group col-xs-12" id="curriculum_participants_row">
                     <div class="form-group col-xs-4" id="curriculum_sec">
-                        <label for="study_format">Curriculum:</label>
+                        <label for="curriculum">Curriculum:</label>
                         <select id="curriculum" name="curriculum">
                             <option <?php if($curriculum == '') echo"selected";?>  value="">--</option>
                             <option <?php if($curriculum == 'Biology') echo"selected";?>  value="Biology">Biology</option>
@@ -742,16 +787,16 @@ else
                         </script>
                     </div>
 
-                    <div class="form-group col-xs-4">
+                    <div class="form-group col-xs-4" id="target_group_fg">
                         <label for="target_group">Audience</label>
                         <input type="text"  id="target_group" name="target_group" maxlength="50" size="20"
                                style="text-align: center"
                                value="<?php echo $target_group;?>">
                     </div>
 
-                    <div class="form-group col-xs-4">
+                    <div class="form-group col-xs-4" id="travel_fg">
                         <label for="travel">Travel:</label>
-                        <select id="travel" name="curriculum">
+                        <select id="travel" name="travel">
                             <option <?php if($travel == '') echo"selected";?>  value="">--</option>
                             <option <?php if($travel == 'Yes') echo"selected";?>  value="Yes">Yes</option>
                             <option <?php if($travel == 'No') echo"selected";?>  value="No">No</option>
@@ -2275,12 +2320,12 @@ else
                            value="<?php echo $payment_type; ?>">
                 </div>
 
-                <div class="col-xs-4">
+                <div class="col-xs-4" id="room_res_fg">
                     <label for="room_res_needed">Rm Reservation:</label>
                     <select id="room_res_needed" name="room_res_needed" >
-                        <option <?php if($travel == '') echo"selected";?>  value="">--</option>
-                        <option <?php if($travel == 'Yes') echo"selected";?>  value="Yes">Yes</option>
-                        <option <?php if($travel == 'No') echo"selected";?>  value="No">No</option>
+                        <option <?php if($room_res_needed == '') echo"selected";?>  value="">--</option>
+                        <option <?php if($room_res_needed == 'Yes') echo"selected";?>  value="Yes">Yes</option>
+                        <option <?php if($room_res_needed == 'No') echo"selected";?>  value="No">No</option>
                     </select>
 
                     <script>
