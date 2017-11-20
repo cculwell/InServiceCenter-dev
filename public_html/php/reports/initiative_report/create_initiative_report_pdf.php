@@ -52,21 +52,108 @@
         }
     }
 
-    // First 3 indexes are blank to cover the other 3 row fields from the query
-    $initiatives = array('', '' , '', 'Biology', 'Chemistry', 'English/Language Arts', 'Technology', 'Career Tech',
-                        'Counseling', 'Climate and Culture', 'Effective Instruction', 'Fine Arts',
-                        'Foreign Language', 'Gifted', 'Interdisciplinary', 'Leadership', 
-                        'Library Media Services', 'Mathematics', 'NBCT', 'Physics', 'Physical Education',
-                        'Science', 'Social Studies', 'Special Education', 'Other');
-
-    $sql = "SELECT * 
-            FROM initiative_report_data 
-            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+    // First 2 indexes are blank to cover the other 2 row fields from the query
+    // Every 2nd and 3rd row is blank to cover the other counters in the query
+    $curriculums = array('', '' , 
+                         'Biology', '', '',
+                         'Chemistry', '', '',
+                         'English/Language Arts', '', '',
+                         'Technology', '', '',
+                         'Career Tech', '', '',
+                         'Counseling', '', '',
+                         'Climate and Culture', '', '',
+                         'Effective Instruction', '', '',
+                         'Fine Arts', '', '',
+                         'Foreign Language', '', '',
+                         'Gifted', '', '',
+                         'Interdisciplinary', '', '',
+                         'Leadership', '', '', 
+                         'Library Media Services', '', '',
+                         'Mathematics', '', '',
+                         'NBCT', '', '',
+                         'Physics', '', '',
+                         'Physical Education', '', '',
+                         'Science', '', '',
+                         'Social Studies', '', '',
+                         'Special Education', '', '',
+                         'Other', '', '');
 
     // Instanciation of inherited class
     $pdf = new PDF('P', 'mm', 'A4');
 
     $pdf->AliasNbPages();
+
+    $sql = "SELECT DISTINCT(i.support_initiative),
+                   SUM(i.total_programs),
+                   SUM(i.biology),
+                   SUM(i.biology_participants),
+                   SUM(i.biology_sessions),    
+                   SUM(i.chemistry),
+                   SUM(i.chemistry_participants),
+                   SUM(i.chemistry_sessions),      
+                   SUM(i.english_language_arts),
+                   SUM(i.english_language_arts_participants),
+                   SUM(i.english_language_arts_sessions),      
+                   SUM(i.technology),
+                   SUM(i.technology_participants),
+                   SUM(i.technology_sessions),         
+                   SUM(i.career_tech),
+                   SUM(i.career_tech_participants),
+                   SUM(i.career_tech_sessions),        
+                   SUM(i.counseling),
+                   SUM(i.counseling_participants),
+                   SUM(i.counseling_sessions),         
+                   SUM(i.climate_and_culture),
+                   SUM(i.climate_and_culture_participants),
+                   SUM(i.climate_and_culture_sessions),            
+                   SUM(i.effective_instruction),
+                   SUM(i.effective_instruction_participants),
+                   SUM(i.effective_instruction_sessions),      
+                   SUM(i.fine_arts),
+                   SUM(i.fine_arts_participants),
+                   SUM(i.fine_arts_sessions),      
+                   SUM(i.foreign_language),
+                   SUM(i.foreign_language_participants),
+                   SUM(i.foreign_language_sessions),           
+                   SUM(i.gifted),
+                   SUM(i.gifted_participants),
+                   SUM(i.gifted_sessions),         
+                   SUM(i.interdisciplinary),
+                   SUM(i.interdisciplinary_participants),
+                   SUM(i.interdisciplinary_sessions),              
+                   SUM(i.leadership),
+                   SUM(i.leadership_participants),
+                   SUM(i.leadership_sessions),         
+                   SUM(i.library_media_services),
+                   SUM(i.library_media_services_participants),
+                   SUM(i.library_media_services_sessions),         
+                   SUM(i.mathematics),
+                   SUM(i.mathematics_participants),
+                   SUM(i.mathematics_sessions),            
+                   SUM(i.nbct),
+                   SUM(i.nbct_participants),
+                   SUM(i.nbct_sessions),       
+                   SUM(i.physics),
+                   SUM(i.physics_participants),
+                   SUM(i.physics_sessions),        
+                   SUM(i.physical_education),
+                   SUM(i.physical_education_participants),
+                   SUM(i.physical_education_sessions),     
+                   SUM(i.science),
+                   SUM(i.science_participants),
+                   SUM(i.science_sessions),            
+                   SUM(i.social_studies),
+                   SUM(i.social_studies_participants),
+                   SUM(i.social_studies_sessions),     
+                   SUM(i.special_education),
+                   SUM(i.special_education_participants),
+                   SUM(i.special_education_sessions),      
+                   SUM(i.other),
+                   SUM(i.other_participants),
+                   SUM(i.other_sessions) 
+            FROM initiative_report_data i
+            WHERE i.report_date BETWEEN '$report_from' AND '$report_to'
+            GROUP BY i.support_initiative";
 
     if ($result = mysqli_query($mysqli, $sql))
     {
@@ -81,28 +168,78 @@
 
             $pdf->SetFont('Times', 'B', 12);
             $pdf->Cell(30, 10, "Initiative", 'B', 0);
-            $pdf->Cell(0, 10, "     Programs Per Curriculum Area", 'B', 0);
+            $pdf->Cell(0, 10, "Curriculum Area", 'B', 0);
             $pdf->Ln(20);
             
             // Write the initiative
-            $initiative = $row[2] . ":";
             $pdf->SetFont('Times', 'BI', 13);
-            $pdf->Cell(30, 10, $initiative, 0, 0, 'L');
-            $pdf->Ln(6);
+            $pdf->Cell(20, 10, $row[0] . ":", 0, 0, 'L');
+            $pdf->Ln(10);
 
-            $max = sizeof($row) - 1;
-            for($i = 3; $i < $max; $i++)
+            $max = sizeof($row);
+            for ($i = 2; $i < $max; $i += 3)
             {
-                // Write the curriculum area and total programs for that area
-                $area = $initiatives[$i] . ":   ";
-                $pdf->SetFont('Times', '', 11);
-                $pdf->Cell(35, 10, "", 0, 0);
-                $pdf->Cell(50, 10, $area, 0, 0, 'L');
-                $pdf->Cell(30, 10, $row[$i], 0, 0, 'L');
-                $pdf->Ln(5);
+                // // Only list curriculums that have 1 or more programs
+                if ($row[$i] > 0)
+                {
+                    // Write the curriculum area and total programs for that area
+                    $pdf->Cell(30, 10, "", 0, 0);
+                    $pdf->SetFont('Times', 'B', 12);
+                    $pdf->Cell(40, 10, $curriculums[$i]. ":", 0, 0, 'L');
+                    $pdf->Ln(8);
+                    $pdf->Cell(40, 10, "", 0, 0);
+                    $pdf->SetFont('Times', 'B', 11);
+                    $pdf->Cell(30, 10, "Total Programs:   ", 0, 0, 'L');
+                    $pdf->SetFont('Times', '', 11);
+                    $pdf->Cell(10, 10, $row[$i], 0, 0, 'L');
+                    $pdf->SetFont('Times', 'B', 11);
+                    $pdf->Cell(35, 10, 'Total Participants' . ":   ", 0, 0, 'L');
+                    $pdf->SetFont('Times', '', 11);
+                    $pdf->Cell(10, 10, $row[$i + 1], 0, 0, 'L');
+                    $pdf->SetFont('Times', 'B', 11);
+                    $pdf->Cell(30, 10, 'Total Sessions' . ":   ", 0, 0, 'L');
+                    $pdf->SetFont('Times', '', 11);
+                    $pdf->Cell(10, 10, $row[$i + 2], 0, 0, 'L');
+                    $pdf->Ln(8);
+                }
             }
+            $pdf->Ln(5);
         }
     }
 
+    // Put totals on a seperate page
+    $pdf->AddPage();
+
+    $pdf->SetFont('Times', 'I', 11);
+    $pdf->Cell(80);
+    $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+    $pdf->Ln(20);
+
+    $pdf->Ln(10);
+    $pdf->SetFont('Times', 'BU', 13);
+    $pdf->Cell(50, 10, "", 0, 0);
+    $pdf->Cell(90, 10, "Total Programs Per Initiative", "LTR", 0, "C");
+    $pdf->Ln(10);
+
+    $sql = "SELECT DISTINCT(i.support_initiative), SUM(i.total_programs) 
+            FROM initiative_report_data i
+            WHERE i.report_date BETWEEN '$report_from' AND '$report_to'
+            GROUP BY i.support_initiative";
+
+    if ($result = mysqli_query($mysqli, $sql))
+    {
+        while ($row = mysqli_fetch_row($result))
+        {
+            //Write the total number of programs per initiative
+            $pdf->SetFont('Times', 'B', 13);
+            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->Cell(40, 10, $row[0] . ":", "L", 0, "R");
+            $pdf->Cell(50, 10, $row[1], "R", 0, "C");
+            $pdf->Ln(8);
+        }
+    }
+
+    $pdf->Cell(50, 10, "", 0, 0);
+    $pdf->Cell(90, 10, '', "LBR", 0, 0);
     $pdf->Output();
 ?>

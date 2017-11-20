@@ -124,89 +124,103 @@
             $pdf->Ln(8);
 
             // Write dates of the program
+            $date_range = $row[5] . " to " . $row[6];
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Date: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $dates = "     Date: " . $row[5] . " to " . $row[6];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $dates, 0, 0);
+            $pdf->Cell(30, 10, $date_range, 0, 0, 'L');
+
             $pdf->Ln(5);
 
             // Write times of the program
-            $times = "     Times: " . $row[7] . " to " . $row[8];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $times, 0, 0);
+            $time_range = $row[7] . " to " . $row[8];
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Times: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $time_range, 0, 0, 'L');
             $pdf->Ln(5);
 
             // Write number of sessions for the program
-            $sessions = "     Number of Sessions: " . $row[9];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $sessions, 0, 0);
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Number of Sessions: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[9], 0, 0, 'L');
             $pdf->Ln(5);
 
             // Write location of the program
-            $location = "     Location: " . $row[10];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $location, 0, 0);
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Location: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[10], 0, 0, 'L');
             $pdf->Ln(5);
 
-            // Write who is providing support
-            $initiative = "     Initiative: " . $row[11];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $initiative, 0, 0);
+            // Write the initiative providing support
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Initiative: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[11], 0, 0, 'L');
             $pdf->Ln(5);
 
             // Write the target audience
-            $target_audience = "     Target Audience: " . $row[12];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $target_audience, 0, 0);
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Target Audience: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[12], 0, 0, 'L');
             $pdf->Ln(5);
 
-            // Write enrollment numbers for the program
+            // Write current enrollment
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Current Enrollment: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $enrollment = "     Current Enrollment: " . $row[17] 
-                          . "   " . "Maximum Enrollment: " . $row[18];
-            $pdf->Cell(30, 10, "", 0, 0);
-            $pdf->Cell(30, 10, $enrollment, 0, 0);
+            $pdf->Cell(30, 10, $row[14], 0, 0, 'L');
             $pdf->Ln(5);
 
-            // Write School System
-            $pdf->SetFont('Times', 'B', 10);
+            // Write max enrollment
             $pdf->Cell(40, 10, "", 0, 0);
-            $pdf->Cell(30, 10, "School System:", 0, 0);
-            $pdf->Ln(7);
-            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Maximum Enrollment: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(0, 5, $row[13], 0);
-            $pdf->Ln(3);
+            $pdf->Cell(30, 10, $row[15], 0, 0, 'L');
+            $pdf->Ln(5);
 
-            // Write School System
-            $pdf->SetFont('Times', 'B', 10);
+            // Write school system
             $pdf->Cell(40, 10, "", 0, 0);
-            $pdf->Cell(30, 10, "School:", 0, 0);
-            $pdf->Ln(7);
-            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "School System: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(0, 5, $row[14], 0);
-            $pdf->Ln(3);
+            $pdf->Cell(30, 10, $row[13], 0, 0, 'L');
+            $pdf->Ln(5);
 
-            // Write Curriculum Area
-            $pdf->SetFont('Times', 'B', 10);
+            // Write school name
             $pdf->Cell(40, 10, "", 0, 0);
-            $pdf->Cell(30, 10, "Curriculum Area:", 0, 0);
-            $pdf->Ln(7);
-            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "School: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(0, 5, $row[15], 0);
-            $pdf->Ln(3);
+            $pdf->Cell(30, 10, $row[14], 0, 0, 'L');
+            $pdf->Ln(5);
 
-            // Write Consultant Name
-            $pdf->SetFont('Times', 'B', 10);
+            // Write curriculum area
             $pdf->Cell(40, 10, "", 0, 0);
-            $pdf->Cell(30, 10, "Consultant:", 0, 0);
-            $pdf->Ln(7);
-            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Curriculum Area: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(0, 5, $row[16], 0);
-            $pdf->Ln(20);
+            $pdf->Cell(30, 10, $row[15], 0, 0, 'L');
+            $pdf->Ln(5);
+
+           // Write consultant name
+            $pdf->Cell(40, 10, "", 0, 0);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(40, 10, "Consultant: ", 0, 0);
+            $pdf->SetFont('Times', '', 10);
+            $pdf->Cell(30, 10, $row[16], 0, 0, 'L');
+            $pdf->Ln(15);
 
             $count++;
         }

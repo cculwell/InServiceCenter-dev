@@ -55,6 +55,7 @@
                 <thead>
                     <tr>
                         <th class="program_id">Program ID</th>
+                        <th class="sti_pd">STI PD</th>
                         <th class="program_title">Program Title</th>
                         <th class="start_date">Start Date</th>
                         <th class="end_date">End Date</th>
@@ -64,6 +65,7 @@
                         <th class="initiative">Support Provided By</th>
                         <th class="current_enrollment">Current Enrollment</th>
                         <th class="max_enrollment">Maximum Enrollment</th>
+                        <th class="status">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,15 +82,17 @@
                                 echo
                                     "<tr>"
                                     ."<td>". $row[2]  ."</td>"     // Program ID
+                                    ."<td>". $row[3]  ."</td>"     // STI PD
                                     ."<td>". $row[4]  ."</td>"     // Program Title
                                     ."<td>". $row[5]  ."</td>"     // Start Date
-                                    ."<td>". $row[7]  ."</td>"     // End Date
-                                    ."<td>". $row[6]  ."</td>"     // Start Time
+                                    ."<td>". $row[6]  ."</td>"     // End Date
+                                    ."<td>". $row[7]  ."</td>"     // Start Time
                                     ."<td>". $row[8]  ."</td>"     // End Time
                                     ."<td>". $row[9]  ."</td>"     // Location
-                                    ."<td>". $row[14] ."</td>"     // Support Provided By
-                                    ."<td>". $row[12]  ."</td>"    // Current Enrollment
-                                    ."<td>". $row[11]  ."</td>"    // Max Enrollment
+                                    ."<td>". $row[10] ."</td>"     // Support Provided By
+                                    ."<td>". $row[11]  ."</td>"    // Current Enrollment
+                                    ."<td>". $row[12]  ."</td>"    // Max Enrollment
+                                    ."<td>". $row[13]  ."</td>"    // Status
                                     ."</tr>";
                             }
                         }
@@ -97,6 +101,7 @@
                 <tfoot>
                     <tr>
                         <th class="program_id">Program ID</th>
+                        <th class="sti_pd">STI PD</th>
                         <th class="program_title">Program Title</th>
                         <th class="start_date">Start Date</th>
                         <th class="end_date">End Date</th>
@@ -106,6 +111,7 @@
                         <th class="initiative">Support Provided By</th>
                         <th class="current_enrollment">Current Enrollment</th>
                         <th class="max_enrollment">Maximum Enrollment</th>
+                        <th class="status">Status</th>
                     </tr>
                 </tfoot>
             </table>

@@ -51,57 +51,8 @@
         }
     }
 
-    // dictionary of curriculums and total offerings per initiative
-    $curriculums = array();
-    $curriculums['Biology'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                    'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Chemistry'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                      'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['English/Language Arts'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                                  'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Technology'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                       'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Career Tech'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                        'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Counseling'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                       'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Climate and Culture'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                                'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0 'Total' = > 0);
-    $curriculums['Effective Instruction'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                                  'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Fine Arts'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                      'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Foreign Language'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                             'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Gifted'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                   'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Interdisciplinary'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                              'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Leadership'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                       'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Library Media Services'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                                   'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Mathematics'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0, 
-                                        'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['NBCT'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                 'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Physics'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                    'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Physical Education'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                               'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Science'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                    'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Social Studies'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                           'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Special Education'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                              'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    $curriculums['Other'] = array('AMSTI' => 0, 'ASIM' => 0, 'TIM' => 0,
-                                  'Inservice' => 0, 'ALSDE' => 0, 'LEA' => 0, 'Total' = > 0);
-    ksort($curriculums);
-
-    $sql = "SELECT * 
-            FROM curriculum_report_data 
-            WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+    // List of initiatives
+    $initiatives = array('', 'AMSTI', 'ASIM', 'TIM', 'Inservice', 'ALSDE', 'LEA');
 
     // Instanciation of inherited class
     $pdf = new PDF('P', 'mm', 'A4');
@@ -115,108 +66,104 @@
     $pdf->Ln(20);
 
     $pdf->SetFont('Times', 'B', 12);
-    $pdf->Cell(60, 10, "Curriculum Area", 'B', 0);
+    $pdf->Cell(65, 10, "Curriculum/Initiative", 'B', 0);
     $pdf->Cell(0, 10, "Offerings Per Initiative", 'B', 0);
     $pdf->Ln(10);
+
+    $sql = "SELECT DISTINCT(c.curriculum), 
+                   SUM(c.amsti), 
+                   SUM(c.asim), 
+                   SUM(c.tim), 
+                   SUM(c.inservice), 
+                   SUM(c.alsde), 
+                   SUM(c.lea) 
+            FROM curriculum_report_data c
+            WHERE c.report_date BETWEEN '$report_from' AND '$report_to'
+            GROUP BY c.curriculum";
+
+    $count = 0;
 
     // Update dictionary of curriculums with the correct counts per initiative
     if ($result = mysqli_query($mysqli, $sql))
     {
         while ($row = mysqli_fetch_row($result))
         {
-            $curriculum_area = $row[2];
+            // Create page break that doesn't cut off a group
+            if($count == 5)
+            {
+                $pdf->AddPage();
 
-            $curriculums[$curriculum_area]['AMSTI'] = $row[3];
-            $curriculums[$curriculum_area]['ASIM'] = $row[4];
-            $curriculums[$curriculum_area]['TIM'] = $row[5];
-            $curriculums[$curriculum_area]['Inservice'] = $row[6];
-            $curriculums[$curriculum_area]['ALSDE'] = $row[7];
-            $curriculums[$curriculum_area]['LEA'] = $row[8];
-            $curriculums[$curriculum_area]['Total'] = $row[9];
-        }
-    }
+                $pdf->SetFont('Times', 'I', 11);
+                $pdf->Cell(80);
+                $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+                $pdf->Ln(20);
 
-    $count = 0;
+                $pdf->SetFont('Times', 'B', 12);
+                $pdf->Cell(60, 10, "Curriculum Area", 'B', 0);
+                $pdf->Cell(0, 10, "Offerings Per Initiative", 'B', 0);
+                $pdf->Ln(10);
 
-    //Create the report
-    foreach ($curriculums as $curriculum => $initiatives)
-    {
-        // Create page break that doesn't cut off a group
-        if($count == 5)
-        {
-            $pdf->AddPage();
+                $count = 0;
+            }
 
-            $pdf->SetFont('Times', 'I', 11);
-            $pdf->Cell(80);
-            $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
-            $pdf->Ln(20);
-
+            // Write curriculum area
             $pdf->SetFont('Times', 'B', 12);
-            $pdf->Cell(60, 10, "Curriculum Area", 'B', 0);
-            $pdf->Cell(0, 10, "Offerings Per Initiative", 'B', 0);
+            $pdf->Cell(30, 10, $row[0] . ":", 0, 0, 'L');
+            $pdf->Ln(7);
+
+            $max = sizeof($row);
+            for ($i = 1; $i < $max; $i++)
+            {
+                // Only list initiatives that have 1 or more programs
+                if ($row[$i] > 0)
+                {
+                    $pdf->Cell(35, 10, "", 0, 0);
+                    $pdf->SetFont('Times', 'B', 11);
+                    $pdf->Cell(50, 10, $initiatives[$i], 0, 0, 'L');
+                    $pdf->SetFont('Times', '', 11);
+                    $pdf->Cell(30, 10, $row[$i], 0, 0, 'L');
+                    $pdf->Ln(5);
+                }
+            }
             $pdf->Ln(10);
-
-            $count = 0;
-        }
-
-        // Write curriculum area
-        $pdf->SetFont('Times', 'B', 12);
-        $pdf->Cell(30, 10, $curriculum . ":", 0, 0, 'L');
-        $pdf->Ln(7);
-
-        // Write the AMSTI count
-        $pdf->SetFont('Times', '', 11);
-        $pdf->Cell(35, 10, "", 0, 0);
-        $pdf->Cell(50, 10, "AMSTI:   ", 0, 0, 'L');
-        $pdf->Cell(30, 10, $initiatives['AMSTI'], 0, 0, 'L');
-        $pdf->Ln(5);
-
-        // Write the ASIM count
-        $pdf->SetFont('Times', '', 11);
-        $pdf->Cell(35, 10, "", 0, 0);
-        $pdf->Cell(50, 10, "ASIM:   ", 0, 0, 'L');
-        $pdf->Cell(30, 10, $initiatives['ASIM'], 0, 0, 'L');
-        $pdf->Ln(5);
-
-        // Write the TIM count
-        $pdf->SetFont('Times', '', 11);
-        $pdf->Cell(35, 10, "", 0, 0);
-        $pdf->Cell(50, 10, "TIM:   ", 0, 0, 'L');
-        $pdf->Cell(30, 10, $initiatives['TIM'], 0, 0, 'L');
-        $pdf->Ln(5);
-
-        // Write the Inservice count
-        $pdf->SetFont('Times', '', 11);
-        $pdf->Cell(35, 10, "", 0, 0);
-        $pdf->Cell(50, 10, "Inservice:   ", 0, 0, 'L');
-        $pdf->Cell(30, 10, $initiatives['Inservice'], 0, 0, 'L');
-        $pdf->Ln(5);
-
-        // Write the ALSDE count
-        $pdf->SetFont('Times', '', 11);
-        $pdf->Cell(35, 10, "", 0, 0);
-        $pdf->Cell(50, 10, "ALSDE:   ", 0, 0, 'L');
-        $pdf->Cell(30, 10, $initiatives['ALSDE'], 0, 0, 'L');
-        $pdf->Ln(5);
-
-        // Write the LEA count
-        $pdf->SetFont('Times', '', 11);
-        $pdf->Cell(35, 10, "", 0, 0);
-        $pdf->Cell(50, 10, "LEA:   ", 0, 0, 'L');
-        $pdf->Cell(30, 10, $initiatives['LEA'], 0, 0, 'L');
-        $pdf->Ln(8);
-
-        // Write the LEA count
-        $pdf->SetFont('Times', 'B', 11);
-        $pdf->Cell(35, 10, "", 0, 0);
-        $pdf->Cell(50, 10, "Total Offerings:   ", 0, 0, 'L');
-        $pdf->SetFont('Times', '', 11);
-        $pdf->Cell(30, 10,  $initiatives['Total'], 0, 0, 'L');
-
-        $pdf->Ln(10);
-
-        $count++;
+            $count++;
+         }
     }
 
+    // Put totals on a seperate page
+    $pdf->AddPage();
+
+    $pdf->SetFont('Times', 'I', 11);
+    $pdf->Cell(80);
+    $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+    $pdf->Ln(20);
+
+    $pdf->Ln(10);
+    $pdf->SetFont('Times', 'BU', 13);
+    $pdf->Cell(50, 10, "", 0, 0);
+    $pdf->Cell(90, 10, "Total Programs Per Curriculum", "LTR", 0, "C");
+    $pdf->Ln(10);
+
+    $sql = "SELECT DISTINCT(c.curriculum), 
+                   SUM(c.amsti + c.asim + c.tim + c.inservice + c.alsde + c.lea)
+            FROM curriculum_report_data c
+            WHERE c.report_date BETWEEN '$report_from' AND '$report_to'
+            GROUP BY c.curriculum";
+
+    if ($result = mysqli_query($mysqli, $sql))
+    {
+        while ($row = mysqli_fetch_row($result))
+        {
+            //Write the total number of programs per curriculum
+            $pdf->SetFont('Times', 'B', 13);
+            $pdf->Cell(50, 10, "", 0, 0);
+            $pdf->Cell(40, 10, $row[0] . ":", "L", 0, "R");
+            $pdf->Cell(50, 10, $row[1], "R", 0, "C");
+            $pdf->Ln(8);
+        }
+    }
+
+    $pdf->Cell(50, 10, "", 0, 0);
+    $pdf->Cell(90, 10, '', "LBR", 0, 0);
     $pdf->Output();
 ?>

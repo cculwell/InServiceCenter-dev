@@ -190,6 +190,7 @@
             $pdf->Cell(30, 10, $row[15], 0, 0, 'L');
             $pdf->Ln(5);
 
+            // Write the school system
             $pdf->Cell(40, 10, "", 0, 0);
             $pdf->SetFont('Times', 'B', 10);
             $pdf->Cell(40, 10, "School System: ", 0, 0);

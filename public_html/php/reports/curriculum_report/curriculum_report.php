@@ -66,17 +66,16 @@
                 <tbody>
                     <?php
 
-                        $curriculums = array('Biology', 'Chemistry', 'English/Language Arts', 'Technology', 
-                                             'Career Tech', 'Counseling', 'Climate and Culture', 'Effective Instruction', 
-                                             'Fine Arts', 'Foreign Language', 'Gifted', 'Interdisciplinary', 'Leadership', 
-                                             'Library Media Services', 'Mathematics', 'NBCT', 'Physics', 
-                                             'Physical Education', 'Science', 'Social Studies', 'Special Education', 
-                                             'Other');
-
-
-                        $sql = "SELECT * 
-                                FROM curriculum_report_data 
-                                WHERE report_date BETWEEN '$from_date' AND '$to_date'";
+                        $sql = "SELECT DISTINCT(c.curriculum),
+                                       SUM(c.amsti), 
+                                       SUM(c.asim), 
+                                       SUM(c.tim), 
+                                       SUM(c.inservice), 
+                                       SUM(c.alsde), 
+                                       SUM(c.lea) 
+                                FROM curriculum_report_data c 
+                                WHERE c.report_date BETWEEN '$from_date' AND '$to_date'
+                                GROUP BY c.curriculum";
 
                         if ($result = mysqli_query($mysqli, $sql))
                         {
@@ -84,36 +83,15 @@
                             {
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[2]  ."</td>"       // Curriculum
-                                    ."<td>". $row[3]  ."</td>"       // AMSTI
-                                    ."<td>". $row[4]  ."</td>"       // ASIM
-                                    ."<td>". $row[5]  ."</td>"       // TIM
-                                    ."<td>". $row[6]  ."</td>"       // Inservice
-                                    ."<td>". $row[7]  ."</td>"       // ALSDE
-                                    ."<td>". $row[8]  ."</td>"       // LEA
+                                    ."<td>". $row[0]  ."</td>"       // Curriculum
+                                    ."<td>". $row[1]  ."</td>"       // AMSTI
+                                    ."<td>". $row[2]  ."</td>"       // ASIM
+                                    ."<td>". $row[3]  ."</td>"       // TIM
+                                    ."<td>". $row[4]  ."</td>"       // Inservice
+                                    ."<td>". $row[5]  ."</td>"       // ALSDE
+                                    ."<td>". $row[6]  ."</td>"       // LEA
                                     ."</tr>";
-
-                                // Remove the curriculum from the array to indicate we 
-                                // already have it
-                                $pos = array_search($row[2], $curriculums);
-                                array_splice($curriculums, $pos, 1);
                             }
-                        }
-
-                        // Add missing curriculums to the table
-                        $max = sizeof($curriculums);
-                        for($i = 0; $i < $max; $i++)
-                        {
-                            echo
-                                "<tr>"
-                                ."<td>". $curriculums[$i]  ."</td>"   // Curriculum
-                                ."<td>0</td>"                         // AMSTI
-                                ."<td>0</td>"                         // ASIM
-                                ."<td>0</td>"                         // TIM
-                                ."<td>0</td>"                         // Inservice
-                                ."<td>0</td>"                         // ALSDE
-                                ."<td>0</td>"                         // LEA
-                                ."</tr>";
                         }
                     ?>
                 </tbody>
