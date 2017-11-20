@@ -2,9 +2,30 @@ $(document).ready(function() {
     var from = document.getElementById("from_date").value;
     var to = document.getElementById("to_date").value;    
 
-    $('#detailed_report_table').DataTable( {
-        dom:            'Bfrtip',
-        scrollX:        true,
+    $('#detailed_report_table').removeAttr('width').DataTable( {
+        dom: 'Bfrtip',
+        scrollX: true,
+        autoWith: false,
+        columnDefs: [
+            { "width": 70, "targets": 0},
+            { "width": 70, "targets": 1},
+            { "width": 200, "targets": 2},
+            { "width": 70, "targets": 3},
+            { "width": 70, "targets": 4},
+            { "width": 70, "targets": 5},
+            { "width": 70, "targets": 6},
+            { "width": 70, "targets": 7},
+            { "width": 200, "targets": 8},
+            { "width": 70, "targets": 9},
+            { "width": 150, "targets": 10},
+            { "width": 100, "targets": 11},
+            { "width": 100, "targets": 12},
+            { "width": 100, "targets": 13},
+            { "width": 150, "targets": 14},
+            { "width": 70, "targets": 15},
+            { "width": 70, "targets": 16},
+            { "width": 50, "targets": 17}
+        ],
         buttons: {
             buttons: [
                 {

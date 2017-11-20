@@ -22,199 +22,53 @@
 
 div.dataTables_wrapper #detailed_report_table
 {
-    width: 2000px;
+    width: 1750px;
     margin: 0 auto;
 }
 
-
 div.dataTables_wrapper #quick_report_table
 {
-    width: 1500px;
+    width: 960px;
     margin: 0 auto;
 }
 
 div.dataTables_wrapper #financial_report_table
 {
-    width: 1500px;
+    width: 1540px;
     margin: 0 auto;
 }
 
 div.dataTables_wrapper #curriculum_report_table
 {
-    width: 1290px;
-    margin: 0 auto;
-}
-
-div.dataTables_wrapper #school_and_system_report_table
-{
-    width: 1400px;
+    width: 1050px;
     margin: 0 auto;
 }
 
 div.dataTables_wrapper #initiative_report_table
 {
-    width: 2500px;
+    width: 6800px;
     margin: 0 auto;
 }
 
-.caret.caret-up 
+div.dataTables_wrapper #school_and_system_report_table
 {
-    border-top-width: 0;
-    border-bottom: 4px solid #fff;
+    width: 1100px;
+    margin: 0 auto;
 }
 
-/*#curriculum_report_table
-{
-    width: 1300vw;
-}
-
-#school_and_system_report_table
-{
-    width: 710px;
-}
-
-#quick_report_table
-{
-    width: 960px;
-}
-
-#detailed_report_table
-{
-    width: 1500px;
-}
-
-#financial_report_table
-{
-    width: 1540px;
-}*/
-
-table.dataTable thead tfoot tr th
-{
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-all;
-  word-break: break-word;
-  hyphens: auto;
-  text-align: center;
-}
-
-td,
-th
-{
+th, 
+td 
+{ 
+    white-space: nowrap; 
     text-align: center;
 }
 
-/*.program_id
+div.dataTables_wrapper 
 {
-    width: 70px;
+    margin: 0 auto;
 }
-
-.program_title
+ 
+div.container 
 {
-    width: 200px;
+    width: 100%;
 }
-
-.start_date
-{
-    width: 70px;   
-}
-
-.end_date
-{
-    width: 70px;
-}
-
-.start_time
-{
-    width: 70px;
-}
-
-.end_time
-{
-    width: 70px;
-}
-
-.num_sessions
-{
-    width: 70px;
-}
-
-.location
-{
-    width: 200px; 
-}
-
-.initiative
-{
-    width: 70px;
-}
-
-.target_audience
-{
-    width: 150px;
-}
-
-.current_enrollment
-{
-    width: 70px;
-}
-
-.max_enrollment
-{
-    width: 70px;
-}
-
-.curriculum
-{
-    width: 100px;
-}*/
-
-.curriculum_report_item
-{
-    width: 150px;
-}
-
-/*.consultatnt_name
-{
-    width: 150px;
-}
-
-.system_name
-{
-    width: 100px;
-}
-
-.offerings_per_system
-{
-    width: 70px;
-}
-
-.total_spent_per_system
-{
-    width: 70px;
-}
-
-.consultant_fee
-{
-    width: 70px
-}
-
-.misc_fees
-{
-    width: 70px;
-}
-
-.sti_pd
-{
-    width: 70px;
-}
-
-.school
-{
-    width: 100px;
-}
-
-.status
-{
-    width: 50px;
-}*/

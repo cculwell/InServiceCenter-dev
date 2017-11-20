@@ -54,18 +54,18 @@
             <table id="quick_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="program_id">Program ID</th>
-                        <th class="sti_pd">STI PD</th>
-                        <th class="program_title">Program Title</th>
-                        <th class="start_date">Start Date</th>
-                        <th class="end_date">End Date</th>
-                        <th class="start_time">Start Time</th>
-                        <th class="end_time">End Time</th>
-                        <th class="location">Location</th>
-                        <th class="initiative">Support Provided By</th>
-                        <th class="current_enrollment">Current Enrollment</th>
-                        <th class="max_enrollment">Maximum Enrollment</th>
-                        <th class="status">Status</th>
+                        <th>Program ID</th>
+                        <th>STI PD</th>
+                        <th>Program Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Location</th>
+                        <th>Support Provided By</th>
+                        <th>Current Enrollment</th>
+                        <th>Maximum Enrollment</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,18 +100,18 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th class="program_id">Program ID</th>
-                        <th class="sti_pd">STI PD</th>
-                        <th class="program_title">Program Title</th>
-                        <th class="start_date">Start Date</th>
-                        <th class="end_date">End Date</th>
-                        <th class="start_time">Start Time</th>
-                        <th class="end_time">End Time</th>
-                        <th class="location">Location</th>
-                        <th class="initiative">Support Provided By</th>
-                        <th class="current_enrollment">Current Enrollment</th>
-                        <th class="max_enrollment">Maximum Enrollment</th>
-                        <th class="status">Status</th>
+                        <th>Program ID</th>
+                        <th>STI PD</th>
+                        <th>Program Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Location</th>
+                        <th>Support Provided By</th>
+                        <th>Current Enrollment</th>
+                        <th>Maximum Enrollment</th>
+                        <th>Status</th>
                     </tr>
                 </tfoot>
             </table>

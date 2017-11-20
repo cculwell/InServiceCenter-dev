@@ -174,7 +174,7 @@
             // Write the initiative
             $pdf->SetFont('Times', 'BI', 13);
             $pdf->Cell(20, 10, $row[0] . ":", 0, 0, 'L');
-            $pdf->Ln(10);
+            $pdf->Ln(8);
 
             $max = sizeof($row);
             for ($i = 2; $i < $max; $i += 3)

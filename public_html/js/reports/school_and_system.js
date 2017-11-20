@@ -2,10 +2,18 @@ $(document).ready(function() {
     var from = document.getElementById("from_date").value;
     var to = document.getElementById("to_date").value;
 
-    $('#school_and_system_report_table').DataTable( {
-        dom:            'Bfrtip',
-        scrollX:        true,
-        autoWidth:      false,
+    $('#school_and_system_report_table').removeAttr('width').DataTable( {
+        dom: 'Bfrtip',
+        scrollX: true,
+        autoWith: false,
+        columnDefs: [
+            { "width": 200, "targets": 0},
+            { "width": 200, "targets": 1},
+            { "width": 200, "targets": 2},
+            { "width": 200, "targets": 3},
+            { "width": 150, "targets": 4},
+            { "width": 150, "targets": 5},
+        ],
         buttons: {
             buttons: [
                 {

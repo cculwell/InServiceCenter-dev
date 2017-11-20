@@ -54,22 +54,23 @@
             <table id="financial_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="program_id">Program ID</th>
-                        <th class="sti_pd">STI PD</th>
-                        <th class="program_title">Program Title</th>
-                        <th class="start_date">Start Date</th>
-                        <th class="end_date">End Date</th>
-                        <th class="start_time">Start Time</th>
-                        <th class="end_time">End Time</th>
-                        <th class="num_sessions">Number of Sessions</th>
-                        <th class="location">Location</th>
-                        <th class="initiative">Initiative</th>
-                        <th class="target_audience">Target Audience</th>
-                        <th class="system_name">School System</th>
-                        <th class="current_enrollment">Current Enrollment</th>
-                        <th class="max_enrollment">Target Enrollment</th>
-                        <th class="total_expenses">Total Expenses</th>
-                        <th class="status">Status</th>
+                        <th>Program ID</th>
+                        <th>STI PD</th>
+                        <th>Program Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Sessions</th>
+                        <th>Location</th>
+                        <th>Initiative</th>
+                        <th>Target Audience</th>
+                        <th>School System</th>
+                        <th>Current Enrollment</th>
+                        <th>Maximum Enrollment</th>
+                        <th>Target Enrollment</th>
+                        <th>Total Expenses</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,7 +101,8 @@
                                     ."<td>". $row[12] ."</td>"                  // Target Audience
                                     ."<td>". $row[13] ."</td>"                  // School System
                                     ."<td>". $row[14] ."</td>"                  // Current Enrollment
-                                    ."<td>". $row[15] ."</td>";                 // Max Enrollment     
+                                    ."<td>". $row[15] ."</td>"                  // Maximum Enrollment
+                                    ."<td>". $row[16] ."</td>";                 // Max Enrollment     
 
                                 if ($row[16] == NULL)
                                 {
@@ -120,27 +122,28 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th class="program_id">Program ID</th>
-                        <th class="sti_pd">STI PD</th>
-                        <th class="program_title">Program Title</th>
-                        <th class="start_date">Start Date</th>
-                        <th class="end_date">End Date</th>
-                        <th class="start_time">Start Time</th>
-                        <th class="end_time">End Time</th>
-                        <th class="num_sessions">Number of Sessions</th>
-                        <th class="location">Location</th>
-                        <th class="initiative">Initiative</th>
-                        <th class="target_audience">Target Audience</th>
-                        <th class="system_name">School System</th>
-                        <th class="current_enrollment">Current Enrollment</th>
-                        <th class="max_enrollment">Target Enrollment</th>
-                        <th class="total_expenses">Total Expenses</th>
-                        <th class="status">Status</th>
+                        <th>Program ID</th>
+                        <th>STI PD</th>
+                        <th>Program Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Sessions</th>
+                        <th>Location</th>
+                        <th>Initiative</th>
+                        <th>Target Audience</th>
+                        <th>School System</th>
+                        <th>Current Enrollment</th>
+                        <th>Maximum Enrollment</th>
+                        <th>Target Enrollment</th>
+                        <th>Total Expenses</th>
+                        <th>Status</th>
                     </tr>
                 </tfoot>
             </table>
             <br><br><br>
-            <h4>Total fess are a sum of all fees. To see a detailed breakdown print the PDF report.</h4>
+            <h4>Total fees are a sum of all fees. To see a detailed breakdown print the PDF report.</h4>
         </div>
     </body>
 </html>

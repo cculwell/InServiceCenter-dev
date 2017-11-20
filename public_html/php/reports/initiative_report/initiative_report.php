@@ -54,74 +54,74 @@
             <table id="initiative_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="initiative">Initiative</th>
-                        <th class="total_programs">Total Programs</th>
-                        <th class="curriculum">Biology</th>
-                        <th class="total">Biology Participants</th>
-                        <th class="total">Biology Sessions</th>
-                        <th class="curriculum">Chemistry</th>
-                        <th class="total">Chemistry Participants</th>
-                        <th class="total">Chemistry Sessions</th>
-                        <th class="curriculum">English/Language Arts</th>
-                        <th class="total">English/Language Participants</th>
-                        <th class="total">English/Language Sessions</th>
-                        <th class="curriculum">Technology</th>
-                        <th class="total">Technology Participants</th>
-                        <th class="total">Technology Sessions</th>
-                        <th class="curriculum">Career Tech</th>
-                        <th class="total">Career Tech Participants</th>
-                        <th class="total">Career Tech Sessions</th>
-                        <th class="curriculum">Counseling</th>
-                        <th class="total">Counseling Participants</th>
-                        <th class="total">Counseling Sessions</th>                        
-                        <th class="curriculum">Climate and Culture</th>
-                        <th class="total">Climate and Culture Participants</th>
-                        <th class="total">Climate and Culture Sessions</th>                          
-                        <th class="curriculum">Effective Instruction</th>
-                        <th class="total">Effective Instruction Participants</th>
-                        <th class="total">Effective Instruction Sessions</th> 
-                        <th class="curriculum">Fine Arts</th>
-                        <th class="total">Fine Arts Participants</th>
-                        <th class="total">Fine Arts Sessions</th>
-                        <th class="curriculum">Foreign Language</th>
-                        <th class="total">Foreign Language Participants</th>
-                        <th class="total">Foreign Language Sessions</th>
-                        <th class="curriculum">Gifted</th>
-                        <th class="total">Gifted Participants</th>
-                        <th class="total">Gifted Sessions</th>
-                        <th class="curriculum">Interdisciplinary</th>
-                        <th class="total">Interdisciplinary Participants</th>
-                        <th class="total">Interdisciplinary Sessions</th>
-                        <th class="curriculum">Leadership</th>
-                        <th class="total">Leadership Participants</th>
-                        <th class="total">Leadership Sessions</th>
-                        <th class="curriculum">Library Media Services</th>
-                        <th class="total">Library Media Services Participants</th>
-                        <th class="total">Library Media Services Sessions</th>
-                        <th class="curriculum">Mathematics</th>
-                        <th class="total">Mathematics Participants</th>
-                        <th class="total">Mathematics Sessions</th>
-                        <th class="curriculum">NBCT</th>
-                        <th class="total">NBCT Participants</th>
-                        <th class="total">NBCT Sessions</th>
-                        <th class="curriculum">Physics</th>
-                        <th class="total">Physics Participants</th>
-                        <th class="total">Physics Sessions</th>
-                        <th class="curriculum">Physical Education</th>
-                        <th class="total">Physical Education Participants</th>
-                        <th class="total">Physical Education Sessions</th>
-                        <th class="curriculum">Science</th>
-                        <th class="total">Science Participants</th>
-                        <th class="total">Science Sessions</th>
-                        <th class="curriculum">Social Studies</th>
-                        <th class="total">Social Studies Participants</th>
-                        <th class="total">Social Studies Sessions</th>
-                        <th class="curriculum">Special Education</th>
-                        <th class="total">Special Education Participants</th>
-                        <th class="total">Special Education Sessions</th>
-                        <th class="curriculum">Other</th>
-                        <th class="total">Other Participants</th>
-                        <th class="total">Other Sessions</th>
+                        <th>Initiative</th>
+                        <th>Total Programs</th>
+                        <th>Biology Programs</th>
+                        <th>Biology Participants</th>
+                        <th>Biology Sessions</th>
+                        <th>Chemistry Programs</th>
+                        <th>Chemistry Participants</th>
+                        <th>Chemistry Sessions</th>
+                        <th>English/Language Arts Programs</th>
+                        <th>English/Language Participants</th>
+                        <th>English/Language Sessions</th>
+                        <th>Technology Programs</th>
+                        <th>Technology Participants</th>
+                        <th>Technology Sessions</th>
+                        <th>Career Tech Programs</th>
+                        <th>Career Tech Participants</th>
+                        <th>Career Tech Sessions</th>
+                        <th>Counseling Programs</th>
+                        <th>Counseling Participants</th>
+                        <th>Counseling Sessions</th>                        
+                        <th>Climate and Culture Programs</th>
+                        <th>Climate and Culture Participants</th>
+                        <th>Climate and Culture Sessions</th>                          
+                        <th>Effective Instruction Programs</th>
+                        <th>Effective Instruction Participants</th>
+                        <th>Effective Instruction Sessions</th> 
+                        <th>Fine Arts Programs</th>
+                        <th>Fine Arts Participants</th>
+                        <th>Fine Arts Sessions</th>
+                        <th>Foreign Language Programs</th>
+                        <th>Foreign Language Participants</th>
+                        <th>Foreign Language Sessions</th>
+                        <th>Gifted Programs</th>
+                        <th>Gifted Participants</th>
+                        <th>Gifted Sessions</th>
+                        <th>Interdisciplinary Programs</th>
+                        <th>Interdisciplinary Participants</th>
+                        <th>Interdisciplinary Sessions</th>
+                        <th>Leadership Programs</th>
+                        <th>Leadership Participants</th>
+                        <th>Leadership Sessions</th>
+                        <th>Library Media Services Programs</th>
+                        <th>Library Media Services Participants</th>
+                        <th>Library Media Services Sessions</th>
+                        <th>Mathematics Programs</th>
+                        <th>Mathematics Participants</th>
+                        <th>Mathematics Sessions</th>
+                        <th>NBCT Programs</th>
+                        <th>NBCT Participants</th>
+                        <th>NBCT Sessions</th>
+                        <th>Physics Programs</th>
+                        <th>Physics Participants</th>
+                        <th>Physics Sessions</th>
+                        <th>Physical Education Programs</th>
+                        <th>Physical Education Participants</th>
+                        <th>Physical Education Sessions</th>
+                        <th>Science Programs</th>
+                        <th>Science Participants</th>
+                        <th>Science Sessions</th>
+                        <th>Social Studies Programs</th>
+                        <th>Social Studies Participants</th>
+                        <th>Social Studies Sessions</th>
+                        <th>Special Education Programs</th>
+                        <th>Special Education Participants</th>
+                        <th>Special Education Sessions</th>
+                        <th>Other Programs</th>
+                        <th>Other Participants</th>
+                        <th>Other Sessions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -284,74 +284,74 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th class="initiative">Initiative</th>
-                        <th class="total_programs">Total Programs</th>
-                        <th class="curriculum">Biology</th>
-                        <th class="total">Biology Participants</th>
-                        <th class="total">Biology Sessions</th>
-                        <th class="curriculum">Chemistry</th>
-                        <th class="total">Chemistry Participants</th>
-                        <th class="total">Chemistry Sessions</th>
-                        <th class="curriculum">English/Language Arts</th>
-                        <th class="total">English/Language Participants</th>
-                        <th class="total">English/Language Sessions</th>
-                        <th class="curriculum">Technology</th>
-                        <th class="total">Technology Participants</th>
-                        <th class="total">Technology Sessions</th>
-                        <th class="curriculum">Career Tech</th>
-                        <th class="total">Career Tech Participants</th>
-                        <th class="total">Career Tech Sessions</th>
-                        <th class="curriculum">Counseling</th>
-                        <th class="total">Counseling Participants</th>
-                        <th class="total">Counseling Sessions</th>                        
-                        <th class="curriculum">Climate and Culture</th>
-                        <th class="total">Climate and Culture Participants</th>
-                        <th class="total">Climate and Culture Sessions</th>                          
-                        <th class="curriculum">Effective Instruction</th>
-                        <th class="total">Effective Instruction Participants</th>
-                        <th class="total">Effective Instruction Sessions</th> 
-                        <th class="curriculum">Fine Arts</th>
-                        <th class="total">Fine Arts Participants</th>
-                        <th class="total">Fine Arts Sessions</th>
-                        <th class="curriculum">Foreign Language</th>
-                        <th class="total">Foreign Language Participants</th>
-                        <th class="total">Foreign Language Sessions</th>
-                        <th class="curriculum">Gifted</th>
-                        <th class="total">Gifted Participants</th>
-                        <th class="total">Gifted Sessions</th>
-                        <th class="curriculum">Interdisciplinary</th>
-                        <th class="total">Interdisciplinary Participants</th>
-                        <th class="total">Interdisciplinary Sessions</th>
-                        <th class="curriculum">Leadership</th>
-                        <th class="total">Leadership Participants</th>
-                        <th class="total">Leadership Sessions</th>
-                        <th class="curriculum">Library Media Services</th>
-                        <th class="total">Library Media Services Participants</th>
-                        <th class="total">Library Media Services Sessions</th>
-                        <th class="curriculum">Mathematics</th>
-                        <th class="total">Mathematics Participants</th>
-                        <th class="total">Mathematics Sessions</th>
-                        <th class="curriculum">NBCT</th>
-                        <th class="total">NBCT Participants</th>
-                        <th class="total">NBCT Sessions</th>
-                        <th class="curriculum">Physics</th>
-                        <th class="total">Physics Participants</th>
-                        <th class="total">Physics Sessions</th>
-                        <th class="curriculum">Physical Education</th>
-                        <th class="total">Physical Education Participants</th>
-                        <th class="total">Physical Education Sessions</th>
-                        <th class="curriculum">Science</th>
-                        <th class="total">Science Participants</th>
-                        <th class="total">Science Sessions</th>
-                        <th class="curriculum">Social Studies</th>
-                        <th class="total">Social Studies Participants</th>
-                        <th class="total">Social Studies Sessions</th>
-                        <th class="curriculum">Special Education</th>
-                        <th class="total">Special Education Participants</th>
-                        <th class="total">Special Education Sessions</th>
-                        <th class="curriculum">Other</th>
-                        <th class="total">Other Participants</th>
-                        <th class="total">Other Sessions</th>
+                        <th>Initiative</th>
+                        <th>Total Programs</th>
+                        <th>Biology Programs</th>
+                        <th>Biology Participants</th>
+                        <th>Biology Sessions</th>
+                        <th>Chemistry Programs</th>
+                        <th>Chemistry Participants</th>
+                        <th>Chemistry Sessions</th>
+                        <th>English/Language Arts Programs</th>
+                        <th>English/Language Participants</th>
+                        <th>English/Language Sessions</th>
+                        <th>Technology Programs</th>
+                        <th>Technology Participants</th>
+                        <th>Technology Sessions</th>
+                        <th>Career Tech Programs</th>
+                        <th>Career Tech Participants</th>
+                        <th>Career Tech Sessions</th>
+                        <th>Counseling Programs</th>
+                        <th>Counseling Participants</th>
+                        <th>Counseling Sessions</th>                        
+                        <th>Climate and Culture Programs</th>
+                        <th>Climate and Culture Participants</th>
+                        <th>Climate and Culture Sessions</th>                          
+                        <th>Effective Instruction Programs</th>
+                        <th>Effective Instruction Participants</th>
+                        <th>Effective Instruction Sessions</th> 
+                        <th>Fine Arts Programs</th>
+                        <th>Fine Arts Participants</th>
+                        <th>Fine Arts Sessions</th>
+                        <th>Foreign Language Programs</th>
+                        <th>Foreign Language Participants</th>
+                        <th>Foreign Language Sessions</th>
+                        <th>Gifted Programs</th>
+                        <th>Gifted Participants</th>
+                        <th>Gifted Sessions</th>
+                        <th>Interdisciplinary Programs</th>
+                        <th>Interdisciplinary Participants</th>
+                        <th>Interdisciplinary Sessions</th>
+                        <th>Leadership Programs</th>
+                        <th>Leadership Participants</th>
+                        <th>Leadership Sessions</th>
+                        <th>Library Media Services Programs</th>
+                        <th>Library Media Services Participants</th>
+                        <th>Library Media Services Sessions</th>
+                        <th>Mathematics Programs</th>
+                        <th>Mathematics Participants</th>
+                        <th>Mathematics Sessions</th>
+                        <th>NBCT Programs</th>
+                        <th>NBCT Participants</th>
+                        <th>NBCT Sessions</th>
+                        <th>Physics Programs</th>
+                        <th>Physics Participants</th>
+                        <th>Physics Sessions</th>
+                        <th>Physical Education Programs</th>
+                        <th>Physical Education Participants</th>
+                        <th>Physical Education Sessions</th>
+                        <th>Science Programs</th>
+                        <th>Science Participants</th>
+                        <th>Science Sessions</th>
+                        <th>Social Studies Programs</th>
+                        <th>Social Studies Participants</th>
+                        <th>Social Studies Sessions</th>
+                        <th>Special Education Programs</th>
+                        <th>Special Education Participants</th>
+                        <th>Special Education Sessions</th>
+                        <th>Other Programs</th>
+                        <th>Other Participants</th>
+                        <th>Other Sessions</th>
                     </tr>
                 </tfoot>
             </table>

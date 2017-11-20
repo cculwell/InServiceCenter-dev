@@ -179,7 +179,7 @@
             $pdf->SetFont('Times', 'B', 10);
             $pdf->Cell(40, 10, "Current Enrollment: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(30, 10, $row[14], 0, 0, 'L');
+            $pdf->Cell(30, 10, $row[17], 0, 0, 'L');
             $pdf->Ln(5);
 
             // Write max enrollment
@@ -187,7 +187,7 @@
             $pdf->SetFont('Times', 'B', 10);
             $pdf->Cell(40, 10, "Maximum Enrollment: ", 0, 0);
             $pdf->SetFont('Times', '', 10);
-            $pdf->Cell(30, 10, $row[15], 0, 0, 'L');
+            $pdf->Cell(30, 10, $row[18], 0, 0, 'L');
             $pdf->Ln(5);
 
             // Write school system

@@ -54,24 +54,24 @@
             <table id="detailed_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="program_id">Program ID</th>
-                        <th class="sti_pd">STI PD</th>
-                        <th class="program_title">Program Title</th>
-                        <th class="start_date">Start Date</th>
-                        <th class="end_date">End Date</th>
-                        <th class="start_time">Start Time</th>
-                        <th class="end_time">End Time</th>
-                        <th class="num_sessions">Number of Sessions</th>
-                        <th class="location">Location</th>
-                        <th class="initiative">Initiative</th>
-                        <th class="target_audience">Target Audience</th>
-                        <th class="system_name">School System</th>
-                        <th class="school">School</th>
-                        <th class="curriculum">Curriculum Area</th>
-                        <th class="consultatnt_name">Consultant</th>
-                        <th class="current_enrollment">Current Enrollment</th>
-                        <th class="max_enrollment">Target Enrollment</th>
-                        <th class="status">Status</th>
+                        <th>Program ID</th>
+                        <th>STI PD</th>
+                        <th>Program Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Sessions</th>
+                        <th>Location</th>
+                        <th>Initiative</th>
+                        <th>Target Audience</th>
+                        <th>School System</th>
+                        <th>School</th>
+                        <th>Curriculum Area</th>
+                        <th>Consultant</th>
+                        <th>Current Enrollment</th>
+                        <th>Target Enrollment</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,7 +94,7 @@
                                     ."<td>". $row[6]  ."</td>"       // End Date
                                     ."<td>". $row[7]  ."</td>"       // Start Time
                                     ."<td>". $row[8]  ."</td>"       // End Time
-                                    ."<td>". $row[9]  ."</td>"       // Number of Sessions
+                                    ."<td>". $row[9]  ."</td>"       // Sessions
                                     ."<td>". $row[10] ."</td>"       // Location
                                     ."<td>". $row[11] ."</td>"       // Initiative
                                     ."<td>". $row[12] ."</td>"       // Target Audience
@@ -112,24 +112,24 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th class="program_id">Program ID</th>
-                        <th class="sti_pd">STI PD</th>
-                        <th class="program_title">Program Title</th>
-                        <th class="start_date">Start Date</th>
-                        <th class="end_date">End Date</th>
-                        <th class="start_time">Start Time</th>
-                        <th class="end_time">End Time</th>
-                        <th class="num_sessions">Number of Sessions</th>
-                        <th class="location">Location</th>
-                        <th class="initiative">Support Provided By</th>
-                        <th class="target_audience">Target Audience</th>
-                        <th class="system_name">School System</th>
-                        <th class="school">School</th>
-                        <th class="curriculum">Curriculum Area</th>
-                        <th class="consultatnt_name">Consultant</th>
-                        <th class="current_enrollment">Current Enrollment</th>
-                        <th class="max_enrollment">Target Enrollment</th>
-                        <th class="status">Status</th>
+                        <th>Program ID</th>
+                        <th>STI PD</th>
+                        <th>Program Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Sessions</th>
+                        <th>Location</th>
+                        <th>Initiative</th>
+                        <th>Target Audience</th>
+                        <th>School System</th>
+                        <th>School</th>
+                        <th>Curriculum Area</th>
+                        <th>Consultant</th>
+                        <th>Current Enrollment</th>
+                        <th>Target Enrollment</th>
+                        <th>Status</th>
                     </tr>
                 </tfoot>
             </table>

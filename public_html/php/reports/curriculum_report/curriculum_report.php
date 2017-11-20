@@ -54,13 +54,13 @@
             <table id="curriculum_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="curriculum">Curriculum</th>
-                        <th class="curriculum_report_item">AMSTI</th>
-                        <th class="curriculum_report_item">ASIM</th>
-                        <th class="curriculum_report_item">TIM</th>
-                        <th class="curriculum_report_item">Inservice</th>
-                        <th class="curriculum_report_item">ALSDE</th>
-                        <th class="curriculum_report_item">LEA</th>
+                        <th>Curriculum</th>
+                        <th>AMSTI</th>
+                        <th>ASIM</th>
+                        <th>TIM</th>
+                        <th>Inservice</th>
+                        <th>ALSDE</th>
+                        <th>LEA</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,13 +97,13 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th class="curriculum">Curriculum</th>
-                        <th class="curriculum_report_item">AMSTI</th>
-                        <th class="curriculum_report_item">ASIM</th>
-                        <th class="curriculum_report_item">TIM</th>
-                        <th class="curriculum_report_item">Inservice</th>
-                        <th class="curriculum_report_item">ALSDE</th>
-                        <th class="curriculum_report_item">LEA</th>
+                        <th>Curriculum</th>
+                        <th>AMSTI</th>
+                        <th>ASIM</th>
+                        <th>TIM</th>
+                        <th>Inservice</th>
+                        <th>ALSDE</th>
+                        <th>LEA</th>
                     </tr>
                     </tr>
                 </tfoot>

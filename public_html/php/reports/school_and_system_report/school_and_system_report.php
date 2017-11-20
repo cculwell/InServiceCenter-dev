@@ -54,13 +54,12 @@
             <table id="school_and_system_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="system_name">System Name</th>
-                        <th class="curriculum">Category</th>
-                        <th class="program_title">Program Title</th>
-                        <th class="school">School</th>
-                        <th class="initiative">Initiative</th>
-                        <th class="consultatnt_fee">Total Consultant Fees</th>
-                        <th class="misc_fees">Total Misc Expenses</th>
+                        <th>System Name</th>
+                        <th>Category</th>
+                        <th>Program Title</th>
+                        <th>School</th>
+                        <th>Initiative</th>
+                        <th>Total Expenses</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,17 +82,16 @@
                                     ."<td>". $row[3] ."</td>"                 // Category
                                     ."<td>". $row[4] ."</td>"                 // Program Title
                                     ."<td>". $row[5] ."</td>"                 // School
-                                    ."<td>". $row[6] ."</td>"                 // Initiative
-                                    ."<td>$". $consultatnt_fees  ."</td>";    // Consultant Fees
+                                    ."<td>". $row[6] ."</td>";                // Initiative
 
-                                if ($row[8] == NULL)
+                                if ($row[7] == NULL)
                                 {
                                     echo "<td>$0.00</td>"                     // Misc Expenses   
                                          ."</tr>";
                                 } 
                                 else 
                                 {
-                                   echo "<td>$" . $misc_expenses ."</td>"     // Misc Expenses
+                                   echo "<td>$" . "$" . $row[7] ."</td>"     // Misc Expenses
                                         ."</tr>";
                                 } 
                             }
@@ -101,18 +99,17 @@
                     ?>
                 </tbody>
                 <tfoot>
-                        <th class="system_name">System Name</th>
-                        <th class="curriculum">Category</th>
-                        <th class="program_title">Program Title</th>
-                        <th class="school">School</th>
-                        <th class="initiative">Initiative</th>
-                        <th class="consultatnt_fee">Total Consultant Fees</th>
-                        <th class="misc_fees">Total Misc Expenses</th>
+                        <th>System Name</th>
+                        <th>Category</th>
+                        <th>Program Title</th>
+                        <th>School</th>
+                        <th>Initiative</th>
+                        <th>Total Expenses</th>
                     </tr>
                 </tfoot>
             </table>
             <br><br><br>
-            <h4>Consultant Fees and Misc Fees are totals. To see the detailed breakdown print the PDF report.</h4>
+            <h4>Total fees are a sum of all fees. To see a detailed breakdown print the PDF report.</h4>
         </div>
     </body>
 </html>

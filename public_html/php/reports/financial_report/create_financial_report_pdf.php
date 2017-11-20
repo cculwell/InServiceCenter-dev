@@ -218,7 +218,7 @@
                     // Write expense name and amount
                     $pdf->Cell(45, 10, "", 0, 0);
                     $pdf->SetFont('Times', 'B', 10);
-                    $pdf->Cell(35, 10, $expense[1], 0, 0);
+                    $pdf->Cell(45, 10, $expense[1], 0, 0);
                     $pdf->SetFont('Times', '', 10);
                     $pdf->Cell(10, 10, "$" . number_format((float)$expense[2], 2, '.', ''), 0, 0, 'L');
                     $pdf->Ln(5);
@@ -231,7 +231,7 @@
             $pdf->Ln(2);
             $pdf->Cell(45, 10, "", 0, 0);
             $pdf->SetFont('Times', 'B', 10);
-            $pdf->Cell(35, 10, "Total Expenses: ", 0, 0);
+            $pdf->Cell(45, 10, "Total Expenses: ", 0, 0);
             $pdf->SetFont('Times', 'B', 10);
             $pdf->Cell(10, 10, "$" . number_format((float)$total, 2, '.', ''), 0, 0, 'L"');
             $pdf->Ln(15);

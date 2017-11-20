@@ -78,7 +78,7 @@
         while ($row = mysqli_fetch_row($result))
         {
             // Create page break that doesn't cut off a group
-            if($count == 5)
+            if($count == 4)
             {
                 $pdf->AddPage();
 

@@ -2,10 +2,19 @@ $(document).ready(function() {
     var from = document.getElementById("from_date").value;
     var to = document.getElementById("to_date").value;    
 
-    $('#curriculum_report_table').DataTable( {
-        dom:            'Bfrtip',
-        scrollX:        true,
-        autoWidth:      true,
+    $('#curriculum_report_table').removeAttr('width').DataTable( {
+        dom: 'Bfrtip',
+        scrollX: true,
+        autoWith: false,
+        columnDefs: [
+            { "width": 150, "targets": 0},
+            { "width": 150, "targets": 1},
+            { "width": 150, "targets": 2},
+            { "width": 150, "targets": 3},
+            { "width": 150, "targets": 4},
+            { "width": 150, "targets": 5},
+            { "width": 150, "targets": 6}
+        ],
         buttons: {
             buttons: [
                 {
