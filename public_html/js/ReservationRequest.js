@@ -52,7 +52,7 @@ $(document).ready(function () {
             success:function()
             {
                 console.log("Success on AJAX");
-                $('#Show_Success').show();
+                $('#Show_Success').toggle();
                 form.reset();
             },
             error:function () {

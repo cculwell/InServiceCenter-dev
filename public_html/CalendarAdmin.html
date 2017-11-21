@@ -8,14 +8,23 @@
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.css">
     <link rel="stylesheet" href="foundation/css/foundation.css">
     <link rel="stylesheet" href="../resources/library/DataTables/datatables.css">
+    <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
+    <style>
+        td.hidden {display: none;}
+    </style>
 
     <script src="foundation/js/vendor/jquery.js"></script>
     <script src="../resources/library/bootstrap/js/bootstrap.js"></script>
     <script src="../resources/library/jquery-ui/jquery-ui.js"></script>
     <script src="../resources/library/DataTables/datatables.js"></script>
     <script src="../resources/library/DataTables/Select/js/dataTables.select.min.js"></script>
-
+    <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
     <script src="js/CalendarAdmin.js"></script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+            onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
 
     <title>In-Service Calendar Admin Page</title>
 

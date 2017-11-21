@@ -254,6 +254,7 @@ End;
                         row.child.hide();
                         tr.removeClass('shown');
                     }
+
                     else
                     {
                         var record = row.data();
@@ -277,8 +278,7 @@ End;
         </script>
     </div>
     <div id="create_Reservation" class="tab-pane fade">
-        <h1>Coming Soon</h1>
-    </div>
+
 
 </div>
 
