@@ -73,24 +73,15 @@
             </form>
         </div>
 
-        <div id="busy_box">
-            <div class="busy_box_container">
-                <img src="../Admin/img/ajax-loader.gif" />
-            </div>
+        <div id="busy_box" style="text-align: center;">
+            <label>Please wait while we send the latest</label>
+            <label>newsletter to our subscribers.</label>
+            <label>This could take a few minutes...</label><br><br>
+            <img src="../Admin/img/ajax-loader.gif" />
         </div>
-        <div id="results_box">
-            <div class="results_box_container">
-                <h3>Results</h3>
-                <p id="results_text"></p><br>
-                <button id="ok_button">OK</button>
-            </div>
-        </div>
+        <div id="results_box"></div>
     </div>
     <script>
-        var busy_box = document.getElementById('busy_box');
-        var results_box = document.getElementById('results_box');
-        var ok_button = document.getElementById('ok_button');
-
         var subscribers = $('#subscribers_table').DataTable({
                         lengthChange: false,
                         select: {
@@ -146,8 +137,8 @@
             }
         });
 
-        // Ajax call to pass e-mail address to php
-        $('#send_emails_button').click(function() {
+        $('#send_emails_button').click(function(e) {
+            e.preventDefault();
             var subject = document.getElementById('subject_text_edit').value;
             var message = document.getElementById('message_text_edit').value;
 
@@ -160,25 +151,56 @@
                     message: message
                 },
                 beforeSend: function(){
-                    busy_box.style.display = "block";
+                    $("#busy_box").dialog("open");
                 },
                 success: function(data)
                 {
-                    busy_box.style.display = "none";
-                    results_text.innerHTML = data;
-                    results_box.style.display = "block";
+                    $("#busy_box").dialog("close");
+                    $("#results_box").html(data);
+                    $("#results_box").dialog('open');
                 },
                 error: function(jqXHR, exception) {
-                    alert('ERROR: (' + jqXHR + ')' + " " + exception);
+                    $error = 'ERROR: (' + jqXHR + ')' + " " + exception;
+
+                    $("#busy_box").dialog("close");
+                    $("#results_box").html($error);
+                    $("#results_box").dialog('open');
                 }
             });
-
-            event.preventDefault(); // avoid to execute the actual submit of the form.
         });
 
-        ok_button.onclick = function(event) {
-            results_box.style.display = "none";
-        }
+        $("#results_box").dialog({
+            title: 'E-mail Results',
+            modal: true,
+            height: 300,
+            width: 400,
+            autoOpen: false,
+            buttons: [
+                { 
+                    id: "ok",
+                    text: "OK", 
+                    class: "btn btn-secondary",
+                    click: function() { 
+                        $("#results_box").empty();
+                        $(this).dialog("close");
+                    }
+                }
+            ],
+            open: function(event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
+        });
+
+        $("#busy_box").dialog({
+            title: 'Sending Newsletter',
+            modal: true,
+            height: 200,
+            width: 300,
+            autoOpen: false,
+            open: function(event, ui) {
+                $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
+        });
     </script>
 </div>
 </body>

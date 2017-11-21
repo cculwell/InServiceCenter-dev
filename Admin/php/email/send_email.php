@@ -24,6 +24,10 @@
     // Get subscribers emails
     $sql = "SELECT email FROM subscribers";
 
+    $sent_emails = "";
+    $error_sending = "";
+    $no_newsletter = "";
+
     if ($email_results = mysqli_query($mysqli, $sql))
     {
         if (mysqli_num_rows($email_results) > 0)
@@ -62,18 +66,17 @@
 
                         if ($email_message->Send()) 
                         {
-                            $display_block .= "Newsletter sent to: ".$email_address;   
+                            $sent_emails .= $email_address . "<br>";   
                         }
                         else 
                         {
-                            $display_block .= "Error sending to " . $email_address . " => " . $email_message->ErrorInfo;
+                            $error_sending .= $email_address . " => " . $email_message->ErrorInfo . "<br>";
                         }
                     }
                 }
                 else 
                 {
-                    $display_block = "No current newsletter is selected. Please select a current newsletter 
-                                      in the 'Managae Newsletters' section";
+                    $no_newsletter = "no_newsletter";
                 }
             }
             else
@@ -91,7 +94,30 @@
         echo "ERROR:  " . mysqli_error($mysqli);
     }
 
-    echo $display_block;
+    if ($sent_emails == "")
+    {
+        $sent_emails = "No E-mails were sent.";
+    }
+
+    if ($error_sending == "")
+    {
+        $error_sending = "There were no errors sending E-mails";
+    }
+
+    if ($no_newsletter == "")
+    {
+        echo "<label>Successfully Sent E-mails To:</label><br>";
+        echo $sent_emails;
+        echo "<br>";
+        echo "<label>There Were Errors Sending E-mails To:</label><br>";
+        echo $error_sending;        
+    }
+    else
+    {
+        echo "<label>No current newsletter is selected</label><br>";
+        echo "Please select a current newsletter in <br>";
+        echo "the 'Manage Newsletters' section <br>";
+    }
 
     mysqli_close($mysqli);
 ?>
