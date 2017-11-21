@@ -13,6 +13,8 @@ $(document).ready(function() {
             { "width": 200, "targets": 3},
             { "width": 150, "targets": 4},
             { "width": 150, "targets": 5},
+            { "width": 50, "targets": 6},
+            { "width": 100, "targets": 7}
         ],
         buttons: {
             buttons: [

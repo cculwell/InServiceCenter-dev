@@ -21,7 +21,7 @@
 <html class="no-js" lang="en" dir="ltr">
 
     <head>
-        <title>School and System Served Report</title>
+        <title>School and System Report</title>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,16 +49,18 @@
     </head>
     <body>
         <div class="page_container">
-            <h3>School and System Served Report</h3>
+            <h3>School and System Report</h3>
             <br><br>
             <table id="school_and_system_report_table" class="display table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>System Name</th>
-                        <th>Category</th>
+                        <th>Curriculum</th>
+                        <th>Program Number</th>
                         <th>Program Title</th>
                         <th>School</th>
                         <th>Initiative</th>
+                        <th>Attendance</th>
                         <th>Total Expenses</th>
                     </tr>
                 </thead>
@@ -73,26 +75,27 @@
                         {
                             while ($row = mysqli_fetch_row($result))
                             {
-                                $consultatnt_fees = number_format((float)$row[7], 2, '.', '');
-                                $misc_expenses = number_format((float)$row[8], 2, '.', '');
-                                
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[2] ."</td>"                 // System
-                                    ."<td>". $row[3] ."</td>"                 // Category
-                                    ."<td>". $row[4] ."</td>"                 // Program Title
-                                    ."<td>". $row[5] ."</td>"                 // School
-                                    ."<td>". $row[6] ."</td>";                // Initiative
+                                    ."<td>". $row[2] ."</td>"   // System
+                                    ."<td>". $row[3] ."</td>"   // Curriculum
+                                    ."<td>". $row[4] ."</td>"   // Program Number                                   
+                                    ."<td>". $row[5] ."</td>"   // Program Title
+                                    ."<td>". $row[6] ."</td>"   // School
+                                    ."<td>". $row[7] ."</td>"   // Initiative
+                                    ."<td>". $row[8] ."</td>";  // Actual Attendance
 
-                                if ($row[7] == NULL)
+
+                                if ($row[9] == NULL)
                                 {
-                                    echo "<td>$0.00</td>"                     // Misc Expenses   
+                                    echo "<td>$0.00</td>"  //Total Expenses   
                                          ."</tr>";
                                 } 
                                 else 
                                 {
-                                   echo "<td>$" . "$" . $row[7] ."</td>"     // Misc Expenses
-                                        ."</tr>";
+                                    $total_expenses = number_format((float)$row[9], 2, '.', '');
+                                    echo "<td>$" . $total_expenses . "</td>"  // Total Expenses
+                                         ."</tr>";
                                 } 
                             }
                         }
@@ -100,10 +103,12 @@
                 </tbody>
                 <tfoot>
                         <th>System Name</th>
-                        <th>Category</th>
+                        <th>Curriculum</th>
+                        <th>Program Number</th>
                         <th>Program Title</th>
                         <th>School</th>
                         <th>Initiative</th>
+                        <th>Attendance</th>
                         <th>Total Expenses</th>
                     </tr>
                 </tfoot>

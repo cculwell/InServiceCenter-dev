@@ -51,9 +51,9 @@
         }
     }
 
-    $field = "system";
-    $table = "school_and_system_report_data";
-    $where = "report_date BETWEEN '$report_from' AND '$report_to'";
+    $field = "s.system";
+    $table = "school_and_system_report_data s";
+    $where = "s.report_date BETWEEN '$report_from' AND '$report_to'";
     $systems = "SELECT DISTINCT($field) FROM $table WHERE $where";
 
     // Instanciation of inherited class
@@ -86,9 +86,9 @@
             $pdf->Cell(30, 10, $system_text, 0, 0, 'L');
             $pdf->Ln(8);
 
-            $field = "curriculum_area";
-            $table = "school_and_system_report_data";
-            $match = "system='$school_system'";
+            $field = "s.curriculum";
+            $table = "school_and_system_report_data s";
+            $match = "s.system='$school_system'";
             $system_curriculums = "SELECT DISTINCT($field) FROM $table WHERE $match";
 
             // Get each curriculum area from the school system
@@ -97,7 +97,7 @@
                 while ($curriculum = mysqli_fetch_row($system_curriculums_result))
                 {
                     // Create page break that doesn't cut off a group
-                    if($count == 5)
+                    if($count == 6)
                     {
                         $pdf->AddPage();
                         $pdf->Ln(1);
@@ -109,7 +109,7 @@
 
                         $pdf->SetFont('Times', 'B', 12);
                         $pdf->Cell(40, 10, "School System", 'B', 0);
-                        $pdf->Cell(0, 10, "     School System Information", 'B', 0);
+                        $pdf->Cell(0, 10, "     School and System Information by Curriculum", 'B', 0);
                         $pdf->Ln(10);
 
                         $count = 0;
@@ -118,15 +118,13 @@
                     $the_curriculum = $curriculum[0];
                     $pdf->SetFont('Times', 'B', 12);
                     $pdf->Cell(45, 10, "", 0, 0);
-                    $pdf->Cell(20, 10, "Category: ", 0, 0, 'L');
-                    $pdf->SetFont('Times', '', 12);
-                    $pdf->Cell(30, 10, $the_curriculum, 0, 0, 'L');
+                    $pdf->Cell(30, 10, $the_curriculum . ":", 0, 0, 'L');
                     $pdf->Ln(8);
 
-                    $fields = "pd_title, school, support_initiative";
-                    $table = "school_and_system_report_data";
-                    $match1 = "system='$school_system'";
-                    $match2 = "curriculum_area='$the_curriculum'";
+                    $fields = "s.program_nbr, s.pd_title, s.school, s.support_initiative, s.actual_participants";
+                    $table = "school_and_system_report_data s";
+                    $match1 = "s.system='$school_system'";
+                    $match2 = "s.curriculum='$the_curriculum'";
                     $system_programs = "SELECT $fields FROM $table WHERE $match1 AND $match2";
 
                     // Get the data from each program in the systems's curriculum
@@ -137,20 +135,21 @@
                             // Write the total PD's for the system
                             $pdf->SetFont('Times', '', 12);
                             $pdf->Cell(55, 5, "", 0, 0);
-                            $pdf->Cell(55, 5, "Title of Training: ", 0, 0);
-                            $pdf->MultiCell(0, 5, $program[0], 0, 'L');
-                            $pdf->Cell(55, 5, "", 0, 0);
-                            $pdf->Cell(55, 5, "School: ", 0, 0);
-                            $pdf->Cell(0, 5, $program[1], 0, 'L');
+                            $pdf->Cell(30, 5, $program[0], 0, 0, 'L');
+                            $pdf->MultiCell(0, 5, $program[1], 0, 'L');
+                            $pdf->Cell(85, 6, "", 0, 0);
+                            $pdf->Cell(0, 6, $program[2], 0, 'L');
                             $pdf->Ln(5);
-                            $pdf->Cell(55, 5, "", 0, 0);
-                            $pdf->Cell(55, 5, "Initiative Providing Support: ", 0, 0);
-                            $pdf->Cell(0, 5, $program[2], 0, 'L');
-                            $pdf->Ln(8);
+                            $pdf->Cell(85, 6, "", 0, 0);
+                            $pdf->Cell(0, 6, $program[3], 0, 'L');
+                            $pdf->Ln(5);
+                            $pdf->Cell(85, 6, "", 0, 0);
+                            $pdf->Cell(30, 6, "Attendance:", 0, 0, 'L');
+                            $pdf->Cell(0, 6, $program[4], 0, 'L');
+                            $pdf->Ln(10);
                         }
                         $count++;
                     }
-                    $pdf->Ln(5);
                 }
             }
             $count++;
@@ -169,14 +168,12 @@
         $pdf->Cell(0, 10, "Curriculum/Initiative Totals", 'B', 0);
         $pdf->Ln(10);
 
-        $field = "s.system, COUNT(s.system)";
+        $field = "s.system, COUNT(s.system), SUM(s.actual_participants)";
         $table = "school_and_system_report_data s";
         $match1 = "report_date BETWEEN '$report_from' AND '$report_to'";
         $group = "s.system";
 
         $systems = "SELECT $field FROM $table WHERE $match1 GROUP BY $group";
-
-        $curriculum_rows = 0;
 
         if ($systems_result = mysqli_query($mysqli, $systems))
         {
@@ -184,17 +181,24 @@
             {
                 $system_name = $system[0];
                 $system_count = $system[1];
+                $total_attendance = $system[2];
 
                 $pdf->SetFont('Times', 'B', 12);
-                $pdf->Cell(40, 10, $system_name . ": ", 0, 0, 'R');
+                $pdf->Cell(50, 10, $system_name . ": ", 0, 0, 'L');
                 $pdf->SetFont('Times', '', 12);
                 $pdf->Cell(20, 10, $system_count, 0, 0, 'L');
+                $pdf->Ln(5);
+                $pdf->SetFont('Times', 'B', 12);
+                $pdf->Cell(50, 10, "Total Attendance: ", 0, 0, 'L');
+                $pdf->SetFont('Times', '', 12);
+                $pdf->Cell(30, 10, $total_attendance, 0, 0, 'L');
+                $pdf->Ln(5);
 
-                $field = "s.curriculum_area, COUNT(s.curriculum_area)";
+                $field = "s.curriculum, COUNT(s.curriculum)";
                 $table = "school_and_system_report_data s";
-                $match1 = "(report_date BETWEEN '$report_from' AND '$report_to')";
-                $match2 = "system='$system_name'";
-                $group = "s.curriculum_area";
+                $match1 = "(s.report_date BETWEEN '$report_from' AND '$report_to')";
+                $match2 = "s.system='$system_name'";
+                $group = "s.curriculum";
 
                 $system_curriculums = "SELECT $field FROM $table WHERE $match1 AND $match2 GROUP BY $group";
 
@@ -205,32 +209,20 @@
                         $curriculum_name = $curriculum[0];
                         $curriculum_count = $curriculum[1];
 
-                        if($curriculum_rows == 1)
-                        {
-                            $pdf->Cell(60, 10, "", 0, 0); 
-                            $pdf->SetFont('Times', 'B', 12);
-                            $pdf->Cell(40, 10, $curriculum_name . ": ", 0, 0, 'L');
-                            $pdf->SetFont('Times', '', 12);
-                            $pdf->Cell(30, 10, $curriculum_count, 0, 0, 'L');
-                            $pdf->Ln(5);                           
-                            $curriculum_rows = 0;
-                        }
-                        else
-                        {
-                            $pdf->SetFont('Times', 'B', 12);
-                            $pdf->Cell(40, 10, $curriculum_name . ": ", 0, 0, 'L');
-                            $pdf->SetFont('Times', '', 12);
-                            $pdf->Cell(30, 10, $curriculum_count, 0, 0, 'L');
-                            $pdf->Ln(5);     
-                        }
+                        $pdf->Cell(60, 10, "", 0, 0); 
+                        $pdf->SetFont('Times', 'B', 12);
+                        $pdf->Cell(40, 10, $curriculum_name . ": ", 0, 0, 'L');
+                        $pdf->SetFont('Times', '', 12);
+                        $pdf->Cell(30, 10, $curriculum_count, 0, 0, 'L');
+                        $pdf->Ln(5);                           
 
                         if($curriculum_count > 0)
                         {
                             $field = "s.support_initiative, COUNT(s.support_initiative)";
                             $table = "school_and_system_report_data s";
-                            $match1 = "(report_date BETWEEN '$report_from' AND '$report_to')";
-                            $match2 = "system='$system_name'";
-                            $match3 = "curriculum_area='$curriculum_name'";
+                            $match1 = "(s.report_date BETWEEN '$report_from' AND '$report_to')";
+                            $match2 = "s.system='$system_name'";
+                            $match3 = "s.curriculum='$curriculum_name'";
                             $group = "s.support_initiative";
 
                             $curriculum_initiatives = "SELECT $field FROM $table 
@@ -251,12 +243,10 @@
                                 }
                             }
                             $pdf->Ln(3);
-                            $curriculum_rows++;
                         }
                     }
                 }
                 $pdf->Ln(5);
-                $curriculum_rows = 0;
             }
         }
 
@@ -275,7 +265,7 @@
 
         $sql = "SELECT DISTINCT s.system 
                 FROM school_and_system_report_data s 
-                WHERE report_date BETWEEN '$report_from' AND '$report_to'";
+                WHERE s.report_date BETWEEN '$report_from' AND '$report_to'";
 
         if ($system_totals_result = mysqli_query($mysqli, $sql))
         {
@@ -284,7 +274,7 @@
                 $system_name = $system[0];
 
                 $pdf->SetFont('Times', 'B', 12);
-                $pdf->Cell(40, 10, $system_name . ": ", "", 0, "R");
+                $pdf->Cell(50, 10, $system_name . ": ", "", 0, "L");
                 $pdf->Ln(5);
 
                 $sql = "SELECT e.expense_type, SUM(e.expense_amount) 
@@ -296,16 +286,25 @@
                         ON e.request_id = rq.request_id
                         GROUP BY e.expense_type";
 
+                $total = 0.0;
+
                 if ($system_expenses_result = mysqli_query($mysqli, $sql))
                 {
                     while ($expense = mysqli_fetch_row($system_expenses_result))
                     {
-                        $pdf->SetFont('Times', '', 12);
                         $pdf->Cell(50, 10, "", 0, 0);
-                        $pdf->Cell(30, 10, $expense[0] . ": ", "", 0, "L");
+                        $pdf->SetFont('Times', '', 12);
+                        $pdf->Cell(50, 10, $expense[0] . ": ", 0, 0, "L");
                         $pdf->Cell(30, 10, "$" . number_format((float)$expense[1], 2, '.', ''), 0, 0, "L");
+                        $total += $expense[1];
                         $pdf->Ln(5);
                     }
+                    $pdf->Cell(50, 10, "", 0, 0);
+                    $pdf->SetFont('Times', 'B', 12);
+                    $pdf->Cell(50, 10, "TOTAL:", 0, 0, "L");
+                    $pdf->Cell(30, 10, "$" . number_format($total, 2, '.', ''), 0, 0, "L");
+                    $total = 0.0;
+                    $pdf->Ln(5);
                 }
                 $pdf->Ln(5);
             }
