@@ -7,17 +7,17 @@ $(document).ready(function() {
         scrollX: true,
         autoWith: false,
         columnDefs: [
-            { "width": 70, "targets": 0},
-            { "width": 70, "targets": 1},
-            { "width": 200, "targets": 2},
-            { "width": 70, "targets": 3},
-            { "width": 70, "targets": 4},
-            { "width": 70, "targets": 5},
-            { "width": 70, "targets": 6},
-            { "width": 200, "targets": 7},
-            { "width": 70, "targets": 8},
-            { "width": 70, "targets": 9},
-            { "width": 70, "targets": 10}
+            { "className": "dt-center", "width": 70, "targets": 0},
+            { "className": "dt-center",  "width": 70, "targets": 1},
+            { "className": "dt-center",  "width": 200, "targets": 2},
+            { "className": "dt-center",  "width": 70, "targets": 3},
+            { "className": "dt-center",  "width": 70, "targets": 4},
+            { "className": "dt-center",  "width": 70, "targets": 5},
+            { "className": "dt-center",  "width": 70, "targets": 6},
+            { "className": "dt-center",  "width": 200, "targets": 7},
+            { "className": "dt-center",  "width": 70, "targets": 8},
+            { "className": "dt-center",  "width": 70, "targets": 9},
+            { "className": "dt-center",  "width": 70, "targets": 10}
         ],
         buttons: {
             buttons: [

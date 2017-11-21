@@ -7,14 +7,14 @@ $(document).ready(function() {
         scrollX: true,
         autoWith: false,
         columnDefs: [
-            { "width": 200, "targets": 0},
-            { "width": 200, "targets": 1},
-            { "width": 200, "targets": 2},
-            { "width": 200, "targets": 3},
-            { "width": 150, "targets": 4},
-            { "width": 150, "targets": 5},
-            { "width": 50, "targets": 6},
-            { "width": 100, "targets": 7}
+            { "className": "dt-center", "width": 200, "targets": 0},
+            { "className": "dt-center", "width": 200, "targets": 1},
+            { "className": "dt-center", "width": 200, "targets": 2},
+            { "className": "dt-center", "width": 200, "targets": 3},
+            { "className": "dt-center", "width": 150, "targets": 4},
+            { "className": "dt-center", "width": 150, "targets": 5},
+            { "className": "dt-center", "width": 50, "targets": 6},
+            { "className": "dt-center", "width": 100, "targets": 7}
         ],
         buttons: {
             buttons: [

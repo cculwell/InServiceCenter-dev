@@ -7,13 +7,13 @@ $(document).ready(function() {
         scrollX: true,
         autoWith: false,
         columnDefs: [
-            { "width": 150, "targets": 0},
-            { "width": 150, "targets": 1},
-            { "width": 150, "targets": 2},
-            { "width": 150, "targets": 3},
-            { "width": 150, "targets": 4},
-            { "width": 150, "targets": 5},
-            { "width": 150, "targets": 6}
+            { "className": "dt-center", "width": 150, "targets": 0},
+            { "className": "dt-center", "width": 150, "targets": 1},
+            { "className": "dt-center", "width": 150, "targets": 2},
+            { "className": "dt-center", "width": 150, "targets": 3},
+            { "className": "dt-center", "width": 150, "targets": 4},
+            { "className": "dt-center", "width": 150, "targets": 5},
+            { "className": "dt-center", "width": 150, "targets": 6}
         ],
         buttons: {
             buttons: [
