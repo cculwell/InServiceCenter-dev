@@ -142,6 +142,18 @@
             var subject = document.getElementById('subject_text_edit').value;
             var message = document.getElementById('message_text_edit').value;
 
+            if (subject == "")
+            {
+                alert("Subject line is required.");
+                return false;
+            }
+
+            if (message == "")
+            {
+                alert("Message body is required.");
+                return false;
+            }
+
             $.ajax({
                 type: "POST",
                 url: "../Admin/php/email/send_email.php",
