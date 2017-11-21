@@ -27,6 +27,7 @@
     $sent_emails = "";
     $error_sending = "";
     $no_newsletter = "";
+    $no_subscribers = "";
 
     if ($email_results = mysqli_query($mysqli, $sql))
     {
@@ -86,7 +87,7 @@
         }
         else
         {
-            $display_block = "There are no subscribers to the newsletter.";
+            $no_subscribers = "no_subscribers";
         } 
     }
     else
@@ -104,7 +105,7 @@
         $error_sending = "There were no errors sending E-mails";
     }
 
-    if ($no_newsletter == "")
+    if (($no_newsletter == "") && ($no_subscribers == ""))
     {
         echo "<label>Successfully Sent E-mails To:</label><br>";
         echo $sent_emails;
@@ -112,11 +113,16 @@
         echo "<label>There Were Errors Sending E-mails To:</label><br>";
         echo $error_sending;        
     }
-    else
+    elseif ($no_newsletter != "")
     {
         echo "<label>No current newsletter is selected</label><br>";
         echo "Please select a current newsletter in <br>";
         echo "the 'Manage Newsletters' section <br>";
+    }
+    elseif ($no_subscribers != "")
+    {
+        echo "<label>No subscribers</label><br>";
+        echo "There are no subscribers to the newsletter.";
     }
 
     mysqli_close($mysqli);
