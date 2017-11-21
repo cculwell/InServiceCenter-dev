@@ -51,7 +51,7 @@
         <div class="page_container">
             <h3>Initiative Report</h3>
             <br><br>
-            <table id="initiative_report_table" class="display table-responsive" cellspacing="0" width="100%">
+            <table id="initiative_report_table" class="display cell-border table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Initiative</th>

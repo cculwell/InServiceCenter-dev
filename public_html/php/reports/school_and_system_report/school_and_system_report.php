@@ -51,7 +51,7 @@
         <div class="page_container">
             <h3>School and System Report</h3>
             <br><br>
-            <table id="school_and_system_report_table" class="display table-responsive" cellspacing="0" width="100%">
+            <table id="school_and_system_report_table" class="display cell-border table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>System Name</th>
