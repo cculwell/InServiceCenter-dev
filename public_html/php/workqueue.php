@@ -1052,6 +1052,7 @@ if($trigger=="add_expense"){
 
 if($trigger=="datetime_delete"){
     delete_dt($mysqli,$dt_id);
+    echo $dt_id;
 }
 
 if($trigger=="update_date_time"){

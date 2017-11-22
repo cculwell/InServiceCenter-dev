@@ -504,6 +504,8 @@ else
                             $("#study_format_sec").hide();
                             $("#eval_method_sec").show();
                             $("#cost_per_book_div").hide();
+                            $("#admin_signature_div").hide();
+
                         } else {
 //                            console.log('BookStudy');
                             $("#request_desc_row").hide();
@@ -512,6 +514,7 @@ else
                             $("#study_format_sec").show();
                             $("#eval_method_sec").hide();
                             $("#cost_per_book_div").show();
+                            $("#admin_signature_div").show();
                         }
                     });
 
@@ -525,6 +528,7 @@ else
                             $("#study_format_sec").hide();
                             $("#eval_method_sec").show();
                             $("#cost_per_book_div").hide();
+                            $("#admin_signature_div").hide();
                         } else {
 //                            console.log('BookStudy');
                             $("#request_desc_row").hide();
@@ -533,6 +537,7 @@ else
                             $("#study_format_sec").show();
                             $("#eval_method_sec").hide();
                             $("#cost_per_book_div").show();
+                            $("#admin_signature_div").show();
                         }
                     });
 
@@ -921,6 +926,10 @@ else
                                 <input class="col-xs-9" type="number" id="pop_dt_break">
                             </div>
                             <div class="form-group">
+                                <label class="column-label col-xs-3" for="pop_dt_hours">Hours:</label>
+                                <input class="col-xs-9" type="number" id="pop_dt_hours">
+                            </div>
+                            <div class="form-group">
                                 <label class="column-label col-xs-3" for="pop_dt_note">Note:</label>
                                 <input class="col-xs-9" type="text" id="pop_dt_note">
                             </div>
@@ -1023,19 +1032,16 @@ else
                                             success: function(data) {
                                                 console.log("success: add_date_time");
                                                     console.log(data);
-//                                                s_time = $("#pop_dt_start").val();
-//                                                e_time = $("#pop_dt_end").val();
-//                                                b_time = $("#pop_dt_end").val();
-//                                                $hours = e_time - s_time - b_time;
+
+                                                $("#pop_dt_id").val(data);
 
                                                 date_times.row.add([
-                                                    $("#pop_dt_id").val(data),
+                                                    $("#pop_dt_id").val(),
                                                     $("#pop_dt_date").val(),
                                                     $("#pop_dt_start").val(),
                                                     $("#pop_dt_end").val(),
                                                     $("#pop_dt_break").val(),
-//                                                    $hours,
-                                                    null,
+                                                    $("#pop_dt_hours").val(),
                                                     $("#pop_dt_note").val()
                                                 ]).draw();
                                             },
@@ -1075,13 +1081,15 @@ else
                                                     .remove()
                                                     .draw();
 
+                                                $("#pop_dt_id").val(data);
+
                                                 date_times.row.add([
-                                                    $("#pop_dt_id").val(data),
+                                                    $("#pop_dt_id").val(),
                                                     $("#pop_dt_date").val(),
                                                     $("#pop_dt_start").val(),
                                                     $("#pop_dt_end").val(),
                                                     $("#pop_dt_break").val(),
-                                                    null,
+                                                    $("#pop_dt_hours").val(),
                                                     $("#pop_dt_note").val()
                                                 ]).draw();
                                             },
@@ -1095,8 +1103,6 @@ else
                                                 date_times.row().select();
                                             }
                                         });
-
-
                                     }
 
                                 },
@@ -1113,6 +1119,7 @@ else
                             $("#pop_dt_start").val(null);
                             $("#pop_dt_end").val(null);
                             $("#pop_dt_break").val(null);
+                            $("#pop_dt_hours").val(null);
                             $("#pop_dt_note").val(null);
 
                             $("#div_pop_dt").dialog("open")
@@ -1123,12 +1130,13 @@ else
                         $("#dt_edit_btn").click(function(e) {
                             e.preventDefault();
                             var date_time = date_times.rows( { selected: true } ).data();
-//                            console.log(date_time[0]);
+                            console.log(date_time[0]);
                             $("#pop_dt_id").val(date_time[0][0]);
                             $("#pop_dt_date").val(date_time[0][1]);
                             $("#pop_dt_start").val(date_time[0][2]);
                             $("#pop_dt_end").val(date_time[0][3]);
                             $("#pop_dt_break").val(date_time[0][4]);
+                            $("#pop_dt_hours").val(date_time[0][5]);
                             $("#pop_dt_note").val(date_time[0][6]);
 
 
@@ -1258,7 +1266,13 @@ else
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_role">Role:</label>
-                            <input class="col-xs-9" type="text" id="pop_contact_role">
+<!--                            <input class="col-xs-9" type="text" id="pop_contact_role">-->
+                            <select id="pop_contact_role" name="pop_contact_role" style="width: 300px">
+                                <option value="">--</option>
+                                <option value="Contact">Contact</option>
+                                <option value="Company">Company</option>
+                                <option value="Facilitator">Facilitator</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label class="column-label col-xs-3" for="pop_contact_phn_nbr">Phone #:</label>
@@ -1326,8 +1340,10 @@ else
                                             console.log("success: add_contact");
 //                                            console.log(data);
 
+                                            $("#pop_contact_id").val(data);
+
                                             contacts.row.add( [
-                                                $("#pop_contact_id").val(data),
+                                                $("#pop_contact_id").val(),
                                                 $("#pop_contact_name").val(),
                                                 $("#pop_contact_role").val(),
                                                 $("#pop_contact_phn_nbr").val(),
@@ -1416,7 +1432,7 @@ else
                         $("#pop_contact_role").val(contact[0][2]);
                         $("#pop_contact_phn_nbr").val(contact[0][3]);
                         $("#pop_contact_email").val(contact[0][4]);
-                        $("#pop_contact_address").val(contact[0][6]);
+                        $("#pop_contact_address").val(contact[0][5]);
 
                         $("#div_pop_contact").dialog("open")
                             .dialog("option", "width", 500);
@@ -1633,8 +1649,11 @@ else
                                         success: function(data){
                                             console.log("success: add_expense");
 //                                            console.log(data);
+
+                                            $("#pop_expense_id").val(data);
+
                                             expenses.row.add( [
-                                                $("#pop_expense_id").val(data),
+                                                $("#pop_expense_id").val(),
                                                 $("#pop_expense_type").val(),
                                                 $("#pop_expense_amount").val(),
                                                 $("#pop_expense_note").val()
@@ -1880,8 +1899,11 @@ else
                                         success: function(data){
                                             console.log("success: add_comment");
 //                                            console.log(data);
+
+                                            $("#pop_comment_id").val(data);
+
                                             comments.row.add( [
-                                                $("#pop_comment_id").val(data),
+                                                $("#pop_comment_id").val(),
                                                 $("#pop_comment_date").val(),
                                                 $("#pop_comment_text").val()
                                             ]).draw();
@@ -1914,6 +1936,7 @@ else
                                                 .rows('.selected')
                                                 .remove()
                                                 .draw();
+
                                             comments
                                                 .row.add( [
                                                 $("#pop_comment_id").val(),
@@ -2121,8 +2144,11 @@ else
                                         success: function(data){
                                             console.log("success: add_note");
 //                                            console.log(data);
+
+                                            $("#pop_note_id").val(data);
+
                                             notes.row.add( [
-                                                $("#pop_note_id").val(data),
+                                                $("#pop_note_id").val(),
                                                 $("#pop_note_date").val(),
                                                 $("#pop_note_text").val()
                                             ]).draw();
@@ -2253,6 +2279,7 @@ else
                     <input type="text" id="admin_signature" name="admin_signature" size="35"
                            value="<?php echo $admin_signature;?>">
                 </div>
+            </div>
 
                 <div class="col-xs-6">
                     <label for="folder_completed">Folder Completed:</label>
