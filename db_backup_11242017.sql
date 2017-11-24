@@ -275,33 +275,6 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Table structure for table `history`
---
-
-DROP TABLE IF EXISTS `history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `history` (
-  `hist_id` int(11) NOT NULL AUTO_INCREMENT,
-  `request_id` int(11) DEFAULT NULL,
-  `hist_txt` text,
-  `hist_dt` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`hist_id`),
-  KEY `history_requests_request_id_fk` (`request_id`),
-  CONSTRAINT `history_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `history`
---
-
-LOCK TABLES `history` WRITE;
-/*!40000 ALTER TABLE `history` DISABLE KEYS */;
-/*!40000 ALTER TABLE `history` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Temporary table structure for view `initiative_report_data`
 --
 
@@ -464,28 +437,6 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `quick_report_data_orig`
---
-
-DROP TABLE IF EXISTS `quick_report_data_orig`;
-/*!50001 DROP VIEW IF EXISTS `quick_report_data_orig`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `quick_report_data_orig` AS SELECT 
- 1 AS `request_id`,
- 1 AS `program_nbr`,
- 1 AS `pd_title`,
- 1 AS `request_start_date`,
- 1 AS `request_start_time`,
- 1 AS `request_end_date`,
- 1 AS `request_end_time`,
- 1 AS `request_location`,
- 1 AS `target_participants`,
- 1 AS `enrolled_participants`,
- 1 AS `actual_participants`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Table structure for table `requests`
 --
 
@@ -542,6 +493,9 @@ CREATE TABLE `reservationDate_Time` (
   `startTime` time DEFAULT NULL,
   `endTime` time DEFAULT NULL,
   `preTime` time DEFAULT NULL,
+  `publicGoogle` text,
+  `privateGoogle` text,
+  `status` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`reservationDateTime_ID`),
   KEY `reservationID` (`reservationID`),
   CONSTRAINT `reservationDate_Time_ibfk_1` FOREIGN KEY (`reservationID`) REFERENCES `reservations` (`reservationID`)
@@ -554,7 +508,7 @@ CREATE TABLE `reservationDate_Time` (
 
 LOCK TABLES `reservationDate_Time` WRITE;
 /*!40000 ALTER TABLE `reservationDate_Time` DISABLE KEYS */;
-INSERT INTO `reservationDate_Time` VALUES (1,1,'2017-10-28','09:00:00','11:00:00','08:00:00'),(2,1,'2017-11-07','16:00:00','18:00:00','15:00:00'),(3,2,'2017-10-26','09:00:00','11:00:00','08:00:00'),(4,2,'2017-10-30','16:00:00','18:00:00','15:00:00'),(5,3,'2017-10-31','08:00:00','14:30:00','07:30:00'),(6,3,'2017-11-22','08:00:00','14:30:00','07:30:00'),(7,4,'2017-10-31','13:00:00','15:30:00','12:30:00');
+INSERT INTO `reservationDate_Time` VALUES (1,1,'2017-10-28','09:00:00','11:00:00','08:00:00',NULL,NULL,NULL),(2,1,'2017-11-07','16:00:00','18:00:00','15:00:00',NULL,NULL,NULL),(3,2,'2017-10-26','09:00:00','11:00:00','08:00:00',NULL,NULL,NULL),(4,2,'2017-10-30','16:00:00','18:00:00','15:00:00',NULL,NULL,NULL),(5,3,'2017-10-31','08:00:00','14:30:00','07:30:00',NULL,NULL,NULL),(6,3,'2017-11-22','08:00:00','14:30:00','07:30:00',NULL,NULL,NULL),(7,4,'2017-10-31','13:00:00','15:30:00','12:30:00',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `reservationDate_Time` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -570,7 +524,7 @@ CREATE TABLE `reservations` (
   `programName` varchar(50) DEFAULT NULL,
   `programPerson` varchar(75) DEFAULT NULL,
   `programGroup` varchar(75) DEFAULT NULL,
-  `programDescription` varchar(256) DEFAULT NULL,
+  `programDescription` text,
   `room` varchar(12) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
@@ -823,24 +777,6 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `quick_report_data_orig`
---
-
-/*!50001 DROP VIEW IF EXISTS `quick_report_data_orig`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`dbuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `quick_report_data_orig` AS select `r`.`request_id` AS `request_id`,`w`.`program_nbr` AS `program_nbr`,`w`.`pd_title` AS `pd_title`,`sdt`.`request_start_date` AS `request_start_date`,`sdt`.`request_start_time` AS `request_start_time`,`edt`.`request_end_date` AS `request_end_date`,`edt`.`request_end_time` AS `request_end_time`,`r`.`request_location` AS `request_location`,`r`.`target_participants` AS `target_participants`,`r`.`enrolled_participants` AS `enrolled_participants`,`w`.`actual_participants` AS `actual_participants` from (((`amsti_01`.`requests` `r` join `amsti_01`.`workshops` `w` on((`r`.`request_id` = `w`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_start_date`,min(`d`.`request_start_time`) AS `request_start_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,min(`amsti_01`.`date_times`.`request_date`) AS `request_start_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `a` on(((`d`.`request_id` = `a`.`request_id`) and (`d`.`request_date` = `a`.`request_start_date`)))) group by `d`.`request_id`,`d`.`request_date`) `sdt` on((`r`.`request_id` = `sdt`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_end_date`,max(`d`.`request_end_time`) AS `request_end_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,max(`amsti_01`.`date_times`.`request_date`) AS `request_end_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `b` on(((`d`.`request_id` = `b`.`request_id`) and (`d`.`request_date` = `b`.`request_end_date`)))) group by `d`.`request_id`,`d`.`request_date`) `edt` on((`r`.`request_id` = `edt`.`request_id`))) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `school_and_system_report_data`
 --
 
@@ -867,4 +803,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-24 18:13:08
+-- Dump completed on 2017-11-24 19:17:13
