@@ -207,9 +207,10 @@
             $total = 0.0;
 
             $request_id = $row[0];
-            $fields = "request_id, expense_type, expense_amount";
-            $where = "request_id='$request_id'";
-            $expense_sql = "SELECT $fields FROM expenses WHERE $where";
+            $expense_sql = "SELECT DISTINCT(e.expense_type), SUM(e.expense_amount)
+                            FROM expenses e
+                            WHERE e.request_id='$request_id'
+                            GROUP BY e.expense_type";
 
             if ($expense_result = mysqli_query($mysqli, $expense_sql))
             {
@@ -218,12 +219,12 @@
                     // Write expense name and amount
                     $pdf->Cell(45, 10, "", 0, 0);
                     $pdf->SetFont('Times', 'B', 10);
-                    $pdf->Cell(45, 10, $expense[1], 0, 0);
+                    $pdf->Cell(45, 10, $expense[0], 0, 0);
                     $pdf->SetFont('Times', '', 10);
-                    $pdf->Cell(10, 10, "$" . number_format((float)$expense[2], 2, '.', ''), 0, 0, 'L');
+                    $pdf->Cell(10, 10, "$" . number_format((float)$expense[1], 2, '.', ''), 0, 0, 'L');
                     $pdf->Ln(5);
 
-                    $total = $total + (float)$expense[2];
+                    $total = $total + (float)$expense[1];
                 }
             }
 
