@@ -149,7 +149,7 @@ SET character_set_client = utf8;
  1 AS `amsti`,
  1 AS `asim`,
  1 AS `tim`,
- 1 AS `inservice`,
+ 1 AS `ric`,
  1 AS `alsde`,
  1 AS `lea`*/;
 SET character_set_client = @saved_cs_client;
@@ -745,7 +745,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`dbuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `curriculum_report_data` AS select `r`.`request_id` AS `request_id`,`r`.`report_date` AS `report_date`,`w`.`curriculum` AS `curriculum`,sum((case when (`w`.`support_initiative` = 'AMSTI') then 1 else 0 end)) AS `amsti`,sum((case when (`w`.`support_initiative` = 'ASIM') then 1 else 0 end)) AS `asim`,sum((case when (`w`.`support_initiative` = 'TIM') then 1 else 0 end)) AS `tim`,sum((case when (`w`.`support_initiative` = 'Inservice') then 1 else 0 end)) AS `inservice`,sum((case when (`w`.`support_initiative` = 'ALSDE') then 1 else 0 end)) AS `alsde`,sum((case when (`w`.`support_initiative` = 'LEA') then 1 else 0 end)) AS `lea` from (`requests` `r` join `workshops` `w` on((`w`.`request_id` = `r`.`request_id`))) group by `r`.`report_date` */;
+/*!50001 VIEW `curriculum_report_data` AS select `r`.`request_id` AS `request_id`,`r`.`report_date` AS `report_date`,`w`.`curriculum` AS `curriculum`,sum((case when (`w`.`support_initiative` = 'AMSTI') then 1 else 0 end)) AS `amsti`,sum((case when (`w`.`support_initiative` = 'ASIM') then 1 else 0 end)) AS `asim`,sum((case when (`w`.`support_initiative` = 'TIM') then 1 else 0 end)) AS `tim`,sum((case when (`w`.`support_initiative` = 'RIC') then 1 else 0 end)) AS `ric`,sum((case when (`w`.`support_initiative` = 'ALSDE') then 1 else 0 end)) AS `alsde`,sum((case when (`w`.`support_initiative` = 'LEA') then 1 else 0 end)) AS `lea` from (`requests` `r` join `workshops` `w` on((`w`.`request_id` = `r`.`request_id`))) group by `r`.`report_date` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -867,4 +867,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-24 16:22:22
+-- Dump completed on 2017-11-24 18:13:08
