@@ -58,7 +58,7 @@
                         <th>AMSTI</th>
                         <th>ASIM</th>
                         <th>TIM</th>
-                        <th>Inservice</th>
+                        <th>RIC</th>
                         <th>ALSDE</th>
                         <th>LEA</th>
                     </tr>
@@ -70,7 +70,7 @@
                                        SUM(c.amsti), 
                                        SUM(c.asim), 
                                        SUM(c.tim), 
-                                       SUM(c.inservice), 
+                                       SUM(c.ric), 
                                        SUM(c.alsde), 
                                        SUM(c.lea) 
                                 FROM curriculum_report_data c 
@@ -87,7 +87,7 @@
                                     ."<td>". $row[1]  ."</td>"       // AMSTI
                                     ."<td>". $row[2]  ."</td>"       // ASIM
                                     ."<td>". $row[3]  ."</td>"       // TIM
-                                    ."<td>". $row[4]  ."</td>"       // Inservice
+                                    ."<td>". $row[4]  ."</td>"       // RIC
                                     ."<td>". $row[5]  ."</td>"       // ALSDE
                                     ."<td>". $row[6]  ."</td>"       // LEA
                                     ."</tr>";
@@ -101,7 +101,7 @@
                         <th>AMSTI</th>
                         <th>ASIM</th>
                         <th>TIM</th>
-                        <th>Inservice</th>
+                        <th>RIC</th>
                         <th>ALSDE</th>
                         <th>LEA</th>
                     </tr>

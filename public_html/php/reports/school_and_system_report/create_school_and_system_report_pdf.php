@@ -70,7 +70,7 @@
     $pdf->SetFont('Times', 'B', 12);
     $pdf->Cell(40, 10, "School System", 'B', 0);
     $pdf->Cell(0, 10, "     School System Information", 'B', 0);
-    $pdf->Ln(11);
+    $pdf->Ln(10);
 
     $count = 0;
 

@@ -52,7 +52,7 @@
     }
 
     // List of initiatives
-    $initiatives = array('', 'AMSTI', 'ASIM', 'TIM', 'Inservice', 'ALSDE', 'LEA');
+    $initiatives = array('', 'AMSTI', 'ASIM', 'TIM', 'RIC', 'ALSDE', 'LEA');
 
     // Instanciation of inherited class
     $pdf = new PDF('P', 'mm', 'A4');
@@ -74,7 +74,7 @@
                    SUM(c.amsti), 
                    SUM(c.asim), 
                    SUM(c.tim), 
-                   SUM(c.inservice), 
+                   SUM(c.ric), 
                    SUM(c.alsde), 
                    SUM(c.lea) 
             FROM curriculum_report_data c
@@ -145,7 +145,7 @@
     $pdf->Ln(10);
 
     $sql = "SELECT DISTINCT(c.curriculum), 
-                   SUM(c.amsti + c.asim + c.tim + c.inservice + c.alsde + c.lea)
+                   SUM(c.amsti + c.asim + c.tim + c.ric + c.alsde + c.lea)
             FROM curriculum_report_data c
             WHERE c.report_date BETWEEN '$report_from' AND '$report_to'
             GROUP BY c.curriculum";
