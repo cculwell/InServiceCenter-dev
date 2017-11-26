@@ -22,7 +22,6 @@ $(document).ready(function() {
             { "className": "dt-center", "width": 70, "targets": 12},
             { "className": "dt-center", "width": 70, "targets": 13},
             { "className": "dt-center", "width": 70, "targets": 14},
-            { "className": "dt-center", "width": 70, "targets": 15},
             { "className": "dt-center", "width": 50, "targets": 15}
         ],
         buttons: {

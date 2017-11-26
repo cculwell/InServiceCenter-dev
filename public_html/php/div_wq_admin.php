@@ -192,7 +192,8 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
 								report_name = "Initiative Report";
 							}
 
-							title_bar = report_name + "     " + start_date + " - " + end_date;
+							// \xa0 is a no-break space character
+							title_bar = report_name + "\xa0\xa0\xa0\xa0\xa0\xa0" + start_date + " => " + end_date; 
 
 							document.getElementById("message").innerHTML = "";
 							document.getElementById("view_report").innerHTML = "Processing.....";

@@ -72,7 +72,6 @@
                         <th>School System</th>
                         <th>Current Enrollment</th>
                         <th>Maximum Enrollment</th>
-                        <th>Target Enrollment</th>
                         <th>Total Expenses</th>
                         <th>Status</th>
                     </tr>
@@ -105,8 +104,7 @@
                                     ."<td>". $row[12] ."</td>"                  // Target Audience
                                     ."<td>". $row[13] ."</td>"                  // School System
                                     ."<td>". $row[14] ."</td>"                  // Current Enrollment
-                                    ."<td>". $row[15] ."</td>"                  // Maximum Enrollment
-                                    ."<td>". $row[16] ."</td>";                 // Max Enrollment     
+                                    ."<td>". $row[15] ."</td>";                 // Maximum Enrollment   
 
                                 if ($row[16] == NULL)
                                 {
@@ -140,7 +138,6 @@
                         <th>School System</th>
                         <th>Current Enrollment</th>
                         <th>Maximum Enrollment</th>
-                        <th>Target Enrollment</th>
                         <th>Total Expenses</th>
                         <th>Status</th>
                     </tr>

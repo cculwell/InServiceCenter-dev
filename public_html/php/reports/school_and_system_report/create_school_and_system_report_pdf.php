@@ -68,14 +68,12 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
     $pdf->SetFont('Times', 'I', 11);
     $pdf->Cell(80);
     $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
-    $pdf->Ln(20);
+    $pdf->Ln(10);
 
     $pdf->SetFont('Times', 'B', 12);
     $pdf->Cell(40, 10, "School System", 'B', 0);
     $pdf->Cell(0, 10, "     School System Information", 'B', 0);
     $pdf->Ln(10);
-
-    $count = 0;
 
     // Get school systems
     if ($system_result = mysqli_query($mysqli, $systems))
@@ -99,25 +97,6 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
             {
                 while ($curriculum = mysqli_fetch_row($system_curriculums_result))
                 {
-                    // Create page break that doesn't cut off a group
-                    if($count == 6)
-                    {
-                        $pdf->AddPage();
-                        $pdf->Ln(1);
-
-                        $pdf->SetFont('Times', 'I', 11);
-                        $pdf->Cell(80);
-                        $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
-                        $pdf->Ln(20);
-
-                        $pdf->SetFont('Times', 'B', 12);
-                        $pdf->Cell(40, 10, "School System", 'B', 0);
-                        $pdf->Cell(0, 10, "     School and System Information by Curriculum", 'B', 0);
-                        $pdf->Ln(10);
-
-                        $count = 0;
-                    }
-
                     $the_curriculum = $curriculum[0];
                     $pdf->SetFont('Times', 'B', 12);
                     $pdf->Cell(45, 10, "", 0, 0);
@@ -151,11 +130,9 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
                             $pdf->Cell(0, 6, $program[4], 0, 'L');
                             $pdf->Ln(10);
                         }
-                        $count++;
                     }
                 }
             }
-            $count++;
         }
 
         // Create totals page
@@ -253,13 +230,15 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
             }
         }
 
+        $totals_count = 0;
+
         // Calculate the total spent for each system
         $pdf->AddPage();
 
         $pdf->SetFont('Times', 'I', 11);
         $pdf->Cell(80);
         $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
-        $pdf->Ln(20);
+        $pdf->Ln(10);
 
         $pdf->SetFont('Times', 'B', 12);
         $pdf->Cell(50, 10, "School System", 'B', 0);
@@ -274,6 +253,25 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
         {
             while ($system = mysqli_fetch_row($system_totals_result))
             {
+                // Create page break that doesn't cut off a group
+                if($totals_count == 4)
+                {
+                    $pdf->AddPage();
+                    $pdf->Ln(1);
+
+                    $pdf->SetFont('Times', 'I', 11);
+                    $pdf->Cell(80);
+                    $pdf->Cell(30, 10, $report_from . " - " . $report_to, 0, 0, 'C');
+                    $pdf->Ln(10);
+
+                    $pdf->SetFont('Times', 'B', 12);
+                    $pdf->Cell(50, 10, "School System", 'B', 0);
+                    $pdf->Cell(0, 10, "Totals Spent Per System", 'B', 0);
+                    $pdf->Ln(10);
+
+                    $totals_count = 0;
+                }
+
                 $system_name = $system[0];
 
                 $pdf->SetFont('Times', 'B', 12);
@@ -310,6 +308,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
                     $pdf->Ln(5);
                 }
                 $pdf->Ln(5);
+                $totals_count++;
             }
         }
     }
