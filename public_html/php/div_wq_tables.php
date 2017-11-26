@@ -95,6 +95,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                         //var data = queue.rows( indexes ).data().pluck( 'id' );
                         var record = queue_new.rows( { selected: true } ).data();
                         // do something with the ID of the selected items
+                        console.log(record);
             //            console.log(record[0][0]);
                         $.ajax({
 
@@ -535,13 +536,14 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                     style:          'single'
                 }
             });
-            //queue.rows( { selected: true } ).data();
+
             queue_completed.on( 'select', function ( e, dt, type, indexes ) {
                 if ( type === 'row' ) {
-                    //var data = queue.rows( indexes ).data().pluck( 'id' );
-                    var record = queue_completed.rows( { selected: true } ).data();
+                   var record = queue_completed.rows( { selected: true } ).data();
+//                    var rec = queue_completed.row().select();
                     // do something with the ID of the selected items
-                    //            console.log(record[0][0]);
+//                    console.log(record);
+                     console.log(record[0][0]);
                     $.ajax({
 
                         type: "POST",//post
@@ -552,10 +554,9 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                             // data is ur summary
                             $('#div_wq_form').html(data);
                         }
-
                     });
                 }
-            } );
+            });
         </script>
     </div>
 
@@ -617,16 +618,16 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
             </tbody>
         </table>
         <script>
-            var queue_completed = $('#tbl_canceled').DataTable({
+            var queue_canceled = $('#tbl_canceled').DataTable({
                 select: {
                     style:          'single'
                 }
             });
             //queue.rows( { selected: true } ).data();
-            queue_completed.on( 'select', function ( e, dt, type, indexes ) {
+            queue_canceled.on( 'select', function ( e, dt, type, indexes ) {
                 if ( type === 'row' ) {
                     //var data = queue.rows( indexes ).data().pluck( 'id' );
-                    var record = queue_completed.rows( { selected: true } ).data();
+                    var record = queue_canceled.rows( { selected: true } ).data();
                     // do something with the ID of the selected items
                     //            console.log(record[0][0]);
                     $.ajax({
@@ -705,16 +706,16 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
             </tbody>
         </table>
         <script>
-            var queue_completed = $('#tbl_all').DataTable({
+            var queue_all = $('#tbl_all').DataTable({
                 select: {
                     style:          'single'
                 }
             });
             //queue.rows( { selected: true } ).data();
-            queue_completed.on( 'select', function ( e, dt, type, indexes ) {
+            queue_all.on( 'select', function ( e, dt, type, indexes ) {
                 if ( type === 'row' ) {
                     //var data = queue.rows( indexes ).data().pluck( 'id' );
-                    var record = queue_completed.rows( { selected: true } ).data();
+                    var record = queue_all.rows( { selected: true } ).data();
                     // do something with the ID of the selected items
                     //            console.log(record[0][0]);
                     $.ajax({
