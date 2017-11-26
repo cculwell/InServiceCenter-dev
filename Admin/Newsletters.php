@@ -110,6 +110,13 @@
         });
      
         $('#del_newsletter_btn').click( function () {
+            if (newsletters.row('.selected').data() == null)
+            {
+                alert("Please select a newsletter to delete.");
+                return false;
+            }
+
+
             var newsletter_file = newsletters.row('.selected').data()[0];
             var form_data = new FormData(); 
 
@@ -152,6 +159,12 @@
         });
 
         $('#set_current_newsletter').click( function () {
+            if (newsletters.row('.selected').data() == null)
+            {
+                alert("Please select a newsletter to set as current.");
+                return false;
+            }
+
             var newsletter_file = newsletters.row('.selected').data()[0];
             var form_data = new FormData(); 
 

@@ -107,6 +107,12 @@
         } );
      
         $('#del_subscriber_btn').click( function () {
+            if (subscribers.row('.selected').data() == null)
+            {
+                alert("Please select a subscriber to delete.");
+                return false;
+            }
+
             var email_id = subscribers.row('.selected').data()[0];
 
             if (!(confirm('Are you sure you want to delete subscriber "' + email_id + '"?'))) 

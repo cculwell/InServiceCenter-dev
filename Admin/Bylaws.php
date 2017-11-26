@@ -110,6 +110,12 @@
         });
      
         $('#del-bylaws-btn').click( function () {
+            if (bylaws.row('.selected').data() == null)
+            {
+                alert("Please select a bylaw to delete.");
+                return false;
+            }
+
             var bylaw_file = bylaws.row('.selected').data()[0];
             var form_data = new FormData();
 
@@ -153,6 +159,12 @@
         });
 
         $('#set-current-bylaw').click( function () {
+            if (bylaws.row('.selected').data() == null)
+            {
+                alert("Please select a bylaw to set as current.");
+                return false;
+            }
+
             var bylaw_file = bylaws.row('.selected').data()[0];
             var form_data = new FormData();
 
