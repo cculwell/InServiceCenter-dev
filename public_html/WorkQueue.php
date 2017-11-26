@@ -1,8 +1,6 @@
 <?php
 session_start()
-
-if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
-{?>
+?>
 
 	<!DOCTYPE html>
 	<html class="no-js" lang="en" dir="ltr">
@@ -29,6 +27,9 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 
 
 	</head>
+	<?php
+	if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
+{?>
 	<body>
 	<div class="callout large">
 	</div>
@@ -83,9 +84,9 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 }
 else
 {
-	echo "<p>You are not authorized to visit this page.</p>";
-	echo "<p><a href='php/UserLogin.php'>User Logout</a></p>";
+	echo "<p><h3>You are not authorized to visit this page.</h3></p>";
+	echo "<p><a href='php/UserLogin.php'>User Login</a></p>";
 	echo "<p><a href='php/UserLogout.php'>User Logout</a></p>";
-	echo "<p><a href='Home.html'>User Logout</a></p>";
+	echo "<p><a href='Home.html'>Home Page</a></p>";
 }
 ?>

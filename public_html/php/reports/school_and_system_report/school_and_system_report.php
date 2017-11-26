@@ -1,4 +1,5 @@
 <?php
+	session_start();
     require "../../../../resources/config.php";
 
     # create connection to database
@@ -51,6 +52,9 @@
         <div class="page_container">
             <h3>School and System Report</h3>
             <br><br>
+<?php
+	if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
+	{?>
             <table id="school_and_system_report_table" class="display cell-border table-responsive" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -116,6 +120,16 @@
             <br><br><br>
             <h4>Total fees are a sum of all fees. To see a detailed breakdown print the PDF report.</h4>
         </div>
+<?php
+	}
+	else
+	{
+		echo "<p><h3>You are not authorized to view this report.</h3></p>";
+		echo "<p><a href='../../UserLogin.php'>User Login</a></p>";
+		echo "<p><a href='../../UserLogout.php'>User Logout</a></p>";
+		echo "<p><a href='../../../Home.html'>Home Page</a></p>";
+	}
+?>
     </body>
 </html>
 

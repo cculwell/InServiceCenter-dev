@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "../../resources/config.php";
 # create connection to database
 $mysqli = new mysqli($config['db']['amsti_01']['host']
@@ -11,6 +12,8 @@ if ($mysqli->connect_errno) {
     printf("Connect failed: %s\n", $mysqli->connect_error);
     exit();
 }
+if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
+{
 ?>
 <div id="tabs">
     <ul>
@@ -748,5 +751,13 @@ if ($mysqli->connect_errno) {
 </html>
 
 <?php
+}
+else
+{
+	echo "<p><h3>You are not authorized to visit this page.</h3></p>";
+	echo "<p><a href='UserLogin.php'>User Login</a></p>";
+	echo "<p><a href='UserLogout.php'>User Logout</a></p>";
+	echo "<p><a href='../Home.html'>Home Page</a></p>";
+}
 mysqli_close($mysqli);
 ?>

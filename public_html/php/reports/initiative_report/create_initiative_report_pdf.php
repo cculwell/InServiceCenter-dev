@@ -1,4 +1,5 @@
 <?php
+	session_start();
     require '../../../../resources/library/Reports/fpdf181/fpdf.php';
     require "../../../../resources/config.php";
 
@@ -16,7 +17,9 @@
         printf("Connect failed: %s\n", $mysqli->connect_error);
         exit();
     }
-
+	
+if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
+{
     class PDF extends FPDF
     {
         // Page header
@@ -242,4 +245,13 @@
     $pdf->Cell(50, 10, "", 0, 0);
     $pdf->Cell(90, 10, '', "LBR", 0, 0);
     $pdf->Output();
+	
+}
+else
+{
+	echo "<p><h3>You are not authorized to view this report.</h3></p>";
+	echo "<p><a href='../../UserLogin.php'>User Login</a></p>";
+	echo "<p><a href='../../UserLogout.php'>User Logout</a></p>";
+	echo "<p><a href='../../../Home.html'>Home Page</a></p>";
+}
 ?>

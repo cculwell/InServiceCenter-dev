@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "../../resources/config.php";
 //echo "tst";
 # create connection to database
@@ -12,6 +13,9 @@ if ($mysqli->connect_errno) {
     printf("Connect failed: %s\n", $mysqli->connect_error);
     exit();
 }
+
+if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
+{
 
 if(isset($_POST['trigger_name'])){
     $trigger = $_POST['trigger_name'];
@@ -1113,8 +1117,14 @@ if($trigger=="delete_note"){
     echo $note_id;
 }
 
-
-
+}
+else
+{
+	echo "<p><h3>You are not authorized to visit this page.</h3></p>";
+	echo "<p><a href='UserLogin.php'>User Login</a></p>";
+	echo "<p><a href='UserLogout.php'>User Logout</a></p>";
+	echo "<p><a href='../Home.html'>Home Page</a></p>";
+}
 
 mysqli_close($mysqli);
 

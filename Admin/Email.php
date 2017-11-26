@@ -1,4 +1,5 @@
 <?php
+	session_start();
     require "../resources/config.php";
 
     # create connection to database
@@ -35,6 +36,9 @@
     </head>
     
 <body>
+<?php
+	if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
+	{?>
     <div class="page_container">  
         <div class="content_container_left">
             <button id="del_subscriber_btn" name="del_subscriber_btn">Delete Subscriber</button>
@@ -215,5 +219,15 @@
         });
     </script>
 </div>
+<?php
+	}
+	else
+	{
+		echo "<p><h3>You are not authorized to view this report.</h3></p>";
+		echo "<p><a href='../public_html/php/UserLogin.php'>User Login</a></p>";
+		echo "<p><a href='../public_html/php/UserLogout.php'>User Logout</a></p>";
+		echo "<p><a href='../public_html/Home.html'>Home Page</a></p>";
+	}
+?>
 </body>
 </html>
