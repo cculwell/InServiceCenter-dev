@@ -95,7 +95,7 @@
 					{
 						echo "ERROR: could not prepare SQL statement.";
 					}
-					header("Location: UserForm.php");
+					header("Location: ../WorkQueue.php");
 				}
 			}
 			else
@@ -127,7 +127,7 @@
 			}
 			else
 			{	
-				header("Location: UserForm.php");
+				header("Location: ../WorkQueue.php");
 			}
 		}
 	}
@@ -161,7 +161,7 @@
 				{
 					echo "ERROR: could not prepare SQL statement";
 				}
-				header("Location: UserForm.php");
+				header("Location: ../WorkQueue.php");
 			}
 		}
 		else

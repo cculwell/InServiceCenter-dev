@@ -28,10 +28,10 @@
 			echo "ERROR: could not prepare SQL statement";
 		}
 		$mysqli->close();
-		header("Location: UserForm.php");
+		header("Location: ../WorkQueue.php");
 	}
 	else
 	{
-		header("Location: UserForm.php");
+		header("Location: ../WorkQueue.php");
 	}
 ?>

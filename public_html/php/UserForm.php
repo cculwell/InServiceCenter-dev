@@ -19,7 +19,7 @@
 	?>
 </head>
 <body>		
-		<a href='AddEditUser.php'><h3>Add a new user</h1></a><br>
+		<a href='php/AddEditUser.php'><h3>Add a new user</h1></a><br>
 		
 		<?php	
 		//$sql = "INSERT INTO users (first_name, last_name, user_email, user_password, user_status) VALUES ('Superlongname', 'Anevenlongerlastname', 'reallyreallyreallylongemailaddress@fake.com', 'shortpassword', 'User')";
@@ -39,8 +39,8 @@
 							."<td width='10%' align='center'><h5>".$row[3]."</h5></td>"
 							."<td width='8%' align='center'><h5>".$row[4]."</h5></td>"
 							."<td width='5%' align='center'><h5>".$row[5]."</h5></td>"
-							."<td width='5%' align='center'><h5><a href='AddEditUser.php?id=" . $row[0] . "'>Edit</a></h5></td>"
-							."<td width='5%' align='center'><h5><a href='DeleteUser.php?id=" . $row[0] . "'>Delete</a></h5></td>"
+							."<td width='5%' align='center'><h5><a href='php/AddEditUser.php?id=" . $row[0] . "'>Edit</a></h5></td>"
+							."<td width='5%' align='center'><h5><a href='php/DeleteUser.php?id=" . $row[0] . "'>Delete</a></h5></td>"
 						."</tr>";
 				}
 				// Free result set
