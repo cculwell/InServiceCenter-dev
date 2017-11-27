@@ -38,7 +38,6 @@ if ($mysqli->connect_errno) {
 <!--    <script src="../resources/library/jquery-validation/jquery.validate.js"></script>-->
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
-
     <script src="js/NewRequest.js"></script>
 
 
@@ -273,7 +272,7 @@ if ($mysqli->connect_errno) {
                                                 <td><input type="text" name='date0'  placeholder='mm/dd/yyyy' class="form-control datepicker"/></td>
                                                 <td><input type="text" name='sTime0' placeholder='00:00am/pm' class="form-control timepicker"/></td>
                                                 <td><input type="text" name='eTime0' placeholder='00:00am/pm' class="form-control timepicker"/></td>
-                                                <td><input type="number" name='bTime0' placeholder='' class="form-control"/></td>
+                                                <td><input type="number" name='bTime0' placeholder='' class="form-control" value="0"/></td>
                                                 <!--<td><input type="number" name='hours' placeholder='' class="form-control"/></td>-->
                                             </tr>
                                             <tr id='addr1'></tr>
