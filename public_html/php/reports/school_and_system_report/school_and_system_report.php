@@ -92,15 +92,16 @@
 
                                 if ($row[9] == NULL)
                                 {
-                                    echo "<td>$0.00</td>"  //Total Expenses   
-                                         ."</tr>";
+                                    echo "<td style='cursor:pointer'>$0.00</td>";  //Total Expenses   
                                 } 
                                 else 
                                 {
                                     $total_expenses = number_format((float)$row[9], 2, '.', '');
-                                    echo "<td>$" . $total_expenses . "</td>"  // Total Expenses
-                                         ."</tr>";
+                                    echo "<td style='cursor:pointer'>$" 
+                                         . $total_expenses . "</td>";              // Total Expenses
                                 } 
+
+                                echo "<td>". $row[0] ."</td></tr>";                // Hidden column  
                             }
                         }
                     ?>
@@ -118,8 +119,10 @@
                 </tfoot>
             </table>
             <br><br><br>
-            <h4>Total fees are a sum of all fees. To see a detailed breakdown print the PDF report.</h4>
+            <h4>Total expenses are a sum of all expenses. 
+            To see a detailed breakdown print the PDF report or double click on the expense total.</h4>
         </div>
+    <div id="view_expenses" name="view_expenses"></div>
 <?php
 	}
 	else

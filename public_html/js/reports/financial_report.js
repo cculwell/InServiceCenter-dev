@@ -2,7 +2,7 @@ $(document).ready(function() {
     var from = document.getElementById("from_date").value;
     var to = document.getElementById("to_date").value;
 
-    $('#financial_report_table').removeAttr('width').DataTable( {
+    var financial_data = $('#financial_report_table').removeAttr('width').DataTable( {
         dom: 'Bfrtip',
         scrollX: true,
         autoWith: false,
@@ -22,7 +22,8 @@ $(document).ready(function() {
             { "className": "dt-center", "width": 70, "targets": 12},
             { "className": "dt-center", "width": 70, "targets": 13},
             { "className": "dt-center", "width": 70, "targets": 14},
-            { "className": "dt-center", "width": 50, "targets": 15}
+            { "className": "dt-center", "width": 50, "targets": 15},
+            { "targets": 16, "visible": false, "searchable": false} // Hidden column with the request_id
         ],
         buttons: {
             buttons: [
@@ -99,6 +100,40 @@ $(document).ready(function() {
             columnDefs: [ {
                 visible: false
             }]
+        }
+    });
+
+    $('#financial_report_table tbody').on( 'dblclick', 'td', function (e) {
+        e.preventDefault();
+        var column_index = financial_data.cell(this).index().column;
+
+        if (column_index == 14)
+        {
+            var request_id = financial_data.row(this).data()[16];
+
+            $("#view_expenses").load("php/reports/financial_report/expense_breakdown.php", {request_id: request_id});
+            $("#view_expenses").dialog("open");
+        }
+    });
+    
+    $("#view_expenses").dialog({
+        title: "Expense Breakdown",
+        autoOpen: false,
+        height: 300,
+        width: 500,
+        buttons: [
+            { 
+                id: "cancel",
+                text: "Cancel", 
+                class: "btn btn-secondary",
+                click: function() { 
+                    $("#view_expenses").empty();
+                    $(this).dialog("close");
+                }
+            }
+        ],
+        open: function(event, ui) {
+            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
         }
     });
 });

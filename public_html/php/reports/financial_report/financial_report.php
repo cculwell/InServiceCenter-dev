@@ -91,33 +91,35 @@
 
                                 echo
                                     "<tr>"
-                                    ."<td>". $row[2]  ."</td>"                  // Program ID
-                                    ."<td>". $row[3]  ."</td>"                  // STI ID
-                                    ."<td>". $row[4]  ."</td>"                  // Program Title
-                                    ."<td>". $row[5]  ."</td>"                  // Start Date
-                                    ."<td>". $row[6]  ."</td>"                  // End Date
-                                    ."<td>". $row[7]  ."</td>"                  // Start Time
-                                    ."<td>". $row[8]  ."</td>"                  // End Time
-                                    ."<td>". $row[9]  ."</td>"                  // Number of Sessions
-                                    ."<td>". $row[10] ."</td>"                  // Location
-                                    ."<td>". $row[11] ."</td>"                  // Initiative
-                                    ."<td>". $row[12] ."</td>"                  // Target Audience
-                                    ."<td>". $row[13] ."</td>"                  // School System
-                                    ."<td>". $row[14] ."</td>"                  // Current Enrollment
-                                    ."<td>". $row[15] ."</td>";                 // Maximum Enrollment   
+                                    ."<td>". $row[2]  ."</td>"                   // Program ID
+                                    ."<td>". $row[3]  ."</td>"                   // STI ID
+                                    ."<td>". $row[4]  ."</td>"                   // Program Title
+                                    ."<td>". $row[5]  ."</td>"                   // Start Date
+                                    ."<td>". $row[6]  ."</td>"                   // End Date
+                                    ."<td>". $row[7]  ."</td>"                   // Start Time
+                                    ."<td>". $row[8]  ."</td>"                   // End Time
+                                    ."<td>". $row[9]  ."</td>"                   // Number of Sessions
+                                    ."<td>". $row[10] ."</td>"                   // Location
+                                    ."<td>". $row[11] ."</td>"                   // Initiative
+                                    ."<td>". $row[12] ."</td>"                   // Target Audience
+                                    ."<td>". $row[13] ."</td>"                   // School System
+                                    ."<td>". $row[14] ."</td>"                   // Current Enrollment
+                                    ."<td>". $row[15] ."</td>";                  // Maximum Enrollment   
 
                                 if ($row[16] == NULL)
                                 {
-                                    echo "<td>$0.00</td>"                       // Total Expenses  
-                                         ."<td>". $row[17] ."</td>"             // Status
-                                         ."</tr>";
+                                    echo "<td style='cursor:pointer'>$0.00</td>" // Total Expenses  
+                                         ."<td>". $row[17] ."</td>";             // Status
                                 } 
                                 else 
                                 {
-                                   echo "<td>". "$" . $total_expenses ."</td>"  // Total Expenses
-                                         ."<td>". $row[17] ."</td>"             // Status
-                                         ."</tr>";
-                                }                            
+                                   echo "<td style='cursor:pointer'>". "$" 
+                                        . $total_expenses ."</td>"              // Total Expenses
+                                        ."<td>". $row[17] ."</td>";             // Status
+                                         
+                                } 
+
+                                echo "<td>". $row[0] ."</td></tr>";            // Hidden column                             
                             }
                         }
                     ?>
@@ -144,8 +146,10 @@
                 </tfoot>
             </table>
             <br><br><br>
-            <h4>Total fees are a sum of all fees. To see a detailed breakdown print the PDF report.</h4>
+            <h4>Total expenses are a sum of all expenses. 
+            To see a detailed breakdown print the PDF report or double click on the expense total.</h4>
         </div>
+    <div id="view_expenses" name="view_expenses"></div>
 <?php
 	}
 	else
