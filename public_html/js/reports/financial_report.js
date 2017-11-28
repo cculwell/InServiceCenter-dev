@@ -112,12 +112,13 @@ $(document).ready(function() {
             var request_id = financial_data.row(this).data()[16];
 
             $("#view_expenses").load("php/reports/financial_report/expense_breakdown.php", {request_id: request_id});
+            $("#view_expenses").dialog({title: "Expense Breakdown"});
             $("#view_expenses").dialog("open");
         }
     });
     
     $("#view_expenses").dialog({
-        title: "Expense Breakdown",
+        modal: true,
         autoOpen: false,
         height: 300,
         width: 500,

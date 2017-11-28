@@ -103,12 +103,13 @@ $(document).ready(function() {
             var request_id = school_and_system_data.row(this).data()[8];
 
             $("#view_expenses").load("php/reports/school_and_system_report/expense_breakdown.php", {request_id: request_id});
+            $("#view_expenses").dialog({title: "Expense Breakdown"});
             $("#view_expenses").dialog("open");
         }
     });
     
     $("#view_expenses").dialog({
-        title: "Expense Breakdown",
+        modal: true,
         autoOpen: false,
         height: 300,
         width: 500,

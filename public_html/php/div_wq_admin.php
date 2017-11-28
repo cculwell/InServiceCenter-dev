@@ -124,6 +124,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
 
             $("#view_reports_selection").dialog({
                 title: "Report Selection",
+                modal: true,
                 autoOpen: false,
                 height: 400,
                 width: 350,
