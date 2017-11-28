@@ -48,99 +48,79 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
     <script>
 
             $("#view_report").dialog({
+                modal: true,
                 autoOpen: false,
+                height: 600,
+                width: 1000,
                 buttons: [
                     { 
-                        id: "cancel",
                         text: "Cancel", 
-                        class: "btn btn-secondary",
                         click: function() { 
-                            $("#view_report").empty();
                             $(this).dialog("close");
                         }
                     }
                 ],
-                open: function(event, ui) {
-                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                }
             });
 
             $("#pop_email").dialog({
-                title: 'Manage Subscribers/Send Newsletter',
+                modal: true,
                 autoOpen: false,
+                height: 500,
+                width: 800,
                 buttons: [
                     { 
-                        id: "cancel",
                         text: "Cancel", 
-                        class: "btn btn-secondary",
                         click: function() { 
-                            $("#pop_email").empty();
                             $(this).dialog("close");
                         }
                     }
                 ],
-                open: function(event, ui) {
-                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                }
             });
 
             $("#pop_bylaws_upload").dialog({
-                title: 'Bylaws Management',
+                modal: true,
                 autoOpen: false,
+                height: 500,
+                width: 800,
                 buttons: [
                     { 
-                        id: "cancel",
                         text: "Cancel", 
-                        class: "btn btn-secondary",
                         click: function() { 
-                            $("#pop_bylaws_upload").empty();
                             $(this).dialog("close");
                         }
                     }
                 ],
-                open: function(event, ui) {
-                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                }
             });
 
             $("#pop_newsletter_upload").dialog({
-                title: 'Newsletter Management',
+                modal: true,
                 autoOpen: false,
+                height: 500,
+                width: 800,
                 buttons: [
                     { 
-                        id: "cancel",
                         text: "Cancel", 
-                        class: "btn btn-secondary",
                         click: function() { 
-                            $("#pop_newsletter_upload").empty();
                             $(this).dialog("close");
                         }
                     }
                 ],
-                open: function(event, ui) {
-                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                }
             });
 
             $("#view_reports_selection").dialog({
-                title: "Report Selection",
                 modal: true,
                 autoOpen: false,
                 height: 400,
                 width: 350,
                 buttons: [
                     { 
-                        id: "cancel",
                         text: "Cancel", 
-                        class: "btn btn-secondary",
                         click: function() { 
                             $(this).dialog("close"); 
                         }
                     },
                     { 
-                        id: "show_report",
                         text: "Show Report",
-                        class: "btn btn-secondary", 
                         click: function() {
                             var error_message = "";
                             var report = "";
@@ -194,50 +174,44 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                             }
 
                             // \xa0 is a no-break space character
-                            title_bar = report_name + "\xa0\xa0\xa0\xa0\xa0\xa0" + start_date + " => " + end_date; 
+                            title_bar = report_name + "\xa0\xa0\xa0\xa0\xa0\xa0" + start_date + " to " + end_date; 
 
                             document.getElementById("message").innerHTML = "";
                             document.getElementById("view_report").innerHTML = "Processing.....";
-                            $("#view_report").load(report, {from_date: start_date, to_date: end_date});
+
                             $(this).dialog("close");
-                            $("#view_report").dialog("open")
-                                .dialog("option", "width", $(window).width())
-                                .dialog("option", "height",$(window).height());
-                            $("span.ui-dialog-title").text(title_bar); 
+                            $("#view_report").load(report, {from_date: start_date, to_date: end_date});
+                            $("#view_report").dialog({title: title_bar});
+                            $("#view_report").dialog("open");
                         }
                     }
                 ],
-                open: function(event, ui) {
-                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                }
             });
 
             report_button = $("#admin_report").button();
             report_button.click(function(e) {
                 e.preventDefault(); 
+
+                $("#view_reports_selection").dialog({title: "Report Selection"});
                 $("#view_reports_selection").dialog("open");
-                $("span.ui-dialog-title").text('Report Selection');
             });
 
             email_button = $("#send_emails").button();
             email_button.click(function(e) {
                 e.preventDefault();
+
                 $("#pop_email").load("../Admin/Email.php");
-                $("#pop_email").dialog("open")
-                    .dialog("option", "width", $(window).width())
-                    .dialog("option", "height",$(window).height());
-                $("span.ui-dialog-title").text('Manage Subscribers/Send Newsletter');
+                $("#pop_email").dialog({title: "Manage Subscribers/Send Newsletter"});
+                $("#pop_email").dialog("open");
             });
 
             upload_bylaws_button = $("#bylaws_upload").button();
             upload_bylaws_button.click(function(e) {
                 e.preventDefault();
 
+                $("#pop_bylaws_upload").dialog({title: "Manage Bylaws"});
                 $("#pop_bylaws_upload").load("../Admin/Bylaws.php");
-                $("#pop_bylaws_upload").dialog("open")
-                    .dialog("option", "width", $(window).width())
-                    .dialog("option", "height",$(window).height());
-                $("span.ui-dialog-title").text('Manage Bylaws');
+                $("#pop_bylaws_upload").dialog("open");
             });
 
             upload_newsletters_button = $("#newsletter_upload").button();
@@ -245,10 +219,8 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                 e.preventDefault();
 
                 $("#pop_newsletter_upload").load("../Admin/Newsletters.php");
-                $("#pop_newsletter_upload").dialog("open")
-                    .dialog("option", "width", $(window).width())
-                    .dialog("option", "height",$(window).height());
-                $("span.ui-dialog-title").text('Manage Newsletters');
+                $("#pop_newsletter_upload").dialog({title: "Manage Newsletters"});
+                $("#pop_newsletter_upload").dialog("open");
             });
 
             $("#pop_users").dialog({

@@ -111,8 +111,8 @@ $(document).ready(function() {
     $("#view_expenses").dialog({
         modal: true,
         autoOpen: false,
-        height: 300,
-        width: 500,
+        height: 250,
+        width: 400,
         buttons: [
             { 
                 id: "cancel",
