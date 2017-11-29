@@ -50,7 +50,7 @@ if(isset($_POST['reserveID'])) {
     $NumberEvents = $row[14];
 
     //Date and Time query
-    $date_time_Query = "Select * from reservationDate_Time where reservationID = '" . $_POST['reserveID'] . "'";
+    $date_time_Query = "Select * from reservationDate_Time where reservationID = '" . $_POST['reserveID'] . "'ORDER BY StartDate ASC ";
     $index = 0;
     if($result = $conn->query($date_time_Query))
     {
@@ -80,6 +80,7 @@ elseif (isset($_POST['DeleteEventID']))
     $deleteEvent = "DELETE FROM reservationDate_Time WHERE reservationDateTime_ID = '". $DeleteEventID . "'";
     $result = $conn->query($deleteEvent);
 }
+
 
 
 
@@ -167,7 +168,7 @@ elseif (isset($_POST['DeleteEventID']))
                     "<td><input type='text' name='etime$x' id='etime$x' class='timepicker' value='$EndTime[$x]'/></td>".
                     "<td><input type='text' name='ptime$x' id='ptime$x' class='timepicker' value='$PreTime[$x]'/></td>".
                     "<td class='hidden'><input type='hidden' name='eventsId$x' id='eventsId$x' class='eventID' value='$EventID[$x]'/></td>";
-                if($BookedStatus === 'booked' && $EventStatus[$x] === 'reserved')
+                if($BookedStatus === 'booked' && ($EventStatus[$x] === 'reserved' || $EventStatus[$x] === 'finished'))
                 {
                     echo "<td class = 'hidden'><input type='hidden'  name='prgoogle$x' id='prgoogle$x' value='$PrivateGoogle[$x]'/></td>".
                          "<td class = 'hidden'><input type='hidden' name='pugoogle$x' id='pugoogle$x' value='$PublicGoogle[$x]'/></td>".
@@ -183,75 +184,96 @@ elseif (isset($_POST['DeleteEventID']))
             ?>
                 </tbody>
             </table>
-                <a id="add_date_btn" class="btn btn-primary">Add Date</a>
+                <a id="add_date_btn" class="btn btn-primary add_date_btn">Add Date</a>
                 <br><br>
                 <script>
-                    $('.datepicker').datepicker();
-                    $('.timepicker').timepicker({'minTime': '7:30am',
-                        'maxTime': '11:30pm'
-                    });
-                    $(document.body).on('click', '.deleteBookedEvent', function(){
-                        $(this).closest('tr').find('.status').val('delete');
-                    });
-                    //Delete the date and time from the sql
-                    //Must use document.body for dynamic tables
-                    $(document.body).on('click', '.deleteEvent', function(){
-                        var DeleteEventID = $(this).closest('tr').find('.eventID').val();
-                        $.ajax({
-                            type: 'POST',
-                            url: 'php/Edit_Form.php',
-                            data: {DeleteEventID: DeleteEventID},
-                            success:function(){
-                                console.log("Event Deleted");
-                            },
-                            error:function () {
-                                console.log("Error on deleting data");
-                            }
+                    $(document).ready(function () {
+                        $(document.body).on('click', '.deleteBookedEvent', function(){
+                            $(this).closest('tr').find('.status').val('delete');
+                            $(this).removeClass();
+                            $(this).html('Undo?');
+                            $(this).toggleClass('btn btn-primary undeleteEvent');
+
                         });
-                        //Delete the HTML Row
-                       $(this).parent().parent().remove();
-                        event.preventDefault();
-                    });
+                        $(document.body).on('click', '.undeleteEvent', function(){
+                            $(this).closest('tr').find('.status').val('reserved');
+                            $(this).removeClass();
+                            $(this).html('Cancel');
+                            $(this).toggleClass('btn btn-danger deleteBookedEvent');
 
-                    //Dialog Box for Adding dates and time to the sql
-                    $("#div_pop_dt").dialog({
-                        autoOpen: false,
-                        open:function(){
-                            $('#newDate').datepicker().blur();
-                            $('.timepicker').timepicker({'minTime': '7:30am',
-                                    'maxTime': '11:30pm'
+                        });
+                        //Delete the date and time from the sql
+                        //Must use document.body for dynamic tables
+                        $(document.body).on('click', '.deleteEvent', function(){
+                            var DeleteEventID = $(this).closest('tr').find('.eventID').val();
+                            $.ajax({
+                                type: 'POST',
+                                url: 'php/Edit_Form.php',
+                                data: {DeleteEventID: DeleteEventID},
+                                success:function(){
+                                    console.log("Event Deleted");
+                                },
+                                error:function () {
+                                    console.log("Error on deleting data");
+                                }
                             });
-                        },
-                        buttons: {
-                            Insert: function () {
-                                var form = $('#new_Event');
-                                var newDateForm = form.serialize();
+                            //Delete the HTML Row
+                            $(this).parent().parent().remove();
+                            event.preventDefault();
+                        });
 
-                                $.ajax({
-                                    type: "POST",
-                                    url: "php/BookEvent.php",
-                                    data: newDateForm + '&index=' + <?php echo $x?> + '&bookedStatus=<?php echo $BookedStatus?>',
-                                    success: function (report) {
-                                        console.log(report);
-                                        $('#table_body').append(report);
-                                        $('#div_pop_dt').dialog("close");
+                        //Dialog Box for Adding dates and time to the sql
+                        $("#div_pop_dt").dialog({
+                            autoOpen: false,
+                            open:function(){
+                                $('#newDate').datepicker();
+                                $('.timepicker').timepicker({'minTime': '7:30am',
+                                    'maxTime': '11:30pm'
+                                });
+
+                            },
+                            buttons: {
+                                Insert: function () {
+                                    var form = $('#new_Event');
+                                    var newDateForm = form.serialize();
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "php/BookEvent.php",
+                                        data: newDateForm + '&index=' + <?php echo $x?> + '&bookedStatus=<?php echo $BookedStatus?>',
+                                        success: function (report) {
+                                            console.log(report);
+                                            $('#table_body').append(report);
+                                            $('#div_pop_dt').dialog("close");
                                         },
                                         error: function () {
                                             console.log("Error On New Date");
                                             $('#div_pop_dt').dialog("close");
                                         }
                                     });
+                                    form.trigger('reset');
 
                                 },
                                 Cancel: function () {
+
+                                    $('#new_Event').trigger('reset');
                                     $(this).dialog("close");
+
                                 }
                             }
                         });
-                        var addDate = $('#add_date_btn').on('click', function(){
+                        var addDate = $('.add_date_btn').on('click', function(){
                             $("#div_pop_dt").dialog("open")
                                 .dialog("option", "width", 500);
                         });
+                        $('.datepicker').datepicker();
+                        $('.timepicker').timepicker({'minTime': '7:30am',
+                            'maxTime': '11:30pm'
+                        });
+                    });
+
+
+
 
                 </script>
 
@@ -266,25 +288,27 @@ elseif (isset($_POST['DeleteEventID']))
         <?php
         if($BookedStatus === 'booked')
         {
-            echo '<button type="button" class="btn btn-primary pull-left bookedBtns" id="updateBookedEvent">Update Event</button>';
-            echo '<button type="button" class="btn btn-danger pull-right bookedBtns" id="deleteBookedEvent">Delete Event</button>';
+            echo '<button type="button" class="btn btn-primary pull-left bookedBtns" id="updateBookedEvent'.$ReservationID.'">Update Reservation</button>';
+            echo '<button type="button" class="btn btn-danger pull-right delete_Booked" id="deleteBooked'.$ReservationID.'">Delete Reservation</button>';
 
         }
         else if($BookedStatus==='pending')
         {
-            echo '<button type="button" class="btn btn-primary pull-left" id="bookEvent">Book Request</button>';
-            echo '<button type="button" class="btn btn-danger pull-right  deletePending" id="deletePending">Delete Request</button>';
+            echo '<button type="button" class="btn btn-primary pull-left" id="bookEvent'.$ReservationID.'">Book Request</button>';
+            echo '<button type="button" class="btn btn-danger pull-right  deletePending" id="deletePending'.$ReservationID.'">Delete Request</button>';
         }
         else if($BookedStatus==='canceled')
         {
-            echo '<button type="button" class="btn btn-primary" id="bookEvent">Book Event</button>';
+            echo '<button type="button" class="btn btn-primary pull-left" id="bookEvent'.$ReservationID.'">Book Event</button>';
+            echo '<button type="button" class= "btn btn-danger pull-right" id="permanentDelete'.$ReservationID.'">Permanent Delete</button>';
         }
         ?>
         <script type="text/javascript">
-
+            $(document).ready(function(){
                 HandleClick(<?php echo $ReservationID?>);
                 HandleUpdatePage(<?php echo "$ReservationID , '$RoomReservation'"?>);
 
+            });
         </script>
 
     </form>

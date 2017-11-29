@@ -12,10 +12,17 @@
     <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.css">
     <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
+    <link rel="stylesheet" type="text/css" href="../resources/library/realperson-2.0.1/jquery.realperson.css">
+
     <script src="foundation/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
+    <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
+
     <script src="../resources/library/bootstrap/js/bootstrap.js"></script>
     <script src="../resources/library/jquery-ui/jquery-ui.js"></script>
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
+    <script src="../resources/library/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/ReservationRequest.js"></script>
     <style>
         .panel-body {
             background:#dcdcdc;}
@@ -39,18 +46,18 @@
             <div class="col-md-12 well text-center">
                 <h2>Reservation Request</h2>
                 <h3>Please Complete All Fields Before Submission</h3>
-                <form action="php/ReservationRequest.php" id="form_reservation" method="post">
+                <form  id="form_reservation">
                     <div class="panel panel-primary">
                         <div class="panel-heading"><h4>Program Information</h4></div>
                         <div class="panel-body">
                             <div class="row form-group">
                                 <div class="pull-left col-md-6 ">
                                     <label for="prgrm">Program Name:</label>
-                                    <input type="text" id="prgrm" name="program" required>
+                                    <input type="text" id="prgrm" name="program" required maxlength="50">
                                 </div>
                                 <div class="col-md-6 pull-left">
                                     <label for="spncr">Sponsoring Group(s)</label>
-                                    <input type="text"  id="spncr" name="sponsor" required>
+                                    <input type="text"  id="spncr" name="sponsor" required maxlength="75">
                                 </div><br>
                                 <div class="col-lg-12">
                                     <label for="evntdesc">Describe the Event</label>
@@ -65,15 +72,15 @@
                             <div class="row form-group">
                                 <div class="col-md-4  pull-left">
                                     <label for="priresp">Contact's Name</label>
-                                    <input type="text" id="priresp" name="responsible" required>
+                                    <input type="text" id="priresp" name="responsible" required maxlength="75">
                                 </div>
                                 <div class="pull-left col-md-4">
                                     <label for="phn">Phone Number</label>
-                                    <input type="tel" id="phn" name="phone" placeholder="(555) 555-5555"required>
+                                    <input type="tel" id="phn" name="phone" placeholder="(555) 555-5555" required maxlength="20">
                                 </div>
                                 <div class="col-md-4 pull-left">
                                     <label for="eml">Email</label>
-                                    <input type="email" id="eml" name="email" placeholder="name@sample.com" required>
+                                    <input type="email" id="eml" name="email" placeholder="name@sample.com" required maxlength="50">
                                 </div>
 
                             </div>
@@ -110,7 +117,7 @@
                                                 <tbody id="table_body">
                                                 <tr id="add_row0">
                                                     <td>1</td>
-                                                    <td><input type="text" name="requesteddatefrom0" class="form-control datepicker" placeholder="MM/DD/YYYY" required/></td>
+                                                    <td><input type="text" name="requesteddatefrom0" class="form-control datepicker" placeholder="MM/DD/YYYY" required date/></td>
                                                     <td><input type="text" class="timepicker form-control" name="starttime0" placeholder="HH:MM AM/PM" required/></td>
                                                     <td><input type="text" class="timepicker form-control" name="endtime0" placeholder="HH:MM AM/PM" required></td>
                                                     <td><input type="text" class="timepicker form-control" name="preeventsetup0" placeholder="HH:MM AM/PM" required/></td>
@@ -159,9 +166,13 @@
                             <input type="checkbox" id = "agree" name="accept" value="accept" style="width: 30px; height: 20px" required> </h2>
                     </label>
                     <hr>
+                    <div class="captcha_container">
+                        <input type="text" id="captcha" name="captcha" required/>
+                    </div><br>
                     <div class="btn-group" id="reserve">
                         <button type="submit" id="form_submit" class="btn btn-primary btn-lg">Reserve</button>
                     </div>
+
                 </form>
 
 
@@ -173,18 +184,10 @@
 
 </div>
 <!-- Confirmation Panel-->
-<div id="Show_Success" class="modal fade success-popup">
-    <div class="panel panel-success">
-        <div class="panel-heading text-center">
-            <h2>Reservation Created</h2>
-        </div>
-        <div class="panel-body text-center">
-            <p>The Reservation Was Created</p>
-            <button type="button" class="btn btn-primary" id="HideSuccess">OK</button>
-        </div>
-
-    </div>
+<div id="Show_Success" title="Reservation Form Sent">
+    <p>You have completed the reservation form. You should get an email confirming</p>
+    <p>your reservation.</p>
 </div>
+
 </body>
-<script type="text/javascript" src="js/ReservationRequest.js"></script>
 </html>
