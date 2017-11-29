@@ -74,7 +74,7 @@ session_start()
 						</script>
 					</div>
 				</div>
-
+				<p><a href='php/UserLogout.php'style='float: left'>Logout</a></p>
 			</div>
 		</div>
 	</div>

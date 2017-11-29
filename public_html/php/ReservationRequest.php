@@ -1,9 +1,11 @@
 <?php
 
-include_once "../php/Common.php";
-include_once "../../resources/config.php";
+require "../php/Common.php";
+require "../../resources/config.php";
+require "../php/captcha/get_captcha_hash.php";
+require "../../resources/library/PHPMailer/src/PHPMailer.php";
+require "../../resources/library/PHPMailer/src/Exception.php";
 
-//$conn = new mysqli("myathensricorg.ipowermysql.com", "amsti_01", "Capstone@17", "amsti_01");
 
 //Connect to the database
 $conn = new mysqli($config['db']['amsti_01']['host']
@@ -16,123 +18,161 @@ if ($conn -> connect_error) { die("Connection failed: " . $conn->connect_error);
 
 if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['sponsor'])&& isset($_POST['evntdesc'])
     && isset($_POST['room']) && isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['attend'])
-    && isset($_POST['accept']))
+    && isset($_POST['accept']) && isset($_POST['captcha'])&&isset($_POST['captchaHash']))
 {
-    $Program = $_POST['program'];
-    $InCharge = $_POST['responsible'];
-    $groupSponsor = $_POST['sponsor'];
-    $Description = $_POST['evntdesc'];
-    $RoomReservation = $_POST['room'];
-    $Email = $_POST['email'];
-    $PhoneNumber = $_POST['phone'];
-    $BookedStatus = 'pending';
-    $smartBoard = (isset($_POST['Smartboard']) ? 'Yes': 'No');
-    $Projector = (isset($_POST['projector']) ? 'Yes': 'No');
-    $ExtensionCord = (isset($_POST['extensioncords']) ? 'Yes': 'No');
-    $DocumentCamera = (isset($_POST['documentcamera']) ? 'Yes' : 'No');
-    $AV_Need = (isset($_POST['avsetup']) ? 'Yes': 'No');
-    $NumberEvents = $_POST['attend'];
+    $Captcha_User = $_POST['captcha'];
+    $Captcha_HASH = $_POST['captchaHash'];
+    //Check if hash matches the users hash
+    if(rpHash($Captcha_User) == $Captcha_HASH)
+    {
 
-//Create Query to insert information for the event
-    $sql_info = "INSERT INTO reservations (programName, programPerson,
+        $Program = SanitizePostString($conn, $_POST['program']);
+        $InCharge = SanitizePostString($conn, $_POST['responsible']);
+        $groupSponsor = SanitizePostString($conn, $_POST['sponsor']);
+        $Description = SanitizePostString($conn, $_POST['evntdesc']);
+        $RoomReservation = SanitizePostString($conn, $_POST['room']);
+        $Email = SanitizePostString($conn, $_POST['email']);
+        $PhoneNumber = SanitizePostString($conn, $_POST['phone']);
+        $BookedStatus = 'pending';
+        $smartBoard = (isset($_POST['Smartboard']) ? 'Yes': 'No');
+        $Projector = (isset($_POST['projector']) ? 'Yes': 'No');
+        $ExtensionCord = (isset($_POST['extensioncords']) ? 'Yes': 'No');
+        $DocumentCamera = (isset($_POST['documentcamera']) ? 'Yes' : 'No');
+        $AV_Need = (isset($_POST['avsetup']) ? 'Yes': 'No');
+        $NumberEvents = SanitizePostString($conn, $_POST['attend']);
+
+        //Create Query to insert information for the event
+        $statement = $conn->prepare('Insert into reservations (programName, programPerson,
                             programGroup, programDescription, room, email,
                             phone, bookedStatus, sm_board, ex_cord, projector,
-                            document_camera, av_needs, num_events) " .
-        "VALUES ('$Program', '$InCharge', '$groupSponsor', '$Description', '$RoomReservation', '$Email', '$PhoneNumber', 
-'$BookedStatus', '$smartBoard', '$ExtensionCord', '$Projector',  '$DocumentCamera', '$AV_Need', '$NumberEvents')";
+                            document_camera, av_needs, num_events)VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
 
-//Insert information to the table
-    $result = $conn->query($sql_info);
-    if($result == TRUE)
-    {
-        echo "New Record Created";
-    }
-    else{
-        echo"Connection Error: " . $conn->error;
-    }
+        $statement->bind_param('ssssssssssssss', $Program, $InCharge, $groupSponsor, $Description, $RoomReservation, $Email, $PhoneNumber,
+            $BookedStatus, $smartBoard, $ExtensionCord, $Projector,  $DocumentCamera, $AV_Need, $NumberEvents);
 
-//Get The primary key
-    $ReservationID = $conn->insert_id;
-//Using Rick's way of putting dynamic date and time in MySQL
-    $index = 0;
-    $reservationDatesAndTime = array();
-    foreach ($_POST as $key)
-    {
-        if(preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $key))
+
+        $statement->execute();
+        echo("Row inserted./n," . $statement->affected_rows);
+        $statement->close();
+
+        //Get The primary key
+        $ReservationID = $conn->insert_id;
+        //Using Rick's way of putting dynamic date and time in MySQL
+        $index = 0;
+        $reservationDatesAndTime = array();
+        $Email_Subject = $Program;
+        foreach ($_POST as $key)
         {
-            $startDate = FormatDate4Db($_POST['requesteddatefrom' . $index]);
-            $startTime = FormatTime4Db($_POST['starttime' . $index]);
-            $endTime = FormatTime4Db($_POST['endtime' . $index]);
-            $preTime = FormatTime4Db($_POST['preeventsetup' . $index]);
-            $reservationDatesAndTime[$index] = "INSERT INTO reservationDate_Time (reservationID, StartDate, startTime,
-                                    endTime, preTime)" .
-                "VALUES('$ReservationID', '$startDate', '$startTime', '$endTime', '$preTime')";
-            $result = $conn->query($reservationDatesAndTime[$index]);
-            if($result == TRUE)
+            if(preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $key))
             {
-                echo "<br> Day: $index successfuly inserted";
-            }
-            else
-            {
-                echo "<br> Day : $index hit a snag";
-                exit;
-            }
-            $index++;
-        }
-    };
+                //For PHPMail Summary
+                $mail_date = SanitizePostString($conn, $_POST['requesteddatefrom' . $index]);
+                $mail_startTime = SanitizePostString($conn, $_POST['starttime' . $index]);
+                $mail_endTime =  SanitizePostString($conn, $_POST['endtime' . $index]);
+                $mail_preTime = SanitizePostString($conn, $_POST['preeventsetup' . $index]);
+                $Email_Subject .= ' Date: ' . $mail_date . '), Start: ' . $mail_startTime . '; End: ' . $mail_endTime . '; Pre: '. $mail_preTime;
 
+                //Put dates in reservationDate_Time table
+                $startDate = FormatDate4Db($mail_date);
+                $startTime = FormatTime4Db($mail_startTime);
+                $endTime = FormatTime4Db($mail_endTime);
+                $preTime = FormatTime4Db($mail_preTime);
+                $statement = $conn->prepare("INSERT INTO reservationDate_Time (reservationID, StartDate, startTime,
+                                    endTime, preTime) VALUES (?,?,?,?,?)");
+                $statement->bind_param('sssss', $ReservationID, $startDate, $startTime, $endTime, $preTime);
+                $statement->execute();
+
+
+            }
+        };
+        $statement->close();
+    }
+    elseif(rpHash($Captcha_User) !== $Captcha_HASH) {
+        echo "captcha failed";
+        exit();
+    }
+
+
+    /*The Automated Acceptance Letter For User
+    $mail = new PHPMailer();
+    $Mail_Body = "<p>Thank You for submitting your date request through our </p>
+                        <p>automated system. Our staff will review your request. Once </p>
+                        <p>reviewed you will receive an email informing you if the request</p>
+                        <p>is approved or denied.</p>
+                        <p>Please remember our building hours are Monday-Friday, 8:00-4:30</p>
+                        <br><hr>";
+
+    for($index=0; $index < sizeof($mail_date); $index++)
+    {
+       $Mail_Body .= "<td>$mail_date[$index]</td>
+        <td>$mail_startTime[$index]</td>
+        <td>$mail_endTime[$index]</td>
+        <td>$mail_preTime[$index]</td>";
+    }
+    $Mail_Body .= "</tbody>
+                </table><br><hr>
+                <p>Thanks,</p>
+                <p>In-Service & AMSTI Staff</p>";
+
+
+//From email address and name
+    $mail->From = "inserviceathens@gmail.com";
+    $mail->FromName = "Inservice Athens Reservation";
+
+//To address and name
+    $mail->addAddress($Email);
+    $mail->isHTML(true);
+
+    $mail->Subject = $Email_Subject;
+    $mail->Body = $Mail_Body;
+
+
+    if(!$mail->send())
+    {
+        echo "Mailer Error: " . $mail->ErrorInfo;
+    }
+    else
+    {
+        echo "Message has been sent successfully";
+    }
+
+    //Mail to the Administrator to alert them of a pending request
+    $Mail_Alert = PHPMailer();
+    $Mail_Alert->From = "inserviceathens@gmail.com";
+    $Mail_Alert->FromName = "Inservice Athens Reservation";
+
+    $Mail_Alert->addAddress('jtwynn95@gmail.com');
+    $Mail_Alert->isHTML(true);
+    $Mail_Alert->Subject = $Program . ': Reservation' ;
+    $Mail_Alert->Body = "Hello, there is a new pending request awaiting for your approval";
+
+    if(!$Mail_Alert->send())
+    {
+        echo "Mailer Error: " . $Mail_Alert->ErrorInfo;
+    }
+    else
+    {
+        echo "Message has been sent successfully";
+    }
+    */
+    else
+    {
+        echo"All fields are not filled";
+    }
+}
+else
+{
+    echo "SQL Error";
+}
+function mysql_fixstring($conn, $string)
+{
+    if(get_magic_quotes_gpc()) $string=stripslashes($string);
+    return $conn->real_escape_string($string);
+}
+function SanitizePostString($conn, $string)
+{
+    return htmlentities(mysql_fixstring($conn, $string));
 }
 
-
-/*
-$sql = "INSERT INTO tblReservationRequest (vcProgram, vcSponsors, vcEventDesc, vcPrimary, vcPhone, vcEmail, dtFromDate, dtToDate, dtStartTime, dtEndTime, dtSetupTime, iAttendees, bSmartboard, bProjector, bCamera, bExtCords, bTech)
-VALUES ('". 
-$_GET['program'] . "', '" .
-$_GET['sponsor'] . "', '" .
-$_GET['evntdesc'] . "', '" .
-$_GET['responsible'] . "', '" .
-$_GET['phone'] . "', '" .
-$_GET['email'] . "', '" .
-date("Y-m-d", strtotime($_GET['requesteddatefrom'])) . "', '" .
-date("Y-m-d", strtotime($_GET['requesteddateto'])) . "', '" .
-FormatTime4Db($_GET['starttime']) . "', '" .
-FormatTime4Db($_GET['endtime']) . "', '" .
-FormatTime4Db($_GET['preeventsetup']) . "', " .
-$_GET['attend'] . ", " .
-(isset($_GET['Smartboard']) ? 1: 0) . ", " .
-(isset($_GET['projector']) ? 1: 0) . ", " .
-(isset($_GET['documentcamera']) ? 1: 0) . ", " .
-(isset($_GET['extensioncords']) ? 1: 0) . ", " .
-(isset($_GET['avsetup']) ? 1: 0) . ")";
-
-if ($conn->query($sql) === TRUE) {
-   //$to = "Holly.Wood@athens.edu";
-    $to = "jtwynn95@outlook.com";
-   $subject = "Reservation Request";
-   $txt = "Program: " . $_GET['program'] . "\r\n" . 
-      "Sponsoring Group(s): " . $_GET['sponsor'] . "\r\n" . 
-      "Describe the Event: " . $_GET['evntdesc'] . "\r\n" . 
-      "Primary Individual Responsible: " . $_GET['responsible'] . "\r\n" . 
-      "Phone Number: " . $_GET['phone'] . "\r\n" . 
-      "Email: " . $_GET['email'] . "\r\n" .
-      "Requested Date From: " . $_GET['requesteddatefrom'] . "\r\n" .
-      "Requested Date To: " . $_GET['requesteddateto'] . "\r\n" .
-      "Start Time: " . $_GET['starttime'] . "\r\n" .
-      "End Time: " . $_GET['endtime'] . "\r\n" .
-      "Setup Time: " . $_GET['preeventsetup'] . "\r\n" .
-      "Number of Attendees: " . $_GET['attend'] . "\r\n" .
-      "Smartboard?: " . (isset($_GET['Smartboard']) ? 'Yes': 'No') . "\r\n" .
-      "Projector?: " . (isset($_GET['projector']) ? 'Yes': 'No') . "\r\n" .
-      "Camera?: " . (isset($_GET['documentcamera']) ? 'Yes': 'No') . "\r\n" .
-      "Ext Cords?: " . (isset($_GET['extensioncords']) ? 'Yes': 'No') . "\r\n" .
-      "Tech Needed?: " . (isset($_GET['avsetup']) ? 'Yes': 'No');
-   $headers = "From: webmaster@myathensric.org";
-   mail($to,$subject,$txt,$headers);
-
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-*/
 $conn->close();
 ?>

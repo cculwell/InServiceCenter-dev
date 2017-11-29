@@ -19,12 +19,7 @@
     <script src="../resources/library/DataTables/datatables.js"></script>
     <script src="../resources/library/DataTables/Select/js/dataTables.select.min.js"></script>
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
-    <script src="js/CalendarAdmin.js"></script>
 
-    <script async defer src="https://apis.google.com/js/api.js"
-            onload="this.onload=function(){};handleClientLoad()"
-            onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
 
     <title>In-Service Calendar Admin Page</title>
 
@@ -39,11 +34,25 @@
 </div>
 <div class="container">
 
-    <div id="PendingQueue" class="panel panel-primary">
+    <div id="PendingQueue" class="panel panel-primary" >
         <div class="panel-heading">
-            <h3>Reservation Admin Page</h3>
+            <h3 class="text-center">Reservation Admin Page</h3>
+        </div><br>
+        <div class="text-center" id="sign_in_button">
+            <button class="btn-lg btn-primary text-center" onclick="sign_in()">Sign On</button>
+            <br><br><br>
+
         </div>
-        <div class="panel-body">
+        <div id="signoff_button" style="display: none" class="text-center">
+            <p>You are using the wrong gmail account</p>
+            <p>Please Sign off and sign in to the Inservice gmail account</p><br>
+            <button class="btn-lg btn-danger" onclick="sign_off()">Sign Off</button>
+            <br><br>
+        </div>
+
+        <div class="panel-body" style="display: none" id="main_panel">
+
+            <button class="btn btn-danger pull-right"  onclick="sign_off()">Sign Off</button>
             <div id="reservationQueue">
                 <script>
                     //This will load to the CalendarAdmin.php PHP file
@@ -52,97 +61,14 @@
                 </script>
             </div>
         </div>
-
-
-
     </div>
 </div>
 
 
-<!--
-<h1>Calendar Admin Page</h1>
-
-<div id = "admin-content" style="display: block" class="panel-body">
-    <ul class="nav nav-tabs" >
-        <li class="active"><a data-toggle="tab" href="#Create">Create Event</a> </li>
-        <li><a data-toggle="tab" href="#Update-Delete">Delete Event</a> </li>
-        <li><a data-toggle="tab" href="#Update">Update Event</a> </li>
-
-    </ul>
-    <div class="tab-content">
-        <div id="Create" class="tab-pane fade in active">
-            <form id="creator-form" class="form-inline">
-                <fieldset>
-                    <legend>
-                        Event Creator
-                    </legend>
-                    <label for="in_room">Room: </label>
-                    <select id="in_room" required>
-                    <option value ="">Pick a room...</option>
-                    <option value="Room A">Room A</option>
-                    <option value="Room B">Room B</option>
-                    <option value="Room C">Room C</option>
-                    <option value="Conference">Conference</option>
-                </select>
-                    <label for="private-title">Title: </label>
-                    <input id="private-title" class="form-control" type="text" placeholder="Event Title" size="35">
-                    <br>
-                    <label for="description">Event Description:</label><br>
-                    <textarea class="form-control" id="description" rows="3" cols="50"></textarea>
-                    <br>
-                    <table>
-                        <thead>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Date</th>
-                            <th class="text-center">Start Time</th>
-                            <th class="text-center">End time</th>
-                        </thead>
-                        <tbody class="table_body">
-                        <tr id="add0">
-                            <td>1</td>
-                            <td><input type="text" placeholder="MM/DD/YYYY" class="datapicker" id="date0" required></td>
-                            <td><input type="text" placeholder="HH:MMam/pm" class="timepicker" required id="start0"></td>
-                            <td><input type="text" placeholder="HH:MMam/pm" class="timepicker" required id="end0"></td>
-                        </tr>
-                        <tr id="add1"></tr>
-                        </tbody>
-                    </table>
-                    <button type="button" class="btn btn-primary pull-left" id="addDate">ADD</button>
-                    <button type="button" class="btn btn-danger pull-right" id="deleteDate">DELETE</button>
-                    <br><br>
-
-                    <br><br>
-
-                    <button type="button" id="create-event" class="btn btn-primary">Create Event</button>
-                </fieldset>
-            </form>
-            <div class="responsive-embed"><iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;height=900&amp;wkst=1&amp;hl=en&amp;bgcolor=%23FFFFFF&amp;src=at8l5tsi7g34k43564d22g4ddc%40group.calendar.google.com&amp;color=%23A32929&amp;src=redd09jcf350kg52s8kntu91hc%40group.calendar.google.com&amp;color=%235229A3&amp;src=3r7v3qeevnub3rm0ilmnd0ndq4%40group.calendar.google.com&amp;color=%230D7813&amp;src=lfrdt41o0cb63fge3d0m4f19ag%40group.calendar.google.com&amp;color=%23AB8B00&amp;ctz=America%2FChicago" style="border-width:0" width="1000" height="900" frameborder="0" scrolling="no"></iframe></div>
-        </div>
-        <div class="tab-pane fade" id="Update-Delete">
-            <h2>Delete Events</h2>
-
-            <select id="calendar-list">
-                <option value="Room A">Room A</option>
-                <option value="Room B">Room B</option>
-                <option value="Room C">Room C</option>
-                <option value="Conference">Conference</option>
-            </select>
-            <br>
-            <button class="btn btn-default" id="get-list-btn">Get List</button>
-            <div class="list-group-item-text">
-                <ul class="list-group" id="content-up-del">Events</ul>
-            </div>
-        </div>
-        <div class="Update">
-            <h2>Update Event</h2>
-
-        </div>
-    </div>
-    </div>
-
-<script type="text/javascript" src="js/GoogleAPICall.js"></script>
-<script async defer src="https://apis.google.com/js/api.js">
-</script>
--->
 </body>
+<script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+</script>
+<script src="js/CalendarAdmin.js"></script>
 </html>

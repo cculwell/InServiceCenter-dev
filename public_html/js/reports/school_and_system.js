@@ -2,7 +2,7 @@ $(document).ready(function() {
     var from = document.getElementById("from_date").value;
     var to = document.getElementById("to_date").value;
 
-    $('#school_and_system_report_table').removeAttr('width').DataTable( {
+    var school_and_system_data = $('#school_and_system_report_table').removeAttr('width').DataTable( {
         dom: 'Bfrtip',
         scrollX: true,
         autoWith: false,
@@ -14,7 +14,8 @@ $(document).ready(function() {
             { "className": "dt-center", "width": 150, "targets": 4},
             { "className": "dt-center", "width": 150, "targets": 5},
             { "className": "dt-center", "width": 50, "targets": 6},
-            { "className": "dt-center", "width": 100, "targets": 7}
+            { "className": "dt-center", "width": 100, "targets": 7},
+            { "targets": 8, "visible": false, "searchable": false} // Hidden column with the request_id
         ],
         buttons: {
             buttons: [
@@ -90,6 +91,41 @@ $(document).ready(function() {
             columnDefs: [ {
                 visible: false
             }]
+        }
+    });
+
+    $('#school_and_system_report_table tbody').on( 'dblclick', 'td', function (e) {
+        e.preventDefault();
+        var column_index = school_and_system_data.cell(this).index().column;
+
+        if (column_index == 7)
+        {
+            var request_id = school_and_system_data.row(this).data()[8];
+
+            $("#view_expenses").load("php/reports/school_and_system_report/expense_breakdown.php", {request_id: request_id});
+            $("#view_expenses").dialog({title: "Expense Breakdown"});
+            $("#view_expenses").dialog("open");
+        }
+    });
+    
+    $("#view_expenses").dialog({
+        modal: true,
+        autoOpen: false,
+        height: 250,
+        width: 400,
+        buttons: [
+            { 
+                id: "cancel",
+                text: "Cancel", 
+                class: "btn btn-secondary",
+                click: function() { 
+                    $("#view_expenses").empty();
+                    $(this).dialog("close");
+                }
+            }
+        ],
+        open: function(event, ui) {
+            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
         }
     });
 });

@@ -41,13 +41,9 @@
 <body>
 <h1>User Login</h1>
 <?php
-	if (isset($_SESSION['valid_email']) && ($_SESSION['valid_status'] == 'Admin'))
+	if (isset($_SESSION['valid_email']))
 	{
 		header("location: ../WorkQueue.php");
-	}
-	else if (isset($_SESSION['valid_email']) && ($_SESSION['valid_status'] == 'User'))
-	{
-		header("location: ../Home.html");
 	}
 	else
 	{
@@ -65,7 +61,7 @@
 		echo "<p>Email Address:</p>";
 		echo "<p><input type='text' name='email' id='email' size='30'/></p>";
 		echo "<p>Password:</p>";
-		echo "<p><input type='text' name='password' id='password' size='30'/></p>";
+		echo "<p><input type='password' name='password' id='password' size='30'/></p>";
 		echo "<button type='submit' name='login'>Login</button>";
 		echo "</form>";
 	}

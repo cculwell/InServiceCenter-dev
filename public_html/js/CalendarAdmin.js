@@ -3,18 +3,11 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/
 var SCOPES = "https://www.googleapis.com/auth/calendar";
 var private_CalID ="inserviceathens@gmail.com";
 
-
-
 //Handles the booked reservations page
-
-
-
 function HandleUpdatePage(ReservationID, OriginalRoom) {
-    $('#updateBookedEvent').on('click', function () {
-
+    $('#updateBookedEvent'+ReservationID).on('click', function () {
 
         var form = $('#form_id'+ReservationID);
-        sign_in();
         var form_data = form.serialize();
 
         $.ajax({
@@ -23,7 +16,7 @@ function HandleUpdatePage(ReservationID, OriginalRoom) {
             data: form_data,
             success: function () {
                 console.log('Form Sent');
-                UpdateEvents(form, OriginalRoom);
+                MainUpdateEvents(form, OriginalRoom);
                 $('#reservationQueue').load('php/CalendarAdmin.php');
             },
             error: function (data) {
@@ -35,58 +28,56 @@ function HandleUpdatePage(ReservationID, OriginalRoom) {
         event.preventDefault();
     });
 
+    $('#deleteBooked'+ReservationID).on('click', function(){
 
-        var delete_button = $('#deleteEvent' + ReservationID).on('click', function(){
-            var form = $('#form_id'+ReservationID);
-            sign_in();
-            $.ajax({
-                type: 'POST',
-                url: 'php/BookEvent.php',
-                data: {DeleteEvent: "DELETE", ReservationID: ReservationID},
-                success:function()
-                {
-                    deleteAllBookedEvents(form, OriginalRoom);
-                },
-                error:function () {
-                    alert("Error Canceling Booked Event")
-                }
-            });
+        var form = $('#form_id'+ReservationID);
+
+        deleteAllBookedEvents(form, OriginalRoom);
+        $.ajax({
+            type: 'POST',
+            url: 'php/BookEvent.php',
+            data: {DeleteEvent: "DELETE", ReservationID: ReservationID},
+            success:function()
+            {
+                $('#reservationQueue').load('php/CalendarAdmin.php');
+            },
+            error:function () {
+                alert("Error Canceling Booked Event")
+            }
         });
-
-
+    });
 }
 
 //Handles pending, canceled(non-reserved), and created forms
 function HandleClick(ReservationID)
 {
-    var book = $('#bookEvent');
+    var book = $('#bookEvent'+ReservationID);
 
     //Then start the booking process
     book.on('click', function () {
-        sign_in();
-        console.log(ReservationID);
-        var global_form=$('#form_id'+ReservationID);
-        var form_data = global_form.serialize();
+        var form=$('#form_id'+ReservationID);
+        var form_data = form.serialize();
 
+        MainEventFunction(form);
+        //Make Call to update and insert Reservation
         $.ajax({
             type: 'POST',
             url: 'php/BookEvent.php',
             data: form_data,
             success: function () {
                 console.log('Form Sent');
-                MainEventFunction(global_form, 'book');
                 $('#reservationQueue').load('php/CalendarAdmin.php');
             },
             error: function (data) {
                 console.log('Error on sending form');
                 $('#reservationQueue').load('php/CalendarAdmin.php');
             }
-        });
 
+        });
         event.preventDefault();
     });
 
-    $('.deletePending').on('click',  function () {
+    $('#deletePending' + ReservationID).on('click',  function () {
         console.log("Cancel Event");
 
         $.ajax({
@@ -94,6 +85,25 @@ function HandleClick(ReservationID)
             url: 'php/BookEvent.php',
             data: {DeleteEvent: "DELETE", ReservationID: ReservationID},
             success: function () {
+                $('#reservationQueue').load('php/CalendarAdmin.php');
+            },
+            error: function (data) {
+                alert('Error on sending Delete Request');
+                $('#reservationQueue').load('php/CalendarAdmin.php');
+            }
+        });
+
+        event.preventDefault();
+    });
+
+    $('#permanentDelete' + ReservationID).on('click',  function () {
+        console.log("Cancel Event");
+        $.ajax({
+            type: 'POST',
+            url: 'php/BookEvent.php',
+            data: 'permanentDelete='+ ReservationID,
+            success: function () {
+                alert('Event Deleted');
                 $('#reservationQueue').load('php/CalendarAdmin.php');
             },
             error: function (data) {
@@ -121,6 +131,10 @@ function handleClientLoad() {
 function sign_in(event)
 {
     gapi.auth2.getAuthInstance().signIn();
+
+}
+function sign_off(event) {
+    gapi.auth2.getAuthInstance().signOut();
 }
 function initClient() {
     gapi.client.init({
@@ -138,12 +152,31 @@ function initClient() {
 function updateSigninStatus(isSignedIn) {
     // When signin status changes, this function is called.
     // If the signin status is changed to signedIn, we make an API call.
+    var current_user = gapi.auth2.getAuthInstance().currentUser.get();
+    var user = current_user.getBasicProfile();
     if (isSignedIn) {
-        console.log("I am Signed In");
+        var Email_Check = user.getEmail();
+        if (Email_Check === 'inserviceathens@gmail.com') {
+            console.log("I am Signed In");
+            $('#main_panel').show();
+            $('#sign_in_button').hide();
+            $('#signoff_button').hide();
+        }
+        else {
+            $('#main_panel').hide();
+            $('#sign_in_button').hide();
+            $('#signoff_button').show();
+        }
+    }
+    else
+    {
+        $('#main_panel').hide();
+        $('#sign_in_button').show();
+        $('#signoff_button').hide();
     }
 }
 //Where all of the google processing is at
-function MainEventFunction(FormList, status) {
+function MainEventFunction(FormList) {
     var Form_Array = FormList.serializeArray();
     var FormData = [];
     $.each(Form_Array, function (i, field) {
@@ -178,87 +211,89 @@ function MainEventFunction(FormList, status) {
         }
     }
     //Loop to insert the dates to Google Calendar
-    if (status === 'book') {
-        for (index = 0; index < date.length; index++) {
-            //Use closure if you need access to the eventID within the ajax call
-            (function () {
-                var eventID = EventsID[index];
-                var start = DateTimeConvert(date[index], startTime[index]);
+    for (index = 0; index < date.length; index++) {
+        //Use closure if you need access to the eventID within the ajax call
+        (function () {
+            var eventID = EventsID[index];
+            var start = DateTimeConvert(date[index], preTime[index]);
+            var end = DateTimeConvert(date[index], endTime[index]);
+            var private_event = {
+                'summary': room + ": " + program,
+                'location': '300 North Beaty Street\n' +
+                'Athens, AL 35611',
+                'description': description,
+                'start': {
+                    'dateTime': start
+                },
+                'end': {
+                    'dateTime': end
+                }
+            };
+            var public_event = {
+                'summary': room + ": Busy",
+                'location': '300 North Beaty Street\n' +
+                'Athens, AL 35611',
+                'description': 'Room will be busy during this time',
+                'start': {
+                    'dateTime': start
+                },
+                'end': {
+                    'dateTime': end
+                }
+            };
+            console.log(googleInsertEvent(private_event, public_event, room, eventID));
 
-                var end = DateTimeConvert(date[index], endTime[index]);
-
-                var private_event = {
-                    'summary': room + ": " + program,
-                    'location': '300 North Beaty Street\n' +
-                    'Athens, AL 35611',
-                    'description': description,
-                    'start': {
-                        'dateTime': start
-                    },
-                    'end': {
-                        'dateTime': end
-                    }
-
-                };
-                var public_event = {
-                    'summary': room + ": Busy",
-                    'location': '300 North Beaty Street\n' +
-                    'Athens, AL 35611',
-                    'description': 'Room will be busy during this time',
-                    'start': {
-                        'dateTime': start
-                    },
-                    'end': {
-                        'dateTime': end
-                    }
-                };
-                //Insert to the public calendar
-                var PublicInsertGoogle = gapi.client.calendar.events.insert({
-                    'calendarId': getID(room),
-                    'resource': public_event
-                });
-                PublicInsertGoogle.execute(function (event) {
-                    console.log(event);
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'php/BookEvent.php',
-                        data: {
-                            PublicID: event.id,
-                            EventID: eventID
-                        },
-                        success: function () {
-                            console.log(event.id);
-                        },
-                        error: function () {
-                            console.log('Error in sending Public ID')
-                        }
-                    });
-                });
-                //Insert to the private calendar
-                var PrivateInsertGoogle = gapi.client.calendar.events.insert({
-                    'calendarId': private_CalID,
-                    'resource': private_event
-                });
-                PrivateInsertGoogle.execute(function (response) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'php/BookEvent.php',
-                        data: {
-                            PrivateID: response.id,
-                            EventID: eventID
-                        },
-                        success: function () {
-                            console.log(response.id);
-                        },
-                        error: function () {
-                            console.log('Error in sending Private ID')
-                        }
-                    });
-                });
-            })();
-        }
+        })();
     }
+}
+function googleInsertEvent(privateResource, publicResource, room, eventID)
+{
+
+    var PublicInsertGoogle = gapi.client.calendar.events.insert({
+        'calendarId': getID(room),
+        'resource': publicResource
+    });
+    PublicInsertGoogle.execute(function (event) {
+
+        $.ajax({
+            type: 'POST',
+            url: 'php/BookEvent.php',
+            data: {
+                PublicID: event.id,
+                EventID: eventID
+            },
+
+            success: function (response) {
+                console.log(response);
+
+            },
+            error: function () {
+                console.log('Error in sending Public ID');
+            }
+        });
+    });
+
+    var PrivateInsertGoogle = gapi.client.calendar.events.insert({
+        'calendarId': private_CalID,
+        'resource': privateResource
+    });
+    PrivateInsertGoogle.execute(function (response) {
+        $.ajax({
+            type: 'POST',
+            url: 'php/BookEvent.php',
+            data: {
+                PrivateID: response.id,
+                EventID: eventID
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            error: function () {
+                console.log('Error in sending Private ID');
+            }
+        });
+
+    });
 }
 //Delete All of Events That are reserved
 function deleteAllBookedEvents(FormList, OriginalRoom)
@@ -283,24 +318,23 @@ function deleteAllBookedEvents(FormList, OriginalRoom)
             EventsID.push(FormData[index + 4]);
             privateID.push(FormData[index+5]);
             publicID.push(FormData[index+6]);
-
         }
     }
-    for (index = 0; index < date.length; index++)
+    for (index = 0; index < status.length; index++)
     {
-        //Reserved Dates will be kept in mySQL but will be deleted from Calendar
-        if(status[index] === 'reserved' || status[index] === 'delete')
-        {
-            googleDeleteEvent(OriginalRoom, publicID, privateID);
-        }
-        else if(status[index] === 'unreserved')
-        {
-            deleteEventSQL(EventsID[index]);
-        }
+        (function(){
+
+            //Reserved Dates will be kept in mySQL but will be deleted from Calendar
+            if(status[index] === 'reserved' || status[index] === 'delete' || status[index] === 'finished')
+            {
+                googleDeleteEvent(OriginalRoom, publicID[index], privateID[index]);
+            }
+        })();
+
 
     }
 }
-function UpdateEvents(FormList, OriginalRoom)
+function MainUpdateEvents(FormList, OriginalRoom)
 {
     var Form_Array = FormList.serializeArray();
     var FormData = [];
@@ -339,14 +373,12 @@ function UpdateEvents(FormList, OriginalRoom)
             EventsID.push(FormData[index + 4]);
             privateID.push(FormData[index+5]);
             publicID.push(FormData[index+6]);
-
         }
     }
-
     for (index = 0; index < date.length; index++)
     {
         (function(){
-            var start = DateTimeConvert(date[index], startTime[index]);
+            var start = DateTimeConvert(date[index], preTime[index]);
             var end = DateTimeConvert(date[index], endTime[index]);
 
 
@@ -374,19 +406,20 @@ function UpdateEvents(FormList, OriginalRoom)
                     'dateTime': end
                 }
             };
-            console.log(status[index]);
+            //Delete event if the status is delete
             if(status[index] === 'delete')
             {
                 console.log("Delete Id");
                 googleDeleteEvent(OriginalRoom, publicID[index], privateID[index]);
                 deleteEventSQL(EventsID[index]);
             }
+            //Move the event to the other calendar if the original room does not equal to the new room
             else if(status[index] === 'reserved' && OriginalRoom !== room)
             {
-                console.log("Moving Date");
-                moveEvents(room, OriginalRoom, EventsID[index], publicID[index]);
-                updateGoogleEvents(privateResource, publicResource, room, publicID[index], privateID[index]);
+                googleDeleteEvent(OriginalRoom, publicID[index], privateID[index]);
+                googleInsertEvent(privateResource, publicResource, room, EventsID[index]);
             }
+            //Insert the room if unreserved
             else if(status[index] === 'unreserved')
             {
                 console.log("Inserting Date");
@@ -399,7 +432,6 @@ function UpdateEvents(FormList, OriginalRoom)
                     success: function(results){console.log(results);},
                     error: function(){return false;}
                 });
-
             }
             else
             {
@@ -411,52 +443,7 @@ function UpdateEvents(FormList, OriginalRoom)
     }
 
 }
-function googleInsertEvent(privateResource, publicResource, room, eventID)
-{
-    var PublicInsertGoogle = gapi.client.calendar.events.insert({
-        'calendarId': getID(room),
-        'resource': publicResource
-    });
-    PublicInsertGoogle.execute(function (event) {
-        console.log(event);
-        $.ajax({
-            type: 'POST',
-            url: 'php/BookEvent.php',
-            data: {
-                PublicID: event.id,
-                EventID: eventID
-            },
-            success: function (response) {
-                console.log(response);
-            },
-            error: function () {
-                console.log('Error in sending Public ID')
-            }
-        });
-    });
 
-    var PrivateInsertGoogle = gapi.client.calendar.events.insert({
-        'calendarId': private_CalID,
-        'resource': privateResource
-    });
-    PrivateInsertGoogle.execute(function (response) {
-        $.ajax({
-            type: 'POST',
-            url: 'php/BookEvent.php',
-            data: {
-                PrivateID: response.id,
-                EventID: eventID
-            },
-            success: function () {
-                console.log(eventID);
-            },
-            error: function () {
-                console.log('Error in sending Private ID')
-            }
-        });
-    });
-
-}
 function updateGoogleEvents(privateResource, publicResource, room, publicId, privateId)
 {
     var publicUpdate = gapi.client.calendar.events.update({
@@ -507,28 +494,6 @@ function googleDeleteEvent(room, publicID, privateID)
     });
     privateDelete.execute(function(response){
         console.log(response);
-    })
-}
-function moveEvents(room, OriginalRoom, EventsID, publicID)
-{
-    var public_move = gapi.client.calendar.events.move({
-        'calendarId': getID(OriginalRoom),
-        'eventId': publicID,
-        'destination': getID(room)
-    });
-    public_move.execute(function (results) {
-        $.ajax({
-            type: 'POST',
-            url: 'php/BookEvent.php',
-            data: {'PublicID': results.id, 'EventId': EventsID},
-            success: function(){
-                console.log("Event Moved");
-                publicID = results.id;
-            },
-            error: function(){
-                console.log("Unable to insert the new id");
-            }
-        });
     });
 }
 //Retrieve the room ID by comparing each room

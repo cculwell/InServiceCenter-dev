@@ -17,76 +17,58 @@
 
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
-
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>Newsletters</title>
-
-        <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
-        <link rel="stylesheet" href="../resources/library/DataTables/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../Admin/css/Admin.css" />
-
-        <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
     </head>
-    
 <body>
 <?php
 	if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 	{?>
-    <div class="panel-body">    
-        <div class="content_container">
-            <button id="del_newsletter_btn" name="del_newsletter_btn">Delete Newsletter</button>
-            <button id="set_current_newsletter" name="set_current_newsletter">Set Current Newsletter</button>
-            <br><br>
-            <table id="newsletter_table" class="display table-responsive" cellspacing="0" width="100%"> 
-                <thead>
-                    <tr> 
-                        <th>Newsletter Name</th> 
-                        <th>Current Newsletter</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
+        <button id="del_newsletter_btn" name="del_newsletter_btn">Delete Newsletter</button>
+        <button id="set_current_newsletter" name="set_current_newsletter">Set Current Newsletter</button>
+        <br><br>
+        <table id="newsletter_table" class="display table-responsive" cellspacing="0" width="100%"> 
+            <thead>
+                <tr> 
+                    <th>Newsletter Name</th> 
+                    <th>Current Newsletter</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <?php
 
-                        $sql = "SELECT name, current FROM newsletters";
+                    $sql = "SELECT name, current FROM newsletters";
 
-                        if ($result = mysqli_query($mysqli, $sql))
+                    if ($result = mysqli_query($mysqli, $sql))
+                    {
+                        while ($row = mysqli_fetch_row($result))
                         {
-                            while ($row = mysqli_fetch_row($result))
+                            echo
+                                "<tr>"
+                                ."<td>" . $row[0] . "</td>";
+
+                            if ($row[1] == 'yes') // Is this the file set to view by site visitors?
                             {
                                 echo
-                                    "<tr>"
-                                    ."<td>" . $row[0] . "</td>";
-
-                                if ($row[1] == 'yes') // Is this the file set to view by site visitors?
-                                {
-                                    echo
-                                        "<td><img src='../Admin/img/db_table_icons/accept.png' /></td>"
-                                        ."</tr>"; 
-                                }
-                                else
-                                {
-                                    echo
-                                        "<td></td></tr>";                                   
-                                }
+                                    "<td><img src='../Admin/img/db_table_icons/accept.png' /></td>"
+                                    ."</tr>"; 
+                            }
+                            else
+                            {
+                                echo
+                                    "<td></td></tr>";                                   
                             }
                         }
-                    ?>
-                </tbody>
-            </table><br>
+                    }
+                ?>
+            </tbody>
+        </table><br>
 
-            <form id='upload_newsletter' enctype='multipart/form-data'>
-                <label>Upload Newsletter:</label>
-                <input type="file" name="newsletter_to_upload" id="newsletter_to_upload"><br>
-                <input type="button" name="submit" id="submit_button" value="Upload">
-            </form>
-        </div>
-    </div>
+        <form id='upload_newsletter' enctype='multipart/form-data'>
+            <label>Upload Newsletter:</label>
+            <input type="file" name="newsletter_to_upload" id="newsletter_to_upload"><br>
+            <input type="button" name="submit" id="submit_newsletter" value="Upload">
+        </form>
     <script>
         var newsletters = $('#newsletter_table').DataTable({
                         lengthChange: false,
@@ -94,8 +76,8 @@
                             style:          'single'
                         },
                         columnDefs: [
-                            { "width": 600, "targets": 0},
-                            { "width": 600, "targets": 1}
+                            { "width": 400, "targets": 0},
+                            { "width": 400, "targets": 1}
                         ]
                     });
 
@@ -115,7 +97,6 @@
                 alert("Please select a newsletter to delete.");
                 return false;
             }
-
 
             var newsletter_file = newsletters.row('.selected').data()[0];
             var form_data = new FormData(); 
@@ -140,7 +121,6 @@
                     data: form_data,
 
                     success: function(data) {
-                        // data is ur summary
                         if (data == 'deleted')
                         {
                             newsletters.row('.selected').remove().draw();                                    
@@ -202,7 +182,13 @@
             });
         });
 
-        $('#submit_button').click( function () {
+        $('#submit_newsletter').click( function () {
+            if ($('#newsletter_to_upload').val().length == 0)
+            {
+                alert('Please select a newsletter to upload');
+                return false;
+            }
+
             var file_data = document.getElementById("newsletter_to_upload").files;
             var form_data = new FormData(); 
 

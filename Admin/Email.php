@@ -17,65 +17,46 @@
 
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
-
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>E-mail Subscribers</title>
-
-        <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
-        <link rel="stylesheet" href="../resources/library/DataTables/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../Admin/css/Admin.css" />
-
-<!--         <script src="../resources/library/jquery-3.2.1.min.js"></script> -->
-        <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
     </head>
-    
 <body>
 <?php
 	if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 	{?>
-    <div class="page_container">  
-        <div class="content_container_left">
-            <button id="del_subscriber_btn" name="del_subscriber_btn">Delete Subscriber</button>
-            <br><br>
-            <table id="subscribers_table" class="display table-responsive" cellspacing="0" width="100%"> 
-                <thead>
-                    <tr> 
-                        <th>Subscriber E-mail</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $sql = "SELECT email FROM subscribers ORDER BY id ASC";
+        <form method="POST" action="">
+            <p><label for="subject">Subject (*required):</label><br>
+            <input type="text" id="subject_text_edit" name="subject" size="40" required/></p>
+            <p><label style="padding-top: 10px;" for="message">Mail Body (*required):</label><br>
+            <textarea id="message_text_edit" name="message" cols="50"   rows="10" required=""></textarea></p>
+            <button id="send_emails_button" type="submit" value="submit">Send E-mails</button>
+        </form>
 
-                        if ($result = mysqli_query($mysqli, $sql))
-                        {
-                            while ($row = mysqli_fetch_row($result))
-                            {
-                                echo
-                                    "<tr><td style='text-align: center;'>" . $row[0] . "</td></tr>"; 
-                            }
-                        }
-                    ?>
-                </tbody>
-            </table><br>
-        </div>
+        <br><br><hr>
+
+        <button id="del_subscriber_btn" name="del_subscriber_btn">Delete Subscriber</button>
         <br><br>
-        <div class="content_container_right">
-            <br>
-            <form method="POST" action="">
-                <p><label for="subject">Subject (*required):</label><br>
-                <input type="text" id="subject_text_edit" name="subject" size="40" required/></p>
-                <p><label style="padding-top: 10px;" for="message">Mail Body (*required):</label><br>
-                <textarea id="message_text_edit" name="message" cols="50"   rows="10" required=""></textarea></p>
-                <button id="send_emails_button" type="submit" value="submit">Send E-mails</button>
-            </form>
-        </div>
+        <table id="subscribers_table" class="display table-responsive" cellspacing="0" width="100%"> 
+            <thead>
+                <tr> 
+                    <th>Subscriber E-mail</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $sql = "SELECT email FROM subscribers ORDER BY id ASC";
+
+                    if ($result = mysqli_query($mysqli, $sql))
+                    {
+                        while ($row = mysqli_fetch_row($result))
+                        {
+                            echo
+                                "<tr><td style='text-align: center;'>" . $row[0] . "</td></tr>"; 
+                        }
+                    }
+                ?>
+            </tbody>
+        </table>
 
         <div id="busy_box" style="text-align: center;">
             <label>Please wait while we send the latest</label>
@@ -84,7 +65,7 @@
             <img src="../Admin/img/ajax-loader.gif" />
         </div>
         <div id="results_box"></div>
-    </div>
+
     <script>
         var subscribers = $('#subscribers_table').DataTable({
                         lengthChange: false,

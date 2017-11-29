@@ -17,76 +17,59 @@
 
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
-
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>Bylaws</title>
-
-        <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
-        <link rel="stylesheet" href="../resources/library/DataTables/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../Admin/css/Admin.css" />
-
-        <script src="../resources/library/DataTables/js/jquery.dataTables.min.js"></script>
     </head>
-    
 <body>
 <?php
 	if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 	{?>
-    <div class="panel-body">    
-        <div class="content_container">
-            <button id="del-bylaws-btn" name="del-subscriber-btn">Delete Bylaws</button>
-            <button id="set-current-bylaw" name="set-current-btn">Set Current Bylaws</button>
-            <br><br>
-            <table id="bylaw_table" class="display table-responsive" cellspacing="0" width="100%"> 
-                <thead>
-                    <tr> 
-                        <th>Bylaw Name</th> 
-                        <th>Current Bylaws</th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
+        <button id="del_bylaws_btn" name="del_subscriber_btn">Delete Bylaws</button>
+        <button id="set_current_bylaw" name="set_current_btn">Set Current Bylaws</button>
+        <br><br>
+        <table id="bylaw_table" class="display table-responsive" cellspacing="0" width="100%"> 
+            <thead>
+                <tr> 
+                    <th>Bylaw Name</th> 
+                    <th>Current Bylaws</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <?php
 
-                        $sql = "SELECT name, current FROM bylaws";
+                    $sql = "SELECT name, current FROM bylaws";
 
-                        if ($result = mysqli_query($mysqli, $sql))
+                    if ($result = mysqli_query($mysqli, $sql))
+                    {
+                        while ($row = mysqli_fetch_row($result))
                         {
-                            while ($row = mysqli_fetch_row($result))
+                            echo
+                                "<tr>"
+                                ."<td>" . $row[0] . "</td>";
+
+                            if ($row[1] == 'yes') // Is this the file set to view by site visitors?
                             {
                                 echo
-                                    "<tr>"
-                                    ."<td>" . $row[0] . "</td>";
-
-                                if ($row[1] == 'yes') // Is this the file set to view by site visitors?
-                                {
-                                    echo
-                                        "<td><img src='../Admin/img/db_table_icons/accept.png' /></td>"
-                                        ."</tr>"; 
-                                }
-                                else
-                                {
-                                    echo
-                                        "<td></td></tr>";                                   
-                                }
+                                    "<td><img src='../Admin/img/db_table_icons/accept.png' /></td>"
+                                    ."</tr>"; 
+                            }
+                            else
+                            {
+                                echo
+                                    "<td></td></tr>";                                   
                             }
                         }
-                    ?>
-                </tbody>
-            </table><br>
+                    }
+                ?>
+            </tbody>
+        </table><br>
 
-            <form id='upload_bylaws' enctype='multipart/form-data'>
-                <label>Upload Bylaws:</label>
-                <input type="file" name="bylaws_to_upload" id="bylaws_to_upload"><br>
-                <input type="button" name="submit" id="submit_button" value="Upload">
-            </form>
-        </div>
-    </div>
+        <form id='upload_bylaws' enctype='multipart/form-data'>
+            <label>Upload Bylaws:</label>
+            <input type="file" name="bylaws_to_upload" id="bylaws_to_upload"><br>
+            <input type="button" name="submit" id="submit_bylaws" value="Upload">
+        </form>
+
     <script>
         var bylaws = $('#bylaw_table').DataTable({
                         lengthChange: false,
@@ -94,8 +77,8 @@
                             style:          'single'
                         },
                         columnDefs: [
-                            { "width": 600, "targets": 0},
-                            { "width": 600, "targets": 1}
+                            { "width": 400, "targets": 0},
+                            { "width": 400, "targets": 1}
                         ]
                     });
 
@@ -109,7 +92,7 @@
             }
         });
      
-        $('#del-bylaws-btn').click( function () {
+        $('#del_bylaws_btn').click( function () {
             if (bylaws.row('.selected').data() == null)
             {
                 alert("Please select a bylaw to delete.");
@@ -139,8 +122,6 @@
                     data: form_data,
 
                     success: function(data) {
-                        // data is ur summary
-                        console.log(data);
                         if (data == 'deleted')
                         {
                             bylaws.row('.selected').remove().draw();                                    
@@ -158,7 +139,7 @@
             }
         });
 
-        $('#set-current-bylaw').click( function () {
+        $('#set_current_bylaw').click( function () {
             if (bylaws.row('.selected').data() == null)
             {
                 alert("Please select a bylaw to set as current.");
@@ -202,7 +183,13 @@
             });
         });
 
-        $('#submit_button').click( function () {
+        $('#submit_bylaws').click( function () {
+            if ($('#bylaws_to_upload').val().length == 0)
+            {
+                alert('Please select bylaws to upload');
+                return false;
+            }
+
             var file_data = document.getElementById("bylaws_to_upload").files;
             var form_data = new FormData(); 
 

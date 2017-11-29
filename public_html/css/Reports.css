@@ -11,14 +11,14 @@
     font-size: 17px;
 }
 
-.panel-body 
+/*.panel-body 
 {
     background: white;
     position: relative;
     height: 100vh;
     width: 100%;
     overflow: auto;
-}
+}*/
 
 div.dataTables_wrapper #detailed_report_table
 {
@@ -67,7 +67,7 @@ div.dataTables_wrapper
     margin: 0 auto;
 }
  
-div.container 
+/*div.container 
 {
     width: 100%;
-}
+}*/
