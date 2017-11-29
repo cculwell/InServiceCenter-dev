@@ -18,7 +18,7 @@
     $total_expenses = 0.0;
     $table_results = "<table id='expenses_table' cellspacing='0' width='100%'>
                 <thead>
-                    <tr>
+                    <tr style='text-align: left;'>
                         <th>Expense</th>
                         <th>Total</th>
                     </tr>
@@ -36,7 +36,7 @@
         {
             $total = number_format((float)$row[1], 2, '.', '');
             $total_expenses += $total;
-            $table_results .= "<tr><td>". $row[0]  ."</td><td>$". $total ."</td></tr>";
+            $table_results .= "<tr style='text-align: left;'><td>". $row[0]  ."</td><td>$". $total ."</td></tr>";
         }
     }
 

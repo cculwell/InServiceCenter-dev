@@ -11,15 +11,6 @@
     font-size: 17px;
 }
 
-/*.panel-body 
-{
-    background: white;
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    overflow: auto;
-}*/
-
 div.dataTables_wrapper #detailed_report_table
 {
     width: 1750px;
@@ -66,8 +57,3 @@ div.dataTables_wrapper
 {
     margin: 0 auto;
 }
- 
-/*div.container 
-{
-    width: 100%;
-}*/

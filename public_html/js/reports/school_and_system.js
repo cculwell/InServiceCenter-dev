@@ -123,9 +123,6 @@ $(document).ready(function() {
                     $(this).dialog("close");
                 }
             }
-        ],
-        open: function(event, ui) {
-            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-        }
+        ]
     });
 });

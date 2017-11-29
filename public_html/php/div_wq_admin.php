@@ -59,7 +59,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                             $(this).dialog("close");
                         }
                     }
-                ],
+                ]
             });
 
             $("#pop_email").dialog({
@@ -74,7 +74,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                             $(this).dialog("close");
                         }
                     }
-                ],
+                ]
             });
 
             $("#pop_bylaws_upload").dialog({
@@ -89,7 +89,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                             $(this).dialog("close");
                         }
                     }
-                ],
+                ]
             });
 
             $("#pop_newsletter_upload").dialog({
@@ -104,7 +104,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                             $(this).dialog("close");
                         }
                     }
-                ],
+                ]
             });
 
             $("#view_reports_selection").dialog({
@@ -185,7 +185,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                             $("#view_report").dialog("open");
                         }
                     }
-                ],
+                ]
             });
 
             report_button = $("#admin_report").button();
