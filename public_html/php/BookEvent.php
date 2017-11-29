@@ -5,7 +5,7 @@
  * Date: 10/29/2017
  * Time: 11:58 AM
  */
-
+session_start();
 include_once "Common.php";
 require "../../resources/library/PHPMailer/src/PHPMailer.php";
 require "../../resources/library/PHPMailer/src/Exception.php";
@@ -16,6 +16,8 @@ $conn = new mysqli($config['db']['amsti_01']['host']
     , $config['db']['amsti_01']['password']
     , $config['db']['amsti_01']['dbname']);
 //If reservation was canceled from admin page
+if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
+{
 if(isset($_POST['DeleteEvent']) && isset($_POST['ReservationID']))
 {
     $ReservationID = mysql_fixstring($conn, $_POST['ReservationID']);
@@ -305,3 +307,13 @@ function SanitizePostString($conn, $string)
 }
 
 
+}
+else
+{
+	echo "<p><h3>You are not authorized to visit this page.</h3></p>";
+	echo "<p><a href='php/UserLogin.php'>User Login</a></p>";
+	echo "<p><a href='php/UserLogout.php'>User Logout</a></p>";
+	echo "<p><a href='WorkQueue.php'>Work Queue</a></p>";
+	echo "<p><a href='Home.html'>Home Page</a></p>";
+}
+?>

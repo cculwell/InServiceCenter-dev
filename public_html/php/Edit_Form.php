@@ -5,7 +5,7 @@
  * Date: 10/26/2017
  * Time: 4:28 PM
  */
-
+session_start();
 include_once "Common.php";
 
 $conn = new mysqli($config['db']['amsti_01']['host']
@@ -17,6 +17,9 @@ if ($conn->connect_errno) {
     printf("Connect failed: %s\n", $conn->connect_error);
     exit();
 }
+
+if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
+{
 //Get all of the values from the reservations and reservationDate_Time database
 if(isset($_POST['reserveID'])) {
 
@@ -333,4 +336,14 @@ elseif (isset($_POST['DeleteEventID']))
     </div>
 </div>
 
-
+<?php
+}
+else
+{
+	echo "<p><h3>You are not authorized to visit this page.</h3></p>";
+	echo "<p><a href='php/UserLogin.php'>User Login</a></p>";
+	echo "<p><a href='php/UserLogout.php'>User Logout</a></p>";
+	echo "<p><a href='WorkQueue.php'>Work Queue</a></p>";
+	echo "<p><a href='Home.html'>Home Page</a></p>";
+}
+?>
