@@ -12,99 +12,116 @@ if ($mysqli->connect_errno) {
     exit();
 }
 ?>
-
-
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
 
 <head>
-    <title>New Request</title>
+    <title>Work Queue</title>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!--    <link rel="stylesheet" href="../../resources/library/bootstrap/css/bootstrap.min.css">-->
-<!--    <link rel="stylesheet" href="../../resources/library/bootstrap/css/bootstrap-theme.min.css">-->
-<!--    <link rel="stylesheet" href="../../resources/library/bootstrap/css/bootstrap-theme.min.css">-->
-    <link rel="stylesheet" href="../../resources/library/jquery-ui/jquery-ui.min.css">
-<!--    <link rel="stylesheet" href="../../resources/library/timepicker/jquery.timepicker.css">-->
-    <link rel="stylesheet" type="text/css" href="../../resources/library/realperson-2.0.1/jquery.realperson.css">
-<!--    <link rel="stylesheet" href="../css/NewRequest.css">-->
+    <link rel="stylesheet" href="/resources/library/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/library/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/library/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/library/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="/resources/library/DataTables/datatables.css">
+    <link rel="stylesheet" href="/resources/library/DataTables/Select/css/select.dataTables.css">
+    <link rel="stylesheet" href="../css/WorkQueue.css">
 
-    <script src="../../resources/library/jquery-3.2.1.min.js"></script>
-<!--    <script src="../../resources/library/jquery-ui/jquery-ui.min.js"></script>-->
-<!--    <script src="../../resources/library/timepicker/jquery.timepicker.js"></script>-->
-<!--    <script src="../../resources/library/jquery_chained/jquery.chained.js"></script>-->
+    <script src="/resources/library/jquery-3.2.1.min.js"></script>
+    <script src="/resources/library/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/resources/library/DataTables/datatables.js"></script>
+    <script src="/resources/library/DataTables/Select/js/dataTables.select.min.js"></script>
+    <script src="/resources/library/jquery_chained/jquery.chained.js"></script>
 
-    <script type="text/javascript" src="../../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
-    <script type="text/javascript" src="../../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
-
-<!--    <script src="../js/NewRequest.js"></script>-->
 
 </head>
 
-<body>
+<div id="tab_completed">
+    <table id="tbl_completed" class="display table-responsive" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>Type</th>
+            <th>State</th>
+            <th>School</th>
+            <th>System</th>
+            <th>Program #</th>
+            <th>Program Title</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>Request ID</th>
+            <th>Type</th>
+            <th>State</th>
+            <th>School</th>
+            <th>System</th>
+            <th>Program #</th>
+            <th>Program Title</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <?PHP
 
-    <form class="container">
+        $sql  = " select ";
+        $sql .= " r.request_id, request_type, workflow_state, school, system, program_nbr, pd_title";
+        $sql .= " from requests r left join workshops w on r.request_id = w.request_id";
+        $sql .= " where workflow_state = 'Completed' ";
 
-        <div class="captcha_container">
-            <input  type="text" id="captcha" name="captcha">
-        </div>
+        if ($result=mysqli_query($mysqli,$sql))
+        {
+            // Fetch one and one row
+            while ($row=mysqli_fetch_row($result))
+            {
+                echo
+                    "<tr>"
+                    ."<td>".$row[0] ."</td>"
+                    ."<td>".$row[1] ."</td>"
+                    ."<td>".$row[2] ."</td>"
+                    ."<td>".$row[3] ."</td>"
+                    ."<td>".$row[4] ."</td>"
+                    ."<td>".$row[5] ."</td>"
+                    ."<td>".$row[6] ."</td>"
+                    ."</tr>";
+            }
+            // Free result set
+            mysqli_free_result($result);
+        }
 
-        <div class="btn-group">
-            <button id="submitRequest" type="button" class="btn btn-primary">Submit Form</button>
-        </div>
+        //      mysqli_close($mysqli);
 
-    </form>
-</body>
-<script>
-    $('#captcha').realperson({chars: $.realperson.alphanumeric, length: 5});
-//    $('#captcha').click();
-
-    $(document).ready(function(){
-        $('.realperson-challenge').trigger("click");
-    });
-
-
-    $('#submitRequest').click(function() {
-        // $('#submitRequest').checkValidity();
-        var form = $('form');
-        var url = "test2.php"; // the script where you handle the form input.
-
-        var $captcha_entered = $("#captcha").val();
-        var captcha_hash = $("#captcha").realperson('getHash');
-
-
-
-        var form_data = form.serialize();
-
-            $.ajax({
-                async: false,
-                type: "POST",
-                url: url,
-                // data: form_data,
-                data: {
-                    captcha_entered: $captcha_entered,
-                    captcha_hash: captcha_hash
-                },
-                success: function(data) {
-                    console.log("success");
-                    console.log(data);
-                },
-                error: function (data) {
-                    console.log("error");
-                    console.log(data);
-                },
-                complete: function (data) {
-                    console.log("complete");
-                    console.log(data);
-                }
-            });
+        ?>
+        </tbody>
+    </table>
+    <script>
+        var queue_completed = $('#tbl_completed').DataTable({
+            select: {
+                style:          'single'
+            }
         });
 
-
-
-
-
-</script>
+        queue_completed.on( 'select', function ( e, dt, type, indexes ) {
+            if ( type === 'row' ) {
+                var record = queue_completed.rows( { selected: true } ).data();
+//                    var rec = queue_completed.row().select();
+                console.log(record[0][0]);
+                // console.log(record[0][0]);
+//                    console.log(record);
+//                    $.ajax({
+//
+//                        type: "POST",//post
+//                        //url: $(this).attr('href'),
+//                        url: "php/div_wq_form.php",
+//                        data: "request_id="+record[0][0], // appears as $_POST['id'] @ ur backend side
+//                        success: function(data) {
+//                            // data is ur summary
+//                            $('#div_wq_form').html(data);
+//                        }
+//                    });
+            }
+        });
+    </script>
+</div>
 

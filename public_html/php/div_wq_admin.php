@@ -200,7 +200,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
             email_button.click(function(e) {
                 e.preventDefault();
 
-                $("#pop_email").load("../Admin/Email.php");
+                $("#pop_email").load("php/Email.php");
                 $("#pop_email").dialog({title: "Manage Subscribers/Send Newsletter"});
                 $("#pop_email").dialog("open");
             });
@@ -210,7 +210,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                 e.preventDefault();
 
                 $("#pop_bylaws_upload").dialog({title: "Manage Bylaws"});
-                $("#pop_bylaws_upload").load("../Admin/Bylaws.php");
+                $("#pop_bylaws_upload").load("php/Bylaws.php");
                 $("#pop_bylaws_upload").dialog("open");
             });
 
@@ -218,7 +218,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
             upload_newsletters_button.click(function(e) {
                 e.preventDefault();
 
-                $("#pop_newsletter_upload").load("../Admin/Newsletters.php");
+                $("#pop_newsletter_upload").load("php/Newsletters.php");
                 $("#pop_newsletter_upload").dialog({title: "Manage Newsletters"});
                 $("#pop_newsletter_upload").dialog("open");
             });

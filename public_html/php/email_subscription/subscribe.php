@@ -8,6 +8,10 @@
     $captcha_entered = $_POST['captcha_entered'];
     $captcha_hash = $_POST['captcha_hash'];
 
+//    echo $captcha_entered;
+//    echo $captcha_hash;
+//    echo rpHash($captcha_entered);
+
 
     $db = $config['db']['amsti_01'];
     $link = new mysqli($db['host'], $db['username'], $db['password'], $db['dbname']) or die('There was a problem connecting to the database.');

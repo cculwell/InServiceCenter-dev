@@ -1,6 +1,6 @@
 <?php
 	session_start();
-    require "../resources/config.php";
+    require "../../resources/config.php";
 
     # create connection to database
     $mysqli = new mysqli($config['db']['amsti_01']['host']
@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
     <head>
-        <link rel="stylesheet" href="../Admin/css/Admin.css" />
+        <link rel="stylesheet" href="css/Admin.css" />
     </head>
 <body>
 <?php
@@ -62,7 +62,7 @@
             <label>Please wait while we send the latest</label>
             <label>newsletter to our subscribers.</label>
             <label>This could take a few minutes...</label><br><br>
-            <img src="../Admin/img/ajax-loader.gif" />
+            <img src="img/ajax-loader.gif" />
         </div>
         <div id="results_box"></div>
 
@@ -105,7 +105,7 @@
                 $.ajax({
 
                     type: "POST",
-                    url: "../Admin/php/email/delete_subscriber.php",
+                    url: "php/email/delete_subscriber.php",
                     data: {
                         email: email_id
                     },
@@ -147,7 +147,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "../Admin/php/email/send_email.php",
+                url: "php/email/send_email.php",
                 data:
                 {
                     subject: subject,
@@ -211,9 +211,9 @@
 	else
 	{
 		echo "<p><h3>You are not authorized to view this report.</h3></p>";
-		echo "<p><a href='../public_html/php/UserLogin.php'>User Login</a></p>";
-		echo "<p><a href='../public_html/php/UserLogout.php'>User Logout</a></p>";
-		echo "<p><a href='../public_html/Home.html'>Home Page</a></p>";
+		echo "<p><a href='public_html/php/UserLogin.php'>User Login</a></p>";
+		echo "<p><a href='public_html/php/UserLogout.php'>User Logout</a></p>";
+		echo "<p><a href='public_html/Home.html'>Home Page</a></p>";
 	}
 ?>
 </body>

@@ -1,6 +1,6 @@
 <?php
 	session_start();
-    require "../resources/config.php";
+    require "../../resources/config.php";
 
     # create connection to database
     $mysqli = new mysqli($config['db']['amsti_01']['host']
@@ -18,26 +18,26 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
     <head>
-        <link rel="stylesheet" href="../Admin/css/Admin.css" />
+        <link rel="stylesheet" href="css/Admin.css" />
     </head>
 <body>
 <?php
 	if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 	{?>
-        <button id="del_bylaws_btn" name="del_subscriber_btn">Delete Bylaws</button>
-        <button id="set_current_bylaw" name="set_current_btn">Set Current Bylaws</button>
+        <button id="del_newsletter_btn" name="del_newsletter_btn">Delete Newsletter</button>
+        <button id="set_current_newsletter" name="set_current_newsletter">Set Current Newsletter</button>
         <br><br>
-        <table id="bylaw_table" class="display table-responsive" cellspacing="0" width="100%"> 
+        <table id="newsletter_table" class="display table-responsive" cellspacing="0" width="100%"> 
             <thead>
                 <tr> 
-                    <th>Bylaw Name</th> 
-                    <th>Current Bylaws</th> 
+                    <th>Newsletter Name</th> 
+                    <th>Current Newsletter</th> 
                 </tr>
             </thead>
             <tbody>
                 <?php
 
-                    $sql = "SELECT name, current FROM bylaws";
+                    $sql = "SELECT name, current FROM newsletters";
 
                     if ($result = mysqli_query($mysqli, $sql))
                     {
@@ -50,7 +50,7 @@
                             if ($row[1] == 'yes') // Is this the file set to view by site visitors?
                             {
                                 echo
-                                    "<td><img src='../Admin/img/db_table_icons/accept.png' /></td>"
+                                    "<td><img src='img/accept.png' /></td>"
                                     ."</tr>"; 
                             }
                             else
@@ -64,14 +64,13 @@
             </tbody>
         </table><br>
 
-        <form id='upload_bylaws' enctype='multipart/form-data'>
-            <label>Upload Bylaws:</label>
-            <input type="file" name="bylaws_to_upload" id="bylaws_to_upload"><br>
-            <input type="button" name="submit" id="submit_bylaws" value="Upload">
+        <form id='upload_newsletter' enctype='multipart/form-data'>
+            <label>Upload Newsletter:</label>
+            <input type="file" name="newsletter_to_upload" id="newsletter_to_upload"><br>
+            <input type="button" name="submit" id="submit_newsletter" value="Upload">
         </form>
-
     <script>
-        var bylaws = $('#bylaw_table').DataTable({
+        var newsletters = $('#newsletter_table').DataTable({
                         lengthChange: false,
                         select: {
                             style:          'single'
@@ -82,39 +81,39 @@
                         ]
                     });
 
-        $('#bylaw_table tbody').on( 'click', 'tr', function () {
+        $('#newsletter_table tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
             }
             else {
-                bylaws.$('tr.selected').removeClass('selected');
+                newsletters.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
             }
         });
      
-        $('#del_bylaws_btn').click( function () {
-            if (bylaws.row('.selected').data() == null)
+        $('#del_newsletter_btn').click( function () {
+            if (newsletters.row('.selected').data() == null)
             {
-                alert("Please select a bylaw to delete.");
+                alert("Please select a newsletter to delete.");
                 return false;
             }
 
-            var bylaw_file = bylaws.row('.selected').data()[0];
-            var form_data = new FormData();
+            var newsletter_file = newsletters.row('.selected').data()[0];
+            var form_data = new FormData(); 
 
-            if (!(confirm('Are you sure you want to delete "' + bylaw_file + '"?'))) 
+            if (!(confirm('Are you sure you want to delete "' + newsletter_file + '"?'))) 
             {
                 return false;
             } 
             else 
             {
-                form_data.append('file', bylaw_file);
-                form_data.append('table', 'bylaws');
+                form_data.append('file', newsletter_file);
+                form_data.append('table', 'newsletters');
 
                 $.ajax({
 
                     type: "POST",
-                    url: "../Admin/php/admin/delete_file.php",
+                    url: "php/admin/delete_file.php",
                     dataType: 'text',
                     cache: false,
                     contentType: false,
@@ -124,7 +123,7 @@
                     success: function(data) {
                         if (data == 'deleted')
                         {
-                            bylaws.row('.selected').remove().draw();                                    
+                            newsletters.row('.selected').remove().draw();                                    
                         }
                         else
                         {
@@ -139,28 +138,28 @@
             }
         });
 
-        $('#set_current_bylaw').click( function () {
-            if (bylaws.row('.selected').data() == null)
+        $('#set_current_newsletter').click( function () {
+            if (newsletters.row('.selected').data() == null)
             {
-                alert("Please select a bylaw to set as current.");
+                alert("Please select a newsletter to set as current.");
                 return false;
             }
 
-            var bylaw_file = bylaws.row('.selected').data()[0];
-            var form_data = new FormData();
+            var newsletter_file = newsletters.row('.selected').data()[0];
+            var form_data = new FormData(); 
 
-            if(bylaw_file == null)
+            if(newsletter_file == null)
             {
                 return false;
             }
 
-            form_data.append('file', bylaw_file);
-            form_data.append('table', 'bylaws');
+            form_data.append('file', newsletter_file);
+            form_data.append('table', 'newsletters');
 
             $.ajax({
 
                 type: "POST",
-                url: "../Admin/php/admin/set_current_file.php",
+                url: "php/admin/set_current_file.php",
                 dataType: 'text',
                 cache: false,
                 contentType: false,
@@ -170,7 +169,7 @@
                 success: function(data) {
                     if (data == 'set_current')
                     {
-                        $('#pop_bylaws_upload').load("../Admin/Bylaws.php");
+                        $('#pop_newsletter_upload').load("php/Newsletters.php");
                     }
                     else
                     {
@@ -183,14 +182,14 @@
             });
         });
 
-        $('#submit_bylaws').click( function () {
-            if ($('#bylaws_to_upload').val().length == 0)
+        $('#submit_newsletter').click( function () {
+            if ($('#newsletter_to_upload').val().length == 0)
             {
-                alert('Please select bylaws to upload');
+                alert('Please select a newsletter to upload');
                 return false;
             }
 
-            var file_data = document.getElementById("bylaws_to_upload").files;
+            var file_data = document.getElementById("newsletter_to_upload").files;
             var form_data = new FormData(); 
 
             if ((file_data[0].type != 'application/pdf') ||
@@ -207,13 +206,13 @@
             }
 
             form_data.append('the_file', file_data[0]);
-            form_data.append('table', 'bylaws');
-            form_data.append('directory', 'Bylaws');
+            form_data.append('table', 'newsletters');
+            form_data.append('directory', 'Newsletters');
 
             $.ajax({
 
                 type: 'POST',
-                url : '../Admin/php/admin/upload_file.php',
+                url : 'php/admin/upload_file.php',
                 dataType: 'text',
                 cache: false,
                 contentType: false,
@@ -224,7 +223,7 @@
                     if (data.indexOf('successfully uploaded') >= 0)
                     {   
                         alert(data);
-                        $('#pop_bylaws_upload').load("../Admin/Bylaws.php");
+                        $('#pop_newsletter_upload').load("php/Newsletters.php");
                     }
                     else
                     {
@@ -242,9 +241,9 @@
 	else
 	{
 		echo "<p><h3>You are not authorized to view this report.</h3></p>";
-		echo "<p><a href='../public_html/php/UserLogin.php'>User Login</a></p>";
-		echo "<p><a href='../public_html/php/UserLogout.php'>User Logout</a></p>";
-		echo "<p><a href='../public_html/Home.html'>Home Page</a></p>";
+		echo "<p><a href='public_html/php/UserLogin.php'>User Login</a></p>";
+		echo "<p><a href='public_html/php/UserLogout.php'>User Logout</a></p>";
+		echo "<p><a href='public_html/Home.html'>Home Page</a></p>";
 	}
 ?>
 </body>
