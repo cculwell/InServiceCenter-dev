@@ -6,6 +6,7 @@
  * Time: 4:28 PM
  */
 session_start();
+
 include_once "Common.php";
 
 $conn = new mysqli($config['db']['amsti_01']['host']

@@ -24,7 +24,6 @@ if(isset($_POST['DeleteEvent']) && isset($_POST['ReservationID']))
     //This query will delete the dates and time before deleting the information
     $cancel_Query = "UPDATE reservations SET bookedStatus= 'canceled' WHERE reservationID = '" . $ReservationID . "'";
     $result = $conn->query($cancel_Query);
-/*
     $GetData_Query = "Select programName, email, room from reservations where reservationID = '$ReservationID'";
     $result = $conn->query($GetData_Query);
     $row=mysqli_fetch_row($result);
@@ -36,23 +35,22 @@ if(isset($_POST['DeleteEvent']) && isset($_POST['ReservationID']))
 
     //The Automated Acceptance Letter For User
      $mail = new PHPMailer();
-     $Mail_Body = "<p>Your request to reserve space through the Athens State In-</p>
-                   <p>Service Center cannot be accommodated at this time We are</p>
-                   <p>sorry that we do not have the resources available to serve your</p>
-                   <p>needs. We hope to be able to do so in the future</p><br><hr>
-                   <p>If you have any questions, please email holly.wood@athens.edu</p>";
+     $Mail_Body = "Your request to reserve space through the Athens State In-\n
+                   Service Center cannot be accommodated at this time. We are\n
+                   sorry that we do not have the resources available to serve your\n
+                   needs. We hope to be able to do so in the future\n\n\n
+                   If you have any questions, please email holly.wood@athens.edu";
 
     $mail->addAddress($Email);
-    $mail->isHTML(true);
 
-    $mail->Subject = $Program . ': Reservation' ;
+    $mail->Subject = $Program . ': Declined' ;
     $mail->Body = $Mail_Body;
 
  //From email address and name
      $mail->From = "inserviceathens@gmail.com";
      $mail->FromName = "Inservice Athens Reservation";
 
-    if(!$mail->send())
+    if(!$mail->Send())
     {
         echo "Mailer Error: " . $mail->ErrorInfo;
     }
@@ -60,7 +58,7 @@ if(isset($_POST['DeleteEvent']) && isset($_POST['ReservationID']))
     {
         echo "Message has been sent successfully";
     }
-*/
+
  }
 
 //Book Request
@@ -97,31 +95,33 @@ if(isset($_POST['DeleteEvent']) && isset($_POST['ReservationID']))
 
     // Insert the New Date and Time
     $index = 0;
-    foreach ($_POST as $key) {
-        if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $key)) {
+    foreach ($_POST as $key=>$value) {
+        if (preg_match('/^date/', $key)) {
+            $index = preg_replace('/[^0-9]/', '', $key);
             $DateTimeID = mysql_fixstring($conn, $_POST['eventsId' . $index]);
-            $startDate = FormatDate4Db(mysql_fixstring($conn, $_POST['date' . $index]));
+            $startDate = FormatDate4Db(mysql_fixstring($conn, $value));
             $startTime = FormatTime4Db(mysql_fixstring($conn, $_POST['stime' . $index]));
             $endTime = FormatTime4Db(mysql_fixstring($conn, $_POST['etime' . $index]));
             $preTime = FormatTime4Db(mysql_fixstring($conn, $_POST['ptime' . $index]));
-            $status = 'reserved';
-            $Subject .= '('.FormatDate4Report($startDate) . ') Start:' . FormatTime4Report($startTime). ', End:' . FormatTime4Report($endTime).
-                        ', Pre:'.  FormatTime4Report($preTime) . '; ';
+
+            $Subject .= '('.FormatDate4Report($startDate) . ') Start:' . FormatTime4Report($startTime). ', End:' . FormatTime4Report($endTime). ', Pre:'.  FormatTime4Report($preTime) . '; ';
 
             $reservationDatesAndTime[$index] = "UPDATE reservationDate_Time SET StartDate = '$startDate', startTime = '$startTime' ,
-                                    endTime = '$endTime', preTime = '$preTime', status='$status' WHERE reservationDateTime_ID = '$DateTimeID'";
+                                    endTime = '$endTime', preTime = '$preTime', status = 'reserved' WHERE reservationDateTime_ID = '$DateTimeID'";
             $result = $conn->query($reservationDatesAndTime[$index]);
+            if($result === false)
+            {
+                echo "Error in inserting dates";
+            }
             if ($result == TRUE) {
                 echo "<br> Day: $index successfully updated";
             } else {
                 echo "<br> Day : $index hit a snag";
-                exit;
             }
-            $index++;
         }
     };
      //Email the contact once the event is booked
-/*
+
      $mail = new PHPMailer();
      $Mail_Body = "Your request to reserve space through the Athens State In-Service Center has been approved. Please\n
                    remember our building hours are Monday-Friday, 8:00-4:30. If you have questions or need to cancel\n
@@ -129,7 +129,7 @@ if(isset($_POST['DeleteEvent']) && isset($_POST['ReservationID']))
                    Thanks,\n
                    In-Service & AMSTI Staff\n";
 
-     $mail->addAddress($Email);
+     $mail->AddAddress($Email);
 
      $mail->Subject = $Subject;
      $mail->Body = $Mail_Body;
@@ -138,7 +138,7 @@ if(isset($_POST['DeleteEvent']) && isset($_POST['ReservationID']))
      $mail->From = "inserviceathens@gmail.com";
      $mail->FromName = "Inservice Athens Reservation";
 
-     if(!$mail->send())
+     if(!$mail->Send())
      {
          echo "Mailer Error: " . $mail->ErrorInfo;
      }
@@ -146,7 +146,8 @@ if(isset($_POST['DeleteEvent']) && isset($_POST['ReservationID']))
      {
          echo "Message has been sent successfully";
      }
-*/
+
+
 }
 //Add the Google Calendar ID's into the tables so can use for update, delete, and move
 elseif(isset($_POST['PrivateID']) && isset($_POST['EventID']))
@@ -196,11 +197,11 @@ elseif (isset($_POST['ReservationID_newEvent']) && isset($_POST['newDate'])&& is
             echo"<td><input type='text' name='status$index' id = 'status$index' class = 'status' disabled value='unreserved'/></td>";
             echo"<td class='hidden'><input type='text' name='status$index' id = 'status$index' class = 'status' value='unreserved'/></td>";
         }
-        echo"<td><input type='text' name='date$index' id='date$index' class='datepicker' value='".FormatDate4Report($newDate)."' /></td>".
-            "<td><input type='text' name='stime$index' id='stime$index' class='timepicker' value='".FormatTime4Report($newStartTime)."'/></td>".
-            "<td><input type='text' name='etime$index' id='etime$index' class='timepicker' value='".FormatTime4Report($newEndTime)."'/></td>".
-            "<td><input type='text' name='ptime$index' id='ptime$index' class='timepicker' value='".FormatTime4Report($newPreTime)."'/></td>".
-            "<td class='hidden'><input type='hidden' name='eventsId$index' id='eventsId$index' class='eventID' value='$newEventID'/></td>";
+        echo"<td><input type='text' name='date$index' id='date$index' class='datepicker' value='".FormatDate4Report($newDate)."' required /></td>".
+            "<td><input type='text' name='stime$index' id='stime$index' class='timepicker' value='".fixTimeString(FormatTime4Report($newStartTime))."' required/></td>".
+            "<td><input type='text' name='etime$index' id='etime$index' class='timepicker' value='".fixTimeString(FormatTime4Report($newEndTime))."' required/></td>".
+            "<td><input type='text' name='ptime$index' id='ptime$index' class='timepicker' value='".fixTimeString(FormatTime4Report($newPreTime))."' required/></td>".
+            "<td class='hidden'><input type='hidden' name='eventsId$index' id='eventsId$index' class='eventID' value='$newEventID' required/></td>";
         if($bookedStatus === 'booked')
         {
             echo "<td class='hidden'><input type='hidden' name='prgoogle$index' id='prgoogle$index' value='newDate'/></td>".
@@ -219,11 +220,7 @@ elseif(isset($_POST['EventID']) && isset($_POST['ChangeStatusTrigger']))
 {
     $EventID = mysql_fixstring($conn, $_POST['EventID']);
     $updateEventStatus = "UPDATE reservationDate_Time SET status = 'reserved' WHERE reservationDateTime_ID  = ".$EventID;
-    if($conn->query($updateEventStatus))
-    {
-        echo"The status changed to reserved";
-    }
-    else{echo "Error in Changing Status";}
+
 }
 
 //Create a pending request within the Admin Page
@@ -305,15 +302,18 @@ function SanitizePostString($conn, $string)
 {
     return htmlentities(mysql_fixstring($conn, $string));
 }
-
-
-}
-else
+function fixTimeString($Time)
 {
 	echo "<p><h3>You are not authorized to visit this page.</h3></p>";
 	echo "<p><a href='php/UserLogin.php'>User Login</a></p>";
 	echo "<p><a href='php/UserLogout.php'>User Logout</a></p>";
 	echo "<p><a href='WorkQueue.php'>Work Queue</a></p>";
 	echo "<p><a href='Home.html'>Home Page</a></p>";
+    $Time = preg_replace('/\s+/', '', $Time);
+    if($Time[0] === '0')
+    {
+        $Time = substr($Time, 1);
+    }
+    return $Time;
 }
-?>
+

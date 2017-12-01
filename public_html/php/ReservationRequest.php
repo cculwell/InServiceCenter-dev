@@ -86,7 +86,7 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
             }
         };
         //The Automated reservation email to users confirming that they have a pending reservation.
-        $mail = new PHPMailer();
+        $mail = new PHPMailer(true);
         $Mail_Body = "Thank You for submitting your date request through our \n
                         automated system. Our staff will review your request. Once \n
                         reviewed you will receive an email informing you if the request\n
@@ -94,14 +94,13 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
                         Please remember our building hours are Monday-Friday, 8:00-4:30\n";
         //From email address and name
         $mail->From = "inserviceathens@gmail.com";
-        $mail->FromName = "Inservice Athens Reservation";
         //To address and name
-        $mail->addAddress($Email);
+        $mail->AddAddress($Email);
         $mail->Subject = $Email_Subject;
         $mail->Body = $Mail_Body;
 
 
-        if(!$mail->send())
+        if(!$mail->Send())
         {
             echo "Mailer Error: " . $mail->ErrorInfo;
         }
@@ -110,15 +109,15 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
             echo "Message has been sent successfully";
         }
         //Mail to the Administrator to alert them of a pending request
-        $Mail_Alert = PHPMailer();
+        $Mail_Alert = new PHPMailer();
         $Mail_Alert->From = "inserviceathens@gmail.com";
-        $Mail_Alert->FromName = "Inservice Athens Reservation";
+        $Mail_Alert->FromName =  'Athens State Regional Inservice Center';
 
-        $Mail_Alert->addAddress('jtwynn95@gmail.com');//Change when done testing
+        $Mail_Alert->AddAddress('jtwynn95@gmail.com');//Change when done testing
         $Mail_Alert->Subject = $Program . ': Reservation' ;
         $Mail_Alert->Body = "Hello, there is a new pending request awaiting for your approval";
 
-        if(!$Mail_Alert->send())
+        if(!$Mail_Alert->Send())
         {
             echo "Mailer Error: " . $Mail_Alert->ErrorInfo;
         }
@@ -134,17 +133,6 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
         echo "captcha failed";
         exit();
     }
-
-
-
-
-
-
-
-
-
-
-
     else
     {
         echo"All fields are not filled";

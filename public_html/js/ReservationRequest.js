@@ -76,6 +76,10 @@ $(document).ready(function () {
                         alert("Incorrect Captcha");
                         $('.realperson-challenge').trigger("click");
                     }
+                    else if(results!=='Message has been sent successfully')
+                    {
+                        console.log(results);
+                    }
                     else
                     {
                         $('#Show_Success').dialog("open")

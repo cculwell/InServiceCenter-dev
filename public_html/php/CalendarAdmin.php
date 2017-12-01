@@ -460,31 +460,37 @@ End;
                     }
                 });
                 $('#form_submit').on('click', function () {
-
-                    var form_data = $('#form_reservation').serialize();
-                    //Book Event through BookEvent.php
-                    $.ajax({
-                        type: 'POST',
-                        url: 'php/BookEvent.php',
-                        data: form_data,
-                        success: function(response)
-                        {
-                            if(response === 'Please fill out all of the inputs before submitting')
+                    var form = $('#form_reservation');
+                    if(valid(form))
+                    {
+                        var form_data = form.serialize();
+                        //Book Event through BookEvent.php
+                        $.ajax({
+                            type: 'POST',
+                            url: 'php/BookEvent.php',
+                            data: form_data,
+                            success: function(response)
                             {
-                                alert(response);
-                            }
-                            else
-                            {
-                                console.log('Creating Reservation...');
-                                $('#reservationQueue').load('php/CalendarAdmin.php');
-                            }
+                                if(response === 'Please fill out all of the inputs before submitting')
+                                {
+                                    alert(response);
+                                }
+                                else
+                                {
+                                    console.log('Creating Reservation...');
+                                    $('#reservationQueue').load('php/CalendarAdmin.php');
+                                }
 
-                        },
-                        error: function(response)
-                        {
-                            alert("AJAX Failure");
-                        }
-                    });
+                            },
+                            error: function(response)
+                            {
+                                alert("AJAX Failure");
+                            }
+                        });
+                    }
+                    else
+                        alert("Please fill out all of the fields")
+
                     event.preventDefault();
 
                 });
