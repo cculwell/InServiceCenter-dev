@@ -306,6 +306,9 @@ End;
 
     <div id="create_Reservation" class="tab-pane fade">
         <hr>
+        <div class="text-center" id="title_Create">
+             <h2>Create Reservation</h2>
+        </div>
         <form id="form_reservation">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4>Program Information</h4></div>
@@ -414,77 +417,97 @@ End;
                 </div>
             </div>
             <div class="btn-group col-md-6 text-center" id="reserve">
-                <a id="form_submit" class="btn btn-primary btn-lg">Reserve</a>
+                <button type="button" id="form_submit" class="btn btn-primary btn-lg">Reserve</button>
             </div>
         </form>
         <script type="text/javascript">
-
-            var index = 1;
-            $('.datepicker').datepicker();
-            $('.timepicker').timepicker({'minTime': '7:30am',
-                'maxTime': '11:30pm',
-                disableTextInput: true
-            });
-
-            $("#add_date").click(function(){
-
-
-                $('#add_row' + index).html("<td>" + (index + 1)+ "</td>" +
-                    "<td><input type='text' name='creatRequesteddatefrom" + index + "' class='form-control datepicker' placeholder='MM/DD/YYYY' required/></td>" +
-                    "<td><input type='text' class='timepicker form-control' name='createStarttime" + index + "' placeholder='HH:MM AM/PM' required/></td>" +
-                    "<td><input type='text' class='timepicker form-control' name='createEndtime" + index + "' placeholder='HH:MM AM/PM' required></td>" +
-                    "<td><input type='text' class='timepicker form-control' name='createPreeventsetup" + index + "' placeholder='HH:MM AM/PM' required></td>"
-
-                );
+            $(document).ready(function () {
+                var index = 1;
                 $('.datepicker').datepicker();
                 $('.timepicker').timepicker({'minTime': '7:30am',
-                    'maxTime': '11:30pm'
+                    'maxTime': '11:30pm',
+                    disableTextInput: true
                 });
-                index+=1;
-                $('#table_body').append("<tr id='add_row"+index+"'></tr>");
-            });
-            $('#delete_date_btn').click(function(){
-                if(index===1)
-                {
-                    index=1;
-                }
-                else
-                {
-                    index-=1;
-                    $("#add_row"+index).html('');
-                }
-            });
-            $('#form_submit').on('click', function () {
-                event.preventDefault();
-                var form_data = $('#form_reservation').serialize();
-                //Book Event through BookEvent.php
-                $.ajax({
-                    type: 'POST',
-                    url: 'php/BookEvent.php',
-                    data: form_data,
-                    success: function(response)
-                    {
-                        if(response === 'Please fill out all of the inputs before submitting')
-                        {
-                            alert(response);
-                        }
-                        else
-                        {
-                            console.log('Creating Reservation...');
-                            $('#reservationQueue').load('php/CalendarAdmin.php');
-                        }
 
-                    },
-                    error: function(response)
+
+                $("#add_date").click(function(){
+
+
+                    $('#add_row' + index).html("<td>" + (index + 1)+ "</td>" +
+                        "<td><input type='text' name='creatRequesteddatefrom" + index + "' class='form-control datepicker' placeholder='MM/DD/YYYY' required/></td>" +
+                        "<td><input type='text' class='timepicker form-control' name='createStarttime" + index + "' placeholder='HH:MM AM/PM' required/></td>" +
+                        "<td><input type='text' class='timepicker form-control' name='createEndtime" + index + "' placeholder='HH:MM AM/PM' required></td>" +
+                        "<td><input type='text' class='timepicker form-control' name='createPreeventsetup" + index + "' placeholder='HH:MM AM/PM' required></td>"
+
+                    );
+                    $('.datepicker').datepicker();
+                    $('.timepicker').timepicker({'minTime': '7:30am',
+                        'maxTime': '11:30pm',
+                        disableText:true
+                    });
+                    index+=1;
+                    $('#table_body').append("<tr id='add_row"+index+"'></tr>");
+                });
+                $('#delete_date_btn').click(function(){
+                    if(index===1)
                     {
-                        alert("AJAX Failure");
+                        index=1;
                     }
+                    else
+                    {
+                        index-=1;
+                        $("#add_row"+index).html('');
+                    }
+                });
+                $('#form_submit').on('click', function () {
+
+                    var form_data = $('#form_reservation').serialize();
+                    //Book Event through BookEvent.php
+                    $.ajax({
+                        type: 'POST',
+                        url: 'php/BookEvent.php',
+                        data: form_data,
+                        success: function(response)
+                        {
+                            if(response === 'Please fill out all of the inputs before submitting')
+                            {
+                                alert(response);
+                            }
+                            else
+                            {
+                                console.log('Creating Reservation...');
+                                $('#reservationQueue').load('php/CalendarAdmin.php');
+                            }
+
+                        },
+                        error: function(response)
+                        {
+                            alert("AJAX Failure");
+                        }
+                    });
+                    event.preventDefault();
 
                 });
-
             });
+
 
         </script>
+
+        <div id="div_pop_dt" class="div_pop_dt">
+            <form id="new_Event">
+                <input type="hidden" name="ReservationID_newEvent" id="ReservationID_newEvent" value="<?php echo $ReservationID?>"/>
+                <input type="hidden" name="Book_Status" class="Book_Status" id="Book_Status" value="<?php echo $BookedStatus?>"/>
+                <label for="newDate">Date: </label>
+                <input type="text" class="datepicker " name="newDate" id="newDate" placeholder="MM/DD/YYYY"/>
+                <label for="newStime">Start Time: </label>
+                <input type="text" class="timepicker" name="newStime" id="newStime" placeholder="HH:MM AM/PM"/>
+                <label for="newEtime">End Time: </label>
+                <input type="text" class="timepicker" name="newEtime" id="newEtime" placeholder="HH:MM AM/PM"/>
+                <label for="newPtime">Pre Time: </label>
+                <input type="text" class="timepicker" name="newPtime" id="newPtime" placeholder="HH:MM AM/PM"/>
+            </form>
+
+        </div>
 </div>
 
 <?php

@@ -20,6 +20,8 @@ if ($conn->connect_errno) {
 
 if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
 {
+
+}
 //Get all of the values from the reservations and reservationDate_Time database
 if(isset($_POST['reserveID'])) {
 
@@ -152,7 +154,7 @@ elseif (isset($_POST['DeleteEventID']))
                 <th>Pre Time</th>
                 <th></th>
                 </thead>
-                <tbody id = 'table_body'>
+                <tbody id = 'table_body<?php echo $ReservationID?>'>
 
             <?php
             // PHP to put all of the date and time from the database
@@ -182,7 +184,6 @@ elseif (isset($_POST['DeleteEventID']))
                     echo "<td><a id='deleteEvent' class='btn btn-danger deleteEvent'>Delete</a></td>".
                          "</tr>";
                 }
-
             }
             ?>
                 </tbody>
@@ -191,6 +192,7 @@ elseif (isset($_POST['DeleteEventID']))
                 <br><br>
                 <script>
                     $(document).ready(function () {
+                        var index = <?php echo $x?>;
                         $(document.body).on('click', '.deleteBookedEvent', function(){
                             $(this).closest('tr').find('.status').val('delete');
                             $(this).removeClass();
@@ -214,6 +216,7 @@ elseif (isset($_POST['DeleteEventID']))
                                 url: 'php/Edit_Form.php',
                                 data: {DeleteEventID: DeleteEventID},
                                 success:function(){
+
                                     console.log("Event Deleted");
                                 },
                                 error:function () {
@@ -229,25 +232,26 @@ elseif (isset($_POST['DeleteEventID']))
                         $("#div_pop_dt").dialog({
                             autoOpen: false,
                             open:function(){
-                                $('#newDate').datepicker();
+                                $('.datepicker').datepicker();
                                 $('.timepicker').timepicker({'minTime': '7:30am',
-                                    'maxTime': '11:30pm'
-                                });
+                                    'maxTime': '11:30pm',
+                                    disableText:true
 
+                                });
                             },
                             buttons: {
                                 Insert: function () {
                                     var form = $('#new_Event');
                                     var newDateForm = form.serialize();
-                                    console.log("<?php echo $BookedStatus?>");
+
 
                                     $.ajax({
                                         type: "POST",
                                         url: "php/BookEvent.php",
-                                        data: newDateForm + '&index=' + <?php echo $x?> + '&bookedStatus=<?php echo $BookedStatus?>',
+                                        data: newDateForm + '&index='+index,
                                         success: function (report) {
                                             console.log(report);
-                                            $('#table_body').append(report);
+                                            $('#table_body<?php echo $ReservationID?>').append(report);
                                             $('#div_pop_dt').dialog("close");
                                         },
                                         error: function () {
@@ -255,6 +259,8 @@ elseif (isset($_POST['DeleteEventID']))
                                             $('#div_pop_dt').dialog("close");
                                         }
                                     });
+                                    index++;
+
                                     form.trigger('reset');
 
                                 },
@@ -267,18 +273,22 @@ elseif (isset($_POST['DeleteEventID']))
                             }
                         });
                         var addDate = $('.add_date_btn').on('click', function(){
+                            $('#Book_Status').val("<?php echo $BookedStatus ?>");
+                            $("#ReservationID_newEvent").val("<?php echo $ReservationID ?>");
                             $("#div_pop_dt").dialog("open")
                                 .dialog("option", "width", 500);
                         });
-                        $('.datepicker').datepicker();
-                        $('.timepicker').timepicker({'minTime': '7:30am',
-                            'maxTime': '11:30pm'
+                        $('body').on('focus', '.datepicker', function(){
+                            $('.datepicker').datepicker();
                         });
+
+                        $('.timepicker').timepicker({'minTime': '8:00am',
+                            'maxTime': '11:30pm',
+                            disableText:true
+                        });
+
+
                     });
-
-
-
-
                 </script>
 
                 <label class="checkbox-inline"><input type="checkbox" name="Smartboard" value="Smartboard" <?php echo($smartBoard === 'Yes')? 'checked':''?> >Smartboard</label></td>
@@ -292,48 +302,32 @@ elseif (isset($_POST['DeleteEventID']))
         <?php
         if($BookedStatus === 'booked')
         {
-            echo '<button type="submit" class="btn btn-primary pull-left bookedBtns" id="updateBookedEvent'.$ReservationID.'">Update Reservation</button>';
+            echo '<button type="button" class="btn btn-primary pull-left bookedBtns" id="updateBookedEvent'.$ReservationID.'">Update Reservation</button>';
             echo '<button type="button"" class="btn btn-danger pull-right delete_Booked" id="deleteBooked'.$ReservationID.'">Delete Reservation</button>';
 
         }
         else if($BookedStatus==='pending')
         {
-            echo '<button type="submit" class="btn btn-primary pull-left" id="bookEvent'.$ReservationID.'">Book Request</button>';
+            echo '<button type="button" class="btn btn-primary pull-left" id="bookEvent'.$ReservationID.'">Book Request</button>';
             echo '<button type="button" class="btn btn-danger pull-right  deletePending" id="deletePending'.$ReservationID.'">Delete Request</button>';
         }
         else if($BookedStatus==='canceled')
         {
-            echo '<button type="submit" class="btn btn-primary pull-left" id="bookEvent'.$ReservationID.'">Book Event</button>';
+            echo '<button type="button" class="btn btn-primary pull-left" id="bookEvent'.$ReservationID.'">Book Event</button>';
             echo '<button type="button" class= "btn btn-danger pull-right" id="permanentDelete'.$ReservationID.'">Permanent Delete</button>';
         }
         ?>
         <script type="text/javascript">
             $(document).ready(function(){
-                $('form_id'+<?php echo $ReservationID?>).validate({
 
-                });
                 HandleClick(<?php echo $ReservationID?>);
                 HandleUpdatePage(<?php echo "$ReservationID , '$RoomReservation'"?>);
+
 
             });
         </script>
 
     </form>
-    <div id="div_pop_dt">
-        <form id="new_Event">
-            <input type="hidden" name="ReservationID_newEvent" id="ReservationID_newEvent" value="<?php echo $ReservationID?>"/>
-            <input type="hidden" name="Book_Status" value="<?php echo $BookedStatus?>">
-            <label for="newDate">Date: </label>
-            <input type="text" class="datepicker " name="newDate" id="newDate" placeholder="MM/DD/YYYY"/>
-            <label for="newStime">Start Time: </label>
-            <input type="text" class="timepicker" name="newStime" id="newStime" placeholder="HH:MM AM/PM"/>
-            <label for="newEtime">End Time: </label>
-            <input type="text" class="timepicker" name="newEtime" id="newEtime" placeholder="HH:MM AM/PM"/>
-            <label for="newPtime">Pre Time: </label>
-            <input type="text" class="timepicker" name="newPtime" id="newPtime" placeholder="HH:MM AM/PM"/>
-        </form>
-
-    </div>
 </div>
 
 <?php

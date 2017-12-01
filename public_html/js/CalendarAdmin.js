@@ -3,28 +3,53 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/
 var SCOPES = "https://www.googleapis.com/auth/calendar";
 var private_CalID ="inserviceathens@gmail.com";
 
+//Validation Function
+function valid(form)
+{
+    var valid = true;
+    var input = form.serializeArray();
+    console.log (input);
+
+    $.each(input, function(){
+        if(!this.value)
+        {
+            valid=false;
+            return valid;
+        }
+
+    });
+
+    return valid;
+}
 //Handles the booked reservations page
 function HandleUpdatePage(ReservationID, OriginalRoom) {
+    var form = $('#form_id'+ReservationID);
     $('#updateBookedEvent'+ReservationID).on('click', function () {
+        if(valid(form))
+        {
+            var form_data = form.serialize();
+            MainUpdateEvents(form, OriginalRoom);
 
-        var form = $('#form_id'+ReservationID);
-        var form_data = form.serialize();
+            $.ajax({
+                type: 'POST',
+                url: 'php/BookEvent.php',
+                data: form_data,
+                success: function () {
+                    console.log('Form Sent');
+                    alert("Event Updated");
+                    $('#reservationQueue').load('php/CalendarAdmin.php');
 
-        $.ajax({
-            type: 'POST',
-            url: 'php/BookEvent.php',
-            data: form_data,
-            success: function () {
-                console.log('Form Sent');
-                MainUpdateEvents(form, OriginalRoom);
-                $('#reservationQueue').load('php/CalendarAdmin.php');
-            },
-            error: function (data) {
-                console.log('Error on sending form');
-                $('#reservationQueue').load('php/CalendarAdmin.php');
-            }
-        });
+                },
+                error: function (data) {
+                    console.log('Error on sending form');
+                    $('#reservationQueue').load('php/CalendarAdmin.php');
+                }
+            });
 
+
+        }
+        else
+            alert("Please fill out all of the fields");
         event.preventDefault();
     });
 
@@ -39,6 +64,7 @@ function HandleUpdatePage(ReservationID, OriginalRoom) {
             data: {DeleteEvent: "DELETE", ReservationID: ReservationID},
             success:function()
             {
+                alert("Event Deleted");
                 $('#reservationQueue').load('php/CalendarAdmin.php');
             },
             error:function () {
@@ -52,28 +78,35 @@ function HandleUpdatePage(ReservationID, OriginalRoom) {
 function HandleClick(ReservationID)
 {
     var book = $('#bookEvent'+ReservationID);
-
     //Then start the booking process
     book.on('click', function () {
-        var form=$('#form_id'+ReservationID);
-        var form_data = form.serialize();
+        var form = $('#form_id'+ReservationID);
+        if(valid(form))
+        {
+            var form_data = form.serialize();
+            //Make Call to update and insert Reservation
+            $.ajax({
+                type: 'POST',
+                url: 'php/BookEvent.php',
+                data: form_data,
+                success: function (response) {
+                    console.log(response);
+                    MainEventFunction(form);
+                    alert("Room Reserved");
+                    $('#reservationQueue').load('php/CalendarAdmin.php');
+                },
+                error: function (data) {
+                    console.log('Error on sending form');
+                    $('#reservationQueue').load('php/CalendarAdmin.php');
+                }
 
-        MainEventFunction(form);
-        //Make Call to update and insert Reservation
-        $.ajax({
-            type: 'POST',
-            url: 'php/BookEvent.php',
-            data: form_data,
-            success: function () {
-                console.log('Form Sent');
-                $('#reservationQueue').load('php/CalendarAdmin.php');
-            },
-            error: function (data) {
-                console.log('Error on sending form');
-                $('#reservationQueue').load('php/CalendarAdmin.php');
-            }
+            });
 
-        });
+        }
+        else
+            alert("Please fill out all of the fields");
+
+
         event.preventDefault();
     });
 
@@ -85,6 +118,7 @@ function HandleClick(ReservationID)
             url: 'php/BookEvent.php',
             data: {DeleteEvent: "DELETE", ReservationID: ReservationID},
             success: function () {
+                alert("Reservation Denied");
                 $('#reservationQueue').load('php/CalendarAdmin.php');
             },
             error: function (data) {
@@ -179,6 +213,7 @@ function updateSigninStatus(isSignedIn) {
 function MainEventFunction(FormList) {
     var Form_Array = FormList.serializeArray();
     var FormData = [];
+    console.log(Form_Array);
     $.each(Form_Array, function (i, field) {
         FormData.push(field.value);
     });
@@ -210,11 +245,11 @@ function MainEventFunction(FormList) {
             EventsID.push(FormData[index + 4]);
         }
     }
+
     //Loop to insert the dates to Google Calendar
     for (index = 0; index < date.length; index++) {
         //Use closure if you need access to the eventID within the ajax call
         (function () {
-            var eventID = EventsID[index];
             var start = DateTimeConvert(date[index], preTime[index]);
             var end = DateTimeConvert(date[index], endTime[index]);
             var private_event = {
@@ -241,19 +276,27 @@ function MainEventFunction(FormList) {
                     'dateTime': end
                 }
             };
-            console.log(googleInsertEvent(private_event, public_event, room, eventID));
+            googleInsertEvent(private_event, public_event, room, EventsID[index]);
+            $.ajax({
+                type: "POST",
+                url: 'php/BookEvent.php',
+                data: {EventID: EventsID[index], ChangeStatusTrigger: 'reserved'},
+                success: function(results){console.log(results);},
+                error: function(){alert('Unable to reserve Dates');}
+            });
 
         })();
     }
 }
 function googleInsertEvent(privateResource, publicResource, room, eventID)
 {
-
     var PublicInsertGoogle = gapi.client.calendar.events.insert({
         'calendarId': getID(room),
         'resource': publicResource
     });
     PublicInsertGoogle.execute(function (event) {
+        console.log(event);
+        console.log(event.id);
 
         $.ajax({
             type: 'POST',
@@ -278,6 +321,7 @@ function googleInsertEvent(privateResource, publicResource, room, eventID)
         'resource': privateResource
     });
     PrivateInsertGoogle.execute(function (response) {
+        console.log(response);
         $.ajax({
             type: 'POST',
             url: 'php/BookEvent.php',
@@ -328,6 +372,7 @@ function deleteAllBookedEvents(FormList, OriginalRoom)
             if(status[index] === 'reserved' || status[index] === 'delete' || status[index] === 'finished')
             {
                 googleDeleteEvent(OriginalRoom, publicID[index], privateID[index]);
+
             }
         })();
 
@@ -381,7 +426,6 @@ function MainUpdateEvents(FormList, OriginalRoom)
             var start = DateTimeConvert(date[index], preTime[index]);
             var end = DateTimeConvert(date[index], endTime[index]);
 
-
             var publicResource={
                 'summary': room + ": Busy",
                 'location': '300 North Beaty Street\n' +
@@ -430,7 +474,7 @@ function MainUpdateEvents(FormList, OriginalRoom)
                     url: 'php/BookEvent.php',
                     data: {EventID: EventsID[index], ChangeStatusTrigger: 'reserved'},
                     success: function(results){console.log(results);},
-                    error: function(){return false;}
+                    error: function(){console.log("Error in chainging unreserved to reserved");}
                 });
             }
             else
@@ -441,9 +485,7 @@ function MainUpdateEvents(FormList, OriginalRoom)
         })();
 
     }
-
 }
-
 function updateGoogleEvents(privateResource, publicResource, room, publicId, privateId)
 {
     var publicUpdate = gapi.client.calendar.events.update({
@@ -517,7 +559,7 @@ function getID(room) {
 function DateTimeConvert(date, time) {
     var dateArray = date.split('/');
 
-    return dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1] + 'T' + Time24(time);
+    return dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1] + 'T' + Time24(time) + '-06:00';
 }
 
 function Time24(time) {
@@ -531,7 +573,7 @@ function Time24(time) {
     if (newHour.length < 2) {
         newHour = '0' + newHour;
     }
-    return newHour + ':' + minute + ':00-06:00';
+    return newHour + ':' + minute + ':00';
 }
 
 function checkAM_PM(am_pm, hour) {
@@ -547,3 +589,5 @@ function checkAM_PM(am_pm, hour) {
     return fHour.toString();
 
 }
+
+

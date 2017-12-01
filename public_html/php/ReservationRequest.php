@@ -85,6 +85,49 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
 
             }
         };
+        //The Automated reservation email to users confirming that they have a pending reservation.
+        $mail = new PHPMailer();
+        $Mail_Body = "Thank You for submitting your date request through our \n
+                        automated system. Our staff will review your request. Once \n
+                        reviewed you will receive an email informing you if the request\n
+                        is approved or denied.\n
+                        Please remember our building hours are Monday-Friday, 8:00-4:30\n";
+        //From email address and name
+        $mail->From = "inserviceathens@gmail.com";
+        $mail->FromName = "Inservice Athens Reservation";
+        //To address and name
+        $mail->addAddress($Email);
+        $mail->Subject = $Email_Subject;
+        $mail->Body = $Mail_Body;
+
+
+        if(!$mail->send())
+        {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+        }
+        else
+        {
+            echo "Message has been sent successfully";
+        }
+        //Mail to the Administrator to alert them of a pending request
+        $Mail_Alert = PHPMailer();
+        $Mail_Alert->From = "inserviceathens@gmail.com";
+        $Mail_Alert->FromName = "Inservice Athens Reservation";
+
+        $Mail_Alert->addAddress('jtwynn95@gmail.com');//Change when done testing
+        $Mail_Alert->Subject = $Program . ': Reservation' ;
+        $Mail_Alert->Body = "Hello, there is a new pending request awaiting for your approval";
+
+        if(!$Mail_Alert->send())
+        {
+            echo "Mailer Error: " . $Mail_Alert->ErrorInfo;
+        }
+        else
+        {
+            echo "Message has been sent successfully";
+        }
+
+
         $statement->close();
     }
     elseif(rpHash($Captcha_User) !== $Captcha_HASH) {
@@ -93,68 +136,15 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
     }
 
 
-    /*The Automated Acceptance Letter For User
-    $mail = new PHPMailer();
-    $Mail_Body = "<p>Thank You for submitting your date request through our </p>
-                        <p>automated system. Our staff will review your request. Once </p>
-                        <p>reviewed you will receive an email informing you if the request</p>
-                        <p>is approved or denied.</p>
-                        <p>Please remember our building hours are Monday-Friday, 8:00-4:30</p>
-                        <br><hr>";
-
-    for($index=0; $index < sizeof($mail_date); $index++)
-    {
-       $Mail_Body .= "<td>$mail_date[$index]</td>
-        <td>$mail_startTime[$index]</td>
-        <td>$mail_endTime[$index]</td>
-        <td>$mail_preTime[$index]</td>";
-    }
-    $Mail_Body .= "</tbody>
-                </table><br><hr>
-                <p>Thanks,</p>
-                <p>In-Service & AMSTI Staff</p>";
 
 
-//From email address and name
-    $mail->From = "inserviceathens@gmail.com";
-    $mail->FromName = "Inservice Athens Reservation";
-
-//To address and name
-    $mail->addAddress($Email);
-    $mail->isHTML(true);
-
-    $mail->Subject = $Email_Subject;
-    $mail->Body = $Mail_Body;
 
 
-    if(!$mail->send())
-    {
-        echo "Mailer Error: " . $mail->ErrorInfo;
-    }
-    else
-    {
-        echo "Message has been sent successfully";
-    }
 
-    //Mail to the Administrator to alert them of a pending request
-    $Mail_Alert = PHPMailer();
-    $Mail_Alert->From = "inserviceathens@gmail.com";
-    $Mail_Alert->FromName = "Inservice Athens Reservation";
 
-    $Mail_Alert->addAddress('jtwynn95@gmail.com');
-    $Mail_Alert->isHTML(true);
-    $Mail_Alert->Subject = $Program . ': Reservation' ;
-    $Mail_Alert->Body = "Hello, there is a new pending request awaiting for your approval";
 
-    if(!$Mail_Alert->send())
-    {
-        echo "Mailer Error: " . $Mail_Alert->ErrorInfo;
-    }
-    else
-    {
-        echo "Message has been sent successfully";
-    }
-    */
+
+
     else
     {
         echo"All fields are not filled";
