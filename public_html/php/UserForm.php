@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
 
@@ -18,11 +19,13 @@
 		}	
 	?>
 </head>
-<body>		
+<body>
+<?php
+	if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
+	{?>		
 		<a href='php/AddEditUser.php'><h3>Add a new user</h1></a><br>
 		
 		<?php	
-		//$sql = "INSERT INTO users (first_name, last_name, user_email, user_password, user_status) VALUES ('Superlongname', 'Anevenlongerlastname', 'reallyreallyreallylongemailaddress@fake.com', 'shortpassword', 'User')";
 		$sql = "SELECT * FROM users ORDER BY last_name";
 		if ($result = mysqli_query($mysqli, $sql))
 		{
@@ -57,5 +60,15 @@
 		}
 		$mysqli->close();
 		?>
+<?php
+	}
+	else
+	{
+		echo "<p><h3>You are not authorized to view this page.</h3></p>";
+		echo "<p><a href='../public_html/php/UserLogin.php'>User Login</a></p>";
+		echo "<p><a href='../public_html/php/UserLogout.php'>User Logout</a></p>";
+		echo "<p><a href='../public_html/Home.html'>Home Page</a></p>";
+	}
+?>
 </body>
 </html>

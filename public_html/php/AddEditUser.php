@@ -1,5 +1,6 @@
 <!-- //Allows an admin to add or edit a user/admin from the database-->
 <?php
+	session_start();
 	require "../../resources/config.php";
 	# create connection to database
 	$mysqli = new mysqli($config['db']['amsti_01']['host']
@@ -13,6 +14,8 @@
 		exit();
 	}	
 	
+if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
+{		
 	function addEdit($first_name = '', $last_name = '', $email = '', $password = '', $status = '', $error = '', $id = '')
 	{
 ?>			
@@ -169,5 +172,13 @@
 			addEdit();
 		}
 	}
-	$mysqli->close();
+}
+else
+{
+	echo "<p><h3>You are not authorized to view this page.</h3></p>";
+	echo "<p><a href='../public_html/php/UserLogin.php'>User Login</a></p>";
+	echo "<p><a href='../public_html/php/UserLogout.php'>User Logout</a></p>";
+	echo "<p><a href='../public_html/Home.html'>Home Page</a></p>";
+}
+$mysqli->close();
 ?>

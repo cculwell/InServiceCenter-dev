@@ -1,5 +1,7 @@
 <!-- //Allows an admin to add or edit a user/admin from the database
 <?php
+echo "TEST";
+	session_start();
 	require "../../resources/config.php";
 	# create connection to database
 	$mysqli = new mysqli($config['db']['amsti_01']['host']
@@ -12,7 +14,8 @@
 		printf("Connect failed: %s\n", $mysqli->connect_error);
 		exit();
 	}	
-	
+if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
+{	
 	if (isset($_GET['id']) && is_numeric($_GET['id']))
 	{
 		$id = $_GET['id'];
@@ -34,4 +37,12 @@
 	{
 		header("Location: ../WorkQueue.php");
 	}
+}
+else
+{
+	echo "<p><h3>You are not authorized to view this page.</h3></p>";
+	echo "<p><a href='../public_html/php/UserLogin.php'>User Login</a></p>";
+	echo "<p><a href='../public_html/php/UserLogout.php'>User Logout</a></p>";
+	echo "<p><a href='../public_html/Home.html'>Home Page</a></p>";
+}
 ?>
