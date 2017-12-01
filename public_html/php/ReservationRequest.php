@@ -1,7 +1,6 @@
 <?php
 
 require "../php/Common.php";
-require "../../resources/config.php";
 require "../php/captcha/get_captcha_hash.php";
 require "../../resources/library/PHPMailer/src/PHPMailer.php";
 require "../../resources/library/PHPMailer/src/Exception.php";
