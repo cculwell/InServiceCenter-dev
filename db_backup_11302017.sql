@@ -34,7 +34,7 @@ CREATE TABLE `books` (
   PRIMARY KEY (`book_id`),
   KEY `books_requests_request_id_fk` (`request_id`),
   CONSTRAINT `books_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,6 @@ CREATE TABLE `books` (
 
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (1,1,'Book','Pub','1234567890',5,'study format','admin_sig'),(2,8,'Book','Pub','1234567890',5,'study format',NULL),(3,9,'Book','Pub','1234567890',5,'study format',NULL),(4,10,'Book','Pub','1234567890',5,'study format',NULL),(5,11,'Book','Pub','1234567890',5,'study format',NULL),(6,12,'Book','Pub','1234567890',5,'study format',NULL);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +60,7 @@ CREATE TABLE `bylaws` (
   `file_path` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +69,6 @@ CREATE TABLE `bylaws` (
 
 LOCK TABLES `bylaws` WRITE;
 /*!40000 ALTER TABLE `bylaws` DISABLE KEYS */;
-INSERT INTO `bylaws` VALUES (4,'bylaws1.pdf','yes','../../../Uploads/Bylaws/bylaws1.pdf');
 /*!40000 ALTER TABLE `bylaws` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +88,7 @@ CREATE TABLE `comments` (
   UNIQUE KEY `comments_comment_id_uindex` (`comment_id`),
   KEY `comments_requests_request_id_fk` (`request_id`),
   CONSTRAINT `comments_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +97,6 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,1,'2017-11-17','this is a change in the note'),(3,1,'2017-11-17','change this note'),(4,1,'2017-10-31','Halloween');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +118,7 @@ CREATE TABLE `contacts` (
   PRIMARY KEY (`contact_id`),
   KEY `contacts_requests_request_id_fk` (`request_id`),
   CONSTRAINT `contacts_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,9 +127,28 @@ CREATE TABLE `contacts` (
 
 LOCK TABLES `contacts` WRITE;
 /*!40000 ALTER TABLE `contacts` DISABLE KEYS */;
-INSERT INTO `contacts` VALUES (2,1,'Company','Eight','123-456-0987','support@company.com',''),(7,4,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(9,5,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(11,6,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(12,6,'Company','company','123-456-0987','support@company.com',NULL),(13,7,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(14,7,'Facilitator','Jane Doe','123-456-7890','jdoe@school.com',NULL),(15,8,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(16,8,'Facilitator','Jane Doe','123-456-7890','jdoe@school.com',NULL),(17,9,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(18,9,'Facilitator','Jane Doe','123-456-7890','jdoe@school.com',NULL),(19,10,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(20,10,'Facilitator','Jane Doe','123-456-7890','jdoe@school.com',NULL),(21,11,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(22,11,'Facilitator','Jane Doe','123-456-7890','jdoe@school.com',NULL),(23,12,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(24,12,'Facilitator','Jane Doe','123-456-7890','jdoe@school.com',NULL),(25,13,'Contact','contact','123-456-7890','contact@company.com',NULL),(26,13,'Company','Company','123-456-7890','support@company.com',NULL),(27,14,'Contact','contact','123-456-7890','contact@company',NULL),(28,14,'Company','company','123-456-7890','support@company.com',NULL),(31,3,'Facilitator','Jane Doe','123-456-7890','jdoe@school.com',NULL),(33,2,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(35,3,'Contact','John Smtih','098-765-4321','jsmith@company.com',NULL),(36,4,'Company','company','123-456-0987','support@company.com',NULL),(73,1,'511','John Smtih','098-765-4321','jsmith@company.com',''),(79,1,'5','John Smtih','098-765-4321','jsmith@company.com','6'),(82,1,'Parker','Jon','123-123-1234','j@me.com','123'),(86,1,'parker','Jon','123-123-1223','j@me.com','121212'),(87,1,'Parker','Jon','123-123-1234','j@me.com','124'),(106,18,'Contact','','','',NULL),(107,18,'Company','','','',NULL),(114,22,'Contact','','','',NULL),(115,22,'Company','','','',NULL),(116,23,'Contact','','','',NULL),(117,23,'Company','','','',NULL),(122,26,'Contact','','','',NULL),(123,26,'Company','','','',NULL),(126,28,'Contact','','','',NULL),(127,28,'Company','','','',NULL),(128,29,'Contact','','','',NULL),(129,29,'Company','','','',NULL),(130,30,'Contact','','','',NULL),(131,30,'Company','','','',NULL),(132,31,'Contact','','','',NULL),(133,31,'Company','','','',NULL),(134,32,'Contact','','','',NULL),(135,32,'Company','','','',NULL),(136,33,'Contact','','','',NULL),(137,33,'Company','','','',NULL),(138,34,'Contact','','','',NULL),(139,34,'Company','','','',NULL),(140,35,'Contact','','','',NULL),(141,35,'Company','','','',NULL);
 /*!40000 ALTER TABLE `contacts` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `curriculum_report_data`
+--
+
+DROP TABLE IF EXISTS `curriculum_report_data`;
+/*!50001 DROP VIEW IF EXISTS `curriculum_report_data`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `curriculum_report_data` AS SELECT 
+ 1 AS `request_id`,
+ 1 AS `report_date`,
+ 1 AS `curriculum`,
+ 1 AS `amsti`,
+ 1 AS `asim`,
+ 1 AS `tim`,
+ 1 AS `ric`,
+ 1 AS `alsde`,
+ 1 AS `lea`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `date_times`
@@ -152,7 +168,7 @@ CREATE TABLE `date_times` (
   PRIMARY KEY (`request_dt_id`),
   KEY `request_dt_requests_request_id_fk` (`request_id`),
   CONSTRAINT `request_dt_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,49 +177,39 @@ CREATE TABLE `date_times` (
 
 LOCK TABLES `date_times` WRITE;
 /*!40000 ALTER TABLE `date_times` DISABLE KEYS */;
-INSERT INTO `date_times` VALUES (1,1,'2017-10-30','08:00:00','17:00:00',1,NULL),(2,1,'2017-10-31','08:00:00','17:00:00',1,NULL),(3,2,'2017-10-30','08:00:00','17:00:00',1,NULL),(4,2,'2017-10-31','08:00:00','17:00:00',1,NULL),(5,3,'2017-10-30','08:00:00','17:00:00',1,NULL),(6,3,'2017-10-31','08:00:00','17:00:00',1,NULL),(7,4,'2017-10-30','08:00:00','17:00:00',1,NULL),(8,4,'2017-10-31','08:00:00','17:00:00',1,NULL),(9,5,'2017-10-30','08:00:00','17:00:00',1,NULL),(10,5,'2017-10-31','08:00:00','17:00:00',1,NULL),(11,6,'2017-10-30','08:00:00','17:00:00',1,NULL),(12,6,'2017-10-31','08:00:00','17:00:00',1,NULL),(15,8,'2017-10-30','08:00:00','17:00:00',1,NULL),(16,8,'2017-10-31','08:00:00','17:00:00',1,NULL),(17,9,'2017-10-30','08:00:00','17:00:00',1,NULL),(18,9,'2017-10-31','08:00:00','17:00:00',1,NULL),(19,10,'2017-10-30','08:00:00','17:00:00',1,NULL),(20,10,'2017-10-31','08:00:00','17:00:00',1,NULL),(21,11,'2017-10-30','08:00:00','17:00:00',1,NULL),(22,11,'2017-10-31','08:00:00','17:00:00',1,NULL),(23,12,'2017-10-30','08:00:00','17:00:00',1,NULL),(24,12,'2017-10-31','08:00:00','17:00:00',1,NULL),(25,13,'2017-10-31','08:00:00','17:00:00',1,NULL),(26,14,'2017-10-30','08:00:00','05:00:00',1,NULL),(27,18,'2017-11-07','08:30:00','10:00:00',1,NULL),(28,22,'2017-11-07','09:00:00','10:30:00',1,NULL),(29,23,'2017-11-13','08:00:00','18:30:00',1,NULL),(30,26,'2017-11-15','09:30:00','18:00:00',1,NULL),(31,28,'2017-11-16','08:30:00','19:30:00',1,NULL),(32,29,'2017-11-16','08:30:00','19:30:00',1,NULL),(33,30,'2017-11-15','09:30:00','24:30:00',1,NULL),(34,31,'2017-11-14','08:30:00','09:00:00',1,NULL),(35,32,'2017-11-15','09:30:00','09:30:00',1,NULL),(36,33,'2017-11-16','10:00:00','16:00:00',1,NULL),(37,34,'2017-11-16','09:30:00','10:00:00',1,NULL),(38,35,'2017-11-16','10:00:00','10:00:00',1,NULL),(47,7,'2017-11-17','08:00:00','17:00:00',2,'updated break time'),(48,7,'2017-11-17','08:00:00','17:00:00',1,'change'),(49,7,'2017-11-17','08:00:00','17:00:00',1,'fith'),(50,7,'2017-11-17','08:00:00','17:00:00',1,'six'),(51,7,'2017-11-17','08:00:00','17:00:00',1,'seven');
 /*!40000 ALTER TABLE `date_times` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detailed_report_data`
+-- Temporary table structure for view `detailed_report_data`
 --
 
 DROP TABLE IF EXISTS `detailed_report_data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `detailed_report_data` (
-  `request_id` int(10) NOT NULL,
-  `program_nbr` varchar(10) DEFAULT NULL,
-  `program_title` varchar(100) DEFAULT NULL,
-  `request_start_date` date DEFAULT NULL,
-  `request_start_time` time DEFAULT NULL,
-  `request_end_date` date DEFAULT NULL,
-  `request_end_time` time DEFAULT NULL,
-  `request_location` varchar(100) DEFAULT NULL,
-  `max_participants` int(100) DEFAULT NULL,
-  `enrolled_participants` int(100) DEFAULT NULL,
-  `workflow_state` varchar(100) DEFAULT NULL,
-  `support_initiative` varchar(50) DEFAULT NULL,
-  `sessions` int(10) DEFAULT NULL,
-  `target_audience` varchar(100) DEFAULT NULL,
-  `curriculum_area` varchar(50) DEFAULT NULL,
-  `av_description` varchar(100) DEFAULT NULL,
-  `staff_notes` varchar(500) DEFAULT NULL,
-  `consultant_name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`request_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `detailed_report_data`
---
-
-LOCK TABLES `detailed_report_data` WRITE;
-/*!40000 ALTER TABLE `detailed_report_data` DISABLE KEYS */;
-INSERT INTO `detailed_report_data` VALUES (1,'17-1-001','Another Exciting Program','2017-10-05','13:00:00','2017-10-05','16:00:00','Athens State University AMSTI/In-Service Center',10,9,'New','ASIM',2,'K-12','Mathematics','None','They did all the things','SomeGuy'),(2,'17-1-002','This Program Was Canceled :(','2017-10-20','13:00:00','2017-10-20','17:00:00','Athens State University AMSTI/In-Service Center',10,10,'Canceled','RIC',1,'High School','English','Projector','They didn\'t do all of the things','Dude'),(3,'17-1-040','An Exciting Program','2017-10-18','13:00:00','2017-10-18','16:00:00','Athens State University AMSTI/In-Service Center',10,8,'New','AMSTI',2,'Middle School','Social Studies','None','They did some more things','Another Dude');
-/*!40000 ALTER TABLE `detailed_report_data` ENABLE KEYS */;
-UNLOCK TABLES;
+/*!50001 DROP VIEW IF EXISTS `detailed_report_data`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `detailed_report_data` AS SELECT 
+ 1 AS `request_id`,
+ 1 AS `report_date`,
+ 1 AS `program_nbr`,
+ 1 AS `request_title`,
+ 1 AS `pd_title`,
+ 1 AS `request_start_date`,
+ 1 AS `request_end_date`,
+ 1 AS `request_start_time`,
+ 1 AS `request_end_time`,
+ 1 AS `sessions`,
+ 1 AS `request_location`,
+ 1 AS `support_initiative`,
+ 1 AS `target_group`,
+ 1 AS `system`,
+ 1 AS `school`,
+ 1 AS `curriculum`,
+ 1 AS `contact_name`,
+ 1 AS `enrolled_participants`,
+ 1 AS `target_participants`,
+ 1 AS `workflow_state`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `expenses`
@@ -215,13 +221,13 @@ DROP TABLE IF EXISTS `expenses`;
 CREATE TABLE `expenses` (
   `expense_id` int(11) NOT NULL AUTO_INCREMENT,
   `request_id` int(11) DEFAULT NULL,
-  `expense_type` text,
+  `expense_type` varchar(30) DEFAULT NULL,
   `expense_amount` float DEFAULT NULL,
   `expense_note` text,
   PRIMARY KEY (`expense_id`),
   KEY `expenses_requests_request_id_fk` (`request_id`),
   CONSTRAINT `expenses_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,74 +236,118 @@ CREATE TABLE `expenses` (
 
 LOCK TABLES `expenses` WRITE;
 /*!40000 ALTER TABLE `expenses` DISABLE KEYS */;
-INSERT INTO `expenses` VALUES (1,1,'Misc.',10.5,'test1'),(5,1,'Books',12.5,'book note'),(6,1,'test',30,'asdf');
 /*!40000 ALTER TABLE `expenses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `financial_report_data`
+-- Temporary table structure for view `financial_report_data`
 --
 
 DROP TABLE IF EXISTS `financial_report_data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `financial_report_data` (
-  `request_id` int(10) NOT NULL,
-  `program_nbr` varchar(10) DEFAULT NULL,
-  `program_title` varchar(100) DEFAULT NULL,
-  `request_start_date` date DEFAULT NULL,
-  `request_start_time` time DEFAULT NULL,
-  `request_end_date` date DEFAULT NULL,
-  `request_end_time` time DEFAULT NULL,
-  `request_location` varchar(100) DEFAULT NULL,
-  `max_participants` int(100) DEFAULT NULL,
-  `enrolled_participants` int(100) DEFAULT NULL,
-  `workflow_state` varchar(100) DEFAULT NULL,
-  `support_initiative` varchar(50) DEFAULT NULL,
-  `sessions` int(10) DEFAULT NULL,
-  `target_audience` varchar(100) DEFAULT NULL,
-  `consultant_fee` decimal(5,2) DEFAULT NULL,
-  `misc_fee` decimal(5,2) DEFAULT NULL,
-  PRIMARY KEY (`request_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50001 DROP VIEW IF EXISTS `financial_report_data`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `financial_report_data` AS SELECT 
+ 1 AS `request_id`,
+ 1 AS `report_date`,
+ 1 AS `program_nbr`,
+ 1 AS `request_title`,
+ 1 AS `pd_title`,
+ 1 AS `request_start_date`,
+ 1 AS `request_end_date`,
+ 1 AS `request_start_time`,
+ 1 AS `request_end_time`,
+ 1 AS `sessions`,
+ 1 AS `request_location`,
+ 1 AS `support_initiative`,
+ 1 AS `target_group`,
+ 1 AS `system`,
+ 1 AS `enrolled_participants`,
+ 1 AS `target_participants`,
+ 1 AS `total_expenses`,
+ 1 AS `workflow_state`*/;
+SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `financial_report_data`
+-- Temporary table structure for view `initiative_report_data`
 --
 
-LOCK TABLES `financial_report_data` WRITE;
-/*!40000 ALTER TABLE `financial_report_data` DISABLE KEYS */;
-INSERT INTO `financial_report_data` VALUES (1,'17-1-001','Another Exciting Program','2017-10-06','17:00:00','2017-10-06','19:44:00','Athens State University AMSTI/In-Service Center',10,9,'New','ASIM',2,'K-12',100.00,100.00),(2,'17-1-002','This Program Was Canceled :(','2017-10-13','19:00:00','2017-10-13','23:00:00','Athens State University AMSTI/In-Service Center',10,10,'Canceled','RIC',1,'High School',100.00,200.00),(3,'17-1-040','An Exciting Program','2017-10-10','13:00:00','2017-10-10','14:00:00','Athens State University AMSTI/In-Service Center',10,8,'New','AMSTI',2,'Middle School',100.00,50.00);
-/*!40000 ALTER TABLE `financial_report_data` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `history`
---
-
-DROP TABLE IF EXISTS `history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `history` (
-  `hist_id` int(11) NOT NULL AUTO_INCREMENT,
-  `request_id` int(11) DEFAULT NULL,
-  `hist_txt` text,
-  `hist_dt` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`hist_id`),
-  KEY `history_requests_request_id_fk` (`request_id`),
-  CONSTRAINT `history_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `history`
---
-
-LOCK TABLES `history` WRITE;
-/*!40000 ALTER TABLE `history` DISABLE KEYS */;
-/*!40000 ALTER TABLE `history` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `initiative_report_data`;
+/*!50001 DROP VIEW IF EXISTS `initiative_report_data`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `initiative_report_data` AS SELECT 
+ 1 AS `request_id`,
+ 1 AS `report_date`,
+ 1 AS `support_initiative`,
+ 1 AS `total_programs`,
+ 1 AS `biology`,
+ 1 AS `biology_participants`,
+ 1 AS `biology_sessions`,
+ 1 AS `chemistry`,
+ 1 AS `chemistry_participants`,
+ 1 AS `chemistry_sessions`,
+ 1 AS `english_language_arts`,
+ 1 AS `english_language_arts_participants`,
+ 1 AS `english_language_arts_sessions`,
+ 1 AS `technology`,
+ 1 AS `technology_participants`,
+ 1 AS `technology_sessions`,
+ 1 AS `career_tech`,
+ 1 AS `career_tech_participants`,
+ 1 AS `career_tech_sessions`,
+ 1 AS `counseling`,
+ 1 AS `counseling_participants`,
+ 1 AS `counseling_sessions`,
+ 1 AS `climate_and_culture`,
+ 1 AS `climate_and_culture_participants`,
+ 1 AS `climate_and_culture_sessions`,
+ 1 AS `effective_instruction`,
+ 1 AS `effective_instruction_participants`,
+ 1 AS `effective_instruction_sessions`,
+ 1 AS `fine_arts`,
+ 1 AS `fine_arts_participants`,
+ 1 AS `fine_arts_sessions`,
+ 1 AS `foreign_language`,
+ 1 AS `foreign_language_participants`,
+ 1 AS `foreign_language_sessions`,
+ 1 AS `gifted`,
+ 1 AS `gifted_participants`,
+ 1 AS `gifted_sessions`,
+ 1 AS `interdisciplinary`,
+ 1 AS `interdisciplinary_participants`,
+ 1 AS `interdisciplinary_sessions`,
+ 1 AS `leadership`,
+ 1 AS `leadership_participants`,
+ 1 AS `leadership_sessions`,
+ 1 AS `library_media_services`,
+ 1 AS `library_media_services_participants`,
+ 1 AS `library_media_services_sessions`,
+ 1 AS `mathematics`,
+ 1 AS `mathematics_participants`,
+ 1 AS `mathematics_sessions`,
+ 1 AS `nbct`,
+ 1 AS `nbct_participants`,
+ 1 AS `nbct_sessions`,
+ 1 AS `physics`,
+ 1 AS `physics_participants`,
+ 1 AS `physics_sessions`,
+ 1 AS `physical_education`,
+ 1 AS `physical_education_participants`,
+ 1 AS `physical_education_sessions`,
+ 1 AS `science`,
+ 1 AS `science_participants`,
+ 1 AS `science_sessions`,
+ 1 AS `social_studies`,
+ 1 AS `social_studies_participants`,
+ 1 AS `social_studies_sessions`,
+ 1 AS `special_education`,
+ 1 AS `special_education_participants`,
+ 1 AS `special_education_sessions`,
+ 1 AS `other`,
+ 1 AS `other_participants`,
+ 1 AS `other_sessions`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `newsletters`
@@ -313,7 +363,7 @@ CREATE TABLE `newsletters` (
   `file_path` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,7 +372,6 @@ CREATE TABLE `newsletters` (
 
 LOCK TABLES `newsletters` WRITE;
 /*!40000 ALTER TABLE `newsletters` DISABLE KEYS */;
-INSERT INTO `newsletters` VALUES (3,'current-newsletter.pdf','yes','../../../Uploads/Newsletters/current-newsletter.pdf');
 /*!40000 ALTER TABLE `newsletters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +391,7 @@ CREATE TABLE `notes` (
   UNIQUE KEY `notes_note_id_uindex` (`note_id`),
   KEY `notes_requests_request_id_fk` (`request_id`),
   CONSTRAINT `notes_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,64 +400,32 @@ CREATE TABLE `notes` (
 
 LOCK TABLES `notes` WRITE;
 /*!40000 ALTER TABLE `notes` DISABLE KEYS */;
-INSERT INTO `notes` VALUES (4,1,'2017-12-25','Christmas');
 /*!40000 ALTER TABLE `notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `quick_report_data`
+-- Temporary table structure for view `quick_report_data`
 --
 
 DROP TABLE IF EXISTS `quick_report_data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `quick_report_data` (
-  `request_id` int(10) NOT NULL,
-  `program_nbr` varchar(10) DEFAULT NULL,
-  `program_title` varchar(100) DEFAULT NULL,
-  `request_start_date` date DEFAULT NULL,
-  `request_start_time` time DEFAULT NULL,
-  `request_end_date` date DEFAULT NULL,
-  `request_end_time` time DEFAULT NULL,
-  `request_location` varchar(100) DEFAULT NULL,
-  `max_participants` int(100) DEFAULT NULL,
-  `enrolled_participants` int(100) DEFAULT NULL,
-  `workflow_state` varchar(100) DEFAULT NULL,
-  `support_initiative` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`request_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `quick_report_data`
---
-
-LOCK TABLES `quick_report_data` WRITE;
-/*!40000 ALTER TABLE `quick_report_data` DISABLE KEYS */;
-INSERT INTO `quick_report_data` VALUES (1,'17-1-040','An Exciting Program','2017-10-23','10:00:00','2017-10-23','13:00:00','Athens State University AMSTI/In-Service Center ',10,8,'New','AMSTI'),(3,'17-1-001','Another Exciting Program','2017-10-25','10:00:00','2017-10-25','12:00:00','Athens State University AMSTI/In-Service Center ',10,9,'New','ASIM'),(14,'17-1-002','This Program Was Canceled :(','2017-10-27','12:00:00','2017-10-27','17:00:00','Athens State University AMSTI/In-Service Center ',10,10,'Canceled','RIC');
-/*!40000 ALTER TABLE `quick_report_data` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Temporary table structure for view `quick_report_data_orig`
---
-
-DROP TABLE IF EXISTS `quick_report_data_orig`;
-/*!50001 DROP VIEW IF EXISTS `quick_report_data_orig`*/;
+/*!50001 DROP VIEW IF EXISTS `quick_report_data`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `quick_report_data_orig` AS SELECT 
+/*!50001 CREATE VIEW `quick_report_data` AS SELECT 
  1 AS `request_id`,
+ 1 AS `report_date`,
  1 AS `program_nbr`,
+ 1 AS `request_title`,
  1 AS `pd_title`,
  1 AS `request_start_date`,
- 1 AS `request_start_time`,
  1 AS `request_end_date`,
+ 1 AS `request_start_time`,
  1 AS `request_end_time`,
  1 AS `request_location`,
- 1 AS `target_participants`,
+ 1 AS `support_initiative`,
  1 AS `enrolled_participants`,
- 1 AS `actual_participants`*/;
+ 1 AS `target_participants`,
+ 1 AS `workflow_state`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -434,14 +451,14 @@ CREATE TABLE `requests` (
   `stipd` varchar(3) DEFAULT NULL,
   `workshop` varchar(3) DEFAULT NULL,
   `report_date` date DEFAULT NULL,
-  `title` varchar(100) DEFAULT NULL,
   `folder_completed` varchar(100) DEFAULT NULL,
   `director_name` varchar(50) DEFAULT NULL,
   `board_approval` varchar(3) DEFAULT NULL,
   `amt_sponsored` float DEFAULT NULL,
   `payment_type` varchar(10) DEFAULT NULL,
+  `request_title` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`request_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -450,7 +467,6 @@ CREATE TABLE `requests` (
 
 LOCK TABLES `requests` WRITE;
 /*!40000 ALTER TABLE `requests` DISABLE KEYS */;
-INSERT INTO `requests` VALUES (1,'General','New','Fairview_High_School','Cullman_County_Schools','desc','desc','location',10,5,100,'eval','Yes','Yes','2017-11-15','','folder','Eddie','Yes',10,'check'),(2,'General','New','Hanceville High School','Cullman County Schools','desc','just','location',10,5,200,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'General','New','Cullman High School','Cullman City Schools','desc','just','location',10,5,500,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'General','New','East Elementary School','Cullman City Schools','desc','just','location',10,5,100,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'General','New','West Elementary School','Cullman City Schools','desc','just','location',10,5,100,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,'General','New','East Elementary School','Cullman City Schools','desc','just','location',10,5,50,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'BookStudy','New','East Elementary School','Cullman City Schools','desc','just','location',10,5,50,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,'BookStudy','New','West Elementary School','Cullman City Schools','desc','just','location',10,5,50,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(9,'BookStudy','New','Cullman High School','Cullman City Schools','desc','just','location',10,5,50,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(10,'BookStudy','New','Fairview High School','Cullman County Schools','desc','just','location',10,5,50,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(11,'BookStudy','New','Hanceville High School','Cullman County Schools','desc','just','location',10,5,50,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(12,'BookStudy','New','Hanceville High School','Cullman County Schools','desc','just','location',10,5,50,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(13,'General','New','Fairview High School','Cullman County Schools','Desc','Just','location',10,5,300,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(14,'General','New','Decatur High School','Decatur City Schools','Desc','Just','location',10,5,500,'eval',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(18,'General','New',NULL,NULL,'sadf','asdf','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(22,'General','New','One','One','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(23,'General','New','Lawrence County Center Technology','Lawrence County Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(26,'General','New','Athens High School','Athens City Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(28,'General','New','Cullman City Primary School','Cullman City Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(29,'General','New','Cullman City Primary School','Cullman City Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(30,'General','New','Brewer High School','Morgan County Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(31,'General','New','Athens Elementary School','Athens City Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(32,'General','New','Hartselle High School','Hartselle City Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(33,'General','New','Austin High School','Decatur City Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(34,'General','New','Athens Intermediate School','Athens City Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(35,'General','New','Fairview High School','Cullman County Schools','','','',0,0,0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(38,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(39,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(40,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(41,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(42,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(43,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(44,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(45,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(46,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(47,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(48,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(49,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(50,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(51,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(52,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(53,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(54,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(55,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(56,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(57,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(58,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(59,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(60,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(61,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(62,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(63,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(64,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(65,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(66,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(67,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(68,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(69,NULL,'New','','','','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,10 +484,13 @@ CREATE TABLE `reservationDate_Time` (
   `startTime` time DEFAULT NULL,
   `endTime` time DEFAULT NULL,
   `preTime` time DEFAULT NULL,
+  `publicGoogle` text,
+  `privateGoogle` text,
+  `status` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`reservationDateTime_ID`),
   KEY `reservationID` (`reservationID`),
   CONSTRAINT `reservationDate_Time_ibfk_1` FOREIGN KEY (`reservationID`) REFERENCES `reservations` (`reservationID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -480,7 +499,6 @@ CREATE TABLE `reservationDate_Time` (
 
 LOCK TABLES `reservationDate_Time` WRITE;
 /*!40000 ALTER TABLE `reservationDate_Time` DISABLE KEYS */;
-INSERT INTO `reservationDate_Time` VALUES (1,1,'2017-10-28','09:00:00','11:00:00','08:00:00'),(2,1,'2017-11-07','16:00:00','18:00:00','15:00:00'),(3,2,'2017-10-26','09:00:00','11:00:00','08:00:00'),(4,2,'2017-10-30','16:00:00','18:00:00','15:00:00'),(5,3,'2017-10-31','08:00:00','14:30:00','07:30:00'),(6,3,'2017-11-22','08:00:00','14:30:00','07:30:00'),(7,4,'2017-10-31','13:00:00','15:30:00','12:30:00');
 /*!40000 ALTER TABLE `reservationDate_Time` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -496,7 +514,7 @@ CREATE TABLE `reservations` (
   `programName` varchar(50) DEFAULT NULL,
   `programPerson` varchar(75) DEFAULT NULL,
   `programGroup` varchar(75) DEFAULT NULL,
-  `programDescription` varchar(256) DEFAULT NULL,
+  `programDescription` text,
   `room` varchar(12) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
@@ -530,9 +548,16 @@ DROP TABLE IF EXISTS `school_and_system_report_data`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE VIEW `school_and_system_report_data` AS SELECT 
+ 1 AS `request_id`,
+ 1 AS `report_date`,
  1 AS `system`,
- 1 AS `system_count`,
- 1 AS `total`*/;
+ 1 AS `curriculum`,
+ 1 AS `program_nbr`,
+ 1 AS `pd_title`,
+ 1 AS `school`,
+ 1 AS `support_initiative`,
+ 1 AS `actual_participants`,
+ 1 AS `total_expenses`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -547,7 +572,7 @@ CREATE TABLE `subscribers` (
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -556,7 +581,6 @@ CREATE TABLE `subscribers` (
 
 LOCK TABLES `subscribers` WRITE;
 /*!40000 ALTER TABLE `subscribers` DISABLE KEYS */;
-INSERT INTO `subscribers` VALUES (3,'jas@company.com'),(5,'r@me.com');
 /*!40000 ALTER TABLE `subscribers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -601,7 +625,7 @@ CREATE TABLE `users` (
   `user_status` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email` (`user_email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -610,6 +634,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Holly','Wood','inserviceathens@gmail.com','password','Admin');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -634,7 +659,7 @@ CREATE TABLE `workshops` (
   PRIMARY KEY (`workshop_id`),
   KEY `workshops_requests_request_id_fk` (`request_id`),
   CONSTRAINT `workshops_requests_request_id_fk` FOREIGN KEY (`request_id`) REFERENCES `requests` (`request_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -643,7 +668,6 @@ CREATE TABLE `workshops` (
 
 LOCK TABLES `workshops` WRITE;
 /*!40000 ALTER TABLE `workshops` DISABLE KEYS */;
-INSERT INTO `workshops` VALUES (1,1,'100','program title testing to see how a longer title will work.','kids',1,NULL,NULL,'TIM','NBCT');
 /*!40000 ALTER TABLE `workshops` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -652,10 +676,10 @@ UNLOCK TABLES;
 --
 
 --
--- Final view structure for view `quick_report_data_orig`
+-- Final view structure for view `curriculum_report_data`
 --
 
-/*!50001 DROP VIEW IF EXISTS `quick_report_data_orig`*/;
+/*!50001 DROP VIEW IF EXISTS `curriculum_report_data`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -664,7 +688,79 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`dbuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `quick_report_data_orig` AS select `r`.`request_id` AS `request_id`,`w`.`program_nbr` AS `program_nbr`,`w`.`pd_title` AS `pd_title`,`sdt`.`request_start_date` AS `request_start_date`,`sdt`.`request_start_time` AS `request_start_time`,`edt`.`request_end_date` AS `request_end_date`,`edt`.`request_end_time` AS `request_end_time`,`r`.`request_location` AS `request_location`,`r`.`target_participants` AS `target_participants`,`r`.`enrolled_participants` AS `enrolled_participants`,`w`.`actual_participants` AS `actual_participants` from (((`amsti_01`.`requests` `r` join `amsti_01`.`workshops` `w` on((`r`.`request_id` = `w`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_start_date`,min(`d`.`request_start_time`) AS `request_start_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,min(`amsti_01`.`date_times`.`request_date`) AS `request_start_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `a` on(((`d`.`request_id` = `a`.`request_id`) and (`d`.`request_date` = `a`.`request_start_date`)))) group by `d`.`request_id`,`d`.`request_date`) `sdt` on((`r`.`request_id` = `sdt`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_end_date`,max(`d`.`request_end_time`) AS `request_end_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,max(`amsti_01`.`date_times`.`request_date`) AS `request_end_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `b` on(((`d`.`request_id` = `b`.`request_id`) and (`d`.`request_date` = `b`.`request_end_date`)))) group by `d`.`request_id`,`d`.`request_date`) `edt` on((`r`.`request_id` = `edt`.`request_id`))) */;
+/*!50001 VIEW `curriculum_report_data` AS select `r`.`request_id` AS `request_id`,`r`.`report_date` AS `report_date`,`w`.`curriculum` AS `curriculum`,sum((case when (`w`.`support_initiative` = 'AMSTI') then 1 else 0 end)) AS `amsti`,sum((case when (`w`.`support_initiative` = 'ASIM') then 1 else 0 end)) AS `asim`,sum((case when (`w`.`support_initiative` = 'TIM') then 1 else 0 end)) AS `tim`,sum((case when (`w`.`support_initiative` = 'RIC') then 1 else 0 end)) AS `ric`,sum((case when (`w`.`support_initiative` = 'ALSDE') then 1 else 0 end)) AS `alsde`,sum((case when (`w`.`support_initiative` = 'LEA') then 1 else 0 end)) AS `lea` from (`requests` `r` join `workshops` `w` on((`w`.`request_id` = `r`.`request_id`))) group by `r`.`report_date` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `detailed_report_data`
+--
+
+/*!50001 DROP VIEW IF EXISTS `detailed_report_data`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`dbuser`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `detailed_report_data` AS select `r`.`request_id` AS `request_id`,`r`.`report_date` AS `report_date`,`w`.`program_nbr` AS `program_nbr`,`r`.`request_title` AS `request_title`,`w`.`pd_title` AS `pd_title`,`sdt`.`request_start_date` AS `request_start_date`,`edt`.`request_end_date` AS `request_end_date`,`sdt`.`request_start_time` AS `request_start_time`,`edt`.`request_end_time` AS `request_end_time`,`p`.`sessions` AS `sessions`,`r`.`request_location` AS `request_location`,`w`.`support_initiative` AS `support_initiative`,`w`.`target_group` AS `target_group`,`r`.`system` AS `system`,`r`.`school` AS `school`,`w`.`curriculum` AS `curriculum`,`c`.`contact_name` AS `contact_name`,`r`.`enrolled_participants` AS `enrolled_participants`,`r`.`target_participants` AS `target_participants`,`r`.`workflow_state` AS `workflow_state` from (((((`amsti_01`.`requests` `r` join `amsti_01`.`workshops` `w` on((`r`.`request_id` = `w`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_start_date`,min(`d`.`request_start_time`) AS `request_start_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,min(`amsti_01`.`date_times`.`request_date`) AS `request_start_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `a` on(((`d`.`request_id` = `a`.`request_id`) and (`d`.`request_date` = `a`.`request_start_date`)))) group by `d`.`request_id`,`d`.`request_date`) `sdt` on((`r`.`request_id` = `sdt`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_end_date`,max(`d`.`request_end_time`) AS `request_end_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,max(`amsti_01`.`date_times`.`request_date`) AS `request_end_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `b` on(((`d`.`request_id` = `b`.`request_id`) and (`d`.`request_date` = `b`.`request_end_date`)))) group by `d`.`request_id`,`d`.`request_date`) `edt` on((`r`.`request_id` = `edt`.`request_id`))) join (select `d`.`request_id` AS `request_id`,count(0) AS `sessions` from `amsti_01`.`date_times` `d` group by `d`.`request_id`) `p` on((`r`.`request_id` = `p`.`request_id`))) left join (select `co`.`request_id` AS `request_id`,`co`.`contact_name` AS `contact_name` from `amsti_01`.`contacts` `co` group by `co`.`request_id`) `c` on((`r`.`request_id` = `c`.`request_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `financial_report_data`
+--
+
+/*!50001 DROP VIEW IF EXISTS `financial_report_data`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`dbuser`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `financial_report_data` AS select `r`.`request_id` AS `request_id`,`r`.`report_date` AS `report_date`,`w`.`program_nbr` AS `program_nbr`,`r`.`request_title` AS `request_title`,`w`.`pd_title` AS `pd_title`,`sdt`.`request_start_date` AS `request_start_date`,`edt`.`request_end_date` AS `request_end_date`,`sdt`.`request_start_time` AS `request_start_time`,`edt`.`request_end_time` AS `request_end_time`,`p`.`sessions` AS `sessions`,`r`.`request_location` AS `request_location`,`w`.`support_initiative` AS `support_initiative`,`w`.`target_group` AS `target_group`,`r`.`system` AS `system`,`r`.`enrolled_participants` AS `enrolled_participants`,`r`.`target_participants` AS `target_participants`,`ex`.`total_expenses` AS `total_expenses`,`r`.`workflow_state` AS `workflow_state` from (((((`amsti_01`.`requests` `r` join `amsti_01`.`workshops` `w` on((`r`.`request_id` = `w`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_start_date`,min(`d`.`request_start_time`) AS `request_start_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,min(`amsti_01`.`date_times`.`request_date`) AS `request_start_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `a` on(((`d`.`request_id` = `a`.`request_id`) and (`d`.`request_date` = `a`.`request_start_date`)))) group by `d`.`request_id`,`d`.`request_date`) `sdt` on((`r`.`request_id` = `sdt`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_end_date`,max(`d`.`request_end_time`) AS `request_end_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,max(`amsti_01`.`date_times`.`request_date`) AS `request_end_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `b` on(((`d`.`request_id` = `b`.`request_id`) and (`d`.`request_date` = `b`.`request_end_date`)))) group by `d`.`request_id`,`d`.`request_date`) `edt` on((`r`.`request_id` = `edt`.`request_id`))) join (select `d`.`request_id` AS `request_id`,count(0) AS `sessions` from `amsti_01`.`date_times` `d` group by `d`.`request_id`) `p` on((`r`.`request_id` = `p`.`request_id`))) left join (select `e`.`request_id` AS `request_id`,sum(`e`.`expense_amount`) AS `total_expenses` from `amsti_01`.`expenses` `e` group by `e`.`request_id`) `ex` on((`r`.`request_id` = `ex`.`request_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `initiative_report_data`
+--
+
+/*!50001 DROP VIEW IF EXISTS `initiative_report_data`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`dbuser`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `initiative_report_data` AS select `r`.`request_id` AS `request_id`,`r`.`report_date` AS `report_date`,`w`.`support_initiative` AS `support_initiative`,count(`w`.`pd_title`) AS `total_programs`,sum((case when (`w`.`curriculum` = 'Biology') then 1 else 0 end)) AS `biology`,sum(if((`w`.`curriculum` = 'Biology'),`w`.`actual_participants`,0)) AS `biology_participants`,sum(if((`w`.`curriculum` = 'Biology'),`p`.`sessions`,0)) AS `biology_sessions`,sum((case when (`w`.`curriculum` = 'Chemistry') then 1 else 0 end)) AS `chemistry`,sum(if((`w`.`curriculum` = 'Chemistry'),`w`.`actual_participants`,0)) AS `chemistry_participants`,sum(if((`w`.`curriculum` = 'Chemistry'),`p`.`sessions`,0)) AS `chemistry_sessions`,sum((case when (`w`.`curriculum` = 'English/Language Arts') then 1 else 0 end)) AS `english_language_arts`,sum(if((`w`.`curriculum` = 'English/Language Arts'),`w`.`actual_participants`,0)) AS `english_language_arts_participants`,sum(if((`w`.`curriculum` = 'English/Language Arts'),`p`.`sessions`,0)) AS `english_language_arts_sessions`,sum((case when (`w`.`curriculum` = 'Technology') then 1 else 0 end)) AS `technology`,sum(if((`w`.`curriculum` = 'Technology'),`w`.`actual_participants`,0)) AS `technology_participants`,sum(if((`w`.`curriculum` = 'Technology'),`p`.`sessions`,0)) AS `technology_sessions`,sum((case when (`w`.`curriculum` = 'Career_Tech') then 1 else 0 end)) AS `career_tech`,sum(if((`w`.`curriculum` = 'Career_Tech'),`w`.`actual_participants`,0)) AS `career_tech_participants`,sum(if((`w`.`curriculum` = 'Career_Tech'),`p`.`sessions`,0)) AS `career_tech_sessions`,sum((case when (`w`.`curriculum` = 'Counseling') then 1 else 0 end)) AS `counseling`,sum(if((`w`.`curriculum` = 'Counseling'),`w`.`actual_participants`,0)) AS `counseling_participants`,sum(if((`w`.`curriculum` = 'Counseling'),`p`.`sessions`,0)) AS `counseling_sessions`,sum((case when (`w`.`curriculum` = 'Climate and Culture') then 1 else 0 end)) AS `climate_and_culture`,sum(if((`w`.`curriculum` = 'Climate and Culture'),`w`.`actual_participants`,0)) AS `climate_and_culture_participants`,sum(if((`w`.`curriculum` = 'Climate and Culture'),`p`.`sessions`,0)) AS `climate_and_culture_sessions`,sum((case when (`w`.`curriculum` = 'Effective Instruction') then 1 else 0 end)) AS `effective_instruction`,sum(if((`w`.`curriculum` = 'Effective Instruction'),`w`.`actual_participants`,0)) AS `effective_instruction_participants`,sum(if((`w`.`curriculum` = 'Effective Instruction'),`p`.`sessions`,0)) AS `effective_instruction_sessions`,sum((case when (`w`.`curriculum` = 'Fine Arts') then 1 else 0 end)) AS `fine_arts`,sum(if((`w`.`curriculum` = 'Fine Arts'),`w`.`actual_participants`,0)) AS `fine_arts_participants`,sum(if((`w`.`curriculum` = 'Fine Arts'),`p`.`sessions`,0)) AS `fine_arts_sessions`,sum((case when (`w`.`curriculum` = 'Foreign Language') then 1 else 0 end)) AS `foreign_language`,sum(if((`w`.`curriculum` = 'Foreign Language'),`w`.`actual_participants`,0)) AS `foreign_language_participants`,sum(if((`w`.`curriculum` = 'Foreign Language'),`p`.`sessions`,0)) AS `foreign_language_sessions`,sum((case when (`w`.`curriculum` = 'Gifted') then 1 else 0 end)) AS `gifted`,sum(if((`w`.`curriculum` = 'Gifted'),`w`.`actual_participants`,0)) AS `gifted_participants`,sum(if((`w`.`curriculum` = 'Gifted'),`p`.`sessions`,0)) AS `gifted_sessions`,sum((case when (`w`.`curriculum` = 'Interdisciplinary') then 1 else 0 end)) AS `interdisciplinary`,sum(if((`w`.`curriculum` = 'Interdisciplinary'),`w`.`actual_participants`,0)) AS `interdisciplinary_participants`,sum(if((`w`.`curriculum` = 'Interdisciplinary'),`p`.`sessions`,0)) AS `interdisciplinary_sessions`,sum((case when (`w`.`curriculum` = 'Leadership') then 1 else 0 end)) AS `leadership`,sum(if((`w`.`curriculum` = 'Leadership'),`w`.`actual_participants`,0)) AS `leadership_participants`,sum(if((`w`.`curriculum` = 'Leadership'),`p`.`sessions`,0)) AS `leadership_sessions`,sum((case when (`w`.`curriculum` = 'Library Media Services') then 1 else 0 end)) AS `library_media_services`,sum(if((`w`.`curriculum` = 'Library Media Services'),`w`.`actual_participants`,0)) AS `library_media_services_participants`,sum(if((`w`.`curriculum` = 'Library Media Services'),`p`.`sessions`,0)) AS `library_media_services_sessions`,sum((case when (`w`.`curriculum` = 'Mathematics') then 1 else 0 end)) AS `mathematics`,sum(if((`w`.`curriculum` = 'Mathematics'),`w`.`actual_participants`,0)) AS `mathematics_participants`,sum(if((`w`.`curriculum` = 'Mathematics'),`p`.`sessions`,0)) AS `mathematics_sessions`,sum((case when (`w`.`curriculum` = 'NBCT') then 1 else 0 end)) AS `nbct`,sum(if((`w`.`curriculum` = 'NBCT'),`w`.`actual_participants`,0)) AS `nbct_participants`,sum(if((`w`.`curriculum` = 'NBCT'),`p`.`sessions`,0)) AS `nbct_sessions`,sum((case when (`w`.`curriculum` = 'Physics') then 1 else 0 end)) AS `physics`,sum(if((`w`.`curriculum` = 'Physics'),`w`.`actual_participants`,0)) AS `physics_participants`,sum(if((`w`.`curriculum` = 'Physics'),`p`.`sessions`,0)) AS `physics_sessions`,sum((case when (`w`.`curriculum` = 'Physical Education') then 1 else 0 end)) AS `physical_education`,sum(if((`w`.`curriculum` = 'Physical Education'),`w`.`actual_participants`,0)) AS `physical_education_participants`,sum(if((`w`.`curriculum` = 'Physical Education'),`p`.`sessions`,0)) AS `physical_education_sessions`,sum((case when (`w`.`curriculum` = 'Science') then 1 else 0 end)) AS `science`,sum(if((`w`.`curriculum` = 'Science'),`w`.`actual_participants`,0)) AS `science_participants`,sum(if((`w`.`curriculum` = 'Science'),`p`.`sessions`,0)) AS `science_sessions`,sum((case when (`w`.`curriculum` = 'Social Studies') then 1 else 0 end)) AS `social_studies`,sum(if((`w`.`curriculum` = 'Social Studies'),`w`.`actual_participants`,0)) AS `social_studies_participants`,sum(if((`w`.`curriculum` = 'Social Studies'),`p`.`sessions`,0)) AS `social_studies_sessions`,sum((case when (`w`.`curriculum` = 'Special Education') then 1 else 0 end)) AS `special_education`,sum(if((`w`.`curriculum` = 'Special Education'),`w`.`actual_participants`,0)) AS `special_education_participants`,sum(if((`w`.`curriculum` = 'Special Education'),`p`.`sessions`,0)) AS `special_education_sessions`,sum((case when (`w`.`curriculum` = 'Other') then 1 else 0 end)) AS `other`,sum(if((`w`.`curriculum` = 'Other'),`w`.`actual_participants`,0)) AS `other_participants`,sum(if((`w`.`curriculum` = 'Other'),`p`.`sessions`,0)) AS `other_sessions` from ((`amsti_01`.`requests` `r` join `amsti_01`.`workshops` `w` on((`r`.`request_id` = `w`.`request_id`))) join (select `d`.`request_id` AS `request_id`,count(0) AS `sessions` from `amsti_01`.`date_times` `d` group by `d`.`request_id`) `p` on((`r`.`request_id` = `p`.`request_id`))) group by `r`.`report_date`,`w`.`support_initiative` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `quick_report_data`
+--
+
+/*!50001 DROP VIEW IF EXISTS `quick_report_data`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`dbuser`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `quick_report_data` AS select `r`.`request_id` AS `request_id`,`r`.`report_date` AS `report_date`,`w`.`program_nbr` AS `program_nbr`,`r`.`request_title` AS `request_title`,`w`.`pd_title` AS `pd_title`,`sdt`.`request_start_date` AS `request_start_date`,`edt`.`request_end_date` AS `request_end_date`,`sdt`.`request_start_time` AS `request_start_time`,`edt`.`request_end_time` AS `request_end_time`,`r`.`request_location` AS `request_location`,`w`.`support_initiative` AS `support_initiative`,`r`.`enrolled_participants` AS `enrolled_participants`,`r`.`target_participants` AS `target_participants`,`r`.`workflow_state` AS `workflow_state` from (((`amsti_01`.`requests` `r` join `amsti_01`.`workshops` `w` on((`r`.`request_id` = `w`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_start_date`,min(`d`.`request_start_time`) AS `request_start_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,min(`amsti_01`.`date_times`.`request_date`) AS `request_start_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `a` on(((`d`.`request_id` = `a`.`request_id`) and (`d`.`request_date` = `a`.`request_start_date`)))) group by `d`.`request_id`,`d`.`request_date`) `sdt` on((`r`.`request_id` = `sdt`.`request_id`))) join (select `d`.`request_id` AS `request_id`,`d`.`request_date` AS `request_end_date`,max(`d`.`request_end_time`) AS `request_end_time` from (`amsti_01`.`date_times` `d` join (select `amsti_01`.`date_times`.`request_id` AS `request_id`,max(`amsti_01`.`date_times`.`request_date`) AS `request_end_date` from `amsti_01`.`date_times` group by `amsti_01`.`date_times`.`request_id`) `b` on(((`d`.`request_id` = `b`.`request_id`) and (`d`.`request_date` = `b`.`request_end_date`)))) group by `d`.`request_id`,`d`.`request_date`) `edt` on((`r`.`request_id` = `edt`.`request_id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -682,7 +778,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`dbuser`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `school_and_system_report_data` AS select `r`.`system` AS `system`,count(`r`.`system`) AS `system_count`,sum(`r`.`total_cost`) AS `total` from (`requests` `r` join `quick_report_data` `q` on((`r`.`request_id` = `q`.`request_id`))) group by `r`.`system` */;
+/*!50001 VIEW `school_and_system_report_data` AS select `r`.`request_id` AS `request_id`,`r`.`report_date` AS `report_date`,`r`.`system` AS `system`,`w`.`curriculum` AS `curriculum`,`w`.`program_nbr` AS `program_nbr`,`w`.`pd_title` AS `pd_title`,`r`.`school` AS `school`,`w`.`support_initiative` AS `support_initiative`,`w`.`actual_participants` AS `actual_participants`,`ex`.`total_expenses` AS `total_expenses` from ((`amsti_01`.`requests` `r` join `amsti_01`.`workshops` `w` on((`r`.`request_id` = `w`.`request_id`))) left join (select `e`.`request_id` AS `request_id`,sum(`e`.`expense_amount`) AS `total_expenses` from `amsti_01`.`expenses` `e` group by `e`.`request_id`) `ex` on((`r`.`request_id` = `ex`.`request_id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -696,4 +792,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-17  2:59:10
+-- Dump completed on 2017-12-01  5:21:10
