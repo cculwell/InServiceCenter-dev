@@ -47,12 +47,14 @@
                     $message = stripslashes($_POST['message']);
 
                     //create a From: mailheader
-                    $mailheaders = "From: inserviceathens@gmail.com";
+                    // $mailheaders = "From: inserviceathens@gmail.com";
+                    $mailheaders = "inserviceathens@myathensric.org"
 
                     while ($email_row = mysqli_fetch_row($email_results)) 
                     {
                         $email_message = new PHPMailer();
-                        $email_message->From = 'inserviceathens@gmail.com';
+                        // $email_message->From = "inserviceathens@gmail.com";
+                        $email_message->From = "inserviceathens@myathensric.org";
                         $email_message->FromName = 'Athens State Regional Inservice Center';
                         $email_message->Subject = $subject;
                         $email_message->Body = $message;
