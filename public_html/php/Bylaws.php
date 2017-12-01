@@ -242,9 +242,9 @@
 	else
 	{
 		echo "<p><h3>You are not authorized to view this report.</h3></p>";
-		echo "<p><a href='public_html/php/UserLogin.php'>User Login</a></p>";
-		echo "<p><a href='public_html/php/UserLogout.php'>User Logout</a></p>";
-		echo "<p><a href='public_html/Home.html'>Home Page</a></p>";
+		echo "<p><a href='UserLogin.php'>User Login</a></p>";
+		echo "<p><a href='UserLogout.php'>User Logout</a></p>";
+		echo "<p><a href='../Home.html'>Home Page</a></p>";
 	}
 ?>
 </body>
