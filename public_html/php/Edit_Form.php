@@ -22,75 +22,76 @@ if ($conn->connect_errno) {
 if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
 {
 
-}
 //Get all of the values from the reservations and reservationDate_Time database
-if(isset($_POST['reserveID'])) {
+    if(isset($_POST['reserveID'])) {
 
-    $reservation_query = "SELECT * FROM reservations WHERE reservationID = '" . $_POST['reserveID'] . "'";
-    if($result = mysqli_query($conn, $reservation_query))
-    {
-        $row = mysqli_fetch_row($result);
-        //Free result row
-        mysqli_free_result($result);
-
-    }
-    else
-    {
-        printf("ERROR Fetching row");
-        exit();
-    }
-    $ReservationID = $row[0];
-    $Program = $row[1];
-    $InCharge = $row[2];
-    $groupSponsor = $row[3];
-    $Description = $row[4];
-    $RoomReservation = $row[5];
-    $Email = $row[6];
-    $PhoneNumber = $row[7];
-    $BookedStatus = $row[8];
-    $smartBoard = $row[9];
-    $Projector = $row[10];
-    $ExtensionCord = $row[11];
-    $DocumentCamera = $row[12];
-    $AV_Need = $row[13];
-    $NumberEvents = $row[14];
-
-    //Date and Time query
-    $date_time_Query = "Select * from reservationDate_Time where reservationID = '" . $_POST['reserveID'] . "'ORDER BY StartDate ASC ";
-    $index = 0;
-    if($result = $conn->query($date_time_Query))
-    {
-        while($date_row = $result->fetch_assoc())
+        $reservation_query = "SELECT * FROM reservations WHERE reservationID = '" . $_POST['reserveID'] . "'";
+        if($result = mysqli_query($conn, $reservation_query))
         {
-            $EventID[$index] = $date_row['reservationDateTime_ID'];
-            $Date[$index] = FormatDate4Report($date_row['StartDate']);
-            $StartTime[$index] = FormatTime4Report($date_row['startTime']);
-            $EndTime[$index] = FormatTime4Report($date_row['endTime']);
-            $PreTime[$index] = FormatTime4Report($date_row['preTime']);
-            //Add the Google ID's if the form is for a booked request
-            if($BookedStatus === 'booked')
+            $row = mysqli_fetch_row($result);
+            //Free result row
+            mysqli_free_result($result);
+
+        }
+        else
+        {
+            printf("ERROR Fetching row");
+            exit();
+        }
+        $ReservationID = $row[0];
+        $Program = $row[1];
+        $InCharge = $row[2];
+        $groupSponsor = $row[3];
+        $Description = $row[4];
+        $RoomReservation = $row[5];
+        $Email = $row[6];
+        $PhoneNumber = $row[7];
+        $BookedStatus = $row[8];
+        $smartBoard = $row[9];
+        $Projector = $row[10];
+        $ExtensionCord = $row[11];
+        $DocumentCamera = $row[12];
+        $AV_Need = $row[13];
+        $NumberEvents = $row[14];
+
+        //Date and Time query
+        $date_time_Query = "Select * from reservationDate_Time where reservationID = '" . $_POST['reserveID'] . "'ORDER BY StartDate ASC ";
+        $index = 0;
+        if($result = $conn->query($date_time_Query))
+        {
+            while($date_row = $result->fetch_assoc())
             {
-                $EventStatus[$index] = $date_row['status'];
-                $PublicGoogle[$index] = $date_row['publicGoogle'];
-                $PrivateGoogle[$index] = $date_row['privateGoogle'];
+                $EventID[$index] = $date_row['reservationDateTime_ID'];
+                $Date[$index] = FormatDate4Report($date_row['StartDate']);
+                $StartTime[$index] = FormatTime4Report($date_row['startTime']);
+                $EndTime[$index] = FormatTime4Report($date_row['endTime']);
+                $PreTime[$index] = FormatTime4Report($date_row['preTime']);
+                //Add the Google ID's if the form is for a booked request
+                if($BookedStatus === 'booked')
+                {
+                    $EventStatus[$index] = $date_row['status'];
+                    $PublicGoogle[$index] = $date_row['publicGoogle'];
+                    $PrivateGoogle[$index] = $date_row['privateGoogle'];
+                }
+                $index++;
             }
-            $index++;
         }
     }
-}
 
 //Handle event deletion
-elseif (isset($_POST['DeleteEventID']))
-{
-    $DeleteEventID = $_POST['DeleteEventID'];
-    $deleteEvent = "DELETE FROM reservationDate_Time WHERE reservationDateTime_ID = '". $DeleteEventID . "'";
-    $result = $conn->query($deleteEvent);
-}
+    elseif (isset($_POST['DeleteEventID']))
+    {
+        $DeleteEventID = $_POST['DeleteEventID'];
+        $deleteEvent = "DELETE FROM reservationDate_Time WHERE reservationDateTime_ID = '". $DeleteEventID . "'";
+        $result = $conn->query($deleteEvent);
+    }
 
 
 
 
-?>
+
+
+    ?>
 <div id="pending_reservations">
     <form id="form_id<?php echo $ReservationID?>">
         <div class="panel panel-primary">

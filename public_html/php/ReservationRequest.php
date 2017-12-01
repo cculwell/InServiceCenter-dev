@@ -25,7 +25,6 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
     //Check if hash matches the users hash
     if(rpHash($Captcha_User) == $Captcha_HASH)
     {
-
         $Program = SanitizePostString($conn, $_POST['program']);
         $InCharge = SanitizePostString($conn, $_POST['responsible']);
         $groupSponsor = SanitizePostString($conn, $_POST['sponsor']);
@@ -70,7 +69,7 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
                 $mail_startTime = SanitizePostString($conn, $_POST['starttime' . $index]);
                 $mail_endTime =  SanitizePostString($conn, $_POST['endtime' . $index]);
                 $mail_preTime = SanitizePostString($conn, $_POST['preeventsetup' . $index]);
-                $Email_Subject .= ' Date: ' . $mail_date . '), Start: ' . $mail_startTime . '; End: ' . $mail_endTime . '; Pre: '. $mail_preTime;
+                //$Email_Subject .= ' Date: ' . $mail_date . '), Start: ' . $mail_startTime . '; End: ' . $mail_endTime . '; Pre: '. $mail_preTime;
 
                 //Put dates in reservationDate_Time table
                 $startDate = FormatDate4Db($mail_date);
@@ -125,6 +124,7 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
         {
             echo "Message has been sent successfully";
         }
+
 
 
         $statement->close();

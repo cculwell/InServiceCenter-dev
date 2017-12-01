@@ -5,7 +5,6 @@
  * Date: 10/19/2017
  * Time: 2:40 PM
  */
-session_start();
 include_once "Common.php";
 
 function CheckIfFinished($ReservationID, $conn)
@@ -34,9 +33,6 @@ $conn = new mysqli($config['db']['amsti_01']['host']
 
 ?>
 
-<?php
-if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
-{?>
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#reservation_queue">Pending Reservations</a></li>
     <li><a data-toggle="tab" href="#booked_reservation">Booked Reservations</a></li>
@@ -516,15 +512,4 @@ End;
         </div>
 </div>
 
-<?php
-}
-else
-{
-	echo "<p><h3>You are not authorized to visit this page.</h3></p>";
-	echo "<p><a href='php/UserLogin.php'>User Login</a></p>";
-	echo "<p><a href='php/UserLogout.php'>User Logout</a></p>";
-	echo "<p><a href='WorkQueue.php'>Work Queue</a></p>";
-	echo "<p><a href='Home.html'>Home Page</a></p>";
-}
-?>
 <?php mysqli_close($conn);
