@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     var index = 1;
     $('.datepicker').datepicker({minDate: -0});
-    $('.timepicker').timepicker({'minTime': '7:30am',
+    $('.timepicker').timepicker({'minTime': '8:00am',
         'maxTime': '11:30pm',
         disableTextInput: true
     });
@@ -20,7 +20,7 @@ $(document).ready(function () {
 
         );
         $('.datepicker').datepicker({minDate: -0});
-        $('.timepicker').timepicker({'minTime': '7:30am',
+        $('.timepicker').timepicker({'minTime': '8:00am',
             'maxTime': '11:30pm',
             disableText:true
         });
@@ -43,7 +43,7 @@ $(document).ready(function () {
         autoOpen: false,
         buttons: {
             "Ok": function () {
-                $('#form_reservation')[0].reset();
+                location.reload();
                 $(this).dialog("close");
             }
         }
@@ -58,14 +58,9 @@ $(document).ready(function () {
 
         var captcha_hash = $("#captcha").realperson('getHash');
 
-        //var formData = form.serialize();
-        //formData += '&captchaHash=' + captcha_hash;
-
-
-        console.log(form.valid());
-
         if(form.valid())
         {
+            event.preventDefault();
             $.ajax({
                 url: "php/ReservationRequest.php",
                 type: 'POST',
@@ -75,10 +70,6 @@ $(document).ready(function () {
                     if(results==="captcha failed") {
                         alert("Incorrect Captcha");
                         $('.realperson-challenge').trigger("click");
-                    }
-                    else if(results!=='Message has been sent successfully')
-                    {
-                        console.log(results);
                     }
                     else
                     {

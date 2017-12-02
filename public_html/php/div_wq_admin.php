@@ -21,6 +21,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
     <button id="bylaws_upload" name="">Bylaws Management</button>
     <button id="admin_report" name="admin_report">Reports</button>
     <button id="admin_users" name="admin_users">Users</button>
+    <button id="admin_calendar">Calendar Admin</button>
 
     <div id="view_reports_selection" name="view_reports_selection">
         <h4>Query Start Date</h4>
@@ -203,6 +204,11 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                 $("#pop_email").load("php/Email.php");
                 $("#pop_email").dialog({title: "Manage Subscribers/Send Newsletter"});
                 $("#pop_email").dialog("open");
+            });
+            var calendar_admin = $('#admin_calendar').button();
+            calendar_admin.on('click', function(){
+                event.preventDefault();
+                window.open("CalendarAdmin.html");
             });
 
             upload_bylaws_button = $("#bylaws_upload").button();

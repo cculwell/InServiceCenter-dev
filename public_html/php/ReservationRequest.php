@@ -5,6 +5,9 @@ require "../php/captcha/get_captcha_hash.php";
 require "../../resources/library/PHPMailer/src/PHPMailer.php";
 require "../../resources/library/PHPMailer/src/Exception.php";
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 
 //Connect to the database
 $conn = new mysqli($config['db']['amsti_01']['host']
@@ -50,7 +53,6 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
 
 
         $statement->execute();
-        echo("Row inserted./n," . $statement->affected_rows);
         $statement->close();
 
         //Get The primary key
@@ -68,7 +70,7 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
                 $mail_startTime = SanitizePostString($conn, $_POST['starttime' . $index]);
                 $mail_endTime =  SanitizePostString($conn, $_POST['endtime' . $index]);
                 $mail_preTime = SanitizePostString($conn, $_POST['preeventsetup' . $index]);
-                //$Email_Subject .= ' Date: ' . $mail_date . '), Start: ' . $mail_startTime . '; End: ' . $mail_endTime . '; Pre: '. $mail_preTime;
+                $Email_Subject .= ' Date: ' . $mail_date . '), Start: ' . $mail_startTime . '; End: ' . $mail_endTime . '; Pre: '. $mail_preTime;
 
                 //Put dates in reservationDate_Time table
                 $startDate = FormatDate4Db($mail_date);
@@ -79,19 +81,19 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
                                     endTime, preTime) VALUES (?,?,?,?,?)");
                 $statement->bind_param('sssss', $ReservationID, $startDate, $startTime, $endTime, $preTime);
                 $statement->execute();
-
-
+                $index++;
             }
-        };
+        }
         //The Automated reservation email to users confirming that they have a pending reservation.
-        $mail = new PHPMailer(true);
-        $Mail_Body = "Thank You for submitting your date request through our \n
-                        automated system. Our staff will review your request. Once \n
-                        reviewed you will receive an email informing you if the request\n
-                        is approved or denied.\n
-                        Please remember our building hours are Monday-Friday, 8:00-4:30\n";
+        $mail = new PHPMailer();
+        $Mail_Body = "Thank You for submitting your date request through our
+                      automated system. Our staff will review your request. Once
+                      reviewed you will receive an email informing you if the request
+                      is approved or denied.
+                      Please remember our building hours are Monday-Friday, 8:00-4:30";
         //From email address and name
         $mail->From = "inserviceathens@gmail.com";
+        $mail->FromName =  'Athens State Regional In-Service Center';
         //To address and name
         $mail->AddAddress($Email);
         $mail->Subject = $Email_Subject;
@@ -109,11 +111,11 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
         //Mail to the Administrator to alert them of a pending request
         $Mail_Alert = new PHPMailer();
         $Mail_Alert->From = "inserviceathens@gmail.com";
-        $Mail_Alert->FromName =  'Athens State Regional Inservice Center';
+        $Mail_Alert->FromName =  'Athens State Regional In-Service Center';
 
-        $Mail_Alert->AddAddress('jtwynn95@gmail.com');//Change when done testing
-        $Mail_Alert->Subject = $Program . ': Reservation' ;
-        $Mail_Alert->Body = "Hello, there is a new pending request awaiting for your approval";
+        $Mail_Alert->AddAddress('inserviceathens@gmail.com');//Change when done testing
+        $Mail_Alert->Subject = $Email_Subject ;
+        $Mail_Alert->Body = "Hello, there is a new pending reservation request awaiting for your approval";
 
         if(!$Mail_Alert->Send())
         {
@@ -126,7 +128,7 @@ if(isset($_POST['program']) && isset($_POST['responsible']) && isset($_POST['spo
 
 
 
-        $statement->close();
+
     }
     elseif(rpHash($Captcha_User) !== $Captcha_HASH) {
         echo "captcha failed";

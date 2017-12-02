@@ -5,6 +5,7 @@
  * Date: 10/19/2017
  * Time: 2:40 PM
  */
+session_start();
 include_once "Common.php";
 
 function CheckIfFinished($ReservationID, $conn)
@@ -33,6 +34,9 @@ $conn = new mysqli($config['db']['amsti_01']['host']
 
 ?>
 
+<?php
+if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $_SESSION['valid_status']=='User'))
+{?>
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#reservation_queue">Pending Reservations</a></li>
     <li><a data-toggle="tab" href="#booked_reservation">Booked Reservations</a></li>
@@ -301,7 +305,6 @@ End;
     </div>
 
     <div id="create_Reservation" class="tab-pane fade">
-        <hr>
         <div class="text-center" id="title_Create">
              <h2>Create Reservation</h2>
         </div>
@@ -373,21 +376,21 @@ End;
                                         <th class="text-center">End Time</th>
                                         <th class="text-center">Pre Time(Time Before Event)</th>
                                         </thead>
-                                        <tbody id="table_body">
-                                        <tr id="add_row0">
+                                        <tbody id="table_create_body">
+                                        <tr id="create_add_row0">
                                             <td>1</td>
-                                            <td><input type="text" name="createRequesteddatefrom0" class="form-control datepicker" placeholder="MM/DD/YYYY" required/></td>
+                                            <td><input type="text" class="form-control datepicker" name="createDatefrom0"  placeholder="MM/DD/YYYY" required/></td>
                                             <td><input type="text" class="timepicker form-control" name="createStarttime0" placeholder="HH:MM AM/PM" required/></td>
                                             <td><input type="text" class="timepicker form-control" name="createEndtime0" placeholder="HH:MM AM/PM" required></td>
                                             <td><input type="text" class="timepicker form-control" name="createPreeventsetup0" placeholder="HH:MM AM/PM" required/></td>
                                         </tr>
-                                        <tr id="add_row1"></tr>
+                                        <tr id="create_add_row1"></tr>
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <a id="add_date" class="btn btn-primary pull-left add_date_btn">ADD</a> <a class="btn btn-danger pull-right" id="delete_date_btn">DELETE</a>
+                            <a id="create_add_date" class="btn btn-primary pull-left">ADD</a> <a class="btn btn-danger pull-right" id="create_delete_date">DELETE</a>
 
                         </div>
                     </div>
@@ -413,38 +416,39 @@ End;
                 </div>
             </div>
             <div class="btn-group col-md-6 text-center" id="reserve">
-                <button type="button" id="form_submit" class="btn btn-primary btn-lg">Reserve</button>
+                <button type="button" id="create_form_submit" class="btn btn-primary btn-lg">Reserve</button>
             </div>
         </form>
         <script type="text/javascript">
             $(document).ready(function () {
+
                 var index = 1;
                 $('.datepicker').datepicker();
-                $('.timepicker').timepicker({'minTime': '7:30am',
+                $('.timepicker').timepicker({'minTime': '8:00am',
                     'maxTime': '11:30pm',
                     disableTextInput: true
                 });
 
 
-                $("#add_date").click(function(){
+                $("#create_add_date").click(function(){
 
 
-                    $('#add_row' + index).html("<td>" + (index + 1)+ "</td>" +
-                        "<td><input type='text' name='creatRequesteddatefrom" + index + "' class='form-control datepicker' placeholder='MM/DD/YYYY' required/></td>" +
+                    $('#create_add_row' + index).html("<td>" + (index + 1)+ "</td>" +
+                        "<td><input type='text' class='form-control datepicker' name='createDatefrom" + index + "' placeholder='MM/DD/YYYY' required/></td>" +
                         "<td><input type='text' class='timepicker form-control' name='createStarttime" + index + "' placeholder='HH:MM AM/PM' required/></td>" +
                         "<td><input type='text' class='timepicker form-control' name='createEndtime" + index + "' placeholder='HH:MM AM/PM' required></td>" +
                         "<td><input type='text' class='timepicker form-control' name='createPreeventsetup" + index + "' placeholder='HH:MM AM/PM' required></td>"
 
                     );
                     $('.datepicker').datepicker();
-                    $('.timepicker').timepicker({'minTime': '7:30am',
+                    $('.timepicker').timepicker({'minTime': '8:00am',
                         'maxTime': '11:30pm',
                         disableText:true
                     });
                     index+=1;
-                    $('#table_body').append("<tr id='add_row"+index+"'></tr>");
+                    $('#table_create_body').append("<tr id='create_add_row"+index+"'></tr>");
                 });
-                $('#delete_date_btn').click(function(){
+                $('#create_delete_date').click(function(){
                     if(index===1)
                     {
                         index=1;
@@ -452,10 +456,10 @@ End;
                     else
                     {
                         index-=1;
-                        $("#add_row"+index).html('');
+                        $("#create_add_row"+index).html('');
                     }
                 });
-                $('#form_submit').on('click', function () {
+                $('#create_form_submit').on('click', function () {
                     var form = $('#form_reservation');
                     if(valid(form))
                     {
@@ -469,11 +473,12 @@ End;
                             {
                                 if(response === 'Please fill out all of the inputs before submitting')
                                 {
-                                    alert(response);
+                                    console.log(response);
                                 }
                                 else
                                 {
-                                    console.log('Creating Reservation...');
+                                    alert("Pending Reservation Created");
+                                    console.log(response);
                                     $('#reservationQueue').load('php/CalendarAdmin.php');
                                 }
 
@@ -485,7 +490,7 @@ End;
                         });
                     }
                     else
-                        alert("Please fill out all of the fields")
+                        alert("Please fill out all of the fields");
 
                     event.preventDefault();
 
@@ -512,4 +517,15 @@ End;
         </div>
 </div>
 
+<?php
+}
+else
+{
+	echo "<p><h3>You are not authorized to visit this page.</h3></p>";
+	echo "<p><a href='php/UserLogin.php'>User Login</a></p>";
+	echo "<p><a href='php/UserLogout.php'>User Logout</a></p>";
+	echo "<p><a href='WorkQueue.php'>Work Queue</a></p>";
+	echo "<p><a href='Home.html'>Home Page</a></p>";
+}
+?>
 <?php mysqli_close($conn);

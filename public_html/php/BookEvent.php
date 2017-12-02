@@ -10,6 +10,10 @@ include_once "Common.php";
 require "../../resources/library/PHPMailer/src/PHPMailer.php";
 require "../../resources/library/PHPMailer/src/Exception.php";
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
 
 $conn = new mysqli($config['db']['amsti_01']['host']
     , $config['db']['amsti_01']['username']
@@ -57,10 +61,12 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
 
         //The Automated Acceptance Letter For User
         $mail = new PHPMailer();
-        $Mail_Body = "Your request to reserve space through the Athens State In-\n
-                   Service Center cannot be accommodated at this time. We are\n
-                   sorry that we do not have the resources available to serve your\n
-                   needs. We hope to be able to do so in the future\n\n\n
+        $Mail_Body = "Your request to reserve space through the Athens State In-
+                   Service Center cannot be accommodated at this time. We are
+                   sorry that we do not have the resources available to serve your
+                   needs. We hope to be able to do so in the future
+                   
+                   
                    If you have any questions, please email holly.wood@athens.edu";
 
         $mail->addAddress($Email);
@@ -126,7 +132,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                 $endTime = FormatTime4Db(mysql_fixstring($conn, $_POST['etime' . $index]));
                 $preTime = FormatTime4Db(mysql_fixstring($conn, $_POST['ptime' . $index]));
 
-                $Subject .= '('.FormatDate4Report($startDate) . ') Start:' . FormatTime4Report($startTime). ', End:' . FormatTime4Report($endTime). ', Pre:'.  FormatTime4Report($preTime) . '; ';
+                $Subject .= 'Date:'.FormatDate4Report($startDate) . ' Start:' . FormatTime4Report($startTime). ', End:' . FormatTime4Report($endTime). ', Pre:'.  FormatTime4Report($preTime) . '; ';
 
                 $reservationDatesAndTime[$index] = "UPDATE reservationDate_Time SET StartDate = '$startDate', startTime = '$startTime' ,
                                     endTime = '$endTime', preTime = '$preTime', status = 'reserved' WHERE reservationDateTime_ID = '$DateTimeID'";
@@ -145,20 +151,20 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
         //Email the contact once the event is booked
 
         $mail = new PHPMailer();
-        $Mail_Body = "Your request to reserve space through the Athens State In-Service Center has been approved. Please\n
-                   remember our building hours are Monday-Friday, 8:00-4:30. If you have questions or need to cancel\n
-                   your session please email holly.wood@athens.edu.\n\n
+        $Mail_Body = "Your request to reserve space through the Athens State In-Service Center has been approved. Please
+                   remember our building hours are Monday-Friday, 8:00-4:30. If you have questions or need to cancel
+                   your session please email holly.wood@athens.edu.\n
                    Thanks,\n
                    In-Service & AMSTI Staff\n";
 
         $mail->AddAddress($Email);
 
+        $mail->From = "inserviceathens@gmail.com";
+        $mail->FromName =  'Athens State Regional In-Service Center';
+        //To address and name
+        $mail->AddAddress($Email);
         $mail->Subject = $Subject;
         $mail->Body = $Mail_Body;
-
-        //From email address and name
-        $mail->From = "inserviceathens@gmail.com";
-        $mail->FromName = "Inservice Athens Reservation";
 
         if(!$mail->Send())
         {
@@ -279,24 +285,23 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
         //Get dates for the sql
         $index = 0;
         $reservationDatesAndTime = array();
-        foreach ($_POST as $key) {
-            if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $key)) {
-                $startDate = FormatDate4Db(mysql_fixstring($conn, $_POST['createRequesteddatefrom' . $index]));
+        foreach ($_POST as $key=>$value) {
+            if (preg_match('/^createDatefrom/', $key)) {
+                $index = preg_replace('/[^0-9]/', '', $key);
+                $startDate = FormatDate4Db(mysql_fixstring($conn, $value));
                 $startTime = FormatTime4Db(mysql_fixstring($conn, $_POST['createStarttime' . $index]));
                 $endTime = FormatTime4Db(mysql_fixstring($conn, $_POST['createEndtime' . $index]));
                 $preTime = FormatTime4Db(mysql_fixstring($conn, $_POST['createPreeventsetup' . $index]));
                 $reservationDatesAndTime[$index] = "INSERT INTO reservationDate_Time (reservationID, StartDate, startTime,
                                     endTime, preTime)" .
                     "VALUES('$ReservationID', '$startDate', '$startTime', '$endTime', '$preTime')";
-                $result = $conn->query($reservationDatesAndTime[$index]);
 
-                if ($result == TRUE) {
-                    echo "<br> Day: $index successfuly inserted";
+                $result = $conn->query($reservationDatesAndTime[$index]);
+                if ($result === true) {
+                    echo "<br> Day: $index successfully inserted";
                 } else {
                     echo "<br> Day : $index hit a snag";
-                    exit;
                 }
-                $index++;
             }
         }
     }
