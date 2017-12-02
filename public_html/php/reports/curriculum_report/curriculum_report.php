@@ -58,29 +58,29 @@
                 <?php
 
                     $sql = "SELECT DISTINCT(c.curriculum),
-                                   SUM(c.amsti), 
-                                   SUM(c.asim), 
-                                   SUM(c.tim), 
-                                   SUM(c.ric), 
-                                   SUM(c.alsde), 
-                                   SUM(c.lea) 
+                                   SUM(c.amsti) AS amsti, 
+                                   SUM(c.asim) AS asim, 
+                                   SUM(c.tim) AS tim, 
+                                   SUM(c.ric) AS ric, 
+                                   SUM(c.alsde) AS alsde, 
+                                   SUM(c.lea) AS lea 
                             FROM curriculum_report_data c 
                             WHERE c.report_date BETWEEN '$from_date' AND '$to_date'
                             GROUP BY c.curriculum";
 
                     if ($result = mysqli_query($mysqli, $sql))
                     {
-                        while ($row = mysqli_fetch_row($result))
+                        while ($row = $result->fetch_array(MYSQLI_ASSOC))
                         {
                             echo
                                 "<tr>"
-                                ."<td>". $row[0]  ."</td>"       // Curriculum
-                                ."<td>". $row[1]  ."</td>"       // AMSTI
-                                ."<td>". $row[2]  ."</td>"       // ASIM
-                                ."<td>". $row[3]  ."</td>"       // TIM
-                                ."<td>". $row[4]  ."</td>"       // RIC
-                                ."<td>". $row[5]  ."</td>"       // ALSDE
-                                ."<td>". $row[6]  ."</td>"       // LEA
+                                ."<td>". $row['curriculum']  ."</td>"  // Curriculum
+                                ."<td>". $row['amsti']  ."</td>"       // AMSTI
+                                ."<td>". $row['asim']  ."</td>"        // ASIM
+                                ."<td>". $row['tim']  ."</td>"         // TIM
+                                ."<td>". $row['ric']  ."</td>"         // RIC
+                                ."<td>". $row['alsde']  ."</td>"       // ALSDE
+                                ."<td>". $row['lea']  ."</td>"         // LEA
                                 ."</tr>";
                         }
                     }
@@ -113,5 +113,6 @@
 </html>
 
 <?php
+    mysqli_free_result($result);
     mysqli_close($mysqli);
 ?>

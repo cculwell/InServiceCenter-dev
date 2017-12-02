@@ -64,31 +64,31 @@
 
                     if ($result = mysqli_query($mysqli, $sql))
                     {
-                        while ($row = mysqli_fetch_row($result))
+                        while ($row = $result->fetch_array(MYSQLI_ASSOC))
                         {
                             echo
                                 "<tr>"
-                                ."<td>". $row[2] ."</td>"   // System
-                                ."<td>". $row[3] ."</td>"   // Curriculum
-                                ."<td>". $row[4] ."</td>"   // Program Number                                   
-                                ."<td>". $row[5] ."</td>"   // Program Title
-                                ."<td>". $row[6] ."</td>"   // School
-                                ."<td>". $row[7] ."</td>"   // Initiative
-                                ."<td>". $row[8] ."</td>";  // Actual Attendance
+                                ."<td>". $row['system'] ."</td>"                // System
+                                ."<td>". $row['curriculum'] ."</td>"            // Curriculum
+                                ."<td>". $row['program_nbr'] ."</td>"           // Program Number                                   
+                                ."<td>". $row['pd_title'] ."</td>"              // Program Title
+                                ."<td>". $row['school'] ."</td>"                // School
+                                ."<td>". $row['support_initiative'] ."</td>"    // Initiative
+                                ."<td>". $row['actual_participants'] ."</td>";  // Actual Attendance
 
 
-                            if ($row[9] == NULL)
+                            if ($row['total_expenses'] == NULL)
                             {
                                 echo "<td style='cursor:pointer'>$0.00</td>";  //Total Expenses   
                             } 
                             else 
                             {
-                                $total_expenses = number_format((float)$row[9], 2, '.', '');
+                                $total_expenses = number_format((float)$row['total_expenses'], 2, '.', '');
                                 echo "<td style='cursor:pointer'>$" 
                                      . $total_expenses . "</td>";              // Total Expenses
                             } 
 
-                            echo "<td>". $row[0] ."</td></tr>";                // Hidden column  
+                            echo "<td>". $row['request_id'] ."</td></tr>";                // Hidden column  
                         }
                     }
                 ?>
@@ -124,5 +124,6 @@
 </html>
 
 <?php
+    mysqli_free_result($result);
     mysqli_close($mysqli);
 ?>

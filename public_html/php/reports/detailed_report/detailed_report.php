@@ -74,28 +74,28 @@
 
                     if ($result = mysqli_query($mysqli, $sql))
                     {
-                        while ($row = mysqli_fetch_row($result))
+                        while ($row = $result->fetch_array(MYSQLI_ASSOC))
                         {
                             echo
                                 "<tr>"
-                                ."<td>". $row[2]  ."</td>"       // Program ID
-                                ."<td>". $row[3]  ."</td>"       // STI PD
-                                ."<td>". $row[4]  ."</td>"       // Program Title
-                                ."<td>". $row[5]  ."</td>"       // Start Date
-                                ."<td>". $row[6]  ."</td>"       // End Date
-                                ."<td>". $row[7]  ."</td>"       // Start Time
-                                ."<td>". $row[8]  ."</td>"       // End Time
-                                ."<td>". $row[9]  ."</td>"       // Sessions
-                                ."<td>". $row[10] ."</td>"       // Location
-                                ."<td>". $row[11] ."</td>"       // Initiative
-                                ."<td>". $row[12] ."</td>"       // Target Audience
-                                ."<td>". $row[13] ."</td>"       // School System
-                                ."<td>". $row[14] ."</td>"       // School
-                                ."<td>". $row[15] ."</td>"       // Curriculum Area
-                                ."<td>". $row[16] ."</td>"       // Consultant
-                                ."<td>". $row[17] ."</td>"       // Current Enrollment
-                                ."<td>". $row[18] ."</td>"       // Target Enrollment
-                                ."<td>". $row[19] ."</td>"       // Status
+                                ."<td>". $row['program_nbr']  ."</td>"            // Program ID
+                                ."<td>". $row['request_title']  ."</td>"          // STI PD
+                                ."<td>". $row['pd_title']  ."</td>"               // Program Title
+                                ."<td>". $row['request_start_date']  ."</td>"     // Start Date
+                                ."<td>". $row['request_end_date']  ."</td>"       // End Date
+                                ."<td>". $row['request_start_time']  ."</td>"     // Start Time
+                                ."<td>". $row['request_end_time']  ."</td>"       // End Time
+                                ."<td>". $row['sessions']  ."</td>"               // Sessions
+                                ."<td>". $row['request_location'] ."</td>"        // Location
+                                ."<td>". $row['support_initiative'] ."</td>"      // Initiative
+                                ."<td>". $row['target_group'] ."</td>"            // Target Audience
+                                ."<td>". $row['system'] ."</td>"                  // School System
+                                ."<td>". $row['school'] ."</td>"                  // School
+                                ."<td>". $row['curriculum'] ."</td>"              // Curriculum Area
+                                ."<td>". $row['contact_name'] ."</td>"            // Consultant
+                                ."<td>". $row['enrolled_participants'] ."</td>"   // Current Enrollment
+                                ."<td>". $row['target_participants'] ."</td>"     // Target Enrollment
+                                ."<td>". $row['workflow_state'] ."</td>"          // Status
                                 ."</tr>";
                         }
                     }

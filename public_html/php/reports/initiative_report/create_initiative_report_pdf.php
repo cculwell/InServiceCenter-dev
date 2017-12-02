@@ -1,5 +1,5 @@
 <?php
-	session_start();
+  session_start();
     require '../../../../resources/library/Reports/fpdf181/fpdf.php';
     require "../../../../resources/config.php";
 
@@ -17,7 +17,7 @@
         printf("Connect failed: %s\n", $mysqli->connect_error);
         exit();
     }
-	
+  
 if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 {
     class PDF extends FPDF
@@ -224,34 +224,38 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
     $pdf->Cell(90, 10, "Total Programs Per Initiative", "LTR", 0, "C");
     $pdf->Ln(10);
 
-    $sql = "SELECT DISTINCT(i.support_initiative), SUM(i.total_programs) 
+    $sql = "SELECT DISTINCT(i.support_initiative), SUM(i.total_programs) AS total_programs
             FROM initiative_report_data i
             WHERE i.report_date BETWEEN '$report_from' AND '$report_to'
             GROUP BY i.support_initiative";
 
     if ($result = mysqli_query($mysqli, $sql))
     {
-        while ($row = mysqli_fetch_row($result))
+        while ($row = $result->fetch_array(MYSQLI_ASSOC))
         {
             //Write the total number of programs per initiative
             $pdf->SetFont('Times', 'B', 13);
             $pdf->Cell(50, 10, "", 0, 0);
-            $pdf->Cell(40, 10, $row[0] . ":", "L", 0, "R");
-            $pdf->Cell(50, 10, $row[1], "R", 0, "C");
+            $pdf->Cell(40, 10, $row['support_initiative'] . ":", "L", 0, "R");
+            $pdf->Cell(50, 10, $row['total_programs'], "R", 0, "C");
             $pdf->Ln(8);
         }
+        mysqli_free_result($result);
     }
 
     $pdf->Cell(50, 10, "", 0, 0);
     $pdf->Cell(90, 10, '', "LBR", 0, 0);
     $pdf->Output();
-	
+  
 }
 else
 {
-	echo "<p><h3>You are not authorized to view this report.</h3></p>";
-	echo "<p><a href='../../UserLogin.php'>User Login</a></p>";
-	echo "<p><a href='../../UserLogout.php'>User Logout</a></p>";
-	echo "<p><a href='../../../Home.html'>Home Page</a></p>";
+  echo "<p><h3>You are not authorized to view this report.</h3></p>";
+  echo "<p><a href='../../UserLogin.php'>User Login</a></p>";
+  echo "<p><a href='../../UserLogout.php'>User Logout</a></p>";
+  echo "<p><a href='../../../Home.html'>Home Page</a></p>";
 }
+
+  mysqli_close($mysqli);
+
 ?>

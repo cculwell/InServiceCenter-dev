@@ -72,41 +72,41 @@
 
                     if ($result = mysqli_query($mysqli, $sql))
                     {
-                        while ($row = mysqli_fetch_row($result))
+                        while ($row = $result->fetch_array(MYSQLI_ASSOC))
                         {
-                            $total_expenses = number_format((float)$row[16], 2, '.', '');
+                            $total_expenses = number_format((float)$row['total_expenses'], 2, '.', '');
 
                             echo
                                 "<tr>"
-                                ."<td>". $row[2]  ."</td>"                   // Program ID
-                                ."<td>". $row[3]  ."</td>"                   // STI ID
-                                ."<td>". $row[4]  ."</td>"                   // Program Title
-                                ."<td>". $row[5]  ."</td>"                   // Start Date
-                                ."<td>". $row[6]  ."</td>"                   // End Date
-                                ."<td>". $row[7]  ."</td>"                   // Start Time
-                                ."<td>". $row[8]  ."</td>"                   // End Time
-                                ."<td>". $row[9]  ."</td>"                   // Number of Sessions
-                                ."<td>". $row[10] ."</td>"                   // Location
-                                ."<td>". $row[11] ."</td>"                   // Initiative
-                                ."<td>". $row[12] ."</td>"                   // Target Audience
-                                ."<td>". $row[13] ."</td>"                   // School System
-                                ."<td>". $row[14] ."</td>"                   // Current Enrollment
-                                ."<td>". $row[15] ."</td>";                  // Maximum Enrollment   
+                                ."<td>". $row['program_nbr']  ."</td>"             // Program ID
+                                ."<td>". $row['request_title']  ."</td>"           // STI ID
+                                ."<td>". $row['pd_title']  ."</td>"                // Program Title
+                                ."<td>". $row['request_start_date']  ."</td>"      // Start Date
+                                ."<td>". $row['request_end_date']  ."</td>"        // End Date
+                                ."<td>". $row['request_start_time']  ."</td>"      // Start Time
+                                ."<td>". $row['request_end_time']  ."</td>"        // End Time
+                                ."<td>". $row['sessions']  ."</td>"                // Number of Sessions
+                                ."<td>". $row['request_location'] ."</td>"         // Location
+                                ."<td>". $row['support_initiative'] ."</td>"       // Initiative
+                                ."<td>". $row['target_group'] ."</td>"             // Target Audience
+                                ."<td>". $row['system'] ."</td>"                   // School System
+                                ."<td>". $row['enrolled_participants'] ."</td>"    // Current Enrollment
+                                ."<td>". $row['target_participants'] ."</td>";     // Maximum Enrollment   
 
-                            if ($row[16] == NULL)
+                            if ($row['total_expenses'] == NULL)
                             {
-                                echo "<td style='cursor:pointer'>$0.00</td>" // Total Expenses  
-                                     ."<td>". $row[17] ."</td>";             // Status
+                                echo "<td style='cursor:pointer'>$0.00</td>"       // Total Expenses  
+                                     ."<td>". $row['workflow_state'] ."</td>";     // Status
                             } 
                             else 
                             {
                                echo "<td style='cursor:pointer'>". "$" 
-                                    . $total_expenses ."</td>"              // Total Expenses
-                                    ."<td>". $row[17] ."</td>";             // Status
+                                    . $total_expenses ."</td>"                     // Total Expenses
+                                    ."<td>". $row['workflow_state'] ."</td>";      // Status
                                      
                             } 
 
-                            echo "<td>". $row[0] ."</td></tr>";            // Hidden column                             
+                            echo "<td>". $row['request_id'] ."</td></tr>";         // Hidden column                             
                         }
                     }
                 ?>
@@ -151,5 +151,6 @@
 </html>
 
 <?php
+    mysqli_free_result($result);
     mysqli_close($mysqli);
 ?>

@@ -119,151 +119,151 @@
                 <?php
 
                     $sql = "SELECT DISTINCT(i.support_initiative),
-                                   SUM(i.total_programs),
-                                   SUM(i.biology),
-                                   SUM(i.biology_participants),
-                                   SUM(i.biology_sessions),    
-                                   SUM(i.chemistry),
-                                   SUM(i.chemistry_participants),
-                                   SUM(i.chemistry_sessions),      
-                                   SUM(i.english_language_arts),
-                                   SUM(i.english_language_arts_participants),
-                                   SUM(i.english_language_arts_sessions),      
-                                   SUM(i.technology),
-                                   SUM(i.technology_participants),
-                                   SUM(i.technology_sessions),         
-                                   SUM(i.career_tech),
-                                   SUM(i.career_tech_participants),
-                                   SUM(i.career_tech_sessions),        
-                                   SUM(i.counseling),
-                                   SUM(i.counseling_participants),
-                                   SUM(i.counseling_sessions),         
-                                   SUM(i.climate_and_culture),
-                                   SUM(i.climate_and_culture_participants),
-                                   SUM(i.climate_and_culture_sessions),            
-                                   SUM(i.effective_instruction),
-                                   SUM(i.effective_instruction_participants),
-                                   SUM(i.effective_instruction_sessions),      
-                                   SUM(i.fine_arts),
-                                   SUM(i.fine_arts_participants),
-                                   SUM(i.fine_arts_sessions),      
-                                   SUM(i.foreign_language),
-                                   SUM(i.foreign_language_participants),
-                                   SUM(i.foreign_language_sessions),           
-                                   SUM(i.gifted),
-                                   SUM(i.gifted_participants),
-                                   SUM(i.gifted_sessions),         
-                                   SUM(i.interdisciplinary),
-                                   SUM(i.interdisciplinary_participants),
-                                   SUM(i.interdisciplinary_sessions),              
-                                   SUM(i.leadership),
-                                   SUM(i.leadership_participants),
-                                   SUM(i.leadership_sessions),         
-                                   SUM(i.library_media_services),
-                                   SUM(i.library_media_services_participants),
-                                   SUM(i.library_media_services_sessions),         
-                                   SUM(i.mathematics),
-                                   SUM(i.mathematics_participants),
-                                   SUM(i.mathematics_sessions),            
-                                   SUM(i.nbct),
-                                   SUM(i.nbct_participants),
-                                   SUM(i.nbct_sessions),       
-                                   SUM(i.physics),
-                                   SUM(i.physics_participants),
-                                   SUM(i.physics_sessions),        
-                                   SUM(i.physical_education),
-                                   SUM(i.physical_education_participants),
-                                   SUM(i.physical_education_sessions),     
-                                   SUM(i.science),
-                                   SUM(i.science_participants),
-                                   SUM(i.science_sessions),            
-                                   SUM(i.social_studies),
-                                   SUM(i.social_studies_participants),
-                                   SUM(i.social_studies_sessions),     
-                                   SUM(i.special_education),
-                                   SUM(i.special_education_participants),
-                                   SUM(i.special_education_sessions),      
-                                   SUM(i.other),
-                                   SUM(i.other_participants),
-                                   SUM(i.other_sessions) 
+                                   SUM(i.total_programs) AS total_programs,
+                                   SUM(i.biology) AS biology,
+                                   SUM(i.biology_participants) AS biology_participants,
+                                   SUM(i.biology_sessions) AS biology_sessions,    
+                                   SUM(i.chemistry) AS chemistry,
+                                   SUM(i.chemistry_participants) AS chemistry_participants,
+                                   SUM(i.chemistry_sessions) AS chemistry_sessions,      
+                                   SUM(i.english_language_arts) AS english_language_arts,
+                                   SUM(i.english_language_arts_participants) AS english_language_arts_participants,
+                                   SUM(i.english_language_arts_sessions) AS english_language_arts_sessions,      
+                                   SUM(i.technology) AS technology,
+                                   SUM(i.technology_participants) AS technology_participants,
+                                   SUM(i.technology_sessions) AS technology_sessions,         
+                                   SUM(i.career_tech) AS career_tech,
+                                   SUM(i.career_tech_participants) AS career_tech_participants,
+                                   SUM(i.career_tech_sessions) AS career_tech_sessions,        
+                                   SUM(i.counseling) AS counseling,
+                                   SUM(i.counseling_participants) AS counseling_participants,
+                                   SUM(i.counseling_sessions) AS counseling_sessions,         
+                                   SUM(i.climate_and_culture) AS climate_and_culture,
+                                   SUM(i.climate_and_culture_participants) AS climate_and_culture_participants,
+                                   SUM(i.climate_and_culture_sessions) AS climate_and_culture_sessions,            
+                                   SUM(i.effective_instruction) AS effective_instruction,
+                                   SUM(i.effective_instruction_participants) AS effective_instruction_participants,
+                                   SUM(i.effective_instruction_sessions) AS effective_instruction_sessions,      
+                                   SUM(i.fine_arts) AS fine_arts,
+                                   SUM(i.fine_arts_participants) AS fine_arts_participants,
+                                   SUM(i.fine_arts_sessions) AS fine_arts_sessions,      
+                                   SUM(i.foreign_language) AS foreign_language,
+                                   SUM(i.foreign_language_participants) AS foreign_language_participants,
+                                   SUM(i.foreign_language_sessions) AS foreign_language_sessions,           
+                                   SUM(i.gifted) AS gifted,
+                                   SUM(i.gifted_participants) AS gifted_participants,
+                                   SUM(i.gifted_sessions) AS gifted_sessions,         
+                                   SUM(i.interdisciplinary) AS interdisciplinary,
+                                   SUM(i.interdisciplinary_participants) AS interdisciplinary_participants,
+                                   SUM(i.interdisciplinary_sessions) AS interdisciplinary_sessions,              
+                                   SUM(i.leadership) AS leadership,
+                                   SUM(i.leadership_participants) AS leadership_participants,
+                                   SUM(i.leadership_sessions) AS leadership_sessions,         
+                                   SUM(i.library_media_services) AS library_media_services,
+                                   SUM(i.library_media_services_participants) AS library_media_services_participants,
+                                   SUM(i.library_media_services_sessions) AS library_media_services_sessions,         
+                                   SUM(i.mathematics) AS mathematics,
+                                   SUM(i.mathematics_participants) AS mathematics_participants,
+                                   SUM(i.mathematics_sessions) AS mathematics_sessions,            
+                                   SUM(i.nbct) AS nbct,
+                                   SUM(i.nbct_participants) AS nbct_participants,
+                                   SUM(i.nbct_sessions) AS nbct_sessions,       
+                                   SUM(i.physics) AS physics,
+                                   SUM(i.physics_participants) AS physics_participants,
+                                   SUM(i.physics_sessions) AS physics_sessions,        
+                                   SUM(i.physical_education) AS physical_education,
+                                   SUM(i.physical_education_participants) AS physical_education_participants,
+                                   SUM(i.physical_education_sessions) AS physical_education_sessions,     
+                                   SUM(i.science) AS science,
+                                   SUM(i.science_participants) AS science_participants,
+                                   SUM(i.science_sessions) AS science_sessions,            
+                                   SUM(i.social_studies) AS social_studies,
+                                   SUM(i.social_studies_participants) AS social_studies_participants,
+                                   SUM(i.social_studies_sessions) AS social_studies_sessions,     
+                                   SUM(i.special_education) AS special_education,
+                                   SUM(i.special_education_participants) AS special_education_participants,
+                                   SUM(i.special_education_sessions) AS special_education_sessions,      
+                                   SUM(i.other) AS other,
+                                   SUM(i.other_participants) AS other_participants,
+                                   SUM(i.other_sessions) AS other_sessions 
                             FROM initiative_report_data i
                             WHERE i.report_date BETWEEN '$from_date' AND '$to_date'
                             GROUP BY i.support_initiative";
                     
                     if ($result = mysqli_query($mysqli, $sql))
                     {
-                        while ($row = mysqli_fetch_row($result))
+                        while ($row = $result->fetch_array(MYSQLI_ASSOC))
                         {
                             echo
                                 "<tr>"
-                                ."<td>". $row[0]."</td>"      // Initiative
-                                ."<td>". $row[1]."</td>"      // Total Programs
-                                ."<td>". $row[2] ."</td>"     // Biology
-                                ."<td>". $row[3] ."</td>"     // Biology Participants
-                                ."<td>". $row[4] ."</td>"     // Biology Sessions
-                                ."<td>". $row[5] ."</td>"     // Chemistry
-                                ."<td>". $row[6] ."</td>"     // Chemistry Participants
-                                ."<td>". $row[7] ."</td>"     // Chemistry Sessions
-                                ."<td>". $row[8] ."</td>"     // English/Language Arts
-                                ."<td>". $row[9] ."</td>"     // English/Language Participants
-                                ."<td>". $row[10] ."</td>"     // English/Language Sessions
-                                ."<td>". $row[11] ."</td>"    // Technology
-                                ."<td>". $row[12] ."</td>"    // Technology Participants
-                                ."<td>". $row[13] ."</td>"    // Technology Sessions
-                                ."<td>". $row[14] ."</td>"    // Career Tech
-                                ."<td>". $row[15] ."</td>"    // Career Tech Participants
-                                ."<td>". $row[16] ."</td>"    // Career Tech Sessions
-                                ."<td>". $row[17] ."</td>"    // Counseling
-                                ."<td>". $row[18] ."</td>"    // Counseling Participants
-                                ."<td>". $row[19] ."</td>"    // Counseling Sessions
-                                ."<td>". $row[20] ."</td>"    // Climate and Culture
-                                ."<td>". $row[21] ."</td>"    // Climate and Culture Participants
-                                ."<td>". $row[22] ."</td>"    // Climate and Culture Sessions
-                                ."<td>". $row[23] ."</td>"    // Effective Instruction
-                                ."<td>". $row[24] ."</td>"    // Effective Instruction Participants
-                                ."<td>". $row[25] ."</td>"    // Effective Instruction Sessions
-                                ."<td>". $row[26] ."</td>"    // Fine Arts
-                                ."<td>". $row[27] ."</td>"    // Fine Arts Participants
-                                ."<td>". $row[28] ."</td>"    // Fine Arts Sessions
-                                ."<td>". $row[29] ."</td>"    // Foreign Language
-                                ."<td>". $row[30] ."</td>"    // Foreign Language Participants
-                                ."<td>". $row[31] ."</td>"    // Foreign Language Sessions
-                                ."<td>". $row[32] ."</td>"    // Gifted
-                                ."<td>". $row[33] ."</td>"    // Gifted Participants
-                                ."<td>". $row[34] ."</td>"    // Gifted Sessions
-                                ."<td>". $row[35] ."</td>"    // Interdisciplinary
-                                ."<td>". $row[36] ."</td>"    // Interdisciplinary Participants
-                                ."<td>". $row[37] ."</td>"    // Interdisciplinary Sessions
-                                ."<td>". $row[38] ."</td>"    // Leadership
-                                ."<td>". $row[39] ."</td>"    // Leadership Participants
-                                ."<td>". $row[40] ."</td>"    // Leadership Sessions
-                                ."<td>". $row[41] ."</td>"    // Library Media Services
-                                ."<td>". $row[42] ."</td>"    // Library Media Services Participants
-                                ."<td>". $row[43] ."</td>"    // Library Media Services Sessions
-                                ."<td>". $row[44] ."</td>"    // Mathematics
-                                ."<td>". $row[45] ."</td>"    // Mathematics Participants
-                                ."<td>". $row[46] ."</td>"    // Mathematics Sessions
-                                ."<td>". $row[47] ."</td>"    // NBCT
-                                ."<td>". $row[48] ."</td>"    // NBCT Participants
-                                ."<td>". $row[49] ."</td>"    // NBCT Sessions
-                                ."<td>". $row[50] ."</td>"    // Physics
-                                ."<td>". $row[51] ."</td>"    // Physics Participants
-                                ."<td>". $row[52] ."</td>"    // Physics Sessions
-                                ."<td>". $row[53] ."</td>"    // Physical Education
-                                ."<td>". $row[54] ."</td>"    // Physical Education Participants
-                                ."<td>". $row[55] ."</td>"    // Physical Education Sessions
-                                ."<td>". $row[56] ."</td>"    // Science
-                                ."<td>". $row[57] ."</td>"    // Science Participants
-                                ."<td>". $row[58] ."</td>"    // Science Sessions
-                                ."<td>". $row[59] ."</td>"    // Social Studies
-                                ."<td>". $row[60] ."</td>"    // Social Studies Participants
-                                ."<td>". $row[61] ."</td>"    // Social Studies Sessions
-                                ."<td>". $row[62] ."</td>"    // Special Education
-                                ."<td>". $row[63] ."</td>"    // Special Education Participants
-                                ."<td>". $row[64] ."</td>"    // Special Education Sessions
-                                ."<td>". $row[65] ."</td>"    // Other
-                                ."<td>". $row[66] ."</td>"    // Other Participants
-                                ."<td>". $row[67] ."</td>"    // Other Sessions
+                                ."<td>". $row['support_initiative']."</td>"                    // Initiative
+                                ."<td>". $row['total_programs']."</td>"                        // Total Programs
+                                ."<td>". $row['biology'] ."</td>"                              // Biology
+                                ."<td>". $row['biology_participants'] ."</td>"                 // Biology Participants
+                                ."<td>". $row['biology_sessions'] ."</td>"                     // Biology Sessions
+                                ."<td>". $row['chemistry'] ."</td>"                            // Chemistry
+                                ."<td>". $row['chemistry_participants'] ."</td>"               // Chemistry Participants
+                                ."<td>". $row['chemistry_sessions'] ."</td>"                   // Chemistry Sessions
+                                ."<td>". $row['english_language_arts'] ."</td>"                // English/Language Arts
+                                ."<td>". $row['english_language_arts_participants'] ."</td>"   // English/Language Participants
+                                ."<td>". $row['english_language_arts_sessions'] ."</td>"       // English/Language Sessions
+                                ."<td>". $row['technology'] ."</td>"                           // Technology
+                                ."<td>". $row['technology_participants'] ."</td>"              // Technology Participants
+                                ."<td>". $row['technology_sessions'] ."</td>"                  // Technology Sessions
+                                ."<td>". $row['career_tech'] ."</td>"                          // Career Tech
+                                ."<td>". $row['career_tech_participants'] ."</td>"             // Career Tech Participants
+                                ."<td>". $row['career_tech_sessions'] ."</td>"                 // Career Tech Sessions
+                                ."<td>". $row['counseling'] ."</td>"                           // Counseling
+                                ."<td>". $row['counseling_participants'] ."</td>"              // Counseling Participants
+                                ."<td>". $row['counseling_sessions'] ."</td>"                  // Counseling Sessions
+                                ."<td>". $row['climate_and_culture'] ."</td>"                  // Climate and Culture
+                                ."<td>". $row['climate_and_culture_participants'] ."</td>"     // Climate and Culture Participants
+                                ."<td>". $row['climate_and_culture_sessions'] ."</td>"         // Climate and Culture Sessions
+                                ."<td>". $row['effective_instruction'] ."</td>"                // Effective Instruction
+                                ."<td>". $row['effective_instruction_participants'] ."</td>"   // Effective Instruction Participants
+                                ."<td>". $row['effective_instruction_sessions'] ."</td>"       // Effective Instruction Sessions
+                                ."<td>". $row['fine_arts'] ."</td>"                            // Fine Arts
+                                ."<td>". $row['fine_arts_participants'] ."</td>"               // Fine Arts Participants
+                                ."<td>". $row['fine_arts_sessions'] ."</td>"                   // Fine Arts Sessions
+                                ."<td>". $row['foreign_language'] ."</td>"                     // Foreign Language
+                                ."<td>". $row['foreign_language_participants'] ."</td>"        // Foreign Language Participants
+                                ."<td>". $row['foreign_language_sessions'] ."</td>"            // Foreign Language Sessions
+                                ."<td>". $row['gifted'] ."</td>"                               // Gifted
+                                ."<td>". $row['gifted_participants'] ."</td>"                  // Gifted Participants
+                                ."<td>". $row['gifted_sessions'] ."</td>"                      // Gifted Sessions
+                                ."<td>". $row['interdisciplinary'] ."</td>"                    // Interdisciplinary
+                                ."<td>". $row['interdisciplinary_participants'] ."</td>"       // Interdisciplinary Participants
+                                ."<td>". $row['interdisciplinary_sessions'] ."</td>"           // Interdisciplinary Sessions
+                                ."<td>". $row['leadership'] ."</td>"                           // Leadership
+                                ."<td>". $row['leadership_participants'] ."</td>"              // Leadership Participants
+                                ."<td>". $row['leadership_sessions'] ."</td>"                  // Leadership Sessions
+                                ."<td>". $row['library_media_services'] ."</td>"               // Library Media Services
+                                ."<td>". $row['library_media_services_participants'] ."</td>"  // Library Media Services Participants
+                                ."<td>". $row['library_media_services_sessions'] ."</td>"      // Library Media Services Sessions
+                                ."<td>". $row['mathematics'] ."</td>"                          // Mathematics
+                                ."<td>". $row['mathematics_participants'] ."</td>"             // Mathematics Participants
+                                ."<td>". $row['mathematics_sessions'] ."</td>"                 // Mathematics Sessions
+                                ."<td>". $row['nbct'] ."</td>"                                 // NBCT
+                                ."<td>". $row['nbct_participants'] ."</td>"                    // NBCT Participants
+                                ."<td>". $row['nbct_sessions'] ."</td>"                        // NBCT Sessions
+                                ."<td>". $row['physics'] ."</td>"                              // Physics
+                                ."<td>". $row['physics_participants'] ."</td>"                 // Physics Participants
+                                ."<td>". $row['physics_sessions'] ."</td>"                     // Physics Sessions
+                                ."<td>". $row['physical_education'] ."</td>"                   // Physical Education
+                                ."<td>". $row['physical_education_participants'] ."</td>"      // Physical Education Participants
+                                ."<td>". $row['physics_sessions'] ."</td>"                     // Physical Education Sessions
+                                ."<td>". $row['science'] ."</td>"                              // Science
+                                ."<td>". $row['science_participants'] ."</td>"                 // Science Participants
+                                ."<td>". $row['science_sessions'] ."</td>"                     // Science Sessions
+                                ."<td>". $row['social_studies'] ."</td>"                       // Social Studies
+                                ."<td>". $row['social_studies_participants'] ."</td>"          // Social Studies Participants
+                                ."<td>". $row['social_studies_sessions'] ."</td>"              // Social Studies Sessions
+                                ."<td>". $row['special_education'] ."</td>"                    // Special Education
+                                ."<td>". $row['special_education_participants'] ."</td>"       // Special Education Participants
+                                ."<td>". $row['special_education_sessions'] ."</td>"           // Special Education Sessions
+                                ."<td>". $row['other'] ."</td>"                                // Other
+                                ."<td>". $row['other_participants'] ."</td>"                   // Other Participants
+                                ."<td>". $row['other_sessions'] ."</td>"                       // Other Sessions
                                 ."</tr>";
                         }
                     }
@@ -356,5 +356,6 @@
 </html>
 
 <?php
+    mysqli_free_result($result);
     mysqli_close($mysqli);
 ?>

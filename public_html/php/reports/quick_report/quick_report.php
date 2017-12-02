@@ -62,28 +62,28 @@
             <tbody>
                 <?php
 
-                    $sql = "SELECT * 
+                    $sql = "SELECT *
                             FROM quick_report_data 
                             WHERE report_date BETWEEN '$from_date' AND '$to_date'";
 
                     if ($result = mysqli_query($mysqli, $sql))
                     {
-                        while ($row = mysqli_fetch_row($result))
+                        while ($row = $result->fetch_array(MYSQLI_ASSOC))
                         {
                             echo
                                 "<tr>"
-                                ."<td>". $row[2]  ."</td>"     // Program ID
-                                ."<td>". $row[3]  ."</td>"     // STI PD
-                                ."<td>". $row[4]  ."</td>"     // Program Title
-                                ."<td>". $row[5]  ."</td>"     // Start Date
-                                ."<td>". $row[6]  ."</td>"     // End Date
-                                ."<td>". $row[7]  ."</td>"     // Start Time
-                                ."<td>". $row[8]  ."</td>"     // End Time
-                                ."<td>". $row[9]  ."</td>"     // Location
-                                ."<td>". $row[10] ."</td>"     // Support Provided By
-                                ."<td>". $row[11]  ."</td>"    // Current Enrollment
-                                ."<td>". $row[12]  ."</td>"    // Max Enrollment
-                                ."<td>". $row[13]  ."</td>"    // Status
+                                ."<td>". $row['program_nbr']  ."</td>"             // Program ID
+                                ."<td>". $row['request_title']  ."</td>"           // Title (STI PD)
+                                ."<td>". $row['pd_title']  ."</td>"                // Program Title (PD Title)
+                                ."<td>". $row['request_start_date']  ."</td>"      // Start Date
+                                ."<td>". $row['request_end_date']  ."</td>"        // End Date
+                                ."<td>". $row['request_start_time']  ."</td>"      // Start Time
+                                ."<td>". $row['request_end_time']  ."</td>"        // End Time
+                                ."<td>". $row['request_location']  ."</td>"        // Location
+                                ."<td>". $row['support_initiative'] ."</td>"       // Support Provided By
+                                ."<td>". $row['enrolled_participants']  ."</td>"   // Current Enrollment
+                                ."<td>". $row['target_participants']  ."</td>"     // Max Enrollment
+                                ."<td>". $row['workflow_state']  ."</td>"          // Status
                                 ."</tr>";
                         }
                     }
@@ -120,5 +120,6 @@
 </html>
 
 <?php
+    mysqli_free_result($result);
     mysqli_close($mysqli);
 ?>

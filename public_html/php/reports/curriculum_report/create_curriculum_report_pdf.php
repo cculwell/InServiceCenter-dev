@@ -148,22 +148,23 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
     $pdf->Ln(10);
 
     $sql = "SELECT DISTINCT(c.curriculum), 
-                   SUM(c.amsti + c.asim + c.tim + c.ric + c.alsde + c.lea)
+                   SUM(c.amsti + c.asim + c.tim + c.ric + c.alsde + c.lea) AS totals
             FROM curriculum_report_data c
             WHERE c.report_date BETWEEN '$report_from' AND '$report_to'
             GROUP BY c.curriculum";
 
     if ($result = mysqli_query($mysqli, $sql))
     {
-        while ($row = mysqli_fetch_row($result))
+        while ($row = $result->fetch_array(MYSQLI_ASSOC))
         {
             //Write the total number of programs per curriculum
             $pdf->SetFont('Times', 'B', 13);
             $pdf->Cell(50, 10, "", 0, 0);
-            $pdf->Cell(40, 10, $row[0] . ":", "L", 0, "R");
-            $pdf->Cell(50, 10, $row[1], "R", 0, "C");
+            $pdf->Cell(40, 10, $row['curriculum'] . ":", "L", 0, "R");
+            $pdf->Cell(50, 10, $row['totals'], "R", 0, "C");
             $pdf->Ln(8);
         }
+        mysqli_free_result($result);
     }
 
     $pdf->Cell(50, 10, "", 0, 0);
@@ -178,4 +179,6 @@ else
 	echo "<p><a href='../../UserLogout.php'>User Logout</a></p>";
 	echo "<p><a href='../../../Home.html'>Home Page</a></p>";
 }
+
+    mysqli_close($mysqli);
 ?>

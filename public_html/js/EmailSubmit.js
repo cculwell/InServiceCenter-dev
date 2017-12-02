@@ -12,7 +12,7 @@ $(document).ready(function() {
         var email = document.getElementById('subscribe_email_address').value;
         var captcha_entered = document.getElementById('captcha').value;
         var captcha_hash = jQuery("#captcha").realperson('getHash');
-        var url = "php/email_subscription/subscribe.php";
+        var url = "php/email/subscribe.php";
 
         $.ajax({
             type: "POST",
@@ -59,7 +59,7 @@ $(document).ready(function() {
         var email = document.getElementById('unsubscribe_email_address').value;
         var captcha_entered = document.getElementById('unsubscribe_captcha').value;
         var captcha_hash = jQuery("#unsubscribe_captcha").realperson('getHash');
-        var url = "php/email_subscription/unsubscribe.php";
+        var url = "php/email/unsubscribe.php";
 
         $.ajax({
             type: "POST",
