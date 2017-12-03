@@ -244,27 +244,29 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                             buttons: {
                                 Insert: function () {
                                     var form = $('#new_Event');
-                                    var newDateForm = form.serialize();
 
-
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "php/BookEvent.php",
-                                        data: newDateForm + '&index='+index,
-                                        success: function (report) {
-                                            console.log(report);
-                                            $('#table_body<?php echo $ReservationID?>').append(report);
-                                            $('#div_pop_dt').dialog("close");
-                                        },
-                                        error: function () {
-                                            console.log("Error On New Date");
-                                            $('#div_pop_dt').dialog("close");
-                                        }
-                                    });
-                                    index++;
-
-                                    form.trigger('reset');
-
+                                    if(valid(form)) {
+                                        var newDateForm = form.serialize();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "php/BookEvent.php",
+                                            data: newDateForm + '&index='+index,
+                                            success: function (report) {
+                                                console.log(report);
+                                                $('#table_body<?php echo $ReservationID?>').append(report);
+                                                $('#div_pop_dt').dialog("close");
+                                            },
+                                            error: function () {
+                                                console.log("Error On New Date");
+                                                $('#div_pop_dt').dialog("close");
+                                            }
+                                        });
+                                        index++;
+                                        form.trigger('reset');
+                                    }
+                                    else{
+                                        alert("Please fill out all of the fields");
+                                    }
                                 },
                                 Cancel: function () {
 
@@ -324,8 +326,6 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
 
                 HandleClick(<?php echo $ReservationID?>);
                 HandleUpdatePage(<?php echo "$ReservationID , '$RoomReservation'"?>);
-
-
             });
         </script>
 
