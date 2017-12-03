@@ -58,7 +58,7 @@ div.dataTables_wrapper
     margin: 0 auto;
 }
 
-#view_expenses th, tr, td
+#expenses_table th, tr, td
 {
     text-align: left;
 }
