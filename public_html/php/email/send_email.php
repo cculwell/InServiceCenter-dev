@@ -48,7 +48,7 @@
 
                     //create a From: mailheader
                     // $mailheaders = "From: inserviceathens@gmail.com";
-                    $mailheaders = "inserviceathens@myathensric.org"
+                    $mailheaders = "inserviceathens@myathensric.org";
 
                     while ($email_row = mysqli_fetch_row($email_results)) 
                     {
