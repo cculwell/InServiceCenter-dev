@@ -41,9 +41,11 @@
 <body>
 <h1>User Login</h1>
 <?php
+
 	if (isset($_SESSION['valid_email']))
 	{
-		header("location: ../WorkQueue.php");
+        printf("<script>location.href='../WorkQueue.php'</script>");
+//		header("location: ../WorkQueue.php");
 	}
 	else
 	{

@@ -1,6 +1,4 @@
-<!-- //Allows an admin to add or edit a user/admin from the database
 <?php
-echo "TEST";
 	session_start();
 	require "../../resources/config.php";
 	# create connection to database
@@ -31,12 +29,8 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 			echo "ERROR: could not prepare SQL statement";
 		}
 		$mysqli->close();
-		header("Location: ../WorkQueue.php");
 	}
-	else
-	{
-		header("Location: ../WorkQueue.php");
-	}
+    printf("<script>location.href='../WorkQueue.php'</script>");
 }
 else
 {

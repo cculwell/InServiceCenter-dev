@@ -60,7 +60,7 @@ $(document).ready(function () {
 
         if(form.valid())
         {
-            event.preventDefault();
+            // event.preventDefault();
             $.ajax({
                 url: "php/ReservationRequest.php",
                 type: 'POST',

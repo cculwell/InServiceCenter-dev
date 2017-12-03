@@ -191,7 +191,7 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
 
             report_button = $("#admin_report").button();
             report_button.click(function(e) {
-                e.preventDefault(); 
+                e.preventDefault();
 
                 $("#view_reports_selection").dialog({title: "Report Selection"});
                 $("#view_reports_selection").dialog("open");
@@ -206,8 +206,8 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin' || $
                 $("#pop_email").dialog("open");
             });
             var calendar_admin = $('#admin_calendar').button();
-            calendar_admin.on('click', function(){
-                event.preventDefault();
+            calendar_admin.click(function(e) {
+                e.preventDefault();
                 window.open("CalendarAdmin.html");
             });
 

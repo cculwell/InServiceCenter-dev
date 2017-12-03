@@ -39,11 +39,6 @@ if ($mysqli->connect_errno) {
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
     <script src="js/NewRequest.js"></script>
-
-
-
-
-
 </head>
 
 <div class="callout large">

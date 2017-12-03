@@ -98,7 +98,8 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 					{
 						echo "ERROR: could not prepare SQL statement.";
 					}
-					header("Location: ../WorkQueue.php");
+//					header("Location: ../WorkQueue.php");
+                    printf("<script>location.href='../WorkQueue.php'</script>");
 				}
 			}
 			else
@@ -130,7 +131,8 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 			}
 			else
 			{	
-				header("Location: ../WorkQueue.php");
+//				header("Location: ../WorkQueue.php");
+                printf("<script>location.href='../WorkQueue.php'</script>");
 			}
 		}
 	}
@@ -164,7 +166,8 @@ if (isset ($_SESSION['valid_email']) && ($_SESSION['valid_status']=='Admin'))
 				{
 					echo "ERROR: could not prepare SQL statement";
 				}
-				header("Location: ../WorkQueue.php");
+//				header("Location: ../WorkQueue.php");
+                printf("<script>location.href='../WorkQueue.php'</script>");
 			}
 		}
 		else
