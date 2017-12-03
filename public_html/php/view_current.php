@@ -32,14 +32,19 @@
             fpassthru($fp);  
         }
         else {
-            echo "<script type='text/javascript'>alert('ERROR: There was a problem opening the current newsletter. The file might have been removed $path.')</script>";
+            if ($table == 'newsletters')
+            {
+                echo "<script type='text/javascript'>alert('ERROR: There was a problem opening the current newsletter. The file might have been removed $path.')</script>";
+            }
+            if ($table == 'bylaws')
+            {
+                echo "<script type='text/javascript'>alert('ERROR: There was a problem opening the current bylaws. The file might have been removed $path.')</script>";
+            }
+
         }
  
     }
     else {
         echo "<script type='text/javascript'>alert('ERROR: There was an issue querying the database for the $table')</script>";
     }
-
-    $url = "../" . $page . ".html";
-    #header('refresh: 0; URL=' . $url);
 ?>
