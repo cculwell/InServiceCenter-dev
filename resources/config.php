@@ -14,7 +14,7 @@ $config = array(
             "dbname" => "amsti_01",
             "username" => "amsti_01",
             "password" => "Capstone@17",
-            "host" => "localhost"
+            "host" => "myathensricorg.ipowermysql.com"
         )
     ),
     "urls" => array(
@@ -53,9 +53,11 @@ error_reporting(E_ALL|E_STRCT);
 function debug_to_console( $data ) {
     $output = $data;
     if ( is_array( $output ) )
-        $output = implode( ',', $output);
 
-    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+        $output = implode( ',', $output);
+    echo $output;
+    echo PHP_EOL;
+    //echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }
 
 ?>
