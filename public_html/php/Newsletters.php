@@ -68,6 +68,7 @@
             <label>Upload Newsletter:</label>
             <input type="file" name="newsletter_to_upload" id="newsletter_to_upload"><br>
             <input type="button" name="submit" id="submit_newsletter" value="Upload">
+            <br><br><div id="newsletter_processing_message"></div>
         </form>
     <script>
         var newsletters = $('#newsletter_table').DataTable({
@@ -209,6 +210,8 @@
             form_data.append('table', 'newsletters');
             form_data.append('directory', 'Newsletters');
 
+            document.getElementById("newsletter_processing_message").innerHTML = "Processing.....";
+
             $.ajax({
 
                 type: 'POST',
@@ -220,6 +223,7 @@
                 data: form_data,                         
 
                 success: function(data) {
+                    document.getElementById("newsletter_processing_message").innerHTML = "";
                     if (data.indexOf('successfully uploaded') >= 0)
                     {   
                         alert(data);
@@ -231,6 +235,7 @@
                     }
                 },
                 error: function(data){
+                    document.getElementById("newsletter_processing_message").innerHTML = "";
                     alert(data); //Will print error returned
                 }
             });

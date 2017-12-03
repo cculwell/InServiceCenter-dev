@@ -46,9 +46,10 @@
                     $subject = stripslashes($_POST['subject']);
                     $message = stripslashes($_POST['message']);
 
-                    //create a From: mailheader
-                    // $mailheaders = "From: inserviceathens@gmail.com";
-                    $mailheaders = "inserviceathens@myathensric.org";
+                    $file = $newsletter_path;
+                    $fp = @fopen($file, "rb");
+                    $pdf_data = @fread($fp, filesize($file));
+                    @fclose($fp);
 
                     while ($email_row = mysqli_fetch_row($email_results)) 
                     {
@@ -58,7 +59,7 @@
                         $email_message->FromName = 'Athens State Regional Inservice Center';
                         $email_message->Subject = $subject;
                         $email_message->Body = $message;
-                        $email_message->AddAttachment($newsletter_path, $newsletter_name);
+                        $email_message->AddStringAttachment($pdf_data, $newsletter_name, "base64", "application/pdf");
 
                         $email_address = $email_row[0];   // email address
 
@@ -74,6 +75,7 @@
                         {
                             $error_sending .= $email_address . " => " . $email_message->ErrorInfo . "<br>";
                         }
+                        $email_message->ClearAddresses();
                     }
                 }
                 else 

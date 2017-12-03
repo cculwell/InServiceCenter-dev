@@ -68,6 +68,7 @@
             <label>Upload Bylaws:</label>
             <input type="file" name="bylaws_to_upload" id="bylaws_to_upload"><br>
             <input type="button" name="submit" id="submit_bylaws" value="Upload">
+            <br><br><div id="bylaws_processing_message"></div>
         </form>
 
     <script>
@@ -210,6 +211,8 @@
             form_data.append('table', 'bylaws');
             form_data.append('directory', 'Bylaws');
 
+            document.getElementById("bylaws_processing_message").innerHTML = "Processing.....";
+
             $.ajax({
 
                 type: 'POST',
@@ -221,6 +224,7 @@
                 data: form_data,                         
 
                 success: function(data) {
+                    document.getElementById("bylaws_processing_message").innerHTML = "";
                     if (data.indexOf('successfully uploaded') >= 0)
                     {   
                         alert(data);
@@ -232,6 +236,7 @@
                     }
                 },
                 error: function(data){
+                    document.getElementById("bylaws_processing_message").innerHTML = "Processing.....";
                     alert(data); //Will print error returned
                 }
             });
