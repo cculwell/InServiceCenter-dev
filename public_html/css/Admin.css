@@ -43,8 +43,10 @@ form textarea {
     box-sizing: border-box;
 }
 
-th,
-td
+#subscribers_table,
+#bylaw_table,
+#newsletter_table
+th td
 {
     text-align: center;
 }
