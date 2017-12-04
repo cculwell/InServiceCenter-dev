@@ -45,12 +45,12 @@
                         {
                             echo
                                 "<tr>"
-                                ."<td>" . $row[0] . "</td>";
+                                ."<td style='text-align: center;>" . $row[0] . "</td>";
 
                             if ($row[1] == 'yes') // Is this the file set to view by site visitors?
                             {
                                 echo
-                                    "<td><img src='img/accept.png' /></td>"
+                                    "<td style='text-align: center;><img src='img/accept.png' /></td>"
                                     ."</tr>"; 
                             }
                             else
