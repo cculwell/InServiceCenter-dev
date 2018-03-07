@@ -23,6 +23,7 @@
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
     <script src="../resources/library/jquery-validation/jquery.validate.js"></script>
     <script type="text/javascript" src="js/ReservationRequest.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <style>
         .panel-body {
             background:#dcdcdc;}
@@ -169,9 +170,7 @@
                             <input type="checkbox" id = "agree" name="accept" value="accept" style="width: 30px; height: 20px" required> </h2>
                     </label>
                     <hr>
-                    <div class="captcha_container">
-                        <input type="text" id="captcha" name="captcha" required/>
-                    </div><br>
+                    <div class="g-recaptcha" data-sitekey="6LfKuUkUAAAAAKq01-Oky8RalDcUS_oFBoeoQ_oj"></div>
                     <div class="btn-group" id="reserve">
                         <button type="button" id="form_submit" class="btn btn-primary btn-lg">Reserve</button>
                     </div>
