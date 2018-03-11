@@ -5,11 +5,13 @@
 
 #thebigone {
   background-image: url(../img/PageBackground.jpg);
+  min-height: 100vh;
 }
 
 .grid-container {
   background-color: lightgray;
   max-width: 100%;
+  min-height: 100vh;
   padding: 0;
 }
 
