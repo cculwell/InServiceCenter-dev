@@ -2,111 +2,168 @@
 <html class="no-js" lang="en" dir="ltr">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar | AMSTI</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allura">
-    <link rel="stylesheet" href="css/foundation.css">
-    <link rel="stylesheet" href="css/CalendarStyle.css">
-    <link rel="stylesheet" href="css/Common.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allura">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
+  <link rel="stylesheet" href="css/Common.css">
+  <link rel="stylesheet" href="css/AboutUs.css">
 </head>
 
 <body>
-    <div id="thebigone">
-        <div class="grid-container">
-            <!-- Start Top Bar  -->
-            <div id="main-nav" class="top-bar">
-                <div class="top-bar-left"><span class="title-bar-title">Athens-AMSTI</span></div>
-            </div>
-            <!-- End Top Bar -->    
-            <div class="logo_container large">
-                <div class="row column text-center"><img class="logo" src="Home_Data/Logo.jpg" alt="" /></div>
-            </div>
-			<!-- Side Menu -->
-            <ul id=menu>
-                <li><a href="Home.html" target="_self">Home</a></li>
-                <li><a href="AboutUs.html" target="_self">AMSTI</a></li>
-				<li><a href="ARI.html" target="_self">ARI</a></li>
-				<li><a href="ASIM.html" target="_self">ASIM</a></li>
-				<li><a href="TIM.html" target="_self">TIM</a></li>
-                <li><a href="GoverningBoard.html" target="_self">Board</a></li>
-                <li><a href="Inservice.html" target="_self">Inservice</a></li>
-                <li><a href="ProDevel.html" target="_self">Professional Development</a></li>
-                <li><a href="NewRequest.php" target="_blank">Forms</a></li>
-                <li class="current"><a href="calendar.html" target="_self">Calendar</a></li>
-				<li><a href="ReservationRequest.html" target="_blank">Reservation</a></li>
-            </ul>
-			<!-- Mobile Menu -->
-            <ul id=mobile>
-                <li><a href="Home.html" target="_self">Home</a></li>
-                <li><a href="AboutUs.html" target="_self">AMSTI</a></li>
-				<li><a href="ARI.html" target="_self">ARI</a></li>
-				<li><a href="ASIM.html" target="_self">ASIM</a></li>
-				<li><a href="TIM.html" target="_self">TIM</a></li>
-                <li><a href="GoverningBoard.html" target="_self">Board</a></li>
-                <li><a href="Inservice.html" target="_self">Inservice</a></li>
-                <li><a href="ProDevel.html" target="_self">Professional Development</a></li>
-                <li><a href="NewRequest.php" target="_blank">Forms</a></li>
-                <li class="current"><a href="calendar.html" target="_self">Calendar</a></li>
-				<li><a href="ReservationRequest.html" target="_blank">Reservation</a></li>
-            </ul>
-
-            <div id="goodstuff">
-
-                <div class="row column text-center">
-                    <div class="sections">
-                        <section id="roomA" data-magellan-target="roomA">
-                            <h3 style="background: #ffffff">Room Availability Calendar</h3>
-                        </section>
-                    </div>
-                    <div class="responsive-embed"><iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;height=800&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=qgud29lqo5gl2v2hrtf185asvo%40group.calendar.google.com&amp;color=%2323164E&amp;src=j1op03kcbf1qlc4sj2ugql60vo%40group.calendar.google.com&amp;color=%23711616&amp;src=u8g195h4cs0r1dstm5vpv3nef4%40group.calendar.google.com&amp;color=%23182C57&amp;src=gqqkj2f7vk943ksirgdnjjj6c0%40group.calendar.google.com&amp;color=%23125A12&amp;ctz=America%2FChicago" style="border-width:0" width="900" height="800" frameborder="0" scrolling="no"></iframe></div>
-                </div>
-
-            <br>
-            <br>
-
-
-            <div class="footer">
-                <div id="paddress">
-                    <p><strong>Physical Address <br /></strong> 1115-A Highway 31 South<br /> Athens, AL 35611</p>
-                </div>
-                <div id="maddress">
-                    <p><strong>Mailing Address<br /></strong> 300 North Beaty Street<br /> Athens, AL 35611</p>
-                </div>
-                <div id="hours">
-                    <p><strong>Office Hours<br /></strong>8:00 am to 4:30 pm <br /> Monday &ndash; Friday</p>
-                </div>
-                <div id="office">
-                    <p><strong>Office: </strong>256.216.6622</p>
-                </div>
-                <div id="fax">
-                    <p><strong>Fax: </strong>256.216.6623</p>
-                </div>
-                <div id="directions">
-                    <form id="addressinput" action="http://maps.google.com/maps" method="get" target="_blank"><input id="start" name="saddr" type="text" placeholder="Enter your location for directions" /> <input name="daddr" type="hidden" value="AMSTI--Athens State University RISC" /> <input type="submit" value="Get directions" />
-                        <!--<div id="map" style="width:400px;height:400px"></div>
--->
-                        <script src="https://maps.googleapis.com/maps/api/js?callback=myMap">
-                            // <![CDATA[
-
-                            // ]]>
-
-                        </script>
-                    </form>
-                </div>
-                <p id="info">Athens Amsti &copy; 2017 <a id="login" href="#">Login </a></p>
-            </div>
+  <div id="thebigone">
+    <div class="grid-container">
+      <!-- Start Top Bar -->
+      <div id="main-nav" class="top-bar">
+        <div class="top-bar-left">
+          <span class="title-bar-title">Athens-AMSTI</span>
         </div>
-        <script src="../resources/library/jquery-3.2.1.min.js"></script>
-        <script src="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
-        <script>
-            // <![CDATA[
-            $(document).foundation();
-            // ]]>
+      </div>
+      <!-- End Top Bar -->
 
-        </script>
+      <!-- Side Menu -->
+      <ul id=menu>
+        <li>
+          <a href="Home.html" target="_self">Home</a>
+        </li>
+        <li class="current">
+          <a href="AboutUs.html" target="_self">AMSTI</a>
+        </li>
+        <li>
+          <a href="ARI.html" target="_self">ARI</a>
+        </li>
+        <li>
+          <a href="ASIM.html" target="_self">ASIM</a>
+        </li>
+        <li>
+          <a href="TIM.html" target="_self">TIM</a>
+        </li>
+        <li>
+          <a href="GoverningBoard.html" target="_self">Board</a>
+        </li>
+        <li>
+          <a href="Inservice.html" target="_self">Inservice</a>
+        </li>
+        <li>
+          <a href="ProDevel.html" target="_self">Professional Development</a>
+        </li>
+        <li>
+          <a href="NewRequest.php" target="_blank">Forms</a>
+        </li>
+        <li>
+          <a href="calendar.html" target="_self">Calendar</a>
+        </li>
+        <li>
+          <a href="ReservationRequest.html" target="_blank">Reservation</a>
+        </li>
+      </ul>
+      <!-- Mobile Menu -->
+      <ul id=mobile>
+        <li>
+          <a href="Home.html" target="_self">Home</a>
+        </li>
+        <li>
+          <a href="AboutUs.html" target="_self">AMSTI</a>
+        </li>
+        <li>
+          <a href="ARI.html" target="_self">ARI</a>
+        </li>
+        <li>
+          <a href="ASIM.html" target="_self">ASIM</a>
+        </li>
+        <li>
+          <a href="TIM.html" target="_self">TIM</a>
+        </li>
+        <li>
+          <a href="GoverningBoard.html" target="_self">Board</a>
+        </li>
+        <li>
+          <a href="Inservice.html" target="_self">Inservice</a>
+        </li>
+        <li>
+          <a href="ProDevel.html" target="_self">Professional Development</a>
+        </li>
+        <li>
+          <a href="NewRequest.php" target="_blank">Forms</a>
+        </li>
+        <li class="current">
+          <a href="calendar.html" target="_self">Calendar</a>
+        </li>
+        <li>
+          <a href="ReservationRequest.html" target="_blank">Reservation</a>
+        </li>
+      </ul>
+
+      <div class="logo_container large">
+        <div class="row column text-center">
+          <img class="logo" src="img/Logo.jpg" alt="Athens State University Logo" />
+        </div>
+      </div>
+
+
+      <div class="content-container">
+      	<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=s4okk8ud8g2gds20c0fkqen0n8%40group.calendar.google.com&amp;color=%238C500B&amp;src=5t7276e02lj7jlv9cu6546h168%40group.calendar.google.com&amp;color=%236B3304&amp;src=ami9il78oe87tf91cdqi2o7a2o%40group.calendar.google.com&amp;color=%238C500B&amp;src=rc7489s1d7q0fnhvva7mree284%40group.calendar.google.com&amp;color=%235F6B02&amp;ctz=America%2FChicago" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+      </div>
+      <br>
+      <br>
+      <div class="contact-info">
+        <div class="contact-row">
+          <div>
+            <p>
+              <strong>Physical Address
+                <br />
+              </strong> 1115-A Highway 31 South
+              <br /> Athens, AL 35611</p>
+          </div>
+          <div>
+            <p>
+              <strong>Mailing Address
+                <br />
+              </strong> 300 North Beaty Street
+              <br /> Athens, AL 35611</p>
+          </div>
+          <div>
+            <p>
+              <strong>Office Hours
+                <br />
+              </strong>8:00 am to 4:30 pm
+              <br /> Monday &ndash; Friday</p>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div>
+            <p>
+              <strong>Office: </strong>
+              <a href="tel:+12562166622">256.216.6622</a>
+            </p>
+          </div>
+          <div>
+            <p>
+              <strong>Fax: </strong>256.216.6623</p>
+          </div>
+          <div id="twitter">
+            <a href="https://twitter.com/AthensStateRIC" class="twitter-follow-button" data-show-count="false">Follow @AthensStateRIC</a>
+            <!-- To test locally, add http: or https: to src path. -->
+            <!-- Twitter's widgets.js is not released under an open-source license for modification or self-hosting -->
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div id="directions">
+          <form id="addressinput" action="http://maps.google.com/maps" method="get" target="_blank">
+            <input id="start" name="saddr" type="text" placeholder="Enter your location for directions" />
+            <input name="daddr" type="hidden" value="AMSTI--Athens State University RISC" />
+            <input type="submit" value="Get directions" />
+            <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
+          </form>
+        </div>
+        <p id="info">Athens Amsti &copy;
+          <script>document.write(new Date().getFullYear())</script> </p>
+      </div>
     </div>
 </body>
 
