@@ -23,9 +23,12 @@ if ($mysqli->connect_errno) {
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
     <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
     <link rel="stylesheet" type="text/css" href="../resources/library/realperson-2.0.1/jquery.realperson.css">
@@ -35,7 +38,6 @@ if ($mysqli->connect_errno) {
     <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
     <script src="../resources/library/jquery_chained/jquery.chained.js"></script>
-<!--    <script src="../resources/library/jquery-validation/jquery.validate.js"></script>-->
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
     <script src="js/NewRequest.js"></script>
@@ -378,5 +380,6 @@ if ($mysqli->connect_errno) {
         </div>
     </div>
 </form>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </html>
 

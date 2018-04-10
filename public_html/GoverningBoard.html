@@ -8,41 +8,91 @@
 
   <title>Governing Board | AMSTI</title>
 
-  <link rel="stylesheet" href="css/foundation.min.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="css/GoverningBoard.css">
   <link rel="stylesheet" href="css/Common.css">
 </head>
 
 <body>
   <div id="thebigone">
-    <div class="grid-container">
+    <div class="container">
       <!-- Side Menu -->
       <ul id=menu>
-        <li><a href="Home.html">Home</a></li>
-        <li><a href="AboutUs.html">AMSTI</a></li>
-        <li><a href="ARI.html">ARI</a></li>
-        <li><a href="ASIM.html">ASIM</a></li>
-        <li><a href="TIM.html">TIM</a></li>
-        <li class="current"><a href="GoverningBoard.html">Board</a></li>
-        <li><a href="Inservice.html">Inservice</a></li>
-        <li><a href="ProDevel.html">Professional Development</a></li>
-        <li><a href="NewRequest.php">Forms</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="ReservationRequest.html">Reservation</a></li>
+        <li>
+          <a href="Home.html">Home</a>
+        </li>
+        <li>
+          <a href="AboutUs.html">AMSTI</a>
+        </li>
+        <li>
+          <a href="ARI.html">ARI</a>
+        </li>
+        <li>
+          <a href="ASIM.html">ASIM</a>
+        </li>
+        <li>
+          <a href="TIM.html">TIM</a>
+        </li>
+        <li class="current">
+          <a href="GoverningBoard.html">Board</a>
+        </li>
+        <li>
+          <a href="Inservice.html">Inservice</a>
+        </li>
+        <li>
+          <a href="ProDevel.html">Professional Development</a>
+        </li>
+        <li>
+          <a href="NewRequest.php">Forms</a>
+        </li>
+        <li>
+          <a href="calendar.html">Calendar</a>
+        </li>
+        <li>
+          <a href="ReservationRequest.html">Reservation</a>
+        </li>
       </ul>
       <!-- Mobile Menu -->
       <ul id=mobile>
-        <li><a href="Home.html">Home</a></li>
-        <li><a href="AboutUs.html">AMSTI</a></li>
-        <li><a href="ARI.html">ARI</a></li>
-        <li><a href="ASIM.html">ASIM</a></li>
-        <li><a href="TIM.html">TIM</a></li>
-        <li class="current"><a href="GoverningBoard.html">Board</a></li>
-        <li><a href="Inservice.html">Inservice</a></li>
-        <li><a href="ProDevel.html">Professional Development</a></li>
-        <li><a href="NewRequest.php">Forms</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="ReservationRequest.html">Reservation</a></li>
+        <li>
+          <a href="Home.html">Home</a>
+        </li>
+        <li>
+          <a href="AboutUs.html">AMSTI</a>
+        </li>
+        <li>
+          <a href="ARI.html">ARI</a>
+        </li>
+        <li>
+          <a href="ASIM.html">ASIM</a>
+        </li>
+        <li>
+          <a href="TIM.html">TIM</a>
+        </li>
+        <li class="current">
+          <a href="GoverningBoard.html">Board</a>
+        </li>
+        <li>
+          <a href="Inservice.html">Inservice</a>
+        </li>
+        <li>
+          <a href="ProDevel.html">Professional Development</a>
+        </li>
+        <li>
+          <a href="NewRequest.php">Forms</a>
+        </li>
+        <li>
+          <a href="calendar.html">Calendar</a>
+        </li>
+        <li>
+          <a href="ReservationRequest.html">Reservation</a>
+        </li>
       </ul>
 
       <div class="logo_container large">
@@ -71,8 +121,9 @@
           <button id="view_bylaws_button" onclick="location.href='php/view_current.php?table=bylaws&page=GoverningBoard'" class="button">View Our Current Bylaws</button>
         </div>
 
-        <div class="grid-x grid-padding-x align-center text-center board_member_container">
-          <div class="cell large-4 medium-6">
+        <!-- <div class="container text-center"> -->
+        <div class="row text-center">
+          <div class="col-lg-4 col-md-6">
             <strong>Dr. Dee Dee Jones</strong>
             <p>Central Office
               <br> Hartselle City Schools
@@ -80,7 +131,7 @@
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Stacy Hughes</strong>
             <p>Falkville High School
               <br> Morgan County Schools
@@ -88,71 +139,78 @@
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Dawn Martin</strong>
             <p>East Limestone High School
               <br> Limestone County Schools
             </p>
           </div>
+        </div>
 
-          <div class="cell large-4 medium-6">
+        <div class="row text-center">
+          <div class="col-lg-4 col-md-6">
             <strong>Kelly Pinkard</strong>
             <p>Cullman Primary School
               <br> Cullman City Schools
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Elisa Harris</strong>
             <p>Crestline Elementary
               <br> Hartselle City Schools
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Pam Kitchens Crumpton</strong>
             <p>Moulton Middle School
               <br> Lawrence County Schools
             </p>
           </div>
+        </div>
 
-          <div class="cell large-4 medium-6">
+        <div class="row text-center">
+          <div class="col-lg-4 col-md-6">
             <strong>Karen Pinion</strong>
             <p>West Point Intermediate School
               <br> Cullman City Schools
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Dr. Cheri Humphries</strong>
             <p>Central Office
               <br> Morgan County Schools
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>James Lucas</strong>
             <p>Athens City Schools
               <br> School Board Member
             </p>
           </div>
+        </div>
 
-          <div class="cell large-4 medium-6">
+        <div class="row text-center">
+          <div class="col-lg-4 col-md-6">
             <strong>Dr. Sara Cline</strong>
             <p>Athens State University
               <br> College of Arts and Sciences
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Dr. Johnnie Lundin</strong>
             <p>Athens State University
               <br> College of Education
             </p>
           </div>
         </div>
+        <!-- </div> -->
       </div>
-      <div class="footer">
+      <footer>
         <div id="directions">
           <form id="addressinput" action="http://maps.google.com/maps" method="get" target="_blank">
             <input id="start" name="saddr" type="text" placeholder="Enter your location for directions" />
@@ -163,9 +221,11 @@
         </div>
         <p id="info">Athens AMSTI &copy;
           <script>document.write(new Date().getFullYear())</script> </p>
-      </div>
+      </footer>
     </div>
   </div>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
