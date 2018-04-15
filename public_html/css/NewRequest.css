@@ -1,8 +1,26 @@
 .panel-body {
-    background:#dcdcdc;}
+  background: #dcdcdc;
+}
 
-.top-buffer { margin-top:20px; }
+.top-buffer {
+  margin-top: 20px;
+}
 
-.ui-timepicker-disabled { display: none; }
+.ui-timepicker-disabled {
+  display: none;
+}
 
-select { width: 275px }
+select {
+  width: 275px;
+}
+
+/* Card Header */
+.card-header.bg-primary {
+  color: #fff;
+}
+
+/* Buttons */
+a.btn.btn-primary,
+a.btn.btn-danger {
+  color: #fff;
+}
