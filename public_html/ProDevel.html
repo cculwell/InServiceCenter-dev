@@ -15,7 +15,8 @@
   <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
 
 
-  <link rel="stylesheet" href="css/foundation.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="css/Common.css" />
   <link rel="stylesheet" href="css/ProDevel.css" />
 </head>
@@ -23,7 +24,7 @@
 <body>
   <div id="thebigone">
 
-    <div class="grid-container">
+    <div class="container container-custom">
       <!-- Start Top Bar  -->
       <div id="main-nav" class="top-bar">
         <div class="top-bar-left">
@@ -32,79 +33,30 @@
       </div>
       <!-- End Top Bar -->
 
-      <!-- Side Menu -->
-      <ul id=menu>
-        <li>
-          <a href="Home.html" target="_self">Home</a>
-        </li>
-        <li>
-          <a href="AboutUs.html" target="_self">AMSTI</a>
-        </li>
-        <li>
-          <a href="ARI.html" target="_self">ARI</a>
-        </li>
-        <li>
-          <a href="ASIM.html" target="_self">ASIM</a>
-        </li>
-        <li>
-          <a href="TIM.html" target="_self">TIM</a>
-        </li>
-        <li>
-          <a href="GoverningBoard.html" target="_self">Board</a>
-        </li>
-        <li>
-          <a href="Inservice.html" target="_self">Inservice</a>
-        </li>
-        <li class="current">
-          <a href="ProDevel.html" target="_self">Professional Development</a>
-        </li>
-        <li>
-          <a href="NewRequest.php" target="_blank">Forms</a>
-        </li>
-        <li>
-          <a href="calendar.html" target="_self">Calendar</a>
-        </li>
-        <li>
-          <a href="ReservationRequest.html" target="_blank">Reservation</a>
-        </li>
-      </ul>
-      <!-- Mobile Menu -->
-      <ul id=mobile>
-        <li>
-          <a href="Home.html" target="_self">Home</a>
-        </li>
-        <li>
-          <a href="AboutUs.html" target="_self">AMSTI</a>
-        </li>
-        <li>
-          <a href="ARI.html" target="_self">ARI</a>
-        </li>
-        <li>
-          <a href="ASIM.html" target="_self">ASIM</a>
-        </li>
-        <li>
-          <a href="TIM.html" target="_self">TIM</a>
-        </li>
-        <li>
-          <a href="GoverningBoard.html" target="_self">Board</a>
-        </li>
-        <li>
-          <a href="Inservice.html" target="_self">Inservice</a>
-        </li>
-        <li class="current">
-          <a href="ProDevel.html" target="_self">Professional Development</a>
-        </li>
-        <li>
-          <a href="NewRequest.php" target="_blank">Forms</a>
-        </li>
-        <li>
-          <a href="calendar.html" target="_self">Calendar</a>
-        </li>
-        <li>
-          <a href="ReservationRequest.html" target="_blank">Reservation</a>
-        </li>
-      </ul>
-
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="Home.html">AMSTI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="Home.html">Home</a>
+            <a class="nav-item nav-link" href="AboutUs.html">About</a>
+            <a class="nav-item nav-link" href="ARI.html">ARI</a>
+            <a href="ASIM.html" class="nav-item nav-link">ASIM</a>
+            <a href="TIM.html" class="nav-item nav-link">TIM</a>
+            <a href="GoverningBoard.html" class="nav-item nav-link">Board</a>
+            <a href="Inservice.html" class="nav-item nav-link">Inservice</a>
+            <a href="ProDevel.html" class="nav-item nav-link active">Professional Development
+              <span class="sr-only">(current)</span>
+            </a>
+            <a href="NewRequest.php" class="nav-item nav-link">Forms</a>
+            <a href="calendar.html" class="nav-item nav-link">Calendar</a>
+            <a href="ReservationRequest.html" class="nav-item nav-link">Reservation</a>
+          </div>
+        </div>
+      </nav>
       <div class="logo_container">
         <img class="logo" src="img/Logo.jpg" alt="" />
       </div>
@@ -181,7 +133,7 @@
         </div>
 
       </div>
-      <div class="footer">
+      <footer>
         <div id="directions">
           <form id="addressinput" action="http://maps.google.com/maps" method="get" target="_blank">
             <input id="start" name="saddr" type="text" placeholder="Enter your location for directions" />
@@ -192,9 +144,15 @@
         </div>
         <p id="info">Athens AMSTI &copy;
           <script>document.write(new Date().getFullYear())</script> </p>
-      </div>
+      </footer>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
   <script type="text/javascript" src=js/SubscribeBox.js></script>
   <script type="text/javascript" src=js/EmailSubmit.js></script>
   <script type="text/javascript" src=js/captcha.js></script>

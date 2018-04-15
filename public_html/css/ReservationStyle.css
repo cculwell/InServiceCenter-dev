@@ -47,3 +47,14 @@
   justify-content: center;
   margin-bottom: 1.5rem;
 }
+
+/* Card Header */
+.card-header.bg-primary {
+  color: #fff;
+}
+
+/* Buttons */
+a.btn.btn-primary,
+a.btn.btn-danger {
+  color: #fff;
+}

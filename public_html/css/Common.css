@@ -3,12 +3,16 @@
   src: url('../img/BrushScript.ttf');
 }
 
+p {
+  font-size: 16px;
+}
+
 #thebigone {
   background-image: url(../img/PageBackground.jpg);
   min-height: 100vh;
 }
 
-.grid-container {
+.container-custom {
   background-color: lightgray;
   max-width: 100%;
   min-height: 100vh;
@@ -16,7 +20,7 @@
 }
 
 @media screen and (min-width: 64em) {
-  .grid-container {
+  .container {
     max-width: 78%;
   }
 }
@@ -96,13 +100,6 @@
   color: inherit;
 }
 
-a {
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease-in;
-}
-a:hover {
-  border-color: #328fe6;
-}
 li.current {
   color: hsl(175, 70%, 70%);
 }
@@ -150,7 +147,7 @@ li.current {
 }
 
 /* Footer */
-.footer {
+footer {
   display: block;
   margin: auto;
   text-align: center;

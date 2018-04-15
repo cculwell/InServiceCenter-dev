@@ -8,43 +8,39 @@
 
   <title>Governing Board | AMSTI</title>
 
-  <link rel="stylesheet" href="css/foundation.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="css/GoverningBoard.css">
   <link rel="stylesheet" href="css/Common.css">
 </head>
 
 <body>
   <div id="thebigone">
-    <div class="grid-container">
-      <!-- Side Menu -->
-      <ul id=menu>
-        <li><a href="Home.html">Home</a></li>
-        <li><a href="AboutUs.html">AMSTI</a></li>
-        <li><a href="ARI.html">ARI</a></li>
-        <li><a href="ASIM.html">ASIM</a></li>
-        <li><a href="TIM.html">TIM</a></li>
-        <li class="current"><a href="GoverningBoard.html">Board</a></li>
-        <li><a href="Inservice.html">Inservice</a></li>
-        <li><a href="ProDevel.html">Professional Development</a></li>
-        <li><a href="NewRequest.php">Forms</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="ReservationRequest.html">Reservation</a></li>
-      </ul>
-      <!-- Mobile Menu -->
-      <ul id=mobile>
-        <li><a href="Home.html">Home</a></li>
-        <li><a href="AboutUs.html">AMSTI</a></li>
-        <li><a href="ARI.html">ARI</a></li>
-        <li><a href="ASIM.html">ASIM</a></li>
-        <li><a href="TIM.html">TIM</a></li>
-        <li class="current"><a href="GoverningBoard.html">Board</a></li>
-        <li><a href="Inservice.html">Inservice</a></li>
-        <li><a href="ProDevel.html">Professional Development</a></li>
-        <li><a href="NewRequest.php">Forms</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="ReservationRequest.html">Reservation</a></li>
-      </ul>
-
+    <div class="container container-custom">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="Home.html">AMSTI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="Home.html">Home</a>
+            <a class="nav-item nav-link" href="AboutUs.html">About</a>
+            <a class="nav-item nav-link" href="ARI.html">ARI</a>
+            <a href="ASIM.html" class="nav-item nav-link">ASIM</a>
+            <a href="TIM.html" class="nav-item nav-link">TIM</a>
+            <a href="GoverningBoard.html" class="nav-item nav-link active">Board
+              <span class="sr-only">(current)</span>
+            </a>
+            <a href="Inservice.html" class="nav-item nav-link">Inservice</a>
+            <a href="ProDevel.html" class="nav-item nav-link">Professional Development</a>
+            <a href="NewRequest.php" class="nav-item nav-link">Forms</a>
+            <a href="calendar.html" class="nav-item nav-link">Calendar</a>
+            <a href="ReservationRequest.html" class="nav-item nav-link">Reservation</a>
+          </div>
+        </div>
+      </nav>
       <div class="logo_container large">
         <img class="logo" src="img/Logo.jpg" alt="" />
       </div>
@@ -68,11 +64,12 @@
         <h3>List​ ​of​ ​Active​ ​Governing​ ​Board​ ​Members</h3>
         <br>
         <div class="button-container">
-          <button id="view_bylaws_button" onclick="location.href='php/view_current.php?table=bylaws&page=GoverningBoard'" class="button">View Our Current Bylaws</button>
+          <button id="view_bylaws_button" onclick="location.href='php/view_current.php?table=bylaws&page=GoverningBoard'" class="button btn-primary">View Our Current Bylaws</button>
         </div>
 
-        <div class="grid-x grid-padding-x align-center text-center board_member_container">
-          <div class="cell large-4 medium-6">
+        <!-- <div class="container text-center"> -->
+        <div class="row text-center">
+          <div class="col-lg-4 col-md-6">
             <strong>Dr. Dee Dee Jones</strong>
             <p>Central Office
               <br> Hartselle City Schools
@@ -80,7 +77,7 @@
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Stacy Hughes</strong>
             <p>Falkville High School
               <br> Morgan County Schools
@@ -88,71 +85,78 @@
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Dawn Martin</strong>
             <p>East Limestone High School
               <br> Limestone County Schools
             </p>
           </div>
+        </div>
 
-          <div class="cell large-4 medium-6">
+        <div class="row text-center">
+          <div class="col-lg-4 col-md-6">
             <strong>Kelly Pinkard</strong>
             <p>Cullman Primary School
               <br> Cullman City Schools
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Elisa Harris</strong>
             <p>Crestline Elementary
               <br> Hartselle City Schools
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Pam Kitchens Crumpton</strong>
             <p>Moulton Middle School
               <br> Lawrence County Schools
             </p>
           </div>
+        </div>
 
-          <div class="cell large-4 medium-6">
+        <div class="row text-center">
+          <div class="col-lg-4 col-md-6">
             <strong>Karen Pinion</strong>
             <p>West Point Intermediate School
               <br> Cullman City Schools
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Dr. Cheri Humphries</strong>
             <p>Central Office
               <br> Morgan County Schools
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>James Lucas</strong>
             <p>Athens City Schools
               <br> School Board Member
             </p>
           </div>
+        </div>
 
-          <div class="cell large-4 medium-6">
+        <div class="row text-center">
+          <div class="col-lg-4 col-md-6">
             <strong>Dr. Sara Cline</strong>
             <p>Athens State University
               <br> College of Arts and Sciences
             </p>
           </div>
 
-          <div class="cell large-4 medium-6">
+          <div class="col-lg-4 col-md-6">
             <strong>Dr. Johnnie Lundin</strong>
             <p>Athens State University
               <br> College of Education
             </p>
           </div>
         </div>
+        <!-- </div> -->
       </div>
-      <div class="footer">
+      <footer>
         <div id="directions">
           <form id="addressinput" action="http://maps.google.com/maps" method="get" target="_blank">
             <input id="start" name="saddr" type="text" placeholder="Enter your location for directions" />
@@ -163,9 +167,15 @@
         </div>
         <p id="info">Athens AMSTI &copy;
           <script>document.write(new Date().getFullYear())</script> </p>
-      </div>
+      </footer>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -23,9 +23,7 @@ if ($mysqli->connect_errno) {
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.min.css">
     <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
     <link rel="stylesheet" type="text/css" href="../resources/library/realperson-2.0.1/jquery.realperson.css">
@@ -35,11 +33,38 @@ if ($mysqli->connect_errno) {
     <script src="../resources/library/jquery-ui/jquery-ui.min.js"></script>
     <script src="../resources/library/timepicker/jquery.timepicker.js"></script>
     <script src="../resources/library/jquery_chained/jquery.chained.js"></script>
-<!--    <script src="../resources/library/jquery-validation/jquery.validate.js"></script>-->
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
     <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
     <script src="js/NewRequest.js"></script>
 </head>
+
+<body>
+  <div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="Home.html">AMSTI</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="Home.html">Home</a>
+          <a class="nav-item nav-link" href="AboutUs.html">About</a>
+          <a class="nav-item nav-link" href="ARI.html">ARI</a>
+          <a href="ASIM.html" class="nav-item nav-link">ASIM</a>
+          <a href="TIM.html" class="nav-item nav-link">TIM</a>
+          <a href="GoverningBoard.html" class="nav-item nav-link">Board</a>
+          <a href="Inservice.html" class="nav-item nav-link">Inservice</a>
+          <a href="ProDevel.html" class="nav-item nav-link">Professional Development</a>
+          <a href="NewRequest.php" class="nav-item nav-link">Forms</a>
+          <a href="calendar.html" class="nav-item nav-link">Calendar</a>
+          <a href="ReservationRequest.html" class="nav-item nav-link active">Reservation
+            <span class="sr-only">(current)</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
 
 <div class="callout large">
     <div class="row column text-center">
@@ -78,12 +103,12 @@ if ($mysqli->connect_errno) {
                     </div>
 
                     <!-- School and System Input -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">School / System</div>
-                        <div class="panel-body">
+                    <div class="card">
+                        <div class="card-header bg-primary">School / System</div>
+                        <div class="card-body">
                             <div class="row form-group" id="school_system_row">
 
-                                <div class="col-md-6 pull-left">
+                                <div class="col-md-6 float-left">
                                     <label for="system" hidden>System</label>
 
 
@@ -101,7 +126,7 @@ if ($mysqli->connect_errno) {
                                 </div>
 
 
-                                <div class="col-md-6 pull-left">
+                                <div class="col-md-6 float-left">
                                     <label for="system" hidden>School</label>
 
                                     <select multiple id="school" name="school">
@@ -127,13 +152,13 @@ if ($mysqli->connect_errno) {
                     </div>
 
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Request Details</div>
-                        <div class="panel-body">
+                    <div class="card">
+                        <div class="card-header bg-primary">Request Details</div>
+                        <div class="card-body">
                             <!-- Request Description -->
                             <div class="row form-group" id="request_desc_row">
                                 <div class="col-md-12">
-                                    <label class="col-md-push-12 pull-left">Request Description</label>
+                                    <label class="col-md-push-12 float-left">Request Description</label>
                                     <textarea class="form-control col-md-6" style="width:100%" rows="3"
                                               id="request_desc" name="request_desc" minlength="10" required></textarea>
                                 </div>
@@ -158,7 +183,7 @@ if ($mysqli->connect_errno) {
                                            style="text-align: center">
                                 </div>
                                 <div class="col-md-4"> </div>
-                                <!--<div class="form-group col-md-4 pull-left  ">-->
+                                <!--<div class="form-group col-md-4 float-left  ">-->
                                     <!--<label for="cost_per_book">Cost per Book</label>-->
                                     <!--<input type="text"  id="cost_per_book" name="cost_per_book" size="35" maxlength="25">-->
                                 <!--</div>-->
@@ -202,7 +227,7 @@ if ($mysqli->connect_errno) {
                         <!-- Request Justification -->
                         <div class="row form-group" id="request_just_row">
                             <div class="col-md-12">
-                                <label class="col-md-push-12 pull-left">Need / Justification</label>
+                                <label class="col-md-push-12 float-left">Need / Justification</label>
                                 <textarea class="form-control col-md-6" style="width:100%" rows="3"
                                                id="request_just" name="request_just"></textarea>
                             </div>
@@ -233,9 +258,9 @@ if ($mysqli->connect_errno) {
                     </div>
 
                     <!-- Date(s) and Time(s) -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Date(s) and Time(s)</div>
-                        <div class="panel-body">
+                    <div class="card">
+                        <div class="card-header bg-primary">Date(s) and Time(s)</div>
+                        <div class="card-body">
                             <div class="container col-xs-12">
                                 <div class="row clearfix">
                                     <div class="col-md-12 column">
@@ -275,16 +300,16 @@ if ($mysqli->connect_errno) {
                                         </table>
                                     </div>
                                 </div>
-                                <a id="add_date_row" class="btn btn-success pull-left">Add Row</a>
-                                <a id='delete_date_row' class="btn btn-danger pull-right">Delete Row</a>
+                                <a id="add_date_row" class="btn btn-success float-left">Add Row</a>
+                                <a id='delete_date_row' class="btn btn-danger float-right">Delete Row</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Company / Org / Publisher -->
-                    <div class="panel panel-primary" id="company_panel">
-                        <div class="panel-heading">Company / Organization / Publisher</div>
-                        <div class="panel-body">
+                    <div class="card" id="company_panel">
+                        <div class="card-header bg-primary">Company / Organization / Publisher</div>
+                        <div class="card-body">
                             <div class="row form-group" id="company_row">
                                 <div class="form-group col-md-4">
                                     <label for="company_name">Name </label>
@@ -305,9 +330,9 @@ if ($mysqli->connect_errno) {
                     </div>
 
                     <!-- Facilitator -->
-                    <div class="panel panel-primary" id="faciliator_panel">
-                        <div class="panel-heading">Facilitator</div>
-                        <div class="panel-body">
+                    <div class="card" id="faciliator_panel">
+                        <div class="card-header bg-primary">Facilitator</div>
+                        <div class="card-body">
                             <div class="row form-group" id="facilitator_row">
                                 <div class="form-group col-md-4">
                                     <label for="company_name">Name </label>
@@ -327,9 +352,9 @@ if ($mysqli->connect_errno) {
                     </div>
 
                     <!-- Contact Section -->
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Contact</div>
-                        <div class="panel-body">
+                    <div class="card">
+                        <div class="card-header bg-primary">Contact</div>
+                        <div class="card-body">
                             <div class="row form-group" id="contact_row">
                                 <div class="form-group col-md-4">
                                     <label for="contact_name">Name </label>
@@ -351,7 +376,7 @@ if ($mysqli->connect_errno) {
                                 </div> -->
                             </div>
                         </div>
-                        <!--div class="panel-footer">Panel footer</div> -->
+                        <!--div class="card-footer">Card footer</div> -->
                     </div>
 
                     <div class="captcha_container">
@@ -378,5 +403,9 @@ if ($mysqli->connect_errno) {
         </div>
     </div>
 </form>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 </html>
 
