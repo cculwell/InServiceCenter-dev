@@ -10,7 +10,8 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="../resources/library/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="../resources/library/jquery-ui/jquery-ui.css">
   <link rel="stylesheet" href="../resources/library/timepicker/jquery.timepicker.css">
   <link rel="stylesheet" type="text/css" href="../resources/library/realperson-2.0.1/jquery.realperson.css">
@@ -19,7 +20,32 @@
 </head>
 
 <body>
-
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="Home.html">AMSTI</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="Home.html">Home</a>
+          <a class="nav-item nav-link" href="AboutUs.html">About</a>
+          <a class="nav-item nav-link" href="ARI.html">ARI</a>
+          <a href="ASIM.html" class="nav-item nav-link">ASIM</a>
+          <a href="TIM.html" class="nav-item nav-link">TIM</a>
+          <a href="GoverningBoard.html" class="nav-item nav-link">Board</a>
+          <a href="Inservice.html" class="nav-item nav-link">Inservice</a>
+          <a href="ProDevel.html" class="nav-item nav-link">Professional Development</a>
+          <a href="NewRequest.php" class="nav-item nav-link">Forms</a>
+          <a href="calendar.html" class="nav-item nav-link">Calendar</a>
+          <a href="ReservationRequest.html" class="nav-item nav-link active">Reservation
+            <span class="sr-only">(current)</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
   <div class="callout large">
     <div class="row column text-center">
       <img id="logo" src="img/Logo.jpg" alt="Logo Image" />
@@ -27,97 +53,25 @@
   </div>
 
   <div class="container">
-    <!-- Side Menu -->
-    <ul id=menu>
-      <li>
-        <a href="Home.html">Home</a>
-      </li>
-      <li>
-        <a href="AboutUs.html">AMSTI</a>
-      </li>
-      <li>
-        <a href="ARI.html">ARI</a>
-      </li>
-      <li>
-        <a href="ASIM.html">ASIM</a>
-      </li>
-      <li>
-        <a href="TIM.html">TIM</a>
-      </li>
-      <li>
-        <a href="GoverningBoard.html">Board</a>
-      </li>
-      <li>
-        <a href="Inservice.html">Inservice</a>
-      </li>
-      <li>
-        <a href="ProDevel.html">Professional Development</a>
-      </li>
-      <li>
-        <a href="NewRequest.php">Forms</a>
-      </li>
-      <li>
-        <a href="calendar.html">Calendar</a>
-      </li>
-      <li class="current">
-        <a href="ReservationRequest.html">Reservation</a>
-      </li>
-    </ul>
-    <!-- Mobile Menu -->
-    <ul id=mobile>
-      <li>
-        <a href="home.html">Home</a>
-      </li>
-      <li>
-        <a href="AboutUs.html">AMSTI</a>
-      </li>
-      <li>
-        <a href="ARI.html">ARI</a>
-      </li>
-      <li>
-        <a href="ASIM.html">ASIM</a>
-      </li>
-      <li>
-        <a href="TIM.html">TIM</a>
-      </li>
-      <li>
-        <a href="GoverningBoard.html">Board</a>
-      </li>
-      <li>
-        <a href="Inservice.html">Inservice</a>
-      </li>
-      <li>
-        <a href="ProDevel.html">Professional Development</a>
-      </li>
-      <li>
-        <a href="NewRequest.php">Forms</a>
-      </li>
-      <li>
-        <a href="calendar.html">Calendar</a>
-      </li>
-      <li class="current">
-        <a href="ReservationRequest.html">Reservation</a>
-      </li>
-    </ul>
     <div class="row">
       <div class="col-xs-12">
         <div class="col-md-12 well text-center">
           <h2>Reservation Request</h2>
           <h3>Please Complete All Fields Before Submission</h3>
           <form id="form_reservation">
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h4>Program Information</h4>
+            <div class="card">
+              <div class="card-header bg-primary">
+                <h4 class="card-title">Program Information</h4>
               </div>
-              <div class="panel-body">
+              <div class="card-body">
                 <div class="row form-group">
-                  <div class="pull-left col-md-6 ">
-                    <label for="prgrm">Program Name:</label>
-                    <input size="35" type="text" id="prgrm" name="program" required maxlength="50">
+                  <div class="float-left col-md-6">
+                    <label for="prgrm">Program Name</label>
+                    <input size="30" type="text" id="prgrm" name="program" required maxlength="50">
                   </div>
-                  <div class="col-md-6 pull-left">
+                  <div class="col-md-6 float-left">
                     <label for="spncr">Sponsoring Group(s)</label>
-                    <input size="35" type="text" id="spncr" name="sponsor" required maxlength="75">
+                    <input size="30" type="text" id="spncr" name="sponsor" required maxlength="75">
                   </div>
                   <br>
                   <div class="col-lg-12">
@@ -128,21 +82,21 @@
                 </div>
               </div>
             </div>
-            <div class="panel-primary panel">
-              <div class="panel-heading">
+            <div class="card">
+              <div class="card-header bg-primary">
                 <h4>Contact Information</h4>
               </div>
-              <div class="panel-body">
+              <div class="card-body">
                 <div class="row form-group">
-                  <div class="col-md-4  pull-left">
+                  <div class="col-md-4 foat-left">
                     <label for="priresp">Contact's Name</label>
                     <input size="25" type="text" id="priresp" name="responsible" required maxlength="75">
                   </div>
-                  <div class="pull-left col-md-4">
+                  <div class="float-left col-md-4">
                     <label for="phn">Phone Number</label>
                     <input type="tel" id="phn" name="phone" placeholder="(555) 555-5555" required maxlength="20">
                   </div>
-                  <div class="col-md-4 pull-left">
+                  <div class="col-md-4 float-left">
                     <label for="eml">Email</label>
                     <input size="30" type="email" id="eml" name="email" placeholder="name@sample.com" required maxlength="50">
                   </div>
@@ -150,13 +104,13 @@
                 </div>
               </div>
             </div>
-            <div class="panel-primary panel">
-              <div class="panel-heading">
+            <div class="card">
+              <div class="card-header bg-primary">
                 <h4>Room Reservation</h4>
               </div>
-              <div class="panel-body">
+              <div class="card-body">
                 <div class="form-group row">
-                  <div class="col-md-6 pull-left">
+                  <div class="col-md-6 float-left">
                     <label for="location">Pick a room to reserve: </label>
                     <select id="location" name="room" style="height: 25px; width: 200px">
                       <option value="Room A">Room A</option>
@@ -165,7 +119,7 @@
                       <option value="Conference">Conference</option>
                     </select>
                   </div>
-                  <div class="col-md-6 pull-left">
+                  <div class="col-md-6 float-left">
                     <label for="numattend">Number of Attendees</label>
                     <input type="number" id="numattend" name="attend" required>
                   </div>
@@ -204,24 +158,21 @@
                         </table>
                       </div>
                     </div>
-                    <a id="add_date_btn" class="btn btn-primary pull-left">ADD</a>
-                    <a class="btn btn-danger pull-right" id="delete_date_btn">DELETE</a>
+                    <a id="add_date_btn" class="btn btn-primary float-left">ADD</a>
+                    <a class="btn btn-danger float-right" id="delete_date_btn">DELETE</a>
 
                   </div>
                 </div>
               </div>
 
             </div>
-            <div class="panel-primary panel">
-              <div class="panel-heading">
+            <div class="card">
+              <div class="card-header bg-primary">
                 <h4>A/V Needs</h4>
               </div>
 
-              <div class="panel-body">
+              <div class="card-body">
                 <div class="col-lg-12">
-                  <h4>
-                    <strong>A/V Needs: </strong>
-                  </h4>
                   <label class="checkbox-inline">
                     <input type="checkbox" name="Smartboard" value="Smartboard">Smartboard</label>
                   <label class="checkbox-inline">
@@ -232,7 +183,7 @@
                     <input type="checkbox" name="extensioncords" value="extensioncords">Extension Cords</label>
                 </div>
 
-                <div class="pull-left col-lg-12">
+                <div class="float-left col-lg-12">
                   <label style="font-size: 20px; " for="avguy">*A/V tech needed to assist with setup?
                     <input type="checkbox" id="avguy" name="avsetup" style="width: 30px; height: 20px; cursor: pointer" value="avsetup">
                   </label>
@@ -276,7 +227,12 @@
     <p>You have completed the reservation form.</p>
   </div>
 
-  <script src="foundation/js/vendor/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
   <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.plugin.js"></script>
   <script type="text/javascript" src="../resources/library/realperson-2.0.1/jquery.realperson.js"></script>
 

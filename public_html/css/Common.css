@@ -12,7 +12,7 @@ p {
   min-height: 100vh;
 }
 
-.container {
+.container-custom {
   background-color: lightgray;
   max-width: 100%;
   min-height: 100vh;
